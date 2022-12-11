@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>896768465778-t8ud2je3vkua52n3utvjqan6mod9gcpq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.896768465778-t8ud2je3vkua52n3utvjqan6mod9gcpq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBlcsFYHw8z22kppQ9Yf8nI00Au7uSHEw8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>896768465778</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.AppsBunches.arabicSpeak</string>
+	<key>PROJECT_ID</key>
+	<string>arabic-speaker-8929f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>arabic-speaker-8929f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:896768465778:ios:7bff281c5bc32b1d89dbeb</string>
+	<key>DATABASE_URL</key>
+	<string>https://arabic-speaker-8929f-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
