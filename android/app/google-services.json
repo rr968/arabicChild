@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "896768465778",
+    "firebase_url": "https://arabic-speaker-8929f-default-rtdb.firebaseio.com",
+    "project_id": "arabic-speaker-8929f",
+    "storage_bucket": "arabic-speaker-8929f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896768465778:android:49d10c2b72e2830e89dbeb",
+        "android_client_info": {
+          "package_name": "com.example.arabic_speaker_child"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896768465778-4bhi00n9aiuro6tc9lr4djfbcm2mqcr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABFa3nwwMhXi4lvrtXvp7m5VXkbxzW3fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896768465778-4bhi00n9aiuro6tc9lr4djfbcm2mqcr0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "896768465778-t8ud2je3vkua52n3utvjqan6mod9gcpq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AppsBunches.arabicSpeak"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896768465778:android:359930c04fcfb22e89dbeb",
+        "android_client_info": {
+          "package_name": "com.ttsarabic.app.ttsaarabicapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896768465778-4bhi00n9aiuro6tc9lr4djfbcm2mqcr0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABFa3nwwMhXi4lvrtXvp7m5VXkbxzW3fg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896768465778-4bhi00n9aiuro6tc9lr4djfbcm2mqcr0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "896768465778-t8ud2je3vkua52n3utvjqan6mod9gcpq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.AppsBunches.arabicSpeak"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

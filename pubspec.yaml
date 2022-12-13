@@ -64,6 +64,7 @@ dependencies:
   rename: ^2.0.1
   animated_search_bar: ^2.3.0
   get: ^4.6.5
+  tab_container: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.arabic_speaker_child">
+   <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+   <uses-permission android:name="android.FOREGROUND_SERVICE"/>
+   <uses-permission android:name="android.permission.INTERNET" />
+   <queries>
+     <intent>
+        <action android:name="android.intent.action.TTS_SERVICE" />
+     </intent>
+   </queries>
    <application
         android:label="arabic_speaker_child"
         android:name="${applicationName}"
