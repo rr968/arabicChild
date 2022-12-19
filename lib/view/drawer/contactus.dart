@@ -33,9 +33,9 @@ class Contactus extends StatelessWidget {
                 //   height: 20,
                 // ),
                 Padding(
-                  padding: EdgeInsets.only(bottom: 15),
+                  padding: EdgeInsets.only(top: 10,bottom: 15),
                   child: Text(
-                    "\nنرحب بتواصلك مع فريق التطوير، \n ملاحظاتك ستساهم في تحسين التطبيق",
+                    " نسعد بأستقبال ملاحظاتك لتحسين التطبيق",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
