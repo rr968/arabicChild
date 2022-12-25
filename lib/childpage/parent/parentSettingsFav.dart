@@ -47,7 +47,6 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -55,7 +54,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(15),
               child: Text(
                 'المفضلة',
                 style: TextStyle(
@@ -66,47 +65,6 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
             ),
           ],
         ),
-        //  backgroundColor: maincolor,
-        actions: [
-          !selectedAvaiabel
-              ? Container()
-              : Padding(
-                  padding: const EdgeInsets.only(left: 50),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            selectedAvaiabel = false;
-                          });
-                        },
-                        child: Text(
-                          "إلغاء",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25),
-                        ),
-                      ),
-                      Container(
-                        width: 60,
-                      ),
-                      InkWell(
-                        onTap: () {
-                          showAlertDialog(context);
-                        },
-                        child: Text(
-                          "حفظ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-        ],
       ),
       body: Column(children: [
         selectedAvaiabel
@@ -114,395 +72,206 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                 height: 50,
               )
             : Padding(
-                padding: const EdgeInsets.all(20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ReArrangeFavChild()),
-                            (route) => false);
-                      },
-                      child: Container(
-                        height: DeviceUtil.isTablet ? 50 : 35,
-                        width: DeviceUtil.isTablet ? 180 : 100,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Color.fromARGB(255, 202, 202, 202)),
-                          color: Color.fromARGB(255, 255, 255, 255)
-                              .withOpacity(0.3),
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 217, 216, 216)
-                                  .withOpacity(0.4),
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                              //offset: Offset(0, 3)),
-                            )
-                          ],
-                        ),
-                        child: Center(
-                            child: Text(
-                          "إعادة ترتيب",
-                          style: TextStyle(
-                              color: maincolor,
-                              fontWeight: FontWeight.bold,
-                              fontSize: DeviceUtil.isTablet ? 25 : 17),
-                        )),
+                padding: const EdgeInsets.only(right: 30, top: 20, bottom: 18),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReArrangeFavChild()),
+                          (route) => false);
+                    },
+                    child: Container(
+                      height: DeviceUtil.isTablet ? 50 : 35,
+                      width: DeviceUtil.isTablet ? 180 : 100,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Color.fromARGB(255, 202, 202, 202)),
+                        color: maincolor,
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 217, 216, 216)
+                                .withOpacity(0.4),
+                            spreadRadius: 3,
+                            blurRadius: 7,
+                          )
+                        ],
                       ),
+                      child: Center(
+                          child: Text(
+                        "إعادة ترتيب",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: DeviceUtil.isTablet ? 25 : 17),
+                      )),
                     ),
-                    Container(
-                      width: 10,
-                    ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     setState(() {
-                    //       isSelected = [];
-                    //       selectedAvaiabel = true;
-                    //     });
-                    //   },
-                    //   child: Container(
-                    //     height: DeviceUtil.isTablet ? 50 : 35,
-                    //     width: DeviceUtil.isTablet ? 150 : 90,
-                    //     decoration: BoxDecoration(
-                    //         color: maincolor,
-                    //         borderRadius: BorderRadius.circular(10)),
-                    //     child: Center(
-                    //         child: Text(
-                    //       "حذف مكتبة",
-                    //       style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: DeviceUtil.isTablet ? 25 : 17),
-                    //     )),
-                    //   ),
-                    // ),
-                  ],
+                  ),
                 ),
               ),
         Expanded(
           child: ListView(
             children: [
               for (int i = 0; i < favorite.length; i++)
-                Stack(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        if (selectedAvaiabel) {
-                          if (isSelected.contains(i)) {
-                            setState(() {
-                              isSelected.remove(i);
-                            });
-                          } else {
-                            setState(() {
-                              isSelected.add(i);
-                            });
-                          }
-                        } else {
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 30, right: 30),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          SharedPreferences favv =
+                              await SharedPreferences.getInstance();
+
+                          setState(() {
+                            favorite.removeAt(i);
+                          });
+
+                          List<String> allFav = [];
+                          favorite.forEach((oneFav) {
+                            String newFav = "";
+                            for (int y = 0; y < oneFav.length; y++) {
+                              String input = oneFav[y][0];
+                              String imurl = oneFav[y][1];
+                              String isimup = oneFav[y][2];
+                              String voiceurl = oneFav[y][3];
+                              String voiceCache = oneFav[y][4];
+                              String isvoiceUp = oneFav[y][5];
+
+                              if (y == oneFav.length - 1) {
+                                newFav +=
+                                    """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
+                              } else {
+                                newFav +=
+                                    """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
+                              }
+                            }
+                            newFav = "[$newFav]";
+                            allFav.add(newFav);
+                          });
+
+                          favv.setStringList("favlistChild", allFav);
+                        },
+                        child: Container(
+                          height: 120,
+                          width: 80,
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 50,
+                              ),
+                              Text(
+                                'حذف',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 28),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
                           String a = "";
                           favorite[i].forEach((element) {
                             a += element[0] + " ";
                           });
                           howtospeak(a);
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Container(
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 13),
+                          child: Container(
+                            height: 120,
+                            width: 80,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border:
-                                    Border.all(color: Colors.grey, width: 2)),
-                            child: Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        child: Container(
-                                          height:
-                                              DeviceUtil.isTablet ? 170 : 100,
-                                          width: DeviceUtil.isTablet ? 120 : 70,
-                                          color: greenColor,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.delete,
-                                                color: Colors.white,
-                                                size: DeviceUtil.isTablet
-                                                    ? 80
-                                                    : 60,
-                                              ),
-                                              Text(
-                                                'حذف',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 28),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        child: Container(
-                                          height:
-                                              DeviceUtil.isTablet ? 170 : 100,
-                                          width: DeviceUtil.isTablet ? 120 : 70,
-                                          color: greenColor,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.volume_up,
-                                                color: Colors.white,
-                                                size: DeviceUtil.isTablet
-                                                    ? 80
-                                                    : 60,
-                                              ),
-                                              Text(
-                                                'نطق',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 28),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: SizedBox(
-                                          height:
-                                              DeviceUtil.isTablet ? 170 : 100,
-                                          child: ListView(
-                                            scrollDirection: Axis.horizontal,
-                                            children: [
-                                              for (int j = 0;
-                                                  j < favorite[i].length;
-                                                  j++)
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 15, right: 15),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Container(
-                                                          height: DeviceUtil
-                                                                  .isTablet
-                                                              ? 100
-                                                              : 70,
-                                                          width: DeviceUtil
-                                                                  .isTablet
-                                                              ? 100
-                                                              : 50,
-                                                          child: getImage(
-                                                              favorite[i][j]
-                                                                  [1])),
-                                                      Container(
-                                                        height:
-                                                            DeviceUtil.isTablet
-                                                                ? 10
-                                                                : 0,
-                                                      ),
-                                                      Text(
-                                                        favorite[i][j][0],
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: DeviceUtil
-                                                                    .isTablet
-                                                                ? 30
-                                                                : 20),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )),
+                                color: maincolor,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(20))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.volume_up,
+                                  color: Colors.white,
+                                  size: 54,
+                                ),
+                                Text(
+                                  'نطق',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 28),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    !selectedAvaiabel
-                        ? Container()
-                        : isSelected.contains(i)
-                            ? Align(
-                                alignment: Alignment.topRight,
-                                child: Container(
-                                  height: 34,
-                                  width: 34,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 224, 223, 223),
-                                      borderRadius: BorderRadius.circular(40),
-                                      border: Border.all(
-                                          color: Colors.red, width: 3)),
-                                  child: const Icon(
-                                    Icons.done,
-                                    color: Colors.red,
-                                    size: 25,
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            String a = "";
+                            favorite[i].forEach((element) {
+                              a += element[0] + " ";
+                            });
+                            howtospeak(a);
+                          },
+                          child: Container(
+                            height: 120,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    bottomLeft: Radius.circular(20)),
+                                border: Border.all(width: 2, color: maincolor)),
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                for (int j = 0; j < favorite[i].length; j++)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 5, top: 5),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                            height: 50,
+                                            width: 50,
+                                            child: getImage(favorite[i][j][1])),
+                                        Container(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          favorite[i][j][0],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: DeviceUtil.isTablet
+                                                  ? 30
+                                                  : 20),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              )
-                            : Align(
-                                alignment: Alignment.topRight,
-                                child: Container(
-                                  height: 34,
-                                  width: 34,
-                                  decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 224, 223, 223),
-                                      borderRadius: BorderRadius.circular(40),
-                                      border: Border.all(
-                                          color: Colors.red, width: 3)),
-                                ),
-                              ),
-                  ],
-                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ),
       ]),
-    );
-  }
-
-  showAlertDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      actionsAlignment: MainAxisAlignment.center,
-      title: const Icon(
-        Icons.warning,
-        size: 100,
-        color: Colors.red,
-      ),
-      content: Text(
-        "هل أنت متأكد أنك تريد حذف هذه المفضلة؟ ",
-        textDirection: TextDirection.rtl,
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: DeviceUtil.isTablet ? 25 : 17),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    selectedAvaiabel = false;
-                  });
-                },
-                child: Container(
-                  height: DeviceUtil.isTablet ? 50 : 35,
-                  width: DeviceUtil.isTablet ? 150 : 100,
-                  decoration: BoxDecoration(
-                      color: maincolor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: Text(
-                    "إلغاء",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  )),
-                ),
-              ),
-              Container(
-                width: 30,
-              ),
-              InkWell(
-                onTap: () async {
-                  SharedPreferences favv =
-                      await SharedPreferences.getInstance();
-                  List theSelectedItem = isSelected;
-                  theSelectedItem.sort();
-                  theSelectedItem = theSelectedItem.reversed.toList();
-
-                  for (var element in theSelectedItem) {
-                    favorite.removeAt(element);
-                  }
-
-                  ///////////////////////////
-                  List<String> allFav = [];
-                  favorite.forEach((oneFav) {
-                    String newFav = "";
-                    for (int y = 0; y < oneFav.length; y++) {
-                      String input = oneFav[y][0];
-                      String imurl = oneFav[y][1];
-                      String isimup = oneFav[y][2];
-                      String voiceurl = oneFav[y][3];
-                      String voiceCache = oneFav[y][4];
-                      String isvoiceUp = oneFav[y][5];
-
-                      if (y == oneFav.length - 1) {
-                        newFav +=
-                            """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
-                      } else {
-                        newFav +=
-                            """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
-                      }
-                    }
-                    newFav = "[$newFav]";
-                    allFav.add(newFav);
-                  });
-
-                  favv.setStringList("favlistChild", allFav);
-                  //////////////////////////
-
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MainParentPage(index: 1)),
-                      (route) => false);
-                },
-                child: Container(
-                  height: DeviceUtil.isTablet ? 50 : 35,
-                  width: DeviceUtil.isTablet ? 150 : 100,
-                  decoration: BoxDecoration(
-                      color: maincolor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                      child: Text(
-                    "نعم، متأكد",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  )),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
     );
   }
 }

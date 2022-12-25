@@ -1,6 +1,8 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
-import '/childpage/child/speakingchildphone.dart';
 import '/controller/data_one_time.dart';
 import '/controller/istablet.dart';
 import '/controller/var.dart';
@@ -18,11 +20,23 @@ class MainChildPage extends StatefulWidget {
 }
 
 class _MainChildPageState extends State<MainChildPage> {
+  final _pageController = PageController(initialPage: 1);
   List<Widget> screens = [
     DeviceUtil.isTablet
         ? const SpeakingChildTablet()
-        : const SpeakingChildPhone(),
-    const FavoriteChildren()
+        : const Scaffold(
+            body: Center(
+              child: Text("phone"),
+            ),
+          ),
+    DeviceUtil.isTablet
+        ? const SpeakingChildTablet()
+        : const Scaffold(
+            body: Center(
+              child: Text("phone"),
+            ),
+          ),
+    const FavoriteChildren(),
   ];
   late int indexpage;
   bool isLoading = true;
@@ -31,6 +45,12 @@ class _MainChildPageState extends State<MainChildPage> {
     await player.setAsset(// Load a URL
         noteVoices[notevoiceindex]); // Schemes: (https: | file: | asset: )
     player.play();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -55,15 +75,6 @@ class _MainChildPageState extends State<MainChildPage> {
     });
   }
 
-/*
-  getColor() async {
-    SharedPreferences color = await SharedPreferences.getInstance();
-    int colorind = color.getInt("color") ?? 0;
-    setState(() {
-      purpleColor = colorList[colorind];
-    });
-  }
-*/
   getfemail() async {
     SharedPreferences female = await SharedPreferences.getInstance();
     var f = female.getBool("female");
@@ -93,25 +104,75 @@ class _MainChildPageState extends State<MainChildPage> {
                 child: CircularProgressIndicator(),
               )
             : Scaffold(
-                body: screens[indexpage],
-                appBar: AppBar(
-                  toolbarHeight: 40,
-                  backgroundColor: maincolor,
+                body: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children:
+                      List.generate(screens.length, (index) => screens[index]),
                 ),
+                extendBody: true,
                 drawer: const Drawerc(),
+                bottomNavigationBar: AnimatedNotchBottomBar(
+                  pageController: _pageController,
+                  color: Colors.white,
+                  showLabel: false,
+                  notchColor: pinkColor,
+                  bottomBarItems: [
+                    BottomBarItem(
+                      inActiveItem: Image.asset(
+                        "assets/bell.png",
+                        color: Colors.blueGrey,
+                      ),
+                      activeItem: Image.asset(
+                        "assets/bell.png",
+                        color: Colors.white,
+                      ),
+                      itemLabel: 'Page 3',
+                    ),
+                    BottomBarItem(
+                      inActiveItem: Image.asset(
+                        "assets/uiImages/home.png",
+                        color: Colors.blueGrey,
+                      ),
+                      activeItem: Image.asset(
+                        "assets/uiImages/home.png",
+                        color: Colors.white,
+                      ),
+                    ),
+                    BottomBarItem(
+                      inActiveItem: Image.asset(
+                        "assets/uiImages/star.png",
+                        color: Colors.blueGrey,
+                      ),
+                      activeItem: Image.asset(
+                        "assets/uiImages/star.png",
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                  onTap: (index) {
+                    if (index == 0) {
+                      playaudio();
+                    } else {
+                      _pageController.animateToPage(
+                        index,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeIn,
+                      );
+                    }
+                  },
+                )
+
+                /*
                 bottomNavigationBar: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).orientation !=
-                              Orientation.portrait
-                          ? 80
-                          : 50),
+                  padding: const EdgeInsets.symmetric(horizontal: 70),
                   child: Container(
                     height: MediaQuery.of(context).orientation ==
                             Orientation.portrait
                         ? MediaQuery.of(context).size.height * .07
                         : MediaQuery.of(context).size.height * .09,
                     decoration: BoxDecoration(
-                      color: Color(0xffe9edf3),
+                      color: const Color(0xffe9edf3),
                       borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(30),
                           topRight: Radius.circular(30)),
@@ -128,7 +189,7 @@ class _MainChildPageState extends State<MainChildPage> {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
@@ -138,14 +199,18 @@ class _MainChildPageState extends State<MainChildPage> {
                                   indexpage = 1;
                                 });
                               },
-                              child: Image.asset("assets/uiImages/star.png")),
+                              child: Image.asset(
+                                "assets/uiImages/star.png",
+                              )),
                           InkWell(
                               onTap: () {
                                 setState(() {
                                   indexpage = 0;
                                 });
                               },
-                              child: Image.asset("assets/uiImages/home.png")),
+                              child: Image.asset(
+                                "assets/uiImages/home.png",
+                              )),
                           InkWell(
                               onTap: () {
                                 playaudio();
@@ -156,6 +221,7 @@ class _MainChildPageState extends State<MainChildPage> {
                     ),
                   ),
                 ),
-              ));
+            */
+                ));
   }
 }

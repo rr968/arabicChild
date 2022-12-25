@@ -30,6 +30,7 @@ class Page3 extends StatelessWidget {
                           ? MediaQuery.of(context).size.width * .6
                           : MediaQuery.of(context).size.width * .44,
                   decoration: BoxDecoration(
+                      color: Colors.white,
                       border: Border.all(color: Color(0xff989999), width: 2),
                       borderRadius: BorderRadius.circular(40)),
                   child: Padding(

@@ -67,8 +67,8 @@ Future setDataChildOneTime() async {
             "هل بوابة الرحلة مفتوحة؟", "assets/gate.png", "yes", "", "", "yes"),
         Content("هذه أمتعتي أريدك أن تساعدني", "assets/travel-bag.png", "yes",
             "", "", "yes"),
-        Content(
-            "شكرًا لك وأنا ممنون لك", "assets/hands.png", "yes", "", "", "yes")
+        Content("شكرًا لك وأنا ممنون لك", "assets/IconLib/body/hands.png",
+            "yes", "", "", "yes")
       ])),
       convertLibString(lib("المدرسة", "assets/5ss.png", "yes", [
         Content("أستاذ أنا لم أفهم هذه المسألة", "assets/hypothesis.png", "yes",
@@ -122,7 +122,12 @@ Future setDataChildOneTime() async {
             "", "yes"),
         Content("لدي الم شديد هنا ", "assets/muscle-pain.png", "yes", "", "",
             "yes"),
-        Content("أريد الإسعاف عاجلا ", "assets/ambulance.png", "yes", "", "",
+        Content(
+            "أريد الإسعاف عاجلا ",
+            "assets/IconLib/transportation/ambulance.png",
+            "yes",
+            "",
+            "",
             "yes"),
         Content("هل يوجد مستوصف قريب من هنا", "assets/clinic.png", "yes", "",
             "", "yes"),
@@ -148,6 +153,6 @@ Future setDataChildOneTime() async {
     ];
     SharedPreferences liblist = await SharedPreferences.getInstance();
     liblist.setStringList("liblistChild", libr);
-    firsttime.setBool("firsttimeChild", false);
+    firsttime.setBool("firsttimeChild", true);
   }
 }

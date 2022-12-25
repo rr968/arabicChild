@@ -61,13 +61,14 @@ class _LoginState extends State<Login> {
               child: Container(
                 height:
                     MediaQuery.of(context).orientation == Orientation.portrait
-                        ? MediaQuery.of(context).size.height * .66
-                        : MediaQuery.of(context).size.height * .92,
+                        ? MediaQuery.of(context).size.height * .7
+                        : MediaQuery.of(context).size.height * .95,
                 width:
                     MediaQuery.of(context).orientation == Orientation.portrait
                         ? MediaQuery.of(context).size.width * .6
                         : MediaQuery.of(context).size.width * .44,
                 decoration: BoxDecoration(
+                    color: Colors.white,
                     border: Border.all(color: Color(0xff989999), width: 2),
                     borderRadius: BorderRadius.circular(40)),
                 child: SafeArea(

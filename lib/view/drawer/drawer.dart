@@ -72,7 +72,7 @@ class _DrawercState extends State<Drawerc> {
     return isLoading
         ? Center(
             child: CircularProgressIndicator(
-              color: maincolor,
+              color: pinkColor,
             ),
           )
         : Drawer(
@@ -87,7 +87,7 @@ class _DrawercState extends State<Drawerc> {
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Image.asset(
                     "assets/uiImages/logo.png",
-                    height: 150,
+                    height: 160,
                     fit: BoxFit.fill,
                   ),
                 ),
@@ -108,7 +108,7 @@ class _DrawercState extends State<Drawerc> {
                       style: TextStyle(
                         fontSize: fontSize,
                         color: isExpanded
-                            ? maincolor
+                            ? pinkColor
                             : const Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
@@ -139,7 +139,7 @@ class _DrawercState extends State<Drawerc> {
                                         style: TextStyle(
                                           fontSize: fontSize,
                                           color: isExpanded1
-                                              ? maincolor
+                                              ? pinkColor
                                               : const Color.fromARGB(
                                                   255, 0, 0, 0),
                                         ),
@@ -178,7 +178,7 @@ class _DrawercState extends State<Drawerc> {
                                                     radiovalue1 = v as int;
                                                   });
                                                 },
-                                                activeColor: maincolor,
+                                                activeColor: pinkColor,
                                               ),
                                             ),
                                             ListTile(
@@ -202,7 +202,7 @@ class _DrawercState extends State<Drawerc> {
                                                       radiovalue1 = v as int;
                                                     });
                                                   },
-                                                  activeColor: maincolor),
+                                                  activeColor: pinkColor),
                                             ),
                                           ],
                                         ),
@@ -227,7 +227,7 @@ class _DrawercState extends State<Drawerc> {
                                         style: TextStyle(
                                           fontSize: fontSize,
                                           color: isExpanded1
-                                              ? maincolor
+                                              ? pinkColor
                                               : const Color.fromARGB(
                                                   255, 0, 0, 0),
                                         ),
@@ -271,7 +271,7 @@ class _DrawercState extends State<Drawerc> {
                                                         radiovalue4;
                                                   });
                                                 },
-                                                activeColor: maincolor,
+                                                activeColor: pinkColor,
                                               ),
                                             ),
                                             ListTile(
@@ -304,7 +304,7 @@ class _DrawercState extends State<Drawerc> {
                                                           radiovalue4;
                                                     });
                                                   },
-                                                  activeColor: maincolor),
+                                                  activeColor: pinkColor),
                                             ),
                                             ListTile(
                                               title: Text(
@@ -336,7 +336,7 @@ class _DrawercState extends State<Drawerc> {
                                                           radiovalue4;
                                                     });
                                                   },
-                                                  activeColor: maincolor),
+                                                  activeColor: pinkColor),
                                             ),
                                           ],
                                         ),
@@ -361,7 +361,7 @@ class _DrawercState extends State<Drawerc> {
                                         style: TextStyle(
                                           fontSize: fontSize,
                                           color: isExpanded1
-                                              ? maincolor
+                                              ? pinkColor
                                               : const Color.fromARGB(
                                                   255, 0, 0, 0),
                                         ),
@@ -401,7 +401,7 @@ class _DrawercState extends State<Drawerc> {
                                                     radiovalue2 = v as int;
                                                   });
                                                 },
-                                                activeColor: maincolor,
+                                                activeColor: pinkColor,
                                               ),
                                             ),
                                             ListTile(
@@ -425,7 +425,7 @@ class _DrawercState extends State<Drawerc> {
                                                       radiovalue2 = v as int;
                                                     });
                                                   },
-                                                  activeColor: maincolor),
+                                                  activeColor: pinkColor),
                                             ),
                                             ListTile(
                                               title: Text(
@@ -448,7 +448,7 @@ class _DrawercState extends State<Drawerc> {
                                                       radiovalue2 = v as int;
                                                     });
                                                   },
-                                                  activeColor: maincolor),
+                                                  activeColor: pinkColor),
                                             ),
                                           ],
                                         ),
@@ -473,7 +473,7 @@ class _DrawercState extends State<Drawerc> {
                                         style: TextStyle(
                                           fontSize: fontSize,
                                           color: isExpanded1
-                                              ? maincolor
+                                              ? pinkColor
                                               : const Color.fromARGB(
                                                   255, 0, 0, 0),
                                         ),
@@ -519,7 +519,7 @@ class _DrawercState extends State<Drawerc> {
                                                                     index: 0)),
                                                         (route) => false);
                                                   },
-                                                  activeColor: maincolor),
+                                                  activeColor: pinkColor),
                                             ),
                                             ListTile(
                                               title: Text(
@@ -550,7 +550,7 @@ class _DrawercState extends State<Drawerc> {
                                                                   index: 0)),
                                                       (route) => false);
                                                 },
-                                                activeColor: maincolor,
+                                                activeColor: pinkColor,
                                               ),
                                             ),
                                           ],
@@ -582,7 +582,7 @@ class _DrawercState extends State<Drawerc> {
                                               style: TextStyle(
                                                 fontSize: 22,
                                                 color: isExpanded1
-                                                    ? maincolor
+                                                    ? pinkColor
                                                     : const Color.fromARGB(
                                                         255, 0, 0, 0),
                                               ),
@@ -592,7 +592,7 @@ class _DrawercState extends State<Drawerc> {
                                       ),
                                       Switch(
                                           value: switchValue,
-                                          activeColor: maincolor,
+                                          activeColor: pinkColor,
                                           onChanged: ((value) async {
                                             setState(() {
                                               switchValue = value;
@@ -614,84 +614,6 @@ class _DrawercState extends State<Drawerc> {
                                     ],
                                   ),
                                 ),
-                                /*
-                              InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return FittedBox(
-                                          child: AlertDialog(
-                                            title: const Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text("لون الواجهة",
-                                                    style: TextStyle(
-                                                        fontSize: 24,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.black))),
-                                            content: Column(
-                                              children: [
-                                                BlockPicker(
-                                                    pickerColor: maincolor,
-                                                    availableColors: colorList,
-                                                    onColorChanged: (c) async {
-                                                      maincolor = c;
-                                                      SharedPreferences color =
-                                                          await SharedPreferences
-                                                              .getInstance();
-                                                      int ind = 0;
-                                                      for (var element
-                                                          in colorList) {
-                                                        if (maincolor ==
-                                                            element) {
-                                                          break;
-                                                        } else {
-                                                          ind++;
-                                                        }
-                                                      }
-                                                      color.setInt(
-                                                          "color", ind);
-                                                      Navigator.pushAndRemoveUntil(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const MainChildPage(
-                                                                      index:
-                                                                          0)),
-                                                          (route) => false);
-                                                    }),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.palette,
-                                        color: maincolor,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "لون الواجهة",
-                                          style: TextStyle(
-                                            fontSize: fontSize,
-                                            color: const Color.fromARGB(
-                                                255, 0, 0, 0),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                           */
                               ],
                             )
                           ],
@@ -801,39 +723,6 @@ class _DrawercState extends State<Drawerc> {
                     },
                   ),
                 ),
-                FirebaseAuth.instance.currentUser!.uid ==
-                        "ROobAfpdsdP8nViYxAKJbQu2fkr1"
-                    ? Padding(
-                        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
-                        child: InkWell(
-                            child: SizedBox(
-                              height: 60,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(children: [
-                                  Icon(
-                                    Icons.control_camera,
-                                    color: maincolor,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: Text("متابعة التنزيلات",
-                                        style: TextStyle(
-                                          fontSize: fontSize,
-                                        )),
-                                  ),
-                                ]),
-                              ),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          LibraryUploadedSettings()));
-                            }),
-                      )
-                    : Container(),
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                   child: InkWell(
@@ -1017,10 +906,10 @@ class _DrawercState extends State<Drawerc> {
                                                   child: Text(
                                                     "الدخول للصلاحيات",
                                                     style: TextStyle(
-                                                      fontSize: 35,
+                                                      fontSize: 30,
                                                       fontWeight:
                                                           FontWeight.w900,
-                                                      color: maincolor,
+                                                      color: pinkColor,
                                                     ),
                                                   ),
                                                 ),
@@ -1727,7 +1616,7 @@ class _DrawercState extends State<Drawerc> {
                       child: Container(
                         height: 55,
                         decoration: BoxDecoration(
-                            color: maincolor,
+                            color: pinkColor,
                             borderRadius: BorderRadius.circular(10)),
                         child: Padding(
                           padding: const EdgeInsets.all(12),

@@ -113,6 +113,8 @@ class _MainParentPageState extends State<MainParentPage> {
                 children: [
                   InkWell(
                       onTap: () {
+                        Provider.of<MyProvider>(context, listen: false)
+                            .setIscontentOfLibrary(-1);
                         setState(() {
                           indexpage = 1;
                         });

@@ -10,7 +10,6 @@ import '/controller/images.dart';
 import '/controller/istablet.dart';
 import '/controller/my_provider.dart';
 import '/controller/var.dart';
-import '/main.dart';
 import '/model/library.dart';
 import '/view/drawer/drawer.dart';
 
@@ -77,13 +76,1673 @@ class _MainParentSettingsState extends State<MainParentSettings> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Stack(
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(right: 17, bottom: 50, top: 50),
+                  child: !selectedAvaiabel
+                      ? Text(
+                          "المكتبات",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: purcolor,
+                              fontSize: DeviceUtil.isTablet ? 45 : 26,
+                              fontWeight: FontWeight.bold),
+                        )
+                      : Text(
+                          "حـذف مكتبة",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: purcolor,
+                              fontSize: DeviceUtil.isTablet ? 45 : 26,
+                              fontWeight: FontWeight.w900),
+                        ),
+                ),
+                selectedAvaiabel
+                    ? Container(
+                        height: 40,
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(bottom: 30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ReArrangeLibraryChild()),
+                                    (route) => false);
+                              },
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: purcolor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.low_priority,
+                                          color: Colors.white,
+                                          size: 28,
+                                        ),
+                                        Container(
+                                          width: 7,
+                                        ),
+                                        Text(
+                                          "إعادة ترتيب",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 23),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Provider.of<MyProvider>(context, listen: false)
+                                    .clearSelectedInAlert();
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        insetPadding: EdgeInsets.zero,
+                                        title: Column(
+                                          children: [
+                                            Container(
+                                              height: 40,
+                                              child: Stack(children: [
+                                                Center(
+                                                  child: Text(
+                                                    "إختر من المكتبات الجاهزة التالية",
+                                                    style: TextStyle(
+                                                        color: maincolor,
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        fontSize:
+                                                            DeviceUtil.isTablet
+                                                                ? 28
+                                                                : 18),
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: InkWell(
+                                                      onTap: () =>
+                                                          Navigator.pop(
+                                                              context),
+                                                      child: Icon(
+                                                        Icons.cancel_outlined,
+                                                        size: 40,
+                                                      )),
+                                                )
+                                              ]),
+                                            ),
+                                            Container(
+                                              margin: const EdgeInsets.all(5),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                color: Color.fromARGB(
+                                                        255, 255, 255, 255)
+                                                    .withOpacity(0.8),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(27)),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      color: Colors.grey
+                                                          .withOpacity(0.3),
+                                                      spreadRadius: 0,
+                                                      blurRadius: 5,
+                                                      offset: Offset(0, 3)),
+                                                ],
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  FittedBox(
+                                                    child: Row(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(0);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[0].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[0].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          0)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(1);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[1].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[1].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          1)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(2);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[2].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[2].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          2)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(3);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[3].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[3].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          3)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  FittedBox(
+                                                    child: Row(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(4);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[4].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[4].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          4)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(5);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[5].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[5].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          5)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(6);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[6].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[6].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          6)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(7);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[7].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[7].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          7)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  FittedBox(
+                                                    child: Row(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(8);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[8].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[8].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          8)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(9);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[9].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[9].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          9)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(
+                                                                    10);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[10].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[10].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          10)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(
+                                                                    11);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child:
+                                                                    Container(
+                                                                  height: 140,
+                                                                  width: 140,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[11].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 10),
+                                                                              child: Text(
+                                                                                constantLib[11].name,
+                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          11)
+                                                                  ? Container()
+                                                                  : Container(
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .done,
+                                                                        color:
+                                                                            purcolor,
+                                                                        size:
+                                                                            150,
+                                                                      ),
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () async {
+                                                      List<int> selectedList =
+                                                          Provider.of<MyProvider>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .isSelectedInAlert;
+                                                      SharedPreferences
+                                                          liblistChild =
+                                                          await SharedPreferences
+                                                              .getInstance();
+                                                      List<String> library =
+                                                          liblistChild.getStringList(
+                                                                  "liblistChild") ??
+                                                              [];
+                                                      selectedList
+                                                          .forEach((element) {
+                                                        library.add(
+                                                            convertLibString(
+                                                                constantLib[
+                                                                    element]));
+                                                      });
+                                                      liblistChild
+                                                          .setStringList(
+                                                              "liblistChild",
+                                                              library);
+                                                      Navigator.pushAndRemoveUntil(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  MainParentPage(
+                                                                      index:
+                                                                          0)),
+                                                          (route) => false);
+                                                    },
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 170,
+                                                      decoration: BoxDecoration(
+                                                          color: greenColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
+                                                      child: Center(
+                                                          child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            "اختيار",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Container(
+                                                            width: DeviceUtil
+                                                                    .isTablet
+                                                                ? 10
+                                                                : 5,
+                                                          ),
+                                                          Icon(
+                                                            Icons.done,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ],
+                                                      )),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 170,
+                                                      decoration: BoxDecoration(
+                                                          color: pinkColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
+                                                      child: Center(
+                                                          child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            DeviceUtil.isTablet
+                                                                ? "تنزيل مكتبة"
+                                                                : "تنزيل",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Container(
+                                                            width: DeviceUtil
+                                                                    .isTablet
+                                                                ? 10
+                                                                : 5,
+                                                          ),
+                                                          Icon(
+                                                            Icons
+                                                                .cloud_download,
+                                                            color: Colors.white,
+                                                          ),
+                                                        ],
+                                                      )),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () => Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                AddChildLibrary())),
+                                                    child: Container(
+                                                      height: 40,
+                                                      width: 170,
+                                                      decoration: BoxDecoration(
+                                                          color: purcolor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10)),
+                                                      child: Center(
+                                                          child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            DeviceUtil.isTablet
+                                                                ? "إنشاء مكتبة"
+                                                                : "إنشاء",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Container(
+                                                            width: DeviceUtil
+                                                                    .isTablet
+                                                                ? 10
+                                                                : 5,
+                                                          ),
+                                                          Icon(
+                                                            Icons
+                                                                .add_circle_outline,
+                                                            color: Colors.white,
+                                                            size: 35,
+                                                          ),
+                                                        ],
+                                                      )),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: greenColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.add_circle_outline,
+                                          color: Colors.white,
+                                          size: 35,
+                                        ),
+                                        Container(
+                                          width: 7,
+                                        ),
+                                        Text(
+                                          "إضافة مكتبة",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 23),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isSelected = [];
+                                  selectedAvaiabel = true;
+                                });
+                              },
+                              child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: pinkColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.delete_outlined,
+                                          color: Colors.white,
+                                          size: 35,
+                                        ),
+                                        Container(
+                                          width: 7,
+                                        ),
+                                        Text(
+                                          "حذف مكتبة",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: DeviceUtil.isTablet
+                                                  ? 25
+                                                  : 17),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
                 Container(
+                  width: MediaQuery.of(context).size.width - 70,
+                  height: MediaQuery.of(context).size.height * .44,
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/uiImages/bg.png"),
-                          fit: BoxFit.cover)),
+                    border:
+                        Border.all(color: Color.fromARGB(255, 202, 202, 202)),
+                    color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
+                    borderRadius: BorderRadius.all(Radius.circular(27)),
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            Color.fromARGB(255, 217, 216, 216).withOpacity(0.4),
+                        spreadRadius: 3,
+                        blurRadius: 7,
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                            controller: controllerList,
+                            scrollDirection: Axis.vertical,
+                            itemCount: libraryListChild.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount:
+                                  MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? 5
+                                      : 7,
+                            ),
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  if (selectedAvaiabel) {
+                                    if (isSelected.contains(index)) {
+                                      setState(() {
+                                        isSelected.remove(index);
+                                      });
+                                    } else {
+                                      setState(() {
+                                        isSelected.add(index);
+                                      });
+                                    }
+                                  } else {
+                                    Provider.of<MyProvider>(context,
+                                            listen: false)
+                                        .setIscontentOfLibrary(index);
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: greyColor),
+                                      color: Color.fromARGB(255, 255, 255, 255)
+                                          .withOpacity(0.5),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(27)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.white.withOpacity(0.7),
+                                          spreadRadius: 0,
+                                          blurRadius: 7,
+                                          //offset: Offset(0, 3)),
+                                        )
+                                      ],
+                                    ),
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(5),
+                                          child: Column(children: [
+                                            Expanded(
+                                                child: getImage(
+                                                    libraryListChild[index]
+                                                        .imgurl)),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 5),
+                                              child: FittedBox(
+                                                child: Text(
+                                                  libraryListChild[index].name,
+                                                  style: TextStyle(
+                                                      fontSize: 30,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                        ),
+                                        !selectedAvaiabel
+                                            ? Container()
+                                            : isSelected.contains(index)
+                                                ? Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: Container(
+                                                      height:
+                                                          DeviceUtil.isTablet
+                                                              ? 34
+                                                              : 25,
+                                                      width: DeviceUtil.isTablet
+                                                          ? 34
+                                                          : 25,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white
+                                                            .withOpacity(0.3),
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    27)),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    0.5),
+                                                            spreadRadius: 3,
+                                                            blurRadius: 7,
+                                                            //offset: Offset(0, 3)),
+                                                          )
+                                                        ],
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        color: Colors.red,
+                                                        size:
+                                                            DeviceUtil.isTablet
+                                                                ? 25
+                                                                : 18,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: Container(
+                                                      height:
+                                                          DeviceUtil.isTablet
+                                                              ? 34
+                                                              : 25,
+                                                      width: DeviceUtil.isTablet
+                                                          ? 34
+                                                          : 25,
+                                                      decoration: BoxDecoration(
+                                                          color: const Color
+                                                                  .fromARGB(255,
+                                                              224, 223, 223),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(40),
+                                                          border: Border.all(
+                                                              color: Colors.red,
+                                                              width: 3)),
+                                                    ),
+                                                  ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
                 ),
                 !selectedAvaiabel
                     ? Container()
@@ -141,1486 +1800,6 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                           ],
                         ),
                       ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 17),
-                      child: !selectedAvaiabel
-                          ? Text(
-                              "المكتبات",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: purcolor,
-                                  fontSize: DeviceUtil.isTablet ? 45 : 26,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          : Text(
-                              "حـذف مكتبة",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: purcolor,
-                                  fontSize: DeviceUtil.isTablet ? 45 : 26,
-                                  fontWeight: FontWeight.w900),
-                            ),
-                    ),
-                    Container(
-                      height: 50,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 70,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        color:
-                            Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-                        borderRadius: BorderRadius.all(Radius.circular(27)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 217, 216, 216)
-                                .withOpacity(0.4),
-                            spreadRadius: 3,
-                            blurRadius: 7,
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(child: Container()),
-                          selectedAvaiabel
-                              ? Container()
-                              : Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ReArrangeLibraryChild()),
-                                            (route) => false);
-                                      },
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                              color: purcolor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.low_priority,
-                                                  color: Colors.white,
-                                                  size: 28,
-                                                ),
-                                                Container(
-                                                  width: 7,
-                                                ),
-                                                Text(
-                                                  "إعادة ترتيب",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 23),
-                                                ),
-                                              ],
-                                            ),
-                                          )),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        Provider.of<MyProvider>(context,
-                                                listen: false)
-                                            .clearSelectedInAlert();
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              var height =
-                                                  MediaQuery.of(context)
-                                                      .size
-                                                      .height;
-                                              var width = MediaQuery.of(context)
-                                                  .size
-                                                  .width;
-
-                                              return AlertDialog(
-                                                insetPadding: EdgeInsets.zero,
-                                                title: Column(
-                                                  children: [
-                                                    Container(
-                                                      height: 40,
-                                                      child: Stack(children: [
-                                                        Center(
-                                                          child: Text(
-                                                            "إختر من المكتبات الجاهزة التالية",
-                                                            style: TextStyle(
-                                                                color:
-                                                                    maincolor,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w900,
-                                                                fontSize: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 28
-                                                                    : 18),
-                                                          ),
-                                                        ),
-                                                        Align(
-                                                          alignment: Alignment
-                                                              .topRight,
-                                                          child: InkWell(
-                                                              onTap: () =>
-                                                                  Navigator.pop(
-                                                                      context),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .cancel_outlined,
-                                                                size: 40,
-                                                              )),
-                                                        )
-                                                      ]),
-                                                    ),
-                                                    Container(
-                                                      margin:
-                                                          const EdgeInsets.all(
-                                                              5),
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.grey),
-                                                        color: Color.fromARGB(
-                                                                255,
-                                                                255,
-                                                                255,
-                                                                255)
-                                                            .withOpacity(0.8),
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    27)),
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                              color: Colors.grey
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                              spreadRadius: 0,
-                                                              blurRadius: 5,
-                                                              offset:
-                                                                  Offset(0, 3)),
-                                                        ],
-                                                      ),
-                                                      child: Column(
-                                                        children: [
-                                                          FittedBox(
-                                                            child: Row(
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            0);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[0].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[0].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(0)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            1);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[1].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[1].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(1)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            2);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[2].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[2].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(2)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            3);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[3].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[3].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(3)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FittedBox(
-                                                            child: Row(
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            4);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[4].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[4].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(4)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            5);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[5].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[5].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(5)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            6);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[6].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[6].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(6)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            7);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[7].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[7].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(7)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          FittedBox(
-                                                            child: Row(
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            8);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[8].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[8].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(8)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            9);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[9].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[9].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(9)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            10);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[10].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[10].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(10)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    Provider.of<MyProvider>(
-                                                                            context,
-                                                                            listen:
-                                                                                false)
-                                                                        .addOrRemove(
-                                                                            11);
-                                                                  },
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(5),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                                                                            borderRadius:
-                                                                                BorderRadius.all(Radius.circular(27)),
-                                                                            boxShadow: [
-                                                                              BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 0, blurRadius: 5, offset: Offset(0, 3)),
-                                                                            ],
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            child:
-                                                                                Column(children: [
-                                                                              Expanded(flex: 3, child: getImage(constantLib[11].imgurl)),
-                                                                              Expanded(
-                                                                                flex: 2,
-                                                                                child: Padding(
-                                                                                  padding: const EdgeInsets.only(top: 10),
-                                                                                  child: Text(
-                                                                                    constantLib[11].name,
-                                                                                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                                                                                  ),
-                                                                                ),
-                                                                              )
-                                                                            ]),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      !Provider.of<MyProvider>(context)
-                                                                              .isSelectedInAlert
-                                                                              .contains(11)
-                                                                          ? Container()
-                                                                          : Container(
-                                                                              child: Icon(
-                                                                                Icons.done,
-                                                                                color: purcolor,
-                                                                                size: 150,
-                                                                              ),
-                                                                            ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () async {
-                                                              List<int>
-                                                                  selectedList =
-                                                                  Provider.of<MyProvider>(
-                                                                          context,
-                                                                          listen:
-                                                                              false)
-                                                                      .isSelectedInAlert;
-                                                              SharedPreferences
-                                                                  liblistChild =
-                                                                  await SharedPreferences
-                                                                      .getInstance();
-                                                              List<String>
-                                                                  library =
-                                                                  liblistChild.getStringList(
-                                                                          "liblistChild") ??
-                                                                      [];
-                                                              selectedList
-                                                                  .forEach(
-                                                                      (element) {
-                                                                library.add(convertLibString(
-                                                                    constantLib[
-                                                                        element]));
-                                                              });
-                                                              liblistChild
-                                                                  .setStringList(
-                                                                      "liblistChild",
-                                                                      library);
-                                                              Navigator.pushAndRemoveUntil(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder: (context) => MainParentPage(
-                                                                          index:
-                                                                              0)),
-                                                                  (route) =>
-                                                                      false);
-                                                            },
-                                                            child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        top:
-                                                                            20),
-                                                                child:
-                                                                    Container(
-                                                                  height: DeviceUtil
-                                                                          .isTablet
-                                                                      ? 40
-                                                                      : 30,
-                                                                  width: DeviceUtil
-                                                                          .isTablet
-                                                                      ? 180
-                                                                      : 120,
-                                                                  decoration: BoxDecoration(
-                                                                      color:
-                                                                          greenColor,
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10)),
-                                                                  child: Center(
-                                                                      child:
-                                                                          Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Text(
-                                                                        "اختيار",
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: Colors.white),
-                                                                      ),
-                                                                      Container(
-                                                                        width: DeviceUtil.isTablet
-                                                                            ? 10
-                                                                            : 5,
-                                                                      ),
-                                                                      Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color: Colors
-                                                                            .white,
-                                                                      ),
-                                                                    ],
-                                                                  )),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            child: Container(
-                                                              height: DeviceUtil
-                                                                      .isTablet
-                                                                  ? 40
-                                                                  : 30,
-                                                              width: DeviceUtil
-                                                                      .isTablet
-                                                                  ? 180
-                                                                  : 120,
-                                                              decoration: BoxDecoration(
-                                                                  color:
-                                                                      pinkColor,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10)),
-                                                              child: Center(
-                                                                  child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    DeviceUtil
-                                                                            .isTablet
-                                                                        ? "تنزيل مكتبة"
-                                                                        : "تنزيل",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        color: Colors
-                                                                            .white),
-                                                                  ),
-                                                                  Container(
-                                                                    width: DeviceUtil
-                                                                            .isTablet
-                                                                        ? 10
-                                                                        : 5,
-                                                                  ),
-                                                                  Icon(
-                                                                    Icons
-                                                                        .cloud_download,
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                                ],
-                                                              )),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () => Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder:
-                                                                        (context) =>
-                                                                            AddChildLibrary())),
-                                                            child: Container(
-                                                              height: DeviceUtil
-                                                                      .isTablet
-                                                                  ? 40
-                                                                  : 30,
-                                                              width: DeviceUtil
-                                                                      .isTablet
-                                                                  ? 180
-                                                                  : 120,
-                                                              decoration: BoxDecoration(
-                                                                  color:
-                                                                      purcolor,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10)),
-                                                              child: Center(
-                                                                  child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    DeviceUtil
-                                                                            .isTablet
-                                                                        ? "إنشاء مكتبة"
-                                                                        : "إنشاء",
-                                                                    style: TextStyle(
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        color: Colors
-                                                                            .white),
-                                                                  ),
-                                                                  Container(
-                                                                    width: DeviceUtil
-                                                                            .isTablet
-                                                                        ? 10
-                                                                        : 5,
-                                                                  ),
-                                                                  Icon(
-                                                                    Icons
-                                                                        .add_circle_outline,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size: 35,
-                                                                  ),
-                                                                ],
-                                                              )),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            });
-                                      },
-                                      child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                              color: greenColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.add_circle_outline,
-                                                  color: Colors.white,
-                                                  size: 35,
-                                                ),
-                                                Container(
-                                                  width: 7,
-                                                ),
-                                                Text(
-                                                  "إضافة مكتبة",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 23),
-                                                ),
-                                              ],
-                                            ),
-                                          )),
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          isSelected = [];
-                                          selectedAvaiabel = true;
-                                        });
-                                      },
-                                      child: Container(
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                              color: pinkColor,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.delete_outlined,
-                                                  color: Colors.white,
-                                                  size: 35,
-                                                ),
-                                                Container(
-                                                  width: 7,
-                                                ),
-                                                Text(
-                                                  "حذف مكتبة",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize:
-                                                          DeviceUtil.isTablet
-                                                              ? 25
-                                                              : 17),
-                                                ),
-                                              ],
-                                            ),
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                          Container(
-                            height: 30,
-                          ),
-                          SizedBox(
-                            height: 140,
-                            child: GridView.builder(
-                                controller: controllerList,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: libraryListChild.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 1,
-                                ),
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {
-                                      if (selectedAvaiabel) {
-                                        if (isSelected.contains(index)) {
-                                          setState(() {
-                                            isSelected.remove(index);
-                                          });
-                                        } else {
-                                          setState(() {
-                                            isSelected.add(index);
-                                          });
-                                        }
-                                      } else {
-                                        Provider.of<MyProvider>(context,
-                                                listen: false)
-                                            .setIscontentOfLibrary(index);
-                                      }
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: greyColor),
-                                          color:
-                                              Color.fromARGB(255, 255, 255, 255)
-                                                  .withOpacity(0.5),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(27)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.white.withOpacity(0.7),
-                                              spreadRadius: 0,
-                                              blurRadius: 7,
-                                              //offset: Offset(0, 3)),
-                                            )
-                                          ],
-                                        ),
-                                        child: Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.all(5),
-                                              child: Column(children: [
-                                                Expanded(
-                                                    child: getImage(
-                                                        libraryListChild[index]
-                                                            .imgurl)),
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 5),
-                                                  child: FittedBox(
-                                                    child: Text(
-                                                      libraryListChild[index]
-                                                          .name,
-                                                      style: TextStyle(
-                                                          fontSize: 30,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ]),
-                                            ),
-                                            !selectedAvaiabel
-                                                ? Container()
-                                                : isSelected.contains(index)
-                                                    ? Align(
-                                                        alignment:
-                                                            Alignment.topRight,
-                                                        child: Container(
-                                                          height: DeviceUtil
-                                                                  .isTablet
-                                                              ? 34
-                                                              : 25,
-                                                          width: DeviceUtil
-                                                                  .isTablet
-                                                              ? 34
-                                                              : 25,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white
-                                                                .withOpacity(
-                                                                    0.3),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            27)),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                        0.5),
-                                                                spreadRadius: 3,
-                                                                blurRadius: 7,
-                                                                //offset: Offset(0, 3)),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          child: Icon(
-                                                            Icons.circle,
-                                                            color: Colors.red,
-                                                            size: DeviceUtil
-                                                                    .isTablet
-                                                                ? 25
-                                                                : 18,
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : Align(
-                                                        alignment:
-                                                            Alignment.topRight,
-                                                        child: Container(
-                                                          height: DeviceUtil
-                                                                  .isTablet
-                                                              ? 34
-                                                              : 25,
-                                                          width: DeviceUtil
-                                                                  .isTablet
-                                                              ? 34
-                                                              : 25,
-                                                          decoration: BoxDecoration(
-                                                              color: const Color
-                                                                      .fromARGB(
-                                                                  255,
-                                                                  224,
-                                                                  223,
-                                                                  223),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          40),
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .red,
-                                                                  width: 3)),
-                                                        ),
-                                                      ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                          Expanded(child: Container())
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
     );

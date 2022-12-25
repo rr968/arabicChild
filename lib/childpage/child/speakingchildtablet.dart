@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'dart:math';
-import 'package:tab_container/tab_container.dart';
 
+import 'package:arabic_speaker_child/controller/realtime.dart';
+
+import '../../controller/erroralert.dart';
 import '/childpage/constant.dart';
 import '/controller/images.dart';
 import '/controller/speak.dart';
@@ -11,11 +12,8 @@ import '/dataImage.dart';
 import '/model/library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../controller/erroralert.dart';
-import '../../controller/realtime.dart';
 import '../../model/content.dart';
 
 class SpeakingChildTablet extends StatefulWidget {
@@ -26,7 +24,6 @@ class SpeakingChildTablet extends StatefulWidget {
 }
 
 class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
-  int folderIndex = 0;
   int coloredOpenLibraryindex = 0;
   List<List<List<String>>> constant = [
     [
@@ -66,7 +63,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       ["أمشي", getImageWord("أمشي")],
     ],
     [
-      ["مِن", getImageWord("مِن")],
+      ["من", getImageWord("من")],
       ["إلى", getImageWord("إلى")],
       ["عن", getImageWord("عن")], //
       ["على", getImageWord("على")], //
@@ -109,6 +106,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   List<String> fav = [];
   TextEditingController controller = TextEditingController();
   final controllerList = ScrollController();
+  final contentWordController = ScrollController();
   double currentOffsetScroll = 0;
   bool isLoading = true;
   bool isFav = false;
@@ -173,10 +171,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   store_In_local(String Text) async {
     Text = Text.trim();
     Text = Text.replaceAll("  ", " ");
-    SharedPreferences LocalChild = await SharedPreferences.getInstance();
+    SharedPreferences localChild = await SharedPreferences.getInstance();
     if (!LocalDB.contains(Text)) {
       LocalDB.add(Text);
-      LocalChild.setStringList("LocalChild", LocalDB);
+      localChild.setStringList("LocalChild", LocalDB);
     }
   }
 
@@ -192,63 +190,529 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                 )
               : ListView(
                   children: [
+                    //appbar
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 15, right: 22, top: 8),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () => Scaffold.of(context).openDrawer(),
+                            child: Image.asset(
+                              "assets/uiImages/drawer.png",
+                              height: 40,
+                            ),
+                          ),
+                          Text(
+                            "اختر الكلمات",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 40,
+                                color: pinkColor),
+                          ),
+                          Text(
+                            "         ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                                color: pinkColor),
+                          )
+                        ],
+                      ),
+                    ),
+                    ////////////
                     Container(
                       height: MediaQuery.of(context).orientation !=
                               Orientation.portrait
                           ? MediaQuery.of(context).size.height -
-                              40 -
-                              MediaQuery.of(context).size.height * .07
+                              80 -
+                              MediaQuery.of(context).size.height * .09
                           : MediaQuery.of(context).size.height -
-                              40 -
-                              MediaQuery.of(context).size.height * .09,
+                              80 -
+                              MediaQuery.of(context).size.height * .07,
                       width: MediaQuery.of(context).size.width,
                       child: Center(
                           child: Padding(
-                        padding: EdgeInsets.only(top: 10, right: 15, left: 15),
+                        padding:
+                            const EdgeInsets.only(top: 10, right: 15, left: 15),
                         child: Column(
                           children: [
                             Row(
                               children: [
+                                InkWell(
+                                  onTap: () async {
+                                    if (controller.text.trim().isNotEmpty) {
+                                      setState(() {
+                                        fieldContent.add(Content(
+                                            controller.text.trim(),
+                                            "",
+                                            "yes",
+                                            "",
+                                            "",
+                                            "yes"));
+                                      });
+                                      contentWordController.animateTo(
+                                          contentWordController
+                                              .position.maxScrollExtent,
+                                          duration: Duration(milliseconds: 750),
+                                          curve: Curves.easeOut);
+
+                                      controller.clear();
+                                    }
+                                    //speak
+                                    String a = "";
+                                    fieldContent.forEach((element) {
+                                      a += element.name + " ";
+                                    });
+
+                                    if (fav.contains(a.trim())) {
+                                      setState(() {
+                                        isFav = true;
+                                      });
+                                    } else {
+                                      setState(() {
+                                        isFav = false;
+                                      });
+                                    }
+                                    if (controller.text.trim().isNotEmpty) {
+                                      predict(a
+                                          .replaceAll("أ", "ا")
+                                          .replaceAll("ة", "ه"));
+                                    }
+                                    howtospeak(a);
+                                    store_In_local(a);
+                                    tryUploadToRealTimeForChild(a);
+                                  },
+                                  child: Container(
+                                      height: 130,
+                                      width: 65,
+                                      decoration: BoxDecoration(
+                                        color: pinkColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color:
+                                                  Colors.grey.withOpacity(0.3),
+                                              spreadRadius: 3,
+                                              blurRadius: 5,
+                                              offset: Offset(0, 3)),
+                                        ],
+                                        border: Border.all(
+                                          width: 2,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            "assets/uiImages/volume.png",
+                                            height: 45,
+                                            color: Colors.white,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 8.0),
+                                            child: Text(
+                                              "نطق",
+                                              style: TextStyle(
+                                                  fontSize: 22,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                ),
+                                Container(
+                                  width: 7,
+                                ),
+                                Expanded(
+                                    child: Container(
+                                  height: 140,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffe9edf3),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(27)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          spreadRadius: 3,
+                                          blurRadius: 5,
+                                          offset: Offset(0, 3)),
+                                    ],
+                                    border: Border.all(
+                                      width: 2,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(7),
+                                    child: Row(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: InkWell(
+                                            onTap: () {
+                                              // clear
+                                              if (fieldContent.isNotEmpty) {
+                                                if (fieldContent.length == 1) {
+                                                  setState(() {
+                                                    fieldContent = [];
+                                                    isFav = false;
+                                                    predictionWords = [
+                                                      [
+                                                        "انا",
+                                                        getImageWord("انا")
+                                                      ],
+                                                      [
+                                                        "هل",
+                                                        getImageWord("هل")
+                                                      ],
+                                                      [
+                                                        "متى",
+                                                        getImageWord("متى")
+                                                      ],
+                                                      [
+                                                        "اين",
+                                                        getImageWord("اين")
+                                                      ],
+                                                      [
+                                                        "كيف",
+                                                        getImageWord("كيف")
+                                                      ],
+                                                      [
+                                                        "كم",
+                                                        getImageWord("كم")
+                                                      ],
+                                                      [
+                                                        "افتح",
+                                                        getImageWord("افتح")
+                                                      ],
+                                                      [
+                                                        "ممكن",
+                                                        getImageWord("ممكن")
+                                                      ],
+                                                      [
+                                                        "طيب",
+                                                        getImageWord("طيب")
+                                                      ],
+                                                      [
+                                                        "السلام",
+                                                        getImageWord("السلام")
+                                                      ],
+                                                      [
+                                                        "أريد",
+                                                        getImageWord("أريد")
+                                                      ],
+                                                      [
+                                                        "لماذا",
+                                                        getImageWord("لماذا")
+                                                      ],
+                                                      [
+                                                        "قال",
+                                                        getImageWord("قال")
+                                                      ],
+                                                      [
+                                                        "نعم",
+                                                        getImageWord("نعم")
+                                                      ],
+                                                      [
+                                                        "مع",
+                                                        getImageWord("مع")
+                                                      ],
+                                                      [
+                                                        "لكن",
+                                                        getImageWord("لكن")
+                                                      ],
+                                                    ];
+                                                    ;
+                                                  });
+                                                } else {
+                                                  setState(() {
+                                                    fieldContent.removeAt(
+                                                        fieldContent.length -
+                                                            1);
+                                                  });
+                                                  String text = "";
+                                                  fieldContent
+                                                      .forEach((element) {
+                                                    text += element.name + " ";
+                                                  });
+                                                  predict(text
+                                                      .replaceAll("أ", "ا")
+                                                      .replaceAll("ة", "ه"));
+                                                  if (fav
+                                                      .contains(text.trim())) {
+                                                    setState(() {
+                                                      isFav = true;
+                                                    });
+                                                  } else {
+                                                    setState(() {
+                                                      isFav = false;
+                                                    });
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 5),
+                                              child: Image.asset(
+                                                "assets/uiImages/delete.png",
+                                                height: 40,
+                                                matchTextDirection: true,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: ListView(
+                                            controller: contentWordController,
+                                            scrollDirection: Axis.horizontal,
+                                            children: [
+                                              for (int i = 0;
+                                                  i < fieldContent.length;
+                                                  i++)
+                                                fieldContent[i].imgurl.isEmpty
+                                                    ? Container(
+                                                        child: FittedBox(
+                                                          child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Container(
+                                                                  height: 110,
+                                                                  width: 110,
+                                                                ),
+                                                                Text(
+                                                                  fieldContent[
+                                                                          i]
+                                                                      .name,
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          40,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w900,
+                                                                      color:
+                                                                          pinkColor),
+                                                                )
+                                                              ]),
+                                                        ),
+                                                      )
+                                                    : Container(
+                                                        child: FittedBox(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 12),
+                                                            child: Column(
+                                                                children: [
+                                                                  Container(
+                                                                    height: 110,
+                                                                    width: 110,
+                                                                    child: getImage(
+                                                                        fieldContent[i]
+                                                                            .imgurl),
+                                                                  ),
+                                                                  Text(
+                                                                    fieldContent[
+                                                                            i]
+                                                                        .name,
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            40,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w900,
+                                                                        color:
+                                                                            pinkColor),
+                                                                  )
+                                                                ]),
+                                                          ),
+                                                        ),
+                                                      ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 15),
+                                                child: SizedBox(
+                                                  height: 140,
+                                                  width: 300,
+                                                  child: Center(
+                                                    child: TextField(
+                                                      controller: controller,
+                                                      cursorColor: pinkColor,
+                                                      onTap: () {
+                                                        controller.selection =
+                                                            TextSelection.fromPosition(
+                                                                TextPosition(
+                                                                    offset: controller
+                                                                        .text
+                                                                        .trim()
+                                                                        .length));
+                                                      },
+                                                      onChanged: (v) async {
+                                                        if (v
+                                                            .trim()
+                                                            .isNotEmpty) {
+                                                          autoComplete(v);
+                                                        } else if (v
+                                                                .trim()
+                                                                .isEmpty &&
+                                                            fieldContent
+                                                                .isNotEmpty) {
+                                                          predict(fieldContent[
+                                                                  fieldContent
+                                                                          .length -
+                                                                      1]
+                                                              .name);
+                                                        } else if (fieldContent
+                                                                .isEmpty &&
+                                                            v.trim().isEmpty) {
+                                                          setState(() {
+                                                            predictionWords = [
+                                                              [
+                                                                "انا",
+                                                                getImageWord(
+                                                                    "انا")
+                                                              ],
+                                                              [
+                                                                "هل",
+                                                                getImageWord(
+                                                                    "هل")
+                                                              ],
+                                                              [
+                                                                "متى",
+                                                                getImageWord(
+                                                                    "متى")
+                                                              ],
+                                                              [
+                                                                "اين",
+                                                                getImageWord(
+                                                                    "اين")
+                                                              ],
+                                                              [
+                                                                "كيف",
+                                                                getImageWord(
+                                                                    "كيف")
+                                                              ],
+                                                              [
+                                                                "كم",
+                                                                getImageWord(
+                                                                    "كم")
+                                                              ],
+                                                              [
+                                                                "افتح",
+                                                                getImageWord(
+                                                                    "افتح")
+                                                              ],
+                                                              [
+                                                                "ممكن",
+                                                                getImageWord(
+                                                                    "ممكن")
+                                                              ],
+                                                              [
+                                                                "طيب",
+                                                                getImageWord(
+                                                                    "طيب")
+                                                              ],
+                                                              [
+                                                                "السلام",
+                                                                getImageWord(
+                                                                    "السلام")
+                                                              ],
+                                                              [
+                                                                "أريد",
+                                                                getImageWord(
+                                                                    "أريد")
+                                                              ],
+                                                              [
+                                                                "لماذا",
+                                                                getImageWord(
+                                                                    "لماذا")
+                                                              ],
+                                                              [
+                                                                "قال",
+                                                                getImageWord(
+                                                                    "قال")
+                                                              ],
+                                                              [
+                                                                "نعم",
+                                                                getImageWord(
+                                                                    "نعم")
+                                                              ],
+                                                              [
+                                                                "مع",
+                                                                getImageWord(
+                                                                    "مع")
+                                                              ],
+                                                              [
+                                                                "لكن",
+                                                                getImageWord(
+                                                                    "لكن")
+                                                              ],
+                                                            ];
+                                                          });
+                                                        }
+                                                      },
+                                                      cursorWidth: 4,
+                                                      style: TextStyle(
+                                                          fontSize: 35,
+                                                          fontWeight:
+                                                              FontWeight.w900),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        border:
+                                                            InputBorder.none,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )),
+                                Container(
+                                  width: 7,
+                                ),
                                 Column(
                                   children: [
                                     InkWell(
                                       onTap: () async {
-                                        if (controller.text.trim().isNotEmpty) {
-                                          setState(() {
-                                            fieldContent.add(Content(
-                                                controller.text.trim(),
-                                                "",
-                                                "yes",
-                                                "",
-                                                "",
-                                                "yes"));
-                                          });
+                                        setState(() {
+                                          isFav = false;
+                                          fieldContent = [];
 
-                                          controller.clear();
-                                        }
-                                        //speak
-                                        String a = "";
-                                        fieldContent.forEach((element) {
-                                          a += element.name + " ";
+                                          predictionWords = [
+                                            ["انا", getImageWord("انا")],
+                                            ["هل", getImageWord("هل")],
+                                            ["متى", getImageWord("متى")],
+                                            ["اين", getImageWord("اين")],
+                                            ["كيف", getImageWord("كيف")],
+                                            ["كم", getImageWord("كم")],
+                                            ["افتح", getImageWord("افتح")],
+                                            ["ممكن", getImageWord("ممكن")],
+                                            ["طيب", getImageWord("طيب")],
+                                            ["السلام", getImageWord("السلام")],
+                                            ["أريد", getImageWord("أريد")],
+                                            ["لماذا", getImageWord("لماذا")],
+                                            ["قال", getImageWord("قال")],
+                                            ["نعم", getImageWord("نعم")],
+                                            ["مع", getImageWord("مع")],
+                                            ["لكن", getImageWord("لكن")],
+                                          ];
                                         });
-
-                                        if (fav.contains(a.trim())) {
-                                          setState(() {
-                                            isFav = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            isFav = false;
-                                          });
-                                        }
-                                        if (controller.text.trim().isNotEmpty) {
-                                          predict(a
-                                              .replaceAll("أ", "ا")
-                                              .replaceAll("ة", "ه"));
-                                        }
-                                        howtospeak(a);
-                                        store_In_local(a);
-                                        tryUploadToRealTimeForChild(a);
+                                        controller.clear();
                                       },
                                       child: Container(
                                         height: 70,
@@ -273,7 +737,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(7),
                                           child: Image.asset(
-                                            "assets/uiImages/volume.png",
+                                            "assets/uiImages/trash.png",
                                             fit: BoxFit.fill,
                                           ),
                                         ),
@@ -427,7 +891,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                           child: isFav
                                               ? Image.asset(
                                                   "assets/uiImages/star2.png",
-                                                  color: maincolor,
+                                                  color: pinkColor,
                                                   height: 33,
                                                 )
                                               : Image.asset(
@@ -439,1405 +903,1115 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  width: 7,
-                                ),
-                                Expanded(
-                                    child: Container(
-                                  height: 140,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xffe9edf3),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(27)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Colors.grey.withOpacity(0.3),
-                                          spreadRadius: 3,
-                                          blurRadius: 5,
-                                          offset: Offset(0, 3)),
-                                    ],
-                                    border: Border.all(
-                                      width: 2,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(7),
-                                    child: Row(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: InkWell(
-                                            onTap: () {
-                                              // clear
-                                              if (fieldContent.isNotEmpty) {
-                                                if (fieldContent.length == 1) {
-                                                  setState(() {
-                                                    fieldContent = [];
-                                                    isFav = false;
-                                                    predictionWords = [
-                                                      [
-                                                        "انا",
-                                                        getImageWord("انا")
-                                                      ],
-                                                      [
-                                                        "هل",
-                                                        getImageWord("هل")
-                                                      ],
-                                                      [
-                                                        "متى",
-                                                        getImageWord("متى")
-                                                      ],
-                                                      [
-                                                        "اين",
-                                                        getImageWord("اين")
-                                                      ],
-                                                      [
-                                                        "كيف",
-                                                        getImageWord("كيف")
-                                                      ],
-                                                      [
-                                                        "كم",
-                                                        getImageWord("كم")
-                                                      ],
-                                                      [
-                                                        "افتح",
-                                                        getImageWord("افتح")
-                                                      ],
-                                                      [
-                                                        "ممكن",
-                                                        getImageWord("ممكن")
-                                                      ],
-                                                      [
-                                                        "طيب",
-                                                        getImageWord("طيب")
-                                                      ],
-                                                      [
-                                                        "السلام",
-                                                        getImageWord("السلام")
-                                                      ],
-                                                      [
-                                                        "أريد",
-                                                        getImageWord("أريد")
-                                                      ],
-                                                      [
-                                                        "لماذا",
-                                                        getImageWord("لماذا")
-                                                      ],
-                                                      [
-                                                        "قال",
-                                                        getImageWord("قال")
-                                                      ],
-                                                      [
-                                                        "نعم",
-                                                        getImageWord("نعم")
-                                                      ],
-                                                      [
-                                                        "مع",
-                                                        getImageWord("مع")
-                                                      ],
-                                                      [
-                                                        "لكن",
-                                                        getImageWord("لكن")
-                                                      ],
-                                                    ];
-                                                    ;
-                                                  });
-                                                } else {
-                                                  setState(() {
-                                                    fieldContent.removeAt(
-                                                        fieldContent.length -
-                                                            1);
-                                                  });
-                                                  String text = "";
-                                                  fieldContent
-                                                      .forEach((element) {
-                                                    text += element.name + " ";
-                                                  });
-                                                  predict(text
-                                                      .replaceAll("أ", "ا")
-                                                      .replaceAll("ة", "ه"));
-                                                  if (fav
-                                                      .contains(text.trim())) {
-                                                    setState(() {
-                                                      isFav = true;
-                                                    });
-                                                  } else {
-                                                    setState(() {
-                                                      isFav = false;
-                                                    });
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 5),
-                                              child: Image.asset(
-                                                "assets/uiImages/delete.png",
-                                                height: 40,
-                                                matchTextDirection: true,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: ListView(
-                                            scrollDirection: Axis.horizontal,
-                                            children: [
-                                              for (int i = 0;
-                                                  i < fieldContent.length;
-                                                  i++)
-                                                fieldContent[i].imgurl.isEmpty
-                                                    ? Container(
-                                                        child: FittedBox(
-                                                          child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Container(
-                                                                  height: 110,
-                                                                  width: 110,
-                                                                ),
-                                                                Text(
-                                                                  fieldContent[
-                                                                          i]
-                                                                      .name,
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          40,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w900,
-                                                                      color:
-                                                                          maincolor),
-                                                                )
-                                                              ]),
-                                                        ),
-                                                      )
-                                                    : Container(
-                                                        child: FittedBox(
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 12),
-                                                            child: Column(
-                                                                children: [
-                                                                  Container(
-                                                                    height: 110,
-                                                                    width: 110,
-                                                                    child: getImage(
-                                                                        fieldContent[i]
-                                                                            .imgurl),
-                                                                  ),
-                                                                  Text(
-                                                                    fieldContent[
-                                                                            i]
-                                                                        .name,
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            40,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w900,
-                                                                        color:
-                                                                            maincolor),
-                                                                  )
-                                                                ]),
-                                                          ),
-                                                        ),
-                                                      ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    right: 15),
-                                                child: SizedBox(
-                                                  height: 140,
-                                                  width: 300,
-                                                  child: Center(
-                                                    child: TextField(
-                                                      controller: controller,
-                                                      cursorColor: maincolor,
-                                                      onTap: () {
-                                                        controller.selection =
-                                                            TextSelection.fromPosition(
-                                                                TextPosition(
-                                                                    offset: controller
-                                                                        .text
-                                                                        .trim()
-                                                                        .length));
-                                                      },
-                                                      onChanged: (v) async {
-                                                        if (v
-                                                            .trim()
-                                                            .isNotEmpty) {
-                                                          autoComplete(v);
-                                                        } else if (v
-                                                                .trim()
-                                                                .isEmpty &&
-                                                            fieldContent
-                                                                .isNotEmpty) {
-                                                          predict(fieldContent[
-                                                                  fieldContent
-                                                                          .length -
-                                                                      1]
-                                                              .name);
-                                                        } else if (fieldContent
-                                                                .isEmpty &&
-                                                            v.trim().isEmpty) {
-                                                          setState(() {
-                                                            predictionWords = [
-                                                              [
-                                                                "انا",
-                                                                getImageWord(
-                                                                    "انا")
-                                                              ],
-                                                              [
-                                                                "هل",
-                                                                getImageWord(
-                                                                    "هل")
-                                                              ],
-                                                              [
-                                                                "متى",
-                                                                getImageWord(
-                                                                    "متى")
-                                                              ],
-                                                              [
-                                                                "اين",
-                                                                getImageWord(
-                                                                    "اين")
-                                                              ],
-                                                              [
-                                                                "كيف",
-                                                                getImageWord(
-                                                                    "كيف")
-                                                              ],
-                                                              [
-                                                                "كم",
-                                                                getImageWord(
-                                                                    "كم")
-                                                              ],
-                                                              [
-                                                                "افتح",
-                                                                getImageWord(
-                                                                    "افتح")
-                                                              ],
-                                                              [
-                                                                "ممكن",
-                                                                getImageWord(
-                                                                    "ممكن")
-                                                              ],
-                                                              [
-                                                                "طيب",
-                                                                getImageWord(
-                                                                    "طيب")
-                                                              ],
-                                                              [
-                                                                "السلام",
-                                                                getImageWord(
-                                                                    "السلام")
-                                                              ],
-                                                              [
-                                                                "أريد",
-                                                                getImageWord(
-                                                                    "أريد")
-                                                              ],
-                                                              [
-                                                                "لماذا",
-                                                                getImageWord(
-                                                                    "لماذا")
-                                                              ],
-                                                              [
-                                                                "قال",
-                                                                getImageWord(
-                                                                    "قال")
-                                                              ],
-                                                              [
-                                                                "نعم",
-                                                                getImageWord(
-                                                                    "نعم")
-                                                              ],
-                                                              [
-                                                                "مع",
-                                                                getImageWord(
-                                                                    "مع")
-                                                              ],
-                                                              [
-                                                                "لكن",
-                                                                getImageWord(
-                                                                    "لكن")
-                                                              ],
-                                                            ];
-                                                          });
-                                                        }
-                                                      },
-                                                      cursorWidth: 4,
-                                                      style: TextStyle(
-                                                          fontSize: 35,
-                                                          fontWeight:
-                                                              FontWeight.w900),
-                                                      decoration:
-                                                          InputDecoration(
-                                                        border:
-                                                            InputBorder.none,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )),
-                                Container(
-                                  width: 7,
-                                ),
-                                Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () async {
-                                        setState(() {
-                                          isFav = false;
-                                          fieldContent = [];
-                                          predictionWords = [
-                                            ["انا", getImageWord("انا")],
-                                            ["هل", getImageWord("هل")],
-                                            ["متى", getImageWord("متى")],
-                                            ["اين", getImageWord("اين")],
-                                            ["كيف", getImageWord("كيف")],
-                                            ["كم", getImageWord("كم")],
-                                            ["افتح", getImageWord("افتح")],
-                                            ["ممكن", getImageWord("ممكن")],
-                                            ["طيب", getImageWord("طيب")],
-                                            ["السلام", getImageWord("السلام")],
-                                            ["أريد", getImageWord("أريد")],
-                                            ["لماذا", getImageWord("لماذا")],
-                                            ["قال", getImageWord("قال")],
-                                            ["نعم", getImageWord("نعم")],
-                                            ["مع", getImageWord("مع")],
-                                            ["لكن", getImageWord("لكن")],
-                                          ];
-                                        });
-                                        controller.clear();
-                                      },
-                                      child: Container(
-                                        height: 70,
-                                        width: 70,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.3),
-                                                spreadRadius: 3,
-                                                blurRadius: 5,
-                                                offset: Offset(0, 3)),
-                                          ],
-                                          border: Border.all(
-                                            width: 2,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(7),
-                                          child: Image.asset(
-                                            "assets/uiImages/trash.png",
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 7,
-                                    ),
-                                    InkWell(
-                                      onTap: () {
-                                        String text = "";
-                                        fieldContent.forEach((element) {
-                                          text += element.name + " ";
-                                        });
-                                        if (text.trim().isNotEmpty) {
-                                          Share.share(text);
-                                        }
-                                      },
-                                      child: Container(
-                                        height: 70,
-                                        width: 70,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.3),
-                                                spreadRadius: 3,
-                                                blurRadius: 5,
-                                                offset: Offset(0, 3)),
-                                          ],
-                                          border: Border.all(
-                                            width: 2,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        child: Padding(
-                                            padding: const EdgeInsets.all(9),
-                                            child: Image.asset(
-                                              "assets/uiImages/paper-plane.png",
-                                            )),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ],
                             ),
                             Expanded(
-                                child: MediaQuery.of(context).orientation !=
-                                        Orientation.portrait
-                                    ? Column(
-                                        children: [
-                                          Container(
-                                            height: MediaQuery.of(context)
-                                                        .orientation !=
-                                                    Orientation.portrait
-                                                ? 5
-                                                : 10,
-                                          ),
-                                          Expanded(
-                                              child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25),
+                                      border: Border.all(
+                                          width: 2, color: greyColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: MediaQuery.of(context).orientation !=
+                                            Orientation.portrait
+                                        ? Column(
                                             children: [
-                                              predictionWords.length >= 1
-                                                  ? box(0)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 2
-                                                  ? box(1)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 3
-                                                  ? box(2)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 4
-                                                  ? box(3)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 5
-                                                  ? box(4)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 6
-                                                  ? box(5)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    predictionWords = [
-                                                      [
-                                                        "أنا",
-                                                        getImageWord("أنا")
-                                                      ],
-                                                      [
-                                                        "هل",
-                                                        getImageWord("هل")
-                                                      ],
-                                                      [
-                                                        "كم",
-                                                        getImageWord("كم")
-                                                      ],
-                                                      [
-                                                        "متى",
-                                                        getImageWord("متى")
-                                                      ],
-                                                      [
-                                                        "أين",
-                                                        getImageWord("أين")
-                                                      ],
-                                                      [
-                                                        "بكم",
-                                                        getImageWord("بكم")
-                                                      ],
-                                                      [
-                                                        "هذا",
-                                                        getImageWord("هذا")
-                                                      ],
-                                                      [
-                                                        "أبغى",
-                                                        getImageWord("أبغى")
-                                                      ],
-                                                      [
-                                                        "كيف",
-                                                        getImageWord("كيف")
-                                                      ],
-                                                      [
-                                                        "طيب",
-                                                        getImageWord("طيب")
-                                                      ],
-                                                      [
-                                                        "عندي",
-                                                        getImageWord("عندي")
-                                                      ],
-                                                      [
-                                                        "شكرا",
-                                                        getImageWord("شكرا")
-                                                      ],
-                                                      [
-                                                        "السلام",
-                                                        getImageWord("السلام")
-                                                      ],
-                                                      [
-                                                        "لكن",
-                                                        getImageWord("لكن")
-                                                      ],
-                                                      [
-                                                        "ممكن",
-                                                        getImageWord("ممكن")
-                                                      ],
-                                                      [
-                                                        "لو",
-                                                        getImageWord("لو")
-                                                      ],
-                                                    ];
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 7),
-                                                  child: Container(
-                                                    width: 120,
-                                                    decoration: BoxDecoration(
-                                                        color: maincolor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "كلمات مفتاحية",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 28),
+                                              Expanded(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  predictionWords.length >= 1
+                                                      ? box(0)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 2
+                                                      ? box(1)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 3
+                                                      ? box(2)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 4
+                                                      ? box(3)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 5
+                                                      ? box(4)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "سعيد",
+                                                            getImageWord("سعيد")
+                                                          ],
+                                                          [
+                                                            "حزين",
+                                                            getImageWord("حزين")
+                                                          ],
+                                                          [
+                                                            "جوعان",
+                                                            getImageWord(
+                                                                "جوعان")
+                                                          ],
+                                                          [
+                                                            "عطشان",
+                                                            getImageWord(
+                                                                "عطشان")
+                                                          ],
+                                                          [
+                                                            "خائف",
+                                                            getImageWord("خائف")
+                                                          ],
+                                                          [
+                                                            "رائع",
+                                                            getImageWord("رائع")
+                                                          ],
+                                                          [
+                                                            "جميل",
+                                                            getImageWord("جميل")
+                                                          ],
+                                                          [
+                                                            "سهل",
+                                                            getImageWord("سهل")
+                                                          ],
+                                                          [
+                                                            "صعب",
+                                                            getImageWord("صعب")
+                                                          ],
+                                                          [
+                                                            "سريع",
+                                                            getImageWord("سريع")
+                                                          ],
+                                                          [
+                                                            "بطيء",
+                                                            getImageWord("بطيء")
+                                                          ],
+                                                          [
+                                                            "تعبان",
+                                                            getImageWord(
+                                                                "تعبان")
+                                                          ],
+                                                          [
+                                                            "طويل",
+                                                            getImageWord("طويل")
+                                                          ],
+                                                          [
+                                                            "قصير",
+                                                            getImageWord("قصير")
+                                                          ],
+                                                          [
+                                                            "جيد",
+                                                            getImageWord("جيد")
+                                                          ],
+                                                          [
+                                                            "سيء",
+                                                            getImageWord("سيء")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                    0xff1367A2)
+                                                                .withOpacity(
+                                                                    .6),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "صفات",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 30),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              )
-                                            ],
-                                          )),
-                                          Container(
-                                            height: 7,
-                                          ),
-                                          Expanded(
-                                              child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              predictionWords.length >= 7
-                                                  ? box(6)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "أنا",
+                                                            getImageWord("أنا")
+                                                          ],
+                                                          [
+                                                            "هل",
+                                                            getImageWord("هل")
+                                                          ],
+                                                          [
+                                                            "كم",
+                                                            getImageWord("كم")
+                                                          ],
+                                                          [
+                                                            "متى",
+                                                            getImageWord("متى")
+                                                          ],
+                                                          [
+                                                            "أين",
+                                                            getImageWord("أين")
+                                                          ],
+                                                          [
+                                                            "بكم",
+                                                            getImageWord("بكم")
+                                                          ],
+                                                          [
+                                                            "هذا",
+                                                            getImageWord("هذا")
+                                                          ],
+                                                          [
+                                                            "أبغى",
+                                                            getImageWord("أبغى")
+                                                          ],
+                                                          [
+                                                            "كيف",
+                                                            getImageWord("كيف")
+                                                          ],
+                                                          [
+                                                            "طيب",
+                                                            getImageWord("طيب")
+                                                          ],
+                                                          [
+                                                            "عندي",
+                                                            getImageWord("عندي")
+                                                          ],
+                                                          [
+                                                            "شكرا",
+                                                            getImageWord("شكرا")
+                                                          ],
+                                                          [
+                                                            "السلام",
+                                                            getImageWord(
+                                                                "السلام")
+                                                          ],
+                                                          [
+                                                            "لكن",
+                                                            getImageWord("لكن")
+                                                          ],
+                                                          [
+                                                            "ممكن",
+                                                            getImageWord("ممكن")
+                                                          ],
+                                                          [
+                                                            "لو",
+                                                            getImageWord("لو")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                0xffC06FB9),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "كلمات مفتاحية",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 28),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
-                                              predictionWords.length >= 8
-                                                  ? box(7)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 9
-                                                  ? box(8)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 10
-                                                  ? box(9)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 11
-                                                  ? box(10)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 12
-                                                  ? box(11)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    predictionWords = [
-                                                      [
-                                                        "أستطيع",
-                                                        getImageWord("أستطيع")
-                                                      ],
-                                                      [
-                                                        "أشتري",
-                                                        getImageWord("أشتري")
-                                                      ],
-                                                      [
-                                                        "أريد",
-                                                        getImageWord("أريد")
-                                                      ],
-                                                      [
-                                                        "أحب",
-                                                        getImageWord("أحب")
-                                                      ],
-                                                      [
-                                                        "أشعر",
-                                                        getImageWord("أشعر")
-                                                      ],
-                                                      [
-                                                        "أعمل",
-                                                        getImageWord("أعمل")
-                                                      ],
-                                                      [
-                                                        "أرى",
-                                                        getImageWord("أرى")
-                                                      ],
-                                                      [
-                                                        "أروح",
-                                                        getImageWord("أروح")
-                                                      ],
-                                                      [
-                                                        "أدرس",
-                                                        getImageWord("أدرس")
-                                                      ],
-                                                      [
-                                                        "ألعب",
-                                                        getImageWord("ألعب")
-                                                      ],
-                                                      [
-                                                        "أعطني",
-                                                        getImageWord("أعطني")
-                                                      ],
-                                                      [
-                                                        "ألبس",
-                                                        getImageWord("ألبس")
-                                                      ],
-                                                      [
-                                                        "أنام",
-                                                        getImageWord("أنام")
-                                                      ],
-                                                      [
-                                                        "اتألم",
-                                                        getImageWord("اتألم")
-                                                      ],
-                                                      [
-                                                        "أتحرك",
-                                                        getImageWord("أتحرك")
-                                                      ],
-                                                      [
-                                                        "أمشي",
-                                                        getImageWord("أمشي")
-                                                      ],
-                                                    ];
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 7),
-                                                  child: Container(
-                                                    width: 120,
-                                                    decoration: BoxDecoration(
-                                                        color: yellowColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "أفعال",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.black,
-                                                            fontSize: 30),
+                                                  )
+                                                ],
+                                              )),
+                                              Container(
+                                                height: 7,
+                                              ),
+                                              Expanded(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  predictionWords.length >= 6
+                                                      ? box(5)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 7
+                                                      ? box(6)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 8
+                                                      ? box(7)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 9
+                                                      ? box(8)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 10
+                                                      ? box(9)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "من",
+                                                            getImageWord("من")
+                                                          ],
+                                                          [
+                                                            "إلى",
+                                                            getImageWord("إلى")
+                                                          ],
+                                                          [
+                                                            "عن",
+                                                            getImageWord("عن")
+                                                          ],
+                                                          [
+                                                            "على",
+                                                            getImageWord("على")
+                                                          ],
+                                                          [
+                                                            "في",
+                                                            getImageWord("في")
+                                                          ],
+                                                          [
+                                                            "على",
+                                                            getImageWord("على")
+                                                          ],
+                                                          [
+                                                            "لم",
+                                                            getImageWord("لم")
+                                                          ],
+                                                          [
+                                                            "لا",
+                                                            getImageWord("لا")
+                                                          ],
+                                                          [
+                                                            "قد",
+                                                            getImageWord("قد")
+                                                          ],
+                                                          [
+                                                            "إلا",
+                                                            getImageWord("إلا")
+                                                          ],
+                                                          [
+                                                            "بلى",
+                                                            getImageWord("بلى")
+                                                          ],
+                                                          [
+                                                            "حتى",
+                                                            getImageWord("حتى")
+                                                          ],
+                                                          [
+                                                            "لن",
+                                                            getImageWord("لن")
+                                                          ],
+                                                          [
+                                                            "لما",
+                                                            getImageWord("لما")
+                                                          ],
+                                                          [
+                                                            "ما",
+                                                            getImageWord("ما")
+                                                          ],
+                                                          [
+                                                            "ثم",
+                                                            getImageWord("ثم")
+                                                          ],
+                                                          [
+                                                            "و",
+                                                            getImageWord("و")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                0xffE9E467),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "حروف",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 30),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              )
-                                            ],
-                                          )),
-                                        ],
-                                      )
-                                    : Column(
-                                        children: [
-                                          Container(
-                                            height: 10,
-                                          ),
-                                          Expanded(
-                                              child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              predictionWords.length >= 1
-                                                  ? box(0)
-                                                  : Container(
-                                                      height: 110,
-                                                      width: 110,
-                                                    ),
-                                              predictionWords.length >= 2
-                                                  ? box(1)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 3
-                                                  ? box(2)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 4
-                                                  ? box(3)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    predictionWords = [
-                                                      [
-                                                        "أنا",
-                                                        getImageWord("أنا")
-                                                      ],
-                                                      [
-                                                        "هل",
-                                                        getImageWord("هل")
-                                                      ],
-                                                      [
-                                                        "كم",
-                                                        getImageWord("كم")
-                                                      ],
-                                                      [
-                                                        "متى",
-                                                        getImageWord("متى")
-                                                      ],
-                                                      [
-                                                        "أين",
-                                                        getImageWord("أين")
-                                                      ],
-                                                      [
-                                                        "بكم",
-                                                        getImageWord("بكم")
-                                                      ],
-                                                      [
-                                                        "هذا",
-                                                        getImageWord("هذا")
-                                                      ],
-                                                      [
-                                                        "أبغى",
-                                                        getImageWord("أبغى")
-                                                      ],
-                                                      [
-                                                        "كيف",
-                                                        getImageWord("كيف")
-                                                      ],
-                                                      [
-                                                        "طيب",
-                                                        getImageWord("طيب")
-                                                      ],
-                                                      [
-                                                        "عندي",
-                                                        getImageWord("عندي")
-                                                      ],
-                                                      [
-                                                        "شكرا",
-                                                        getImageWord("شكرا")
-                                                      ],
-                                                      [
-                                                        "السلام",
-                                                        getImageWord("السلام")
-                                                      ],
-                                                      [
-                                                        "لكن",
-                                                        getImageWord("لكن")
-                                                      ],
-                                                      [
-                                                        "ممكن",
-                                                        getImageWord("ممكن")
-                                                      ],
-                                                      [
-                                                        "لو",
-                                                        getImageWord("لو")
-                                                      ],
-                                                    ];
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 7),
-                                                  child: Container(
-                                                    width: 120,
-                                                    decoration: BoxDecoration(
-                                                        color: maincolor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "كلمات مفتاحية",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 28),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "أستطيع",
+                                                            getImageWord(
+                                                                "أستطيع")
+                                                          ],
+                                                          [
+                                                            "أشتري",
+                                                            getImageWord(
+                                                                "أشتري")
+                                                          ],
+                                                          [
+                                                            "أريد",
+                                                            getImageWord("أريد")
+                                                          ],
+                                                          [
+                                                            "أحب",
+                                                            getImageWord("أحب")
+                                                          ],
+                                                          [
+                                                            "أشعر",
+                                                            getImageWord("أشعر")
+                                                          ],
+                                                          [
+                                                            "أعمل",
+                                                            getImageWord("أعمل")
+                                                          ],
+                                                          [
+                                                            "أرى",
+                                                            getImageWord("أرى")
+                                                          ],
+                                                          [
+                                                            "أروح",
+                                                            getImageWord("أروح")
+                                                          ],
+                                                          [
+                                                            "أدرس",
+                                                            getImageWord("أدرس")
+                                                          ],
+                                                          [
+                                                            "ألعب",
+                                                            getImageWord("ألعب")
+                                                          ],
+                                                          [
+                                                            "أعطني",
+                                                            getImageWord(
+                                                                "أعطني")
+                                                          ],
+                                                          [
+                                                            "ألبس",
+                                                            getImageWord("ألبس")
+                                                          ],
+                                                          [
+                                                            "أنام",
+                                                            getImageWord("أنام")
+                                                          ],
+                                                          [
+                                                            "اتألم",
+                                                            getImageWord(
+                                                                "اتألم")
+                                                          ],
+                                                          [
+                                                            "أتحرك",
+                                                            getImageWord(
+                                                                "أتحرك")
+                                                          ],
+                                                          [
+                                                            "أمشي",
+                                                            getImageWord("أمشي")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                0xffA7CB89),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "أفعال",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 30),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              )
+                                                  )
+                                                ],
+                                              )),
                                             ],
-                                          )),
-                                          Container(
-                                            height: 7,
-                                          ),
-                                          Expanded(
-                                              child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                          )
+                                        : Column(
                                             children: [
-                                              predictionWords.length >= 5
-                                                  ? box(4)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 6
-                                                  ? box(5)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 7
-                                                  ? box(6)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 8
-                                                  ? box(7)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    predictionWords = [
-                                                      [
-                                                        "أستطيع",
-                                                        getImageWord("أستطيع")
-                                                      ],
-                                                      [
-                                                        "أشتري",
-                                                        getImageWord("أشتري")
-                                                      ],
-                                                      [
-                                                        "أريد",
-                                                        getImageWord("أريد")
-                                                      ],
-                                                      [
-                                                        "أحب",
-                                                        getImageWord("أحب")
-                                                      ],
-                                                      [
-                                                        "أشعر",
-                                                        getImageWord("أشعر")
-                                                      ],
-                                                      [
-                                                        "أعمل",
-                                                        getImageWord("أعمل")
-                                                      ],
-                                                      [
-                                                        "أرى",
-                                                        getImageWord("أرى")
-                                                      ],
-                                                      [
-                                                        "أروح",
-                                                        getImageWord("أروح")
-                                                      ],
-                                                      [
-                                                        "أدرس",
-                                                        getImageWord("أدرس")
-                                                      ],
-                                                      [
-                                                        "ألعب",
-                                                        getImageWord("ألعب")
-                                                      ],
-                                                      [
-                                                        "أعطني",
-                                                        getImageWord("أعطني")
-                                                      ],
-                                                      [
-                                                        "ألبس",
-                                                        getImageWord("ألبس")
-                                                      ],
-                                                      [
-                                                        "أنام",
-                                                        getImageWord("أنام")
-                                                      ],
-                                                      [
-                                                        "اتألم",
-                                                        getImageWord("اتألم")
-                                                      ],
-                                                      [
-                                                        "أتحرك",
-                                                        getImageWord("أتحرك")
-                                                      ],
-                                                      [
-                                                        "أمشي",
-                                                        getImageWord("أمشي")
-                                                      ],
-                                                    ];
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 7),
-                                                  child: Container(
-                                                    width: 120,
-                                                    decoration: BoxDecoration(
-                                                        color: yellowColor
-                                                            .withOpacity(.9),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "أفعال",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 30),
+                                              Container(
+                                                height: 5,
+                                              ),
+                                              Expanded(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  predictionWords.length >= 1
+                                                      ? box(0)
+                                                      : Container(
+                                                          height: 110,
+                                                          width: 110,
+                                                        ),
+                                                  predictionWords.length >= 2
+                                                      ? box(1)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 3
+                                                      ? box(2)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 4
+                                                      ? box(3)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "أنا",
+                                                            getImageWord("أنا")
+                                                          ],
+                                                          [
+                                                            "هل",
+                                                            getImageWord("هل")
+                                                          ],
+                                                          [
+                                                            "كم",
+                                                            getImageWord("كم")
+                                                          ],
+                                                          [
+                                                            "متى",
+                                                            getImageWord("متى")
+                                                          ],
+                                                          [
+                                                            "أين",
+                                                            getImageWord("أين")
+                                                          ],
+                                                          [
+                                                            "بكم",
+                                                            getImageWord("بكم")
+                                                          ],
+                                                          [
+                                                            "هذا",
+                                                            getImageWord("هذا")
+                                                          ],
+                                                          [
+                                                            "أبغى",
+                                                            getImageWord("أبغى")
+                                                          ],
+                                                          [
+                                                            "كيف",
+                                                            getImageWord("كيف")
+                                                          ],
+                                                          [
+                                                            "طيب",
+                                                            getImageWord("طيب")
+                                                          ],
+                                                          [
+                                                            "عندي",
+                                                            getImageWord("عندي")
+                                                          ],
+                                                          [
+                                                            "شكرا",
+                                                            getImageWord("شكرا")
+                                                          ],
+                                                          [
+                                                            "السلام",
+                                                            getImageWord(
+                                                                "السلام")
+                                                          ],
+                                                          [
+                                                            "لكن",
+                                                            getImageWord("لكن")
+                                                          ],
+                                                          [
+                                                            "ممكن",
+                                                            getImageWord("ممكن")
+                                                          ],
+                                                          [
+                                                            "لو",
+                                                            getImageWord("لو")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                0xffC06FB9),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "كلمات مفتاحية",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 28),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          )),
-                                          Container(
-                                            height: 7,
-                                          ),
-                                          Expanded(
-                                              child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              predictionWords.length >= 9
-                                                  ? box(8)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 10
-                                                  ? box(9)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 11
-                                                  ? box(10)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 12
-                                                  ? box(11)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    predictionWords = [
-                                                      [
-                                                        "مِن",
-                                                        getImageWord("مِن")
-                                                      ],
-                                                      [
-                                                        "إلى",
-                                                        getImageWord("إلى")
-                                                      ],
-                                                      [
-                                                        "عن",
-                                                        getImageWord("عن")
-                                                      ],
-                                                      [
-                                                        "على",
-                                                        getImageWord("على")
-                                                      ],
-                                                      [
-                                                        "في",
-                                                        getImageWord("في")
-                                                      ],
-                                                      [
-                                                        "على",
-                                                        getImageWord("على")
-                                                      ],
-                                                      [
-                                                        "لم",
-                                                        getImageWord("لم")
-                                                      ],
-                                                      [
-                                                        "لا",
-                                                        getImageWord("لا")
-                                                      ],
-                                                      [
-                                                        "قد",
-                                                        getImageWord("قد")
-                                                      ],
-                                                      [
-                                                        "إلا",
-                                                        getImageWord("إلا")
-                                                      ],
-                                                      [
-                                                        "بلى",
-                                                        getImageWord("بلى")
-                                                      ],
-                                                      [
-                                                        "حتى",
-                                                        getImageWord("حتى")
-                                                      ],
-                                                      [
-                                                        "لن",
-                                                        getImageWord("لن")
-                                                      ],
-                                                      [
-                                                        "لما",
-                                                        getImageWord("لما")
-                                                      ],
-                                                      [
-                                                        "ما",
-                                                        getImageWord("ما")
-                                                      ],
-                                                      [
-                                                        "ثم",
-                                                        getImageWord("ثم")
-                                                      ],
-                                                      ["و", getImageWord("و")],
-                                                    ];
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 7),
-                                                  child: Container(
-                                                    width: 120,
-                                                    decoration: BoxDecoration(
-                                                        color: pinkColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "حروف",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 30),
+                                                  )
+                                                ],
+                                              )),
+                                              Container(
+                                                height: 7,
+                                              ),
+                                              Expanded(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  predictionWords.length >= 5
+                                                      ? box(4)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 6
+                                                      ? box(5)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 7
+                                                      ? box(6)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 8
+                                                      ? box(7)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "أستطيع",
+                                                            getImageWord(
+                                                                "أستطيع")
+                                                          ],
+                                                          [
+                                                            "أشتري",
+                                                            getImageWord(
+                                                                "أشتري")
+                                                          ],
+                                                          [
+                                                            "أريد",
+                                                            getImageWord("أريد")
+                                                          ],
+                                                          [
+                                                            "أحب",
+                                                            getImageWord("أحب")
+                                                          ],
+                                                          [
+                                                            "أشعر",
+                                                            getImageWord("أشعر")
+                                                          ],
+                                                          [
+                                                            "أعمل",
+                                                            getImageWord("أعمل")
+                                                          ],
+                                                          [
+                                                            "أرى",
+                                                            getImageWord("أرى")
+                                                          ],
+                                                          [
+                                                            "أروح",
+                                                            getImageWord("أروح")
+                                                          ],
+                                                          [
+                                                            "أدرس",
+                                                            getImageWord("أدرس")
+                                                          ],
+                                                          [
+                                                            "ألعب",
+                                                            getImageWord("ألعب")
+                                                          ],
+                                                          [
+                                                            "أعطني",
+                                                            getImageWord(
+                                                                "أعطني")
+                                                          ],
+                                                          [
+                                                            "ألبس",
+                                                            getImageWord("ألبس")
+                                                          ],
+                                                          [
+                                                            "أنام",
+                                                            getImageWord("أنام")
+                                                          ],
+                                                          [
+                                                            "اتألم",
+                                                            getImageWord(
+                                                                "اتألم")
+                                                          ],
+                                                          [
+                                                            "أتحرك",
+                                                            getImageWord(
+                                                                "أتحرك")
+                                                          ],
+                                                          [
+                                                            "أمشي",
+                                                            getImageWord("أمشي")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                0xffA7CB89),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "أفعال",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 30),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          )),
-                                          Container(
-                                            height: 7,
-                                          ),
-                                          Expanded(
-                                              child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              predictionWords.length >= 13
-                                                  ? box(12)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 14
-                                                  ? box(13)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 15
-                                                  ? box(14)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              predictionWords.length >= 16
-                                                  ? box(15)
-                                                  : Container(
-                                                      height: 140,
-                                                      width: 140,
-                                                    ),
-                                              InkWell(
-                                                onTap: () {
-                                                  setState(() {
-                                                    predictionWords = [
-                                                      [
-                                                        "سعيد",
-                                                        getImageWord("سعيد")
-                                                      ],
-                                                      [
-                                                        "حزين",
-                                                        getImageWord("حزين")
-                                                      ],
-                                                      [
-                                                        "جوعان",
-                                                        getImageWord("جوعان")
-                                                      ],
-                                                      [
-                                                        "عطشان",
-                                                        getImageWord("عطشان")
-                                                      ],
-                                                      [
-                                                        "خائف",
-                                                        getImageWord("خائف")
-                                                      ],
-                                                      [
-                                                        "رائع",
-                                                        getImageWord("رائع")
-                                                      ],
-                                                      [
-                                                        "جميل",
-                                                        getImageWord("جميل")
-                                                      ],
-                                                      [
-                                                        "سهل",
-                                                        getImageWord("سهل")
-                                                      ],
-                                                      [
-                                                        "صعب",
-                                                        getImageWord("صعب")
-                                                      ],
-                                                      [
-                                                        "سريع",
-                                                        getImageWord("سريع")
-                                                      ],
-                                                      [
-                                                        "بطيء",
-                                                        getImageWord("بطيء")
-                                                      ],
-                                                      [
-                                                        "تعبان",
-                                                        getImageWord("تعبان")
-                                                      ],
-                                                      [
-                                                        "طويل",
-                                                        getImageWord("طويل")
-                                                      ],
-                                                      [
-                                                        "قصير",
-                                                        getImageWord("قصير")
-                                                      ],
-                                                      [
-                                                        "جيد",
-                                                        getImageWord("جيد")
-                                                      ],
-                                                      [
-                                                        "سيء",
-                                                        getImageWord("سيء")
-                                                      ],
-                                                    ];
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 7),
-                                                  child: Container(
-                                                    width: 120,
-                                                    decoration: BoxDecoration(
-                                                        color: greyColor,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "صفات",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 30),
+                                                  )
+                                                ],
+                                              )),
+                                              Container(
+                                                height: 7,
+                                              ),
+                                              Expanded(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  predictionWords.length >= 9
+                                                      ? box(8)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 10
+                                                      ? box(9)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 11
+                                                      ? box(10)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 12
+                                                      ? box(11)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "من",
+                                                            getImageWord("من")
+                                                          ],
+                                                          [
+                                                            "إلى",
+                                                            getImageWord("إلى")
+                                                          ],
+                                                          [
+                                                            "عن",
+                                                            getImageWord("عن")
+                                                          ],
+                                                          [
+                                                            "على",
+                                                            getImageWord("على")
+                                                          ],
+                                                          [
+                                                            "في",
+                                                            getImageWord("في")
+                                                          ],
+                                                          [
+                                                            "على",
+                                                            getImageWord("على")
+                                                          ],
+                                                          [
+                                                            "لم",
+                                                            getImageWord("لم")
+                                                          ],
+                                                          [
+                                                            "لا",
+                                                            getImageWord("لا")
+                                                          ],
+                                                          [
+                                                            "قد",
+                                                            getImageWord("قد")
+                                                          ],
+                                                          [
+                                                            "إلا",
+                                                            getImageWord("إلا")
+                                                          ],
+                                                          [
+                                                            "بلى",
+                                                            getImageWord("بلى")
+                                                          ],
+                                                          [
+                                                            "حتى",
+                                                            getImageWord("حتى")
+                                                          ],
+                                                          [
+                                                            "لن",
+                                                            getImageWord("لن")
+                                                          ],
+                                                          [
+                                                            "لما",
+                                                            getImageWord("لما")
+                                                          ],
+                                                          [
+                                                            "ما",
+                                                            getImageWord("ما")
+                                                          ],
+                                                          [
+                                                            "ثم",
+                                                            getImageWord("ثم")
+                                                          ],
+                                                          [
+                                                            "و",
+                                                            getImageWord("و")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                0xffE9E467),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "حروف",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 30),
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ),
-                                              )
+                                                  )
+                                                ],
+                                              )),
+                                              Container(
+                                                height: 7,
+                                              ),
+                                              Expanded(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  predictionWords.length >= 13
+                                                      ? box(12)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 14
+                                                      ? box(13)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 15
+                                                      ? box(14)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  predictionWords.length >= 16
+                                                      ? box(15)
+                                                      : Container(
+                                                          height: 140,
+                                                          width: 140,
+                                                        ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        predictionWords = [
+                                                          [
+                                                            "سعيد",
+                                                            getImageWord("سعيد")
+                                                          ],
+                                                          [
+                                                            "حزين",
+                                                            getImageWord("حزين")
+                                                          ],
+                                                          [
+                                                            "جوعان",
+                                                            getImageWord(
+                                                                "جوعان")
+                                                          ],
+                                                          [
+                                                            "عطشان",
+                                                            getImageWord(
+                                                                "عطشان")
+                                                          ],
+                                                          [
+                                                            "خائف",
+                                                            getImageWord("خائف")
+                                                          ],
+                                                          [
+                                                            "رائع",
+                                                            getImageWord("رائع")
+                                                          ],
+                                                          [
+                                                            "جميل",
+                                                            getImageWord("جميل")
+                                                          ],
+                                                          [
+                                                            "سهل",
+                                                            getImageWord("سهل")
+                                                          ],
+                                                          [
+                                                            "صعب",
+                                                            getImageWord("صعب")
+                                                          ],
+                                                          [
+                                                            "سريع",
+                                                            getImageWord("سريع")
+                                                          ],
+                                                          [
+                                                            "بطيء",
+                                                            getImageWord("بطيء")
+                                                          ],
+                                                          [
+                                                            "تعبان",
+                                                            getImageWord(
+                                                                "تعبان")
+                                                          ],
+                                                          [
+                                                            "طويل",
+                                                            getImageWord("طويل")
+                                                          ],
+                                                          [
+                                                            "قصير",
+                                                            getImageWord("قصير")
+                                                          ],
+                                                          [
+                                                            "جيد",
+                                                            getImageWord("جيد")
+                                                          ],
+                                                          [
+                                                            "سيء",
+                                                            getImageWord("سيء")
+                                                          ],
+                                                        ];
+                                                      });
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 7),
+                                                      child: Container(
+                                                        width: 120,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(
+                                                                    0xff1367A2)
+                                                                .withOpacity(
+                                                                    .6),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        30)),
+                                                        child: Center(
+                                                          child: Text(
+                                                            "صفات",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 30),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )),
                                             ],
-                                          )),
-                                        ],
-                                      )),
-                            Container(
-                              height: 170,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  for (int i = 0; i < contentWord.length; i++)
-                                    InkWell(
-                                      onTap: () {
-                                        if (speakingWordByWord) {
-                                          howtospeak(contentWord[i].name);
-                                        }
-                                        setState(() {
-                                          fieldContent.add(
-                                            contentWord[i],
-                                          );
-                                        });
-                                        String text = "";
-                                        fieldContent.forEach((element) {
-                                          text += element.name + " ";
-                                        });
-                                        if (fav.contains(text.trim())) {
-                                          setState(() {
-                                            isFav = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            isFav = false;
-                                          });
-                                        }
-                                        predict(text
-                                            .replaceAll("أ", "ا")
-                                            .replaceAll("ة", "ه")
-                                            .trim());
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Container(
-                                          width: 150,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(27)),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.3),
-                                                  spreadRadius: 3,
-                                                  blurRadius: 5,
-                                                  offset: Offset(0, 3)),
-                                            ],
-                                            border: Border.all(
-                                              width: 2,
-                                              color: Colors.grey,
-                                            ),
                                           ),
-                                          child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Container(
-                                                  height: 60,
-                                                  width: 60,
-                                                  child: getImage(
-                                                      contentWord[i].imgurl),
-                                                ),
-                                                Text(
-                                                  contentWord[i].name,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w900,
-                                                      color: maincolor),
-                                                ),
-                                              ]),
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
+                                  )),
+                            )),
                             Row(
                               children: [
                                 InkWell(
-                                  onTap: () {
-                                    if (currentOffsetScroll - 90 > 0) {
-                                      setState(() {
-                                        currentOffsetScroll -= 90;
-                                        controllerList
-                                            .jumpTo(currentOffsetScroll);
-                                      });
-                                    } else {
-                                      setState(() {
-                                        currentOffsetScroll = 0;
+                                    onTap: () {
+                                      if (currentOffsetScroll - 100 > 0) {
+                                        setState(() {
+                                          currentOffsetScroll -= 100;
+                                          controllerList.animateTo(
+                                              currentOffsetScroll,
+                                              duration: Duration(seconds: 1),
+                                              curve: Curves.easeOut);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          currentOffsetScroll = 0;
 
-                                        controllerList.jumpTo(0);
-                                      });
-                                    }
-                                  },
-                                  child: Image.asset(
-                                    "assets/uiImages/left-arrow.png",
-                                    height: 70,
-                                  ),
-                                ),
-                                Container(
-                                  width: 5,
-                                ),
+                                          controllerList.jumpTo(0);
+                                        });
+                                      }
+                                    },
+                                    child: Image.asset(
+                                      "assets/uiImages/arrow.png",
+                                      height: 40,
+                                      color: Colors.grey,
+                                    )),
                                 Expanded(
                                   child: Container(
-                                    height:
-                                        MediaQuery.of(context).orientation ==
-                                                Orientation.portrait
-                                            ? 130
-                                            : 110,
+                                    height: 80,
                                     child: ListView(
                                       controller: controllerList,
                                       scrollDirection: Axis.horizontal,
@@ -1850,36 +2024,137 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  width: 5,
-                                ),
                                 InkWell(
-                                  onTap: () {
-                                    if (currentOffsetScroll + 130 <
-                                        130 * libraryListChild.length) {
-                                      setState(() {
-                                        currentOffsetScroll += 130;
-                                        controllerList
-                                            .jumpTo(currentOffsetScroll);
-                                      });
-                                    } else {
-                                      setState(() {
-                                        currentOffsetScroll =
-                                            130.0 * libraryListChild.length;
-
-                                        controllerList.jumpTo(
-                                            (130.0 * libraryListChild.length));
-                                      });
-                                    }
-                                  },
-                                  child: Image.asset(
-                                    "assets/uiImages/left-arrow.png",
-                                    matchTextDirection: true,
-                                    height: 70,
-                                  ),
-                                ),
+                                    onTap: () {
+                                      if (currentOffsetScroll + 100 <
+                                          70 * libraryListChild.length) {
+                                        setState(() {
+                                          currentOffsetScroll += 70;
+                                          controllerList.animateTo(
+                                              currentOffsetScroll,
+                                              duration: Duration(seconds: 1),
+                                              curve: Curves.easeOut);
+                                        });
+                                      } else {
+                                        setState(() {
+                                          currentOffsetScroll =
+                                              70.0 * libraryListChild.length;
+                                          controllerList.animateTo(
+                                              70.0 * libraryListChild.length,
+                                              duration: Duration(seconds: 1),
+                                              curve: Curves.easeOut);
+                                        });
+                                      }
+                                    },
+                                    child: Image.asset(
+                                      "assets/uiImages/arrow.png",
+                                      height: 40,
+                                      matchTextDirection: true,
+                                      color: Colors.grey,
+                                    )),
                               ],
-                            )
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Container(
+                                height: 135,
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 206, 213, 218),
+                                    borderRadius: BorderRadius.circular(27)),
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: [
+                                    for (int i = 0; i < contentWord.length; i++)
+                                      InkWell(
+                                        onLongPress: () {
+                                          howtospeak(contentWord[i].name);
+                                        },
+                                        onDoubleTap: () {
+                                          howtospeak(contentWord[i].name);
+                                        },
+                                        onTap: () {
+                                          if (speakingWordByWord) {
+                                            howtospeak(contentWord[i].name);
+                                          }
+                                          setState(() {
+                                            fieldContent.add(
+                                              contentWord[i],
+                                            );
+                                          });
+                                          String text = "";
+                                          fieldContent.forEach((element) {
+                                            text += element.name + " ";
+                                          });
+                                          if (fav.contains(text.trim())) {
+                                            setState(() {
+                                              isFav = true;
+                                            });
+                                          } else {
+                                            setState(() {
+                                              isFav = false;
+                                            });
+                                          }
+                                          contentWordController.animateTo(
+                                              contentWordController
+                                                  .position.maxScrollExtent,
+                                              duration:
+                                                  Duration(milliseconds: 750),
+                                              curve: Curves.easeOut);
+                                          predict(text
+                                              .replaceAll("أ", "ا")
+                                              .replaceAll("ة", "ه")
+                                              .trim());
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(5),
+                                          child: Container(
+                                            width: 150,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(27)),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 3,
+                                                    blurRadius: 5,
+                                                    offset: Offset(0, 3)),
+                                              ],
+                                              border: Border.all(
+                                                width: 2,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceAround,
+                                                children: [
+                                                  Container(
+                                                    height: 60,
+                                                    width: 60,
+                                                    child: getImage(
+                                                        contentWord[i].imgurl),
+                                                  ),
+                                                  Text(
+                                                    noMoreText(
+                                                        contentWord[i].name),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w900,
+                                                        color: pinkColor),
+                                                  ),
+                                                ]),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       )),
@@ -1887,6 +2162,23 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                   ],
                 )),
     );
+  }
+
+  String noMoreText(String text) {
+    List textList = text.trim().split(" ");
+    if (textList.length > 4) {
+      String a = textList[0] +
+          " " +
+          textList[1] +
+          " " +
+          textList[2] +
+          " " +
+          textList[3] +
+          ".....";
+      return a;
+    } else {
+      return text;
+    }
   }
 
   autoComplete(String v) async {
@@ -1988,6 +2280,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
             isFav = false;
           });
         }
+        contentWordController.animateTo(
+            contentWordController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 750),
+            curve: Curves.easeOut);
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5),
@@ -1996,20 +2292,9 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
               ? 120
               : 110,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(27)),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 3,
-                  blurRadius: 5,
-                  offset: Offset(0, 3)),
-            ],
-            border: Border.all(
-              width: 2,
-              color: Colors.grey,
-            ),
-          ),
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(27)),
+              border: Border.all(color: pinkColor, width: 3)),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 3),
             child: FittedBox(
@@ -2024,7 +2309,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                   style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.w900,
-                      color: maincolor),
+                      color: pinkColor),
                 )
               ]),
             ),
@@ -2039,388 +2324,178 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       onTap: () {
         setState(() {
           coloredOpenLibraryindex = index;
-          folderIndex = -1;
+
           contentWord = libraryListChild[index].contenlist;
         });
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-            width: MediaQuery.of(context).orientation == Orientation.portrait
-                ? 120
-                : 110,
-            decoration: BoxDecoration(
-              color: index == coloredOpenLibraryindex
-                  ? Colors.orange
-                  : Color(0xffe9edf3),
-              borderRadius: BorderRadius.all(Radius.circular(27)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 3,
-                    blurRadius: 5,
-                    offset: Offset(0, 3)),
-              ],
-              border: Border.all(
-                width: 2,
-                color: Colors.grey,
-              ),
-            ),
-            child: Center(
-              child: FittedBox(
-                child: Text(
-                  libraryListChild[index].name,
-                  style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.black),
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: index == coloredOpenLibraryindex
+            ? Column(
+                children: [
+                  Container(
+                      height: 80,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 206, 213, 218),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(27),
+                          topRight: Radius.circular(27),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 3,
+                              blurRadius: 5,
+                              offset: Offset(0, 3)),
+                        ],
+                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FittedBox(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  libraryListChild[index].name,
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ])),
+                ],
+              )
+            : Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Column(
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          border: Border.all(
+                            width: 3,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        child: Center(
+                          child: FittedBox(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                libraryListChild[index].name,
+                                style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        )),
+                  ],
                 ),
               ),
-            )),
       ),
     );
   }
 
-  predict(String word) {
-    List<String> sentence = word.replaceAll("  ", " ").trim().split(' ');
-    if (sentence.length == 1) {
-      predictionWords.clear();
-      second_word_Local(sentence[0], 0, false);
-    } else if (sentence.length == 2) {
-      predictionWords.clear();
-      third_word_Local(sentence, 0, false);
-    } else if (sentence.length == 3) {
-      predictionWords.clear();
-      fourth_word_Local(sentence, 0, false);
-    } else if (sentence.length == 4) {
-      predictionWords.clear();
-      fifth_word(sentence, 0, false);
-    } else if (sentence.length > 4) {
-      predictionWords.clear();
-      more_words(sentence, 0);
-    }
-  }
-
   search_in_predictionWords(String word) {
     for (int i = 0; i < predictionWords.length; i++) {
-      if (predictionWords[i][0].trim() == word.trim()) {
+      if (predictionWords[i][0]
+              .replaceAll("أ", "ا")
+              .replaceAll("ة", "ه")
+              .trim() ==
+          word.replaceAll("أ", "ا").replaceAll("ة", "ه").trim()) {
         return true;
       }
     }
     return false;
   }
 
-  more_words(List text, int counter) async {
-    List<String> list = [];
-    for (int i = text.length - 1; i > 2; i--) {
-      list = [text[i - 3], text[i - 2], text[i - 1], text[i]];
+  predict(String word) {
+    List<String> sentence = word
+        .replaceAll("  ", " ")
+        .replaceAll("أ", "ا")
+        .replaceAll("ة", "ه")
+        .trim()
+        .split(' ');
+    if (sentence.length == 1) {
+      predictionWords.clear();
+      second_word_Local(sentence[0], 0);
+    } else if (sentence.length == 2) {
+      predictionWords.clear();
+      third_word_Local(sentence, 0);
+    } else {
+      predictionWords.clear();
+      List sent = sentence.sublist(sentence.length - 3, sentence.length);
 
-      counter = await fifth_word(list, counter, true);
-    }
-
-    if (counter < 16) {
-      for (int i = text.length - 1; i > 0; i--) {
-        list = [text[i - 1], text[i]];
-
-        counter = await third_word_child(list, counter, true);
-      }
-    }
-    if (counter < 16) {
-      for (int i = text.length - 1; i > -1; i--) {
-        counter = await second_word_child(text[i], counter, true);
-      }
-    }
-    if (counter < 16) {
-      one_word_child(text[text.length - 1], counter);
+      fourth_word_Local(sent, 0);
     }
   }
 
-  fifth_word(List text, int counter, bool back) async {
-    List<String> list = [text[1], text[2], text[3]];
-    if (counter < 16) {
-      counter = await fourth_word_Local(list, counter, true);
-    }
-    if (counter < 16) {
-      counter = await fourth_word_child(list, counter, true);
-    }
-    if (counter < 16) {
-      list = [text[0], text[1], text[2]];
-      counter = await fourth_word_child(list, counter, true);
-    }
-    if (counter < 16) {
-      if (back) {
-        return counter;
-      } else {
-        list = [text[2], text[3]];
-        counter = await third_word_Local(list, counter, true);
-        if (counter < 16) {
-          counter = await third_word_child(list, counter, true);
-        }
-        if (counter < 16) {
-          list = [text[1], text[2]];
-          counter = await third_word_child(list, counter, true);
-        }
-        if (counter < 16) {
-          list = [text[0], text[1]];
-          counter = await third_word_child(list, counter, true);
-        }
-        if (counter < 16) {
-          counter = await second_word_child(text[3], counter, true);
-        }
-        if (counter < 16) {
-          counter = await second_word_child(text[2], counter, true);
-        }
-        if (counter < 16) {
-          counter = await second_word(text[1], counter, true);
-        }
-        if (counter < 16) {
-          second_word(text[0], counter, false);
-        }
-      }
-    }
-    return counter;
-  }
-
-  fourth_word_Local(List text, int counter, bool back) async {
+  fourth_word_Local(List text, int counter) async {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 16) {
-        List<String> s = r.split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
-          if (s[i] == text[0]) {
-            if (s.length - i >= 4 &&
-                s[i] == text[0] &&
-                s[i + 1] == text[1] &&
-                s[i + 2] == text[2] &&
-                fieldContent[fieldContent.length - 1].name.trim() != s[i + 3] &&
-                !search_in_predictionWords(s[i + 3])) {
+          if (s[i] == text[1]) {
+            if (s.length - i >= 3 &&
+                s[i + 1] == text[2] &&
+                fieldContent[fieldContent.length - 1].name.trim() != s[i + 2] &&
+                !search_in_predictionWords(s[i + 2])) {
               counter++;
-              predictionWords.add([s[i + 3], getImageWord(s[i + 3])]);
+              predictionWords.add([sf[i + 2], getImageWord(sf[i + 2])]);
             }
           }
         }
-        // if (s.length >= 4 &&
-        //     s[0] == text[0] &&
-        //     s[1] == text[1] &&
-        //     s[2] == text[2] &&
-        //     fieldContent[fieldContent.length - 1].name.trim() != s[3] &&
-        //     !search_in_constant(s[3]) &&
-        //     !search_in_predictionWords(s[3])) {
-
       } else
         break;
     }
     setState(() {});
     if (counter < 16) {
-      for (String r in result) {
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          for (int i = 0; i < s.length; i++) {
-            if (s[i] == text[0]) {
-              if (s.length - i >= 4 &&
-                  s[i] == text[0] &&
-                  s[i + 1] == text[1] &&
-                  fieldContent[fieldContent.length - 1].name.trim() !=
-                      s[i + 3] &&
-                  !search_in_predictionWords(s[i + 3])) {
-                counter++;
-                predictionWords.add([s[i + 3], getImageWord(s[i + 3])]);
-              }
-            }
-          }
-        } else
-          break;
-      }
-      setState(() {});
+      fourth_word_child(text, counter);
+    } else {
+      return counter;
     }
-    if (back) return counter;
-    return fourth_word_child(text, counter, false);
   }
 
-  fourth_word_child(List text, int counter, bool back) async {
+  fourth_word_child(List text, int counter) async {
     String path = await rootBundle.loadString("assets/fourgram.txt");
     List<String> result = path.split('\n');
-
     for (String r in result) {
       r = r.replaceAll("\"", "");
+
       if (counter < 16) {
-        List<String> s = r.split(" ");
-        if (s[0].compareTo(text[0]) == 0 &&
-            s[1].compareTo(text[1]) == 0 &&
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> sf = r.split(" ");
+        if (s[1].compareTo(text[1]) == 0 &&
             s[2].compareTo(text[2]) == 0 &&
-            s[3].compareTo(fieldContent[fieldContent.length - 1].name.trim()) !=
-                0 &&
+            s[3] != fieldContent[fieldContent.length - 1].name.trim() &&
             !search_in_predictionWords(s[3])) {
           counter++;
-          predictionWords.add([s[3], getImageWord(s[3])]);
+          predictionWords.add([sf[3], getImageWord(sf[3])]);
         }
       } else
         break;
     }
     setState(() {});
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[1].compareTo(text[1]) == 0 &&
-              s[2].compareTo(text[2]) == 0 &&
-              s[3].compareTo(
-                      fieldContent[fieldContent.length - 1].name.trim()) !=
-                  0 &&
-              !search_in_predictionWords(s[3])) {
-            counter++;
-            predictionWords.add([s[3], getImageWord(s[3])]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[0].compareTo(text[0]) == 0 &&
-              s[1].compareTo(text[1]) == 0 &&
-              s[3].compareTo(
-                      fieldContent[fieldContent.length - 1].name.trim()) !=
-                  0 &&
-              !search_in_predictionWords(s[3])) {
-            counter++;
-            String word = s[3];
-            predictionWords.add([word, getImageWord(word)]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[0].compareTo(text[0]) == 0 &&
-              s[1].compareTo(text[2]) == 0 &&
-              s[3].compareTo(
-                      fieldContent[fieldContent.length - 1].name.trim()) !=
-                  0 &&
-              !search_in_predictionWords(s[3])) {
-            counter++;
-            predictionWords.add([s[3], getImageWord(s[3])]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      if (back) {
-        return counter;
-      } else {
-        return third_word_Local(
-            [text[text.length - 2], text[text.length - 1]], counter, false);
-      }
-    }
 
-    return counter;
+    if (counter < 16) {
+      third_word_Local(text.sublist(1, text.length), counter);
+    } else {
+      return counter;
+    }
   }
 
-// Old DB
-  fourth_word(List text, int counter, bool back) async {
-    String path = await rootBundle.loadString("assets/4gram.txt");
-    List<String> result = path.split('\n');
-    for (String r in result) {
-      r = r.replaceAll("\"", "");
-
-      if (counter < 16) {
-        List<String> s = r.split(" ");
-        if (s[0] == text[0] &&
-            s[1] == text[1] &&
-            s[2] == text[2] &&
-            fieldContent[fieldContent.length - 1].name.trim() != s[3] &&
-            !search_in_predictionWords(s[3])) {
-          counter++;
-          String word = s[3];
-          predictionWords.add([word, getImageWord(word)]);
-        }
-      } else
-        break;
-    }
-    setState(() {});
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[1] == text[1] &&
-              s[2] == text[2] &&
-              fieldContent[fieldContent.length - 1].name.trim() != s[3] &&
-              !search_in_predictionWords(s[3])) {
-            counter++;
-            String word = s[3];
-            predictionWords.add([word, getImageWord(word)]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[0] == text[0] &&
-              s[1] == text[1] &&
-              fieldContent[fieldContent.length - 1].name.trim() != s[3] &&
-              !search_in_predictionWords(s[3])) {
-            counter++;
-            String word = s[3];
-            predictionWords.add([word, getImageWord(word)]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[0] == text[0] &&
-              s[1] == text[2] &&
-              fieldContent[fieldContent.length - 1].name.trim() != s[3] &&
-              !search_in_predictionWords(s[3])) {
-            counter++;
-            String word = s[3];
-            predictionWords.add([word, getImageWord(word)]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      if (back) {
-        return counter;
-      } else {
-        return third_word([text[1], text[2]], counter, false);
-      }
-    }
-
-    return counter;
-  }
-
-  third_word_Local(List text, int counter, bool back) async {
+  third_word_Local(List text, int counter) async {
     for (String r in LocalDB) {
       if (counter < 16) {
-        List<String> s = r.split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[0]) {
             if (s.length - i >= 3 &&
@@ -2429,7 +2504,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                     fieldContent[fieldContent.length - 1].name.trim() &&
                 !search_in_predictionWords(s[i + 2])) {
               counter++;
-              predictionWords.add([s[i + 2], getImageWord(s[i + 2])]);
+              predictionWords.add([sf[i + 2], getImageWord(sf[i + 2])]);
             }
           }
         }
@@ -2437,24 +2512,26 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         break;
     }
     setState(() {});
-    if (back) return counter;
-
-    return third_word_child(text, counter, false);
+    if (counter < 16) {
+      return third_word_child(text, counter);
+    }
+    return counter;
   }
 
-  third_word_child(List text, int counter, bool back) async {
+  third_word_child(List text, int counter) async {
     String path = await rootBundle.loadString("assets/trigram.txt");
     List<String> result = path.split('\n');
     for (String r in result) {
       r = r.replaceAll("\"", "");
       if (counter < 16) {
-        List<String> s = r.split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> sf = r.split(" ");
         if (s[0] == text[0] &&
             s[1] == text[1] &&
             s[2] != fieldContent[fieldContent.length - 1].name.trim() &&
             !search_in_predictionWords(s[2])) {
           counter++;
-          predictionWords.add([s[2], getImageWord(s[2])]);
+          predictionWords.add([sf[2], getImageWord(sf[2])]);
         }
       } else
         break;
@@ -2464,131 +2541,53 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       for (String r in result) {
         r = r.replaceAll("\"", "");
         if (counter < 16) {
-          List<String> s = r.split(" ");
+          List<String> s =
+              r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+          List<String> sf = r.split(" ");
           if (s[1] == text[1] &&
               fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
               !search_in_predictionWords(s[2])) {
             counter++;
-            predictionWords.add([s[2], getImageWord(s[2])]);
+            predictionWords.add([sf[2], getImageWord(sf[2])]);
           }
-        } else
+        } else {
           break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[0] == text[0] &&
-              fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
-              !search_in_predictionWords(s[2])) {
-            counter++;
-            predictionWords.add([s[2], getImageWord(s[2])]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      if (back) {
-        return counter;
-      } else {
-        return second_word_child(text[1], counter, false);
-      }
-    }
-    // setState(() {});
-    return counter;
-  }
-
-// old DB
-  third_word(List text, int counter, bool back) async {
-    String path = await rootBundle.loadString("assets/trigramData.txt");
-    List<String> result = path.split('\n');
-    for (String r in result) {
-      r = r.replaceAll("\"", "");
-      if (counter < 16) {
-        List<String> s = r.split(" ");
-        if (s[0] == text[0] &&
-            s[1] == text[1] &&
-            fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
-            !search_in_predictionWords(s[2])) {
-          counter++;
-          predictionWords.add([s[2], getImageWord(s[2])]);
         }
-      } else
-        break;
-    }
-    setState(() {});
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[1] == text[1] &&
-              fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
-              !search_in_predictionWords(s[2])) {
-            counter++;
-            predictionWords.add([s[2], getImageWord(s[2])]);
-          }
-        } else
-          break;
-      }
-      setState(() {});
-    }
-    if (counter < 16) {
-      for (String r in result) {
-        r = r.replaceAll("\"", "");
-        if (counter < 16) {
-          List<String> s = r.split(" ");
-          if (s[1] == text[1] &&
-              fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
-              !search_in_predictionWords(s[2])) {
-            counter++;
-            predictionWords.add([s[2], getImageWord(s[2])]);
-          }
-        } else
-          break;
       }
       setState(() {});
     }
 
     if (counter < 16) {
-      if (back) {
-        return counter;
-      } else {
-        return second_word_child(text[1], counter, false);
-      }
+      second_word_Local(text[1], counter);
+    } else {
+      return counter;
     }
-
-    return counter;
   }
 
-  second_word_Local(String text, int counter, bool back) async {
+  second_word_Local(String text, int counter) async {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 16) {
-        List<String> s = r.split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> sf = r.split(" ");
         if (s.length >= 2 &&
             s[0] == text &&
             fieldContent[fieldContent.length - 1].name.trim() != s[1] &&
             !search_in_predictionWords(s[1])) {
           counter++;
 
-          predictionWords.add([s[1], getImageWord(s[1].trim())]);
+          predictionWords.add([sf[1], getImageWord(sf[1].trim())]);
         }
       } else
         break;
     }
     setState(() {});
     if (counter < 16) {
-      return second_word_child(text, counter, false);
+      return second_word_child(text, counter);
     }
   }
 
-  second_word_child(String text, int counter, bool back) async {
+  second_word_child(String text, int counter) async {
     String path = await rootBundle.loadString("assets/bigram.txt");
     List<String> result = path.split('\n');
 
@@ -2596,71 +2595,69 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       r = r.replaceAll("\"", "");
 
       if (counter < 16) {
-        List<String> s = r.split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> sf = r.split(" ");
+
         if (s[0] == text &&
             s[1] != fieldContent[fieldContent.length - 1].name.trim() &&
             !search_in_predictionWords(s[1])) {
           counter++;
-          predictionWords.add([s[1], getImageWord(s[1].trim())]);
+          predictionWords.add([sf[1], getImageWord(sf[1].trim())]);
         }
       } else
         break;
     }
     setState(() {});
     if (counter < 16) {
-      if (back) {
-        return counter;
-      } else {
-        return one_word_child(text, counter);
-      }
+      return one_word_child(counter);
     }
     return counter;
   }
 
-  second_word(String text, int counter, bool back) async {
-    String path = await rootBundle.loadString("assets/bigramData.txt");
-    List<String> result = path.split('\n');
-
-    for (String r in result) {
-      r = r.replaceAll("\"", "");
-
-      if (counter < 16) {
-        List<String> s = r.split(" ");
-        if (s[0] == text && text == s[1] && !search_in_predictionWords(s[1])) {
-          counter++;
-          predictionWords.add([s[1], getImageWord(s[1].trim())]);
-        }
-      } else
-        break;
-    }
-    setState(() {});
-    if (counter < 16) {
-      if (back) {
-        return counter;
-      } else {
-        return one_word_child(text, counter);
+  one_word_child(int counter) async {
+    List wordsP = [
+      " و",
+      "على",
+      "من",
+      "إلى",
+      "عن",
+      "في",
+      "لكن",
+      "لا",
+      "يا",
+      "إلا",
+      "بلى",
+      "حتى",
+      "لن",
+      "لما",
+      "ما",
+      "ثم",
+    ];
+    for (int i = 0; i < wordsP.length; i++) {
+      if (predictionWords.length < 16 &&
+          !search_in_predictionWords(wordsP[i])) {
+        predictionWords.add([wordsP[i], getImageWord(wordsP[i])]);
       }
     }
-    return counter;
+
+    setState(() {});
   }
+}
 
-  one_word_child(String text, int counter) async {
-    String path = await rootBundle.loadString("assets/unigram.txt");
-    List<String> result = path.split('\n');
-    for (int i = 0; i < 100; i++) {
-      Random random = Random();
-      int randomIndex = 0 + random.nextInt(20 - 0);
-      String word = result[randomIndex].replaceAll("\"", "");
-      if (counter < 16 && text != word && !search_in_predictionWords(word)) {
-        predictionWords.add([word, getImageWord(word)]);
-        counter++;
-      }
-
-      if (counter > 16) {
-        break;
-      }
-    }
-    setState(() {});
+String noMoreText(String text) {
+  List textList = text.trim().split(" ");
+  if (textList.length > 4) {
+    String a = textList[0] +
+        " " +
+        textList[1] +
+        " " +
+        textList[2] +
+        " " +
+        textList[3] +
+        ".....";
+    return a;
+  } else {
+    return text;
   }
 }
 

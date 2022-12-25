@@ -32,7 +32,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
             padding: EdgeInsets.all(DeviceUtil.isTablet ? 15 : 5),
             child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(25),
                     border: Border.all(color: maincolor, width: 2)),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -40,8 +40,12 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                     children: [
                       Container(
                         height: double.maxFinite,
-                        width: DeviceUtil.isTablet ? 120 : 70,
-                        color: maincolor,
+                        width: 90,
+                        decoration: BoxDecoration(
+                            color: maincolor,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20))),
                         child: Icon(
                           Icons.volume_up,
                           color: Colors.white,
@@ -57,26 +61,25 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15, right: 15),
-                                  child: FittedBox(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                            height: 100,
-                                            width: 100,
-                                            child: getImage(favorite[i][j][1])),
-                                        Container(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          favorite[i][j][0],
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 30),
-                                        )
-                                      ],
-                                    ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                          height: 70,
+                                          width: 70,
+                                          child: getImage(favorite[i][j][1])),
+                                      Container(
+                                        height: 6,
+                                      ),
+                                      Text(
+                                        favorite[i][j][0],
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            decoration: TextDecoration.none,
+                                            fontSize: 27),
+                                      )
+                                    ],
                                   ),
                                 ),
                             ],
@@ -118,67 +121,89 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         drawer: const Drawerc(),
-        appBar: AppBar(
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainParentPage(index: 0)),
-                          (route) => false);
-                    },
-                    child: Text(
-                      "إلغاء",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25),
-                    ),
-                  ),
-                  Container(
-                    width: 60,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      updateSharedPreferences().then((v) {
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MainParentPage(index: 0)),
-                            (route) => false);
-                        //  acceptalert(context, "تم الحفظ بنجاح");
-                      });
-                    },
-                    child: Text(
-                      "حفظ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-          backgroundColor: maincolor,
-        ),
         body: isLoading
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : ListView(
                 children: [
+                  Center(
+                    child: Text(
+                      'إعادة ترتيب',
+                      style: TextStyle(
+                          color: maincolor,
+                          fontSize: 60,
+                          fontWeight: FontWeight.w800),
+                    ),
+                  ),
                   SizedBox(
-                    height: DeviceUtil.isTablet ? 25 : 10,
+                    height: 25,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              updateSharedPreferences().then((v) {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MainParentPage(index: 1)),
+                                    (route) => false);
+                                //  acceptalert(context, "تم الحفظ بنجاح");
+                              });
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 50,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                  color: maincolor,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Text(
+                                "حفظ",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25),
+                              ),
+                            )),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            MainParentPage(index: 1)),
+                                    (route) => false);
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                height: 50,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                    color: maincolor,
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Text(
+                                  "إلغاء",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25),
+                                ),
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
                     child: SizedBox(
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height,
@@ -187,7 +212,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                               (List<DraggableGridItem> list, int index) {
                             return SizedBox(
                               width: MediaQuery.of(context).size.width * .7,
-                              height: 120,
+                              height: 150,
                               child: list[index].child,
                             );
                           },

@@ -2,8 +2,6 @@
 
 import '/controller/var.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:steps_indicator/steps_indicator.dart';
 
 import '../../childpage/child/mainchildPage.dart';
 
@@ -54,39 +52,6 @@ class _HowToUseState extends State<HowToUse> {
                       image: DecorationImage(
                           image: AssetImage(images[currentStep]),
                           fit: BoxFit.fill)),
-                ),
-              ),
-              Container(
-                color: const Color.fromARGB(94, 0, 0, 0),
-                width: double.infinity,
-                child: FittedBox(
-                  child: StepsIndicator(
-                      doneStepSize: 25,
-                      selectedStepSize: 25,
-                      unselectedStepSize: 25,
-                      selectedStepBorderSize: 2,
-                      doneLineColor: maincolor,
-                      doneStepColor: maincolor,
-                      undoneLineColor: const Color.fromARGB(255, 255, 255, 255),
-                      selectedStepColorOut: maincolor,
-                      unselectedStepColorIn:
-                          const Color.fromARGB(255, 255, 255, 255),
-                      unselectedStepColorOut: maincolor,
-                      selectedStep: currentStep,
-                      doneStepWidget: Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: maincolor),
-                        child: const Icon(
-                          Icons.done,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
-                      doneLineThickness: 3,
-                      nbSteps: 5),
                 ),
               ),
             ]),

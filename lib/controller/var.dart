@@ -5,7 +5,7 @@ int size = 1;
 Color maincolor = const Color(0xff724666);
 Color purcolor = const Color(0xff724666);
 Color greyColor = Color(0xff808484);
-Color pinkColor = Color(0xffe54e7c);
+Color pinkColor = Color(0xffA73660);
 Color yellowColor = Color(0xffdad532);
 Color greenColor = Color(0xff57c497);
 

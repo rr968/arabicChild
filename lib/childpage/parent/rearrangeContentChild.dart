@@ -1,11 +1,9 @@
 import 'dart:convert';
 import '/childpage/parent/mainparent.dart';
 import '/controller/images.dart';
-import '/controller/istablet.dart';
 import 'package:provider/provider.dart';
 
 import '../../controller/my_provider.dart';
-import '/controller/erroralert.dart';
 import '/view/drawer/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
@@ -123,175 +121,163 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
-            : Stack(
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage("assets/uiImages/bg.png"),
-                            fit: BoxFit.cover)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 80),
+                    child: Text(
+                      'إعادة ترتيب الجمل',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: purcolor,
+                          fontSize: 45,
+                          fontWeight: FontWeight.w900),
+                    ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 80),
-                        child: Text(
-                          'إعادة ترتيب الجمل',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: purcolor,
-                              fontSize: 45,
-                              fontWeight: FontWeight.w900),
-                        ),
+                  Container(
+                    width: MediaQuery.of(context).size.width - 70,
+                    height: MediaQuery.of(context).size.height * .5,
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Color.fromARGB(255, 202, 202, 202)),
+                      color:
+                          Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
+                      borderRadius: BorderRadius.all(Radius.circular(27)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 217, 216, 216)
+                              .withOpacity(0.4),
+                          spreadRadius: 3,
+                          blurRadius: 7,
+                        )
+                      ],
+                    ),
+                    child: Container(
+                        child: Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width - 70,
-                        height: 290,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Color.fromARGB(255, 202, 202, 202)),
-                          color: Color.fromARGB(255, 255, 255, 255)
-                              .withOpacity(0.3),
-                          borderRadius: BorderRadius.all(Radius.circular(27)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(255, 217, 216, 216)
-                                  .withOpacity(0.4),
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                            )
-                          ],
-                        ),
-                        child: Container(
-                            width: MediaQuery.of(context).size.width - 250,
-                            height:
-                                MediaQuery.of(context).size.height / 3 - 100,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20, right: 20, top: 25, bottom: 25),
-                              child: DraggableGridViewBuilder(
-                                scrollDirection: Axis.horizontal,
-                                dragFeedback:
-                                    (List<DraggableGridItem> list, int index) {
-                                  return SizedBox(
-                                    width: 90,
-                                    height: 100,
-                                    child: list[index].child,
-                                  );
-                                },
-                                isOnlyLongPress: false,
-                                dragPlaceHolder:
-                                    (List<DraggableGridItem> list, index) {
-                                  return PlaceHolderWidget(
-                                    child: Container(
-                                      color: Colors.white,
-                                    ),
-                                  );
-                                },
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 1,
-                                        mainAxisSpacing: 20,
-                                        crossAxisSpacing: 20,
-                                        childAspectRatio: 1 / 1),
-                                dragCompletion: (List<DraggableGridItem> list,
-                                    int beforeIndex, int afterIndex) {
-                                  setState(() {
-                                    final elementLibrary =
-                                        libraryListChild[widget.contentIndex]
-                                            .contenlist
-                                            .elementAt(beforeIndex);
-                                    libraryListChild[widget.contentIndex]
-                                        .contenlist
-                                        .removeAt(beforeIndex);
-                                    libraryListChild[widget.contentIndex]
-                                        .contenlist
-                                        .insert(afterIndex, elementLibrary);
-                                    final elementDraggable =
-                                        _draggList.elementAt(beforeIndex);
-                                    _draggList.removeAt(beforeIndex);
-                                    _draggList.insert(
-                                        afterIndex, elementDraggable);
-                                  });
-                                },
-                                children: _draggList,
-                              ),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 40),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                updateSharedPreferences().then((v) {
-                                  getdata();
-                                  Provider.of<MyProvider>(context,
-                                          listen: false)
-                                      .setIscontentOfLibrary(
-                                          widget.contentIndex);
-
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MainParentPage(
-                                                index: 0,
-                                              )),
-                                      (route) => false);
-                                  // acceptalert(context, "تم الحفظ بنجاح");
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: greenColor,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Text(
-                                  "حفظ",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25),
-                                ),
-                              ),
+                      child: DraggableGridViewBuilder(
+                        scrollDirection: Axis.vertical,
+                        dragFeedback:
+                            (List<DraggableGridItem> list, int index) {
+                          return SizedBox(
+                            width: 140,
+                            height: 140,
+                            child: list[index].child,
+                          );
+                        },
+                        isOnlyLongPress: false,
+                        dragPlaceHolder: (List<DraggableGridItem> list, index) {
+                          return PlaceHolderWidget(
+                            child: Container(
+                              color: Colors.white,
                             ),
-                            InkWell(
-                              onTap: () {
-                                Provider.of<MyProvider>(context, listen: false)
-                                    .setIscontentOfLibrary(widget.contentIndex);
-
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MainParentPage(
-                                              index: 0,
-                                            )),
-                                    (route) => false);
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: pinkColor,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Text(
-                                  "إلغاء",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                          );
+                        },
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount:
+                                MediaQuery.of(context).orientation ==
+                                        Orientation.portrait
+                                    ? 4
+                                    : 5,
+                            mainAxisSpacing: 8,
+                            crossAxisSpacing: 8,
+                            childAspectRatio: 1 / 1),
+                        dragCompletion: (List<DraggableGridItem> list,
+                            int beforeIndex, int afterIndex) {
+                          setState(() {
+                            final elementLibrary =
+                                libraryListChild[widget.contentIndex]
+                                    .contenlist
+                                    .elementAt(beforeIndex);
+                            libraryListChild[widget.contentIndex]
+                                .contenlist
+                                .removeAt(beforeIndex);
+                            libraryListChild[widget.contentIndex]
+                                .contenlist
+                                .insert(afterIndex, elementLibrary);
+                            final elementDraggable =
+                                _draggList.elementAt(beforeIndex);
+                            _draggList.removeAt(beforeIndex);
+                            _draggList.insert(afterIndex, elementDraggable);
+                          });
+                        },
+                        children: _draggList,
                       ),
-                    ],
+                    )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            updateSharedPreferences().then((v) {
+                              getdata();
+                              Provider.of<MyProvider>(context, listen: false)
+                                  .setIscontentOfLibrary(widget.contentIndex);
+
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainParentPage(
+                                            index: 0,
+                                          )),
+                                  (route) => false);
+                              // acceptalert(context, "تم الحفظ بنجاح");
+                            });
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                color: greenColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              "حفظ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Provider.of<MyProvider>(context, listen: false)
+                                .setIscontentOfLibrary(widget.contentIndex);
+
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainParentPage(
+                                          index: 0,
+                                        )),
+                                (route) => false);
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 50,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                color: pinkColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Text(
+                              "إلغاء",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

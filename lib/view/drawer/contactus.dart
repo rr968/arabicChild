@@ -16,7 +16,7 @@ class Contactus extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: maincolor,
+          backgroundColor: pinkColor,
           title: const Text("تواصل معنا",
               style: TextStyle(
                 color: Colors.white,
@@ -33,9 +33,9 @@ class Contactus extends StatelessWidget {
                 //   height: 20,
                 // ),
                 Padding(
-                  padding: EdgeInsets.only(top: 10,bottom: 15),
+                  padding: EdgeInsets.only(bottom: 20, top: 25),
                   child: Text(
-                    " نسعد بأستقبال ملاحظاتك لتحسين التطبيق",
+                    "نسعد باستقبال ملاحظاتك لتحسين التطبيق",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color.fromARGB(255, 0, 0, 0),
@@ -94,14 +94,14 @@ class _ContentState extends State<Content> {
                       allowHalfRating: false,
                       itemCount: 5,
                       ratingWidget: RatingWidget(
-                          full: Icon(Icons.star, color: maincolor),
+                          full: Icon(Icons.star, color: pinkColor),
                           half: Icon(
                             Icons.star_half,
-                            color: maincolor,
+                            color: pinkColor,
                           ),
                           empty: Icon(
                             Icons.star_outline,
-                            color: maincolor,
+                            color: pinkColor,
                           )),
                       onRatingUpdate: (value) {
                         setState(() {
@@ -126,15 +126,15 @@ class _ContentState extends State<Content> {
               labelText: "الاسم",
               hintStyle: const TextStyle(fontWeight: FontWeight.bold),
               labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 22, color: maincolor),
+                  fontWeight: FontWeight.bold, fontSize: 22, color: pinkColor),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: maincolor),
+                borderSide: BorderSide(color: pinkColor),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(13.0),
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: maincolor),
+                borderSide: BorderSide(color: pinkColor),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(13.0),
                 ),
@@ -156,15 +156,15 @@ class _ContentState extends State<Content> {
               labelText: "عنوان الرسالة",
               hintStyle: const TextStyle(fontWeight: FontWeight.bold),
               labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 22, color: maincolor),
+                  fontWeight: FontWeight.bold, fontSize: 22, color: pinkColor),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: maincolor),
+                borderSide: BorderSide(color: pinkColor),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(13.0),
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: maincolor),
+                borderSide: BorderSide(color: pinkColor),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(13.0),
                 ),
@@ -186,15 +186,15 @@ class _ContentState extends State<Content> {
               labelText: "نص الرسالة",
               hintStyle: const TextStyle(fontWeight: FontWeight.bold),
               labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 22, color: maincolor),
+                  fontWeight: FontWeight.bold, fontSize: 22, color: pinkColor),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: maincolor),
+                borderSide: BorderSide(color: pinkColor),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(13.0),
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: maincolor),
+                borderSide: BorderSide(color: pinkColor),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(13.0),
                 ),
@@ -208,7 +208,7 @@ class _ContentState extends State<Content> {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(100, 60),
-            primary: maincolor,
+            primary: pinkColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),

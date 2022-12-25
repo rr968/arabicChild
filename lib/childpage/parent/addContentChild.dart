@@ -69,301 +69,220 @@ class _AddContentChildState extends State<AddContentChild> {
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
-        body: Stack(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/uiImages/bg.png"),
-                      fit: BoxFit.cover)),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 45),
+              child: Text(
+                "إضافة جملة",
+                style: TextStyle(
+                    fontSize: 45,
+                    fontWeight: FontWeight.w900,
+                    color: maincolor),
+              ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 45),
-                  child: Text(
-                    "إضافة جملة",
-                    style: TextStyle(
-                        fontSize: 45,
-                        fontWeight: FontWeight.w900,
-                        color: maincolor),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(color: greyColor, width: 1),
-                        borderRadius: BorderRadius.circular(15),
-                        color: Color.fromARGB(255, 255, 255,
-                                255) // Color.fromARGB(255, 121, 161, 134)
-                            .withOpacity(.4)),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 25, bottom: 20),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 97,
-                            width: MediaQuery.of(context).size.width - 300,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: TextField(
-                              onChanged: (value) {
-                                if (controller.text.isNotEmpty) {
-                                  setState(() {
-                                    errorsen = false;
-                                  });
-                                }
-                              },
-                              controller: controller,
-                              maxLines: 3,
-                              cursorColor: maincolor,
-                              decoration: InputDecoration(
-                                labelText: "اكتب جملة لا تتجاوز ست كلمات",
-                                labelStyle: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: maincolor),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                    borderSide: BorderSide(
-                                        width: 2,
-                                        color: Color.fromARGB(
-                                            255, 123, 123, 123))),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(20),
-                                    ),
-                                    borderSide: BorderSide(
-                                        width: 2, color: Colors.grey)),
-                              ),
+            Padding(
+              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 22),
+              child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: greyColor, width: 1),
+                    borderRadius: BorderRadius.circular(15),
+                    color: Color.fromARGB(255, 255, 255,
+                            255) // Color.fromARGB(255, 121, 161, 134)
+                        .withOpacity(.4)),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 25, bottom: 20),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 40),
+                        child: Container(
+                          height: 97,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: TextField(
+                            onChanged: (value) {
+                              if (controller.text.isNotEmpty) {
+                                setState(() {
+                                  errorsen = false;
+                                });
+                              }
+                            },
+                            controller: controller,
+                            maxLines: 3,
+                            cursorColor: maincolor,
+                            decoration: InputDecoration(
+                              labelText: "اكتب جملة لا تتجاوز ست كلمات",
+                              labelStyle: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: maincolor),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
+                                  borderSide: BorderSide(
+                                      width: 2,
+                                      color:
+                                          Color.fromARGB(255, 123, 123, 123))),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20),
+                                  ),
+                                  borderSide:
+                                      BorderSide(width: 2, color: Colors.grey)),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                optionalvoice.isEmpty
-                                    ? InkWell(
-                                        onTap: () async {
-                                          setState(() {
-                                            message =
-                                                "سيتم نطق الجملة بواسطة الصوت الخاص بك";
-                                          });
-                                          if (_currentStatus ==
-                                              RecordingStatus.Initialized) {
-                                            _start();
-                                          } else if (_currentStatus ==
-                                                  RecordingStatus.Recording &&
-                                              _currentStatus !=
-                                                  RecordingStatus.Unset) {
-                                            _stop();
-                                          }
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: greyColor, width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: Color.fromARGB(
-                                                      255,
-                                                      255,
-                                                      255,
-                                                      255) // Color.fromARGB(255, 121, 161, 134)
-                                                  .withOpacity(.4)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                if (_currentStatus ==
-                                                    RecordingStatus.Recording)
-                                                  const Icon(
-                                                    Icons.stop,
-                                                    size: 60,
-                                                    color: Colors.red,
-                                                  )
-                                                else
-                                                  Icon(Icons.mic,
-                                                      size: 60,
-                                                      color: Color.fromARGB(
-                                                          255, 132, 132, 132)),
-                                                _currentStatus ==
-                                                        RecordingStatus
-                                                            .Recording
-                                                    ? const Text(
-                                                        "يتم التسجيل...",
-                                                        style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w700),
-                                                      )
-                                                    : Text(
-                                                        "تسجيل صوتي",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    132,
-                                                                    132,
-                                                                    132),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w800),
-                                                      )
-                                              ],
-                                            ),
-                                          ),
-                                        ))
-                                    : InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            message =
-                                                "سيتم نطق الجملة بواسطة المتحدث العربي    ";
-                                            optionalvoice = "";
-                                          });
-                                        },
-                                        child: Container(
-                                          height: 100,
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: greyColor, width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: Color.fromARGB(
-                                                      255,
-                                                      255,
-                                                      255,
-                                                      255) // Color.fromARGB(255, 121, 161, 134)
-                                                  .withOpacity(.4)),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.restart_alt,
-                                                color: Color.fromARGB(
-                                                    255, 132, 132, 132),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            optionalvoice.isEmpty
+                                ? InkWell(
+                                    onTap: () async {
+                                      setState(() {
+                                        message =
+                                            "سيتم نطق الجملة بواسطة الصوت الخاص بك";
+                                      });
+                                      if (_currentStatus ==
+                                          RecordingStatus.Initialized) {
+                                        _start();
+                                      } else if (_currentStatus ==
+                                              RecordingStatus.Recording &&
+                                          _currentStatus !=
+                                              RecordingStatus.Unset) {
+                                        _stop();
+                                      }
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: greyColor, width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Color.fromARGB(255, 255, 255,
+                                                  255) // Color.fromARGB(255, 121, 161, 134)
+                                              .withOpacity(.4)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            if (_currentStatus ==
+                                                RecordingStatus.Recording)
+                                              const Icon(
+                                                Icons.stop,
                                                 size: 60,
-                                              ),
-                                              Text(
-                                                "إلغاء التسجيل",
-                                                style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 132, 132, 132),
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                                                color: Colors.red,
                                               )
-                                            ],
-                                          ),
+                                            else
+                                              Icon(Icons.mic,
+                                                  size: 60,
+                                                  color: Color.fromARGB(
+                                                      255, 132, 132, 132)),
+                                            _currentStatus ==
+                                                    RecordingStatus.Recording
+                                                ? const Text(
+                                                    "يتم التسجيل...",
+                                                    style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  )
+                                                : Text(
+                                                    "تسجيل صوتي",
+                                                    style: TextStyle(
+                                                        color: Color.fromARGB(
+                                                            255, 132, 132, 132),
+                                                        fontWeight:
+                                                            FontWeight.w800),
+                                                  )
+                                          ],
                                         ),
                                       ),
-                                Provider.of<MyProvider>(context)
-                                        .lastimagepath
-                                        .toString()
-                                        .isNotEmpty
-                                    ? InkWell(
-                                        onTap: () => diag(),
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 31),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: greyColor,
-                                                    width: 1.5),
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                color: Color.fromARGB(
-                                                        255,
-                                                        255,
-                                                        255,
-                                                        255) // Color.fromARGB(255, 121, 161, 134)
-                                                    .withOpacity(.4)),
-                                            height: 100,
-                                            width: 100,
-                                            child: getImage(
-                                                Provider.of<MyProvider>(context)
-                                                    .lastimagepath
-                                                    .toString()),
-                                          ),
-                                        ),
-                                      )
-                                    : Container(),
-                                Container(
-                                  width: 30,
-                                ),
-                                Provider.of<MyProvider>(context)
-                                        .lastimagepath
-                                        .toString()
-                                        .isEmpty
-                                    ? InkWell(
-                                        onTap: () => diag(),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: greyColor, width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              color: Color.fromARGB(
-                                                      255,
-                                                      255,
-                                                      255,
-                                                      255) // Color.fromARGB(255, 121, 161, 134)
-                                                  .withOpacity(.4)),
-                                          height: 100,
-                                          width: 100,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.add_a_photo,
-                                                  color: Color.fromARGB(
-                                                      255, 132, 132, 132),
-                                                  size: 60,
-                                                ),
-                                                Text(
-                                                  "صورة",
-                                                  style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 132, 132, 132),
-                                                      fontWeight:
-                                                          FontWeight.w800),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Container(),
-                                Container(
-                                  width: 30,
-                                ),
-                                InkWell(
+                                    ))
+                                : InkWell(
                                     onTap: () {
                                       setState(() {
-                                        deleteColor = true;
+                                        message =
+                                            "سيتم نطق الجملة بواسطة المتحدث العربي    ";
+                                        optionalvoice = "";
                                       });
-                                      Future.delayed(const Duration(seconds: 1))
-                                          .then((value) {
-                                        setState(() {
-                                          deleteColor = false;
-                                        });
-                                      });
-                                      controller.clear();
                                     },
+                                    child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: greyColor, width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: Color.fromARGB(255, 255, 255,
+                                                  255) // Color.fromARGB(255, 121, 161, 134)
+                                              .withOpacity(.4)),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.restart_alt,
+                                            color: Color.fromARGB(
+                                                255, 132, 132, 132),
+                                            size: 60,
+                                          ),
+                                          Text(
+                                            "إلغاء التسجيل",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 132, 132, 132),
+                                                fontWeight: FontWeight.w700),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                            Provider.of<MyProvider>(context)
+                                    .lastimagepath
+                                    .toString()
+                                    .isNotEmpty
+                                ? InkWell(
+                                    onTap: () => diag(),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 31),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: greyColor, width: 1.5),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            color: Color.fromARGB(255, 255, 255,
+                                                    255) // Color.fromARGB(255, 121, 161, 134)
+                                                .withOpacity(.4)),
+                                        height: 100,
+                                        width: 100,
+                                        child: getImage(
+                                            Provider.of<MyProvider>(context)
+                                                .lastimagepath
+                                                .toString()),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
+                            Container(
+                              width: 30,
+                            ),
+                            Provider.of<MyProvider>(context)
+                                    .lastimagepath
+                                    .toString()
+                                    .isEmpty
+                                ? InkWell(
+                                    onTap: () => diag(),
                                     child: Container(
                                       decoration: BoxDecoration(
                                           border: Border.all(
@@ -382,181 +301,231 @@ class _AddContentChildState extends State<AddContentChild> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Icon(
-                                              Icons.delete_outline,
+                                              Icons.add_a_photo,
+                                              color: Color.fromARGB(
+                                                  255, 132, 132, 132),
+                                              size: 60,
+                                            ),
+                                            Text(
+                                              "صورة",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 132, 132, 132),
+                                                  fontWeight: FontWeight.w800),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
+                            Container(
+                              width: 30,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    deleteColor = true;
+                                  });
+                                  Future.delayed(const Duration(seconds: 1))
+                                      .then((value) {
+                                    setState(() {
+                                      deleteColor = false;
+                                    });
+                                  });
+                                  controller.clear();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: greyColor, width: 1.5),
+                                      borderRadius: BorderRadius.circular(15),
+                                      color: Color.fromARGB(255, 255, 255,
+                                              255) // Color.fromARGB(255, 121, 161, 134)
+                                          .withOpacity(.4)),
+                                  height: 100,
+                                  width: 100,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.delete_outline,
+                                          color: deleteColor
+                                              ? Colors.red
+                                              : Color.fromARGB(
+                                                  255, 132, 132, 132),
+                                          size: 60,
+                                        ),
+                                        Text(
+                                          "مسح",
+                                          style: TextStyle(
                                               color: deleteColor
                                                   ? Colors.red
                                                   : Color.fromARGB(
                                                       255, 132, 132, 132),
-                                              size: 60,
-                                            ),
-                                            Text(
-                                              "مسح",
-                                              style: TextStyle(
-                                                  color: deleteColor
-                                                      ? Colors.red
-                                                      : Color.fromARGB(
-                                                          255, 132, 132, 132),
-                                                  fontWeight: FontWeight.w800),
-                                            ),
-                                          ],
+                                              fontWeight: FontWeight.w800),
                                         ),
-                                      ),
-                                    )),
-                              ],
+                                      ],
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            ///////////
+            hint
+                ? Padding(
+                    padding:
+                        const EdgeInsets.only(top: 3, right: 33, bottom: 10),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 238, 237, 237),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  hint = false;
+                                });
+                              },
+                              child: const Icon(Icons.close),
                             ),
                           ),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.circle,
+                                color: maincolor,
+                                size: 16,
+                              ),
+                              Text(
+                                message,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            height: 18,
+                          )
                         ],
                       ),
                     ),
-                  ),
-                ),
-                ///////////
-                hint
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            top: 3, right: 33, bottom: 10),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 238, 237, 237),
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      hint = false;
-                                    });
-                                  },
-                                  child: const Icon(Icons.close),
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.circle,
-                                    color: maincolor,
-                                    size: 16,
-                                  ),
-                                  Text(
-                                    message,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height: 18,
-                              )
-                            ],
-                          ),
+                  )
+                : const SizedBox(),
+            ///////////////////
+            errorsen
+                ? Padding(
+                    padding:
+                        const EdgeInsets.only(top: 3, right: 33, bottom: 10),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.error,
+                          color: Colors.red,
                         ),
-                      )
-                    : const SizedBox(),
-                ///////////////////
-                errorsen
-                    ? Padding(
-                        padding: const EdgeInsets.only(
-                            top: 3, right: 33, bottom: 10),
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.error,
+                        const Text(
+                          " يجب ادخال جملة  ",
+                          style: TextStyle(
                               color: Colors.red,
-                            ),
-                            const Text(
-                              " يجب ادخال جملة  ",
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
                         ),
-                      )
-                    : const SizedBox(),
-                SizedBox(
-                  height: 65,
-                  width: 220,
-                  child: InkWell(
-                    onTap: () async {
-                      if (controller.text.trim().isEmpty) {
-                        setState(() {
-                          errorsen = true;
-                        });
-                      } else {
-                        String imgUpload = "no";
-                        String voiceUpload = "no";
-                        if (Provider.of<MyProvider>(context, listen: false)
-                                .lastimagepath
-                                .toString()
-                                .isEmpty ||
+                      ],
+                    ),
+                  )
+                : const SizedBox(),
+            Container(
+              height: 15,
+            ),
+            SizedBox(
+              height: 65,
+              width: 220,
+              child: InkWell(
+                onTap: () async {
+                  if (controller.text.trim().isEmpty) {
+                    setState(() {
+                      errorsen = true;
+                    });
+                  } else {
+                    String imgUpload = "no";
+                    String voiceUpload = "no";
+                    if (Provider.of<MyProvider>(context, listen: false)
+                            .lastimagepath
+                            .toString()
+                            .isEmpty ||
+                        Provider.of<MyProvider>(context, listen: false)
+                            .lastimagepath
+                            .toString()
+                            .contains("assets/")) {
+                      imgUpload = "yes";
+                    }
+                    if (optionalvoice.isEmpty) voiceUpload = "yes";
+
+                    libraryListChild[widget.libraryindex].contenlist.add(
+                        Content(
+                            controller.text,
                             Provider.of<MyProvider>(context, listen: false)
                                 .lastimagepath
-                                .toString()
-                                .contains("assets/")) {
-                          imgUpload = "yes";
-                        }
-                        if (optionalvoice.isEmpty) voiceUpload = "yes";
+                                .toString(),
+                            imgUpload,
+                            optionalvoice,
+                            optionalvoice,
+                            voiceUpload));
+                    SharedPreferences liblist =
+                        await SharedPreferences.getInstance();
+                    List<String> v = [];
+                    for (lib l in libraryListChild) {
+                      String s = convertLibString(l);
+                      v.add(s);
+                    }
+                    liblist.setStringList("liblistChild", v);
+                    //tryUploadData();
+                    Provider.of<MyProvider>(context, listen: false)
+                        .setIscontentOfLibrary(widget.libraryindex);
 
-                        libraryListChild[widget.libraryindex].contenlist.add(
-                            Content(
-                                controller.text,
-                                Provider.of<MyProvider>(context, listen: false)
-                                    .lastimagepath
-                                    .toString(),
-                                imgUpload,
-                                optionalvoice,
-                                optionalvoice,
-                                voiceUpload));
-                        SharedPreferences liblist =
-                            await SharedPreferences.getInstance();
-                        List<String> v = [];
-                        for (lib l in libraryListChild) {
-                          String s = convertLibString(l);
-                          v.add(s);
-                        }
-                        liblist.setStringList("liblistChild", v);
-                        //tryUploadData();
-                        Provider.of<MyProvider>(context, listen: false)
-                            .setIscontentOfLibrary(widget.libraryindex);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MainParentPage(
+                                  index: 0,
+                                )),
+                        (route) => false);
 
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MainParentPage(
-                                      index: 0,
-                                    )),
-                            (route) => false);
-
-                        Provider.of<MyProvider>(context, listen: false)
-                            .setPath("");
-                        // acceptalert(context, "تم إضافة المحتوى بنجاح");
-                      }
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 50,
-                      width: 200,
-                      decoration: BoxDecoration(
-                          color: greenColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Text(
-                        'حفظ',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25),
-                      ),
-                    ),
+                    Provider.of<MyProvider>(context, listen: false).setPath("");
+                    // acceptalert(context, "تم إضافة المحتوى بنجاح");
+                  }
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50,
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: maincolor,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Text(
+                    'حفظ',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25),
                   ),
                 ),
-              ],
+              ),
             ),
           ],
         ),
