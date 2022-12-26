@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import '../../childpage/child/childFirstInfo.dart';
 import '../../childpage/child/mainchildPage.dart';
 import '../../controller/var.dart';
 import '/controller/validation.dart';
@@ -350,10 +351,7 @@ class _LoginState extends State<Signup> {
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const MainChildPage(
-                                                        index: 0,
-                                                      )));
+                                                  builder: (context) =>ChildInfo()));
                                         });
                                       } on FirebaseAuthException catch (e) {
                                         setState(() {
