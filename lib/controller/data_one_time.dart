@@ -151,8 +151,8 @@ Future setDataChildOneTime() async {
             "yes", "", "", "yes")
       ])),
     ];
-    SharedPreferences liblist = await SharedPreferences.getInstance();
-    liblist.setStringList("liblistChild", libr);
+    //SharedPreferences liblist = await SharedPreferences.getInstance();
+   // liblist.setStringList("liblistChild", libr);
     firsttime.setBool("firsttimeChild", true);
   }
 }
