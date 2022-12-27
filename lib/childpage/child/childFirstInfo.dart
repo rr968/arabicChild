@@ -3,6 +3,8 @@
 import 'dart:convert';
 
 
+import 'package:arabic_speaker_child/view/drawer/HowToUse.dart';
+
 import '../../controller/data_one_time.dart';
 import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:drag_select_grid_view/drag_select_grid_view.dart';
 
 import '../../controller/images.dart';
+import '../../controller/istablet.dart';
 import '../../controller/libtostring.dart';
 import '../../model/content.dart';
 import '../../model/library.dart';
@@ -264,7 +267,7 @@ class _SelectedlibState extends State<Selectedlib> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
+        /*appBar: AppBar(
           leading: indexesChooese.length>0
               ? InkWell(
             child: Icon(Icons.clear),
@@ -329,129 +332,349 @@ class _SelectedlibState extends State<Selectedlib> {
             ],
           ),
           backgroundColor: maincolor,
-        ),
-        body: Column(
+        ),*/
+        body: ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(50),
                 child: SafeArea(
-                  child:  SizedBox(
-                      height: MediaQuery.of(context).size.height - 200,
-                      child:GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(  mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,crossAxisCount: 4),
-                          itemCount:chooseLibrary.length,
-                          itemBuilder:( (context,index){
-                            return Stack(
-                                children: [
-                                  Container(
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: maincolor, width: 1.5),
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(20)),
-                                      child: Column(children: [
-                                        Expanded(
-                                            child:Image.asset(chooseLibrary[index].imgurl)),
-                                        const SizedBox(
-                                          height: 7,
-                                        ), Padding(
-                                          padding: const EdgeInsets.only(bottom: 4),
-                                          child: Text(
-                                            chooseLibrary[index].name,
-                                            style: TextStyle(
-                                                fontSize: size == 0 ? 30 : 24,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        )])),
-                                  indexesChooese.contains(index)?
-                                  Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Container(
-                                      height: 23,
-                                      width: 23,
-                                      decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 224, 223, 223),
-                                          borderRadius:
-                                          BorderRadius.circular(40),
-                                          border: Border.all(
-                                              color: Colors.red, width: 3)),
-                                      child: const Icon(
-                                        Icons.done,
-                                        color: Colors.red,
-                                        size: 17,
-                                      ),
-                                    ),
-                                  ):Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: InkWell(
-                                      onTap:(){
-                                        setState(() {
-                                          indexesChooese.add(index);
+                  child:Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Column(
+                            children: [
+                              Text("اختر المكتبات لاستخدامها\n في التطبيق",textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 45,
+                                    color: maincolor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              SizedBox(height:30,),
+                              Text("يمكنك التعديل لاحقاً",style: TextStyle(fontSize: 15))
+                            ],
+                          ),
+                          SizedBox(width: 35,),
 
-                                        });
+                          Container(
+                            height: 250,
+                            width:250,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage("assets/uiImages/chooseLibImage.png"),
+                                    fit: BoxFit.fill)),
+                          ),
+
+
+
+                        ],
+
+                      ),
+                      SizedBox(height: 40,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: 50,),
+                          InkWell(
+                            onTap: (){
+                              indexesChooese=[];
+                              for(int i=0;i< chooseLibrary.length;i++){
+                                setState(() {
+                                  indexesChooese.add(i);
+                                });
+                              }
 
                             },
-                                      child: Container(
-                                          height: 23,
-                                          width: 23,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                  255, 224, 223, 223),
+                            child: Container(
+                              margin: const EdgeInsets.all(15.0),
+                              padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)
+                        ),
+                        child: Row(
+                            children: [
+                              Icon(Icons.check_box_outlined),
+                              SizedBox(width: 3,),
+                              Text('تحديد الكل',style: TextStyle(fontSize: 20,),
+                              )],
+                        ),
+
+
+                            ),
+                          ),
+                          SizedBox(width: 20,),
+                    indexesChooese.length>0?
+                          InkWell(
+                            onTap: (){
+                              setState(() {
+                                indexesChooese=[];
+
+                              });
+
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(15.0),
+                              padding: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black)
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.cancel_outlined),
+                                  SizedBox(width: 3,),
+                                  Text('الغاء',style: TextStyle(fontSize: 20,)),
+                                ],
+                              ),
+
+
+                            ),
+                          )
+                          :Container()
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 70,
+                        height: MediaQuery.of(context).size.height * .40,
+                          margin: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Colors.grey),
+                            color: Color.fromARGB(
+                                255, 255, 255, 255)
+                                .withOpacity(0.8),
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(27)),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey
+                                      .withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3)),
+                            ],
+                          ),
+                        child: Column(
+                          children: [
+                            Expanded(
+                                child:GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisSpacing: 10,
+                                    crossAxisSpacing: 10,
+                                    crossAxisCount:
+                                    MediaQuery.of(context).orientation ==
+                                        Orientation.portrait
+                                        ? 5
+                                        : 7,),
+                                    scrollDirection: Axis.vertical,
+                                    itemCount:chooseLibrary.length,
+                                    itemBuilder:( (context,index){
+                                      return InkWell(
+                                        onTap: (){
+                                          if (indexesChooese.contains(index)) {
+                                            setState(() {
+                                              indexesChooese.remove(index);
+                                            });
+                                          } else {
+                                            setState(() {
+                                              indexesChooese.add(index);
+                                            });
+                                          }
+                                          },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: greyColor),
+                                              color: Color.fromARGB(255, 255, 255, 255)
+                                                  .withOpacity(0.5),
                                               borderRadius:
-                                              BorderRadius.circular(40),
-                                              border: Border.all(
-                                                  color: Colors.red, width: 3))
-                                      ),
-                                    ),
+                                              BorderRadius.all(Radius.circular(27)),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.white.withOpacity(0.7),
+                                                  spreadRadius: 0,
+                                                  blurRadius: 7,
+                                                  //offset: Offset(0, 3)),
+                                                )
+                                              ],
+                                            ),
+                                            child: Stack(
+                                                alignment: Alignment.center,
+                                                children: [
+                                                  Padding(
+                                                      padding: EdgeInsets.all(5),
+                                                      child: Column(children: [
+                                                        Expanded(
+                                                            child:Image.asset(chooseLibrary[index].imgurl)),
+                                                        Padding(
+                                                          padding: const EdgeInsets.only(top: 5),
+                                                          child: Text(
+                                                            chooseLibrary[index].name,
+                                                            style: TextStyle(
+                                                                fontSize: DeviceUtil.isTablet? 22 :15,
+                                                                fontWeight: FontWeight.bold),
+                                                          ),
+                                                        )])),
+                                                  indexesChooese.contains(index)?
+                                                  Align(
+                                                    alignment:
+                                                    Alignment.topRight,
+                                                    child: Container(
+                                                      height: DeviceUtil.isTablet
+                                                          ? 30
+                                                          : 20,
+                                                      width: DeviceUtil.isTablet
+                                                          ? 30
+                                                          : 20,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white
+                                                          .withOpacity(0.3),
+                                                          borderRadius:
+                                                          BorderRadius.circular(27),
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              color: Colors.white
+                                                                  .withOpacity(
+                                                                  0.5),
+                                                              spreadRadius: 3,
+                                                              blurRadius: 7,
+                                                              //offset: Offset(0, 3)),
+                                                            )
+                                                          ],
+                                                         ),
+                                                      child: Icon(
+                                                        Icons.circle,
+                                                        color: Colors.red,
+                                                        size:
+                                                        DeviceUtil.isTablet
+                                                            ? 25
+                                                            : 18,
+                                                      ),
+                                                    ),
+                                                  ):Align(
+                                                    alignment:
+                                                    Alignment.topRight,
+                                                      child:  Container(
+                                                            height:
+                                                            DeviceUtil.isTablet
+                                                                ? 30
+                                                                : 20,
+                                                            width: DeviceUtil.isTablet
+                                                                ? 30
+                                                                : 20,
+                                                            decoration: BoxDecoration(
+                                                                color: const Color.fromARGB(
+                                                                    255, 224, 223, 223),
+                                                                borderRadius:
+                                                                BorderRadius.circular(40),
+                                                                border: Border.all(
+                                                                    color: Colors.red,
+                                                                    width: 3))
+                                                        ),
 
 
 
-                                  )]);})
 
-                      )
+
+                                                  )]),
+                                          ),
+                                        ),
+                                      );})
+
+                                )
+                            )
+
+                          ],
+                        ),
+                        ),
+                      SizedBox(height: 15,),
+
+
+                    ],
 
                   ),
-
-
 
                 ),
 
               ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        child: Text(
-                          "تم",
-                          style: TextStyle(fontSize: 30,
-                              color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: maincolor,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width:MediaQuery.of(context).orientation == Orientation.portrait?  20:50),
+            Container(
+              child: Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                children: [
 
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32.0)),
-                          minimumSize: Size(100, 40), //////// HERE
-                        ),
-                        onPressed: () async {
-                          SharedPreferences liblistChild = await SharedPreferences.getInstance();
-                          List<String>libstring=[];
-                          indexesChooese.forEach((index) {
-                            libstring.add(convertLibString(chooseLibrary[index]));
-                          });
-                          liblistChild.setStringList("liblistChild",libstring);
+                  Container(
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/uiImages/countImages.png"),
+                            fit: BoxFit.fill)),
+                  ),
+                //  SizedBox(width: 100,height: 50,),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20,left: 10),
+                    child: Text("${indexesChooese.length} - ${chooseLibrary.length} ", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),),
+                  ),
 
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) => MainChildPage(
+                ],
+
+              ),
+            ),
+
+            SizedBox(width:MediaQuery.of(context).orientation == Orientation.portrait? 50:220),
+            Column(
+                children:[ InkWell(
+                  onTap: ()async {
+                    SharedPreferences liblistChild = await SharedPreferences.getInstance();
+                    List<String>libstring=[];
+                    indexesChooese.forEach((index) {
+                      libstring.add(convertLibString(chooseLibrary[index]));
+                    });
+                    liblistChild.setStringList("liblistChild",libstring);
+
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => MainChildPage(
+                          index: 0,
+                        )));
+
+                  },
+                  child: Image.asset(
+                    "assets/uiImages/start.png",
+                    height: 85,
+                  ),
+                ),
+                  Container(
+                    height: 18,
+                  ),
+                  InkWell(
+                    onTap: ()  {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                              const MainChildPage(
                                 index: 0,
                               )));
-                        }
+
+                    },
+                    child: Text(
+                      "تخطي هذا",
+                      style: TextStyle(
+                          color: greyColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
                     ),
+                  ),
+                  /*Container(
+                    height: 18,
+                  ),*/]
+            ),
+          ],
+        )
 
-
-                  ]),
 
             ]),
       ),
