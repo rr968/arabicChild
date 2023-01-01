@@ -34,6 +34,6 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'المتحدث العربي',
             theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Almarai"),
-            home: Start()));
+            home: const Start()));
   }
 }

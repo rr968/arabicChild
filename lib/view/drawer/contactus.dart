@@ -208,7 +208,7 @@ class _ContentState extends State<Content> {
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             minimumSize: const Size(100, 60),
-            primary: pinkColor,
+            backgroundColor: pinkColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             ),

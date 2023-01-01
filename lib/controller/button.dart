@@ -10,7 +10,7 @@ Padding button(Function f, String text) {
       },
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(11)),
-        primary: maincolor,
+        backgroundColor: maincolor,
         minimumSize: const Size(77, 31),
       ),
       child: Padding(

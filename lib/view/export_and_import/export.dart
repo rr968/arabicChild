@@ -1,3 +1,5 @@
+// ignore_for_file: dead_code
+
 import 'dart:convert';
 import '/childpage/child/mainchildPage.dart';
 import '/controller/allUploadedDone.dart';
@@ -262,7 +264,7 @@ class _ExportState extends State<Export> {
                                 child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: const Size(85, 31),
-                                    primary: maincolor,
+                                    backgroundColor: maincolor,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(11)),
@@ -301,10 +303,10 @@ class _ExportState extends State<Export> {
                                                         TextDirection.rtl,
                                                     child: Column(
                                                       children: [
-                                                        Padding(
+                                                        const Padding(
                                                           padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
+                                                              EdgeInsets.all(
+                                                                  8.0),
                                                           child: FittedBox(
                                                             child: Text(
                                                               "معلومات المكتبات المرغوب مشاركتها",

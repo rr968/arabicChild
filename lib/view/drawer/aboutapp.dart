@@ -40,32 +40,32 @@ class AboutApp extends StatelessWidget {
                     "assets/uiImages/logo.png",
                     height: 170,
                   ),
-                  Text("- - - - - - - - - - - - - - - - - - - ",
+                  const Text("- - - - - - - - - - - - - - - - - - - ",
                       style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
-                  Text(
+                  const Text(
                     "أحدث تطبيق للتـواصـل والـــــــــتــحــدث بالــلــغــــــة\nالعربية لذوي صعوبات الـــنــطـــــــق لـلأطـــــفـــــال\nوالبالغيـن وكـبــار الـسـن",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                  Text("- - - - - - - - - - - - - - - - - - - ",
+                  const Text("- - - - - - - - - - - - - - - - - - - ",
                       style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
-                  Text(
+                  const Text(
                     "فكــــــرة : د.أمــــل السيف",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                   ),
-                  Text("- - - - - - - - - - - - - - - - - - - ",
+                  const Text("- - - - - - - - - - - - - - - - - - - ",
                       style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
-                  Text(
+                  const Text(
                     "تـــنـفـيــذ وتــشـغيـل",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
@@ -74,7 +74,7 @@ class AboutApp extends StatelessWidget {
                     "assets/uiImages/tawasal.png",
                     height: 120,
                   ),
-                  Text(
+                  const Text(
                     "جمعية تواصل للتقنيات المساعدة لذوي الإعاقة",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.black),
@@ -120,7 +120,7 @@ class AboutApp extends StatelessWidget {
                                 //
                                 Image.asset("assets/uiImages/google.png",
                                     fit: BoxFit.fill, height: 43, width: 43),
-                                Text("tawasal2019",
+                                const Text("tawasal2019",
                                     style: TextStyle(
                                       fontSize: 20,
                                       color: Colors.black,
@@ -138,7 +138,7 @@ class AboutApp extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.pop(context);
               },
-              child: Container(
+              child: const SizedBox(
                 height: 130,
                 width: 80,
                 child: Center(

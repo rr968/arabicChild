@@ -1,9 +1,10 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import '/childpage/parent/mainparent.dart';
 import '/controller/images.dart';
 import '/controller/istablet.dart';
 
-import '/controller/erroralert.dart';
 import '/view/drawer/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
@@ -43,7 +44,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                         width: 90,
                         decoration: BoxDecoration(
                             color: maincolor,
-                            borderRadius: BorderRadius.only(
+                            borderRadius: const BorderRadius.only(
                                 topRight: Radius.circular(20),
                                 bottomRight: Radius.circular(20))),
                         child: Icon(
@@ -64,7 +65,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Container(
+                                      SizedBox(
                                           height: 70,
                                           width: 70,
                                           child: getImage(favorite[i][j][1])),
@@ -73,7 +74,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                       ),
                                       Text(
                                         favorite[i][j][0],
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             decoration: TextDecoration.none,
@@ -93,6 +94,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
     }
   }
 
+  @override
   void initState() {
     getFavData().then((v) {
       setState(() {
@@ -136,7 +138,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                           fontWeight: FontWeight.w800),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
                   Padding(
@@ -151,7 +153,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MainParentPage(index: 1)),
+                                            const MainParentPage(index: 1)),
                                     (route) => false);
                                 //  acceptalert(context, "تم الحفظ بنجاح");
                               });
@@ -163,7 +165,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                               decoration: BoxDecoration(
                                   color: maincolor,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Text(
+                              child: const Text(
                                 "حفظ",
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
@@ -179,7 +181,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MainParentPage(index: 1)),
+                                            const MainParentPage(index: 1)),
                                     (route) => false);
                               },
                               child: Container(
@@ -189,7 +191,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                 decoration: BoxDecoration(
                                     color: maincolor,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Text(
+                                child: const Text(
                                   "إلغاء",
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 255, 255, 255),
@@ -226,7 +228,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                             );
                           },
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
+                              const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 1,
                             mainAxisSpacing: 0,
                             crossAxisSpacing: 0,
@@ -258,7 +260,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
     SharedPreferences liblist = await SharedPreferences.getInstance();
 
     List<String> allFav = [];
-    favorite.forEach((oneFav) {
+    for (var oneFav in favorite) {
       String newFav = "";
       for (int y = 0; y < oneFav.length; y++) {
         String input = oneFav[y][0];
@@ -278,7 +280,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
       }
       newFav = "[$newFav]";
       allFav.add(newFav);
-    });
+    }
 
     liblist.setStringList("favlistChild", allFav);
   }

@@ -1,13 +1,11 @@
-// ignore_for_file: empty_catches, use_build_context_synchronously
+// ignore_for_file: empty_catches, use_build_context_synchronously, file_names
 
 import 'dart:io';
-import 'dart:ui';
 import '/childpage/parent/mainparent.dart';
 import 'package:provider/provider.dart';
 
 import '../../../controller/my_provider.dart';
 import '../../icon/iconsgroup.dart';
-import '/controller/erroralert.dart';
 import '/controller/var.dart';
 import '/model/library.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../controller/button.dart';
 import '../../../controller/libtostring.dart';
 
 class AddChildLibrary extends StatefulWidget {
@@ -62,13 +59,15 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                 width: MediaQuery.of(context).size.width - 300,
                 height: MediaQuery.of(context).size.height - 350,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-                  border: Border.all(color: Color.fromARGB(255, 200, 200, 200)),
-                  borderRadius: BorderRadius.all(Radius.circular(27)),
+                  color:
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
+                  border: Border.all(
+                      color: const Color.fromARGB(255, 200, 200, 200)),
+                  borderRadius: const BorderRadius.all(Radius.circular(27)),
                   boxShadow: [
                     BoxShadow(
-                      color:
-                          Color.fromARGB(255, 217, 216, 216).withOpacity(0.3),
+                      color: const Color.fromARGB(255, 217, 216, 216)
+                          .withOpacity(0.3),
                       spreadRadius: 3,
                       blurRadius: 7,
                       //offset: Offset(0, 3)),
@@ -77,7 +76,7 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Padding(
@@ -141,7 +140,7 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                               .contains("assets/")
                                           ? BoxDecoration(
                                               border: Border.all(
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       255, 200, 200, 200),
                                                   width: 1.5),
                                               borderRadius:
@@ -151,16 +150,13 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                                       .lastimagepath
                                                       .toString()),
                                                   fit: BoxFit.fill))
-                                          : Provider.of<MyProvider>(context)
-                                                  .lastimagepath
-                                                  .toString()
-                                                  .contains(
-                                                      "https://firebasestorage.googleapis.com")
+                                          : Provider.of<MyProvider>(context).lastimagepath.toString().contains(
+                                                  "https://firebasestorage.googleapis.com")
                                               ? BoxDecoration(
-                                                  border: Border.all(color: Color.fromARGB(255, 200, 200, 200), width: 2),
+                                                  border: Border.all(color: const Color.fromARGB(255, 200, 200, 200), width: 2),
                                                   borderRadius: BorderRadius.circular(15),
                                                   image: DecorationImage(image: NetworkImage(Provider.of<MyProvider>(context).lastimagepath.toString()), fit: BoxFit.fill))
-                                              : BoxDecoration(border: Border.all(color: Color.fromARGB(255, 200, 200, 200), width: 2), borderRadius: BorderRadius.circular(15), image: DecorationImage(image: FileImage(File(Provider.of<MyProvider>(context).lastimagepath.toString())), fit: BoxFit.fill))),
+                                              : BoxDecoration(border: Border.all(color: const Color.fromARGB(255, 200, 200, 200), width: 2), borderRadius: BorderRadius.circular(15), image: DecorationImage(image: FileImage(File(Provider.of<MyProvider>(context).lastimagepath.toString())), fit: BoxFit.fill))),
                                 )
                               : Container(),
                           Provider.of<MyProvider>(context)
@@ -176,7 +172,10 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                         border: Border.all(
                                             color: greyColor, width: 1.5),
                                         borderRadius: BorderRadius.circular(15),
-                                        color: Color.fromARGB(255, 255, 255,
+                                        color: const Color.fromARGB(
+                                                255,
+                                                255,
+                                                255,
                                                 255) // Color.fromARGB(255, 121, 161, 134)
                                             .withOpacity(.4)),
                                     child: Center(
@@ -259,7 +258,8 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => MainParentPage(
+                                          builder: (context) =>
+                                              const MainParentPage(
                                                 index: 0,
                                               )),
                                       (route) => false);
@@ -281,7 +281,7 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                 decoration: BoxDecoration(
                                     color: greenColor,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Text(
+                                child: const Text(
                                   'حفظ',
                                   style: TextStyle(
                                       color: Colors.white,

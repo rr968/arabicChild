@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+// ignore_for_file: prefer_typing_uninitialized_variables, prefer_const_literals_to_create_immutables, use_build_context_synchronously, file_names
 
 import 'dart:async';
 
@@ -8,7 +8,6 @@ import '/controller/my_provider.dart';
 import 'package:provider/provider.dart';
 import '/controller/var.dart';
 
-import '../../controller/erroralert.dart';
 import '../../controller/images.dart';
 import '../../icon/iconsgroup.dart';
 import '/model/content.dart';
@@ -22,7 +21,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../controller/button.dart';
 import '../../controller/libtostring.dart';
 import '../../model/library.dart';
 
@@ -88,11 +86,11 @@ class _AddContentChildState extends State<AddContentChild> {
                 decoration: BoxDecoration(
                     border: Border.all(color: greyColor, width: 1),
                     borderRadius: BorderRadius.circular(15),
-                    color: Color.fromARGB(255, 255, 255,
+                    color: const Color.fromARGB(255, 255, 255,
                             255) // Color.fromARGB(255, 121, 161, 134)
                         .withOpacity(.4)),
                 child: Padding(
-                  padding: EdgeInsets.only(top: 25, bottom: 20),
+                  padding: const EdgeInsets.only(top: 25, bottom: 20),
                   child: Column(
                     children: [
                       Padding(
@@ -120,15 +118,15 @@ class _AddContentChildState extends State<AddContentChild> {
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
                                   color: maincolor),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20)),
+                              enabledBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
                                   borderSide: BorderSide(
                                       width: 2,
                                       color:
                                           Color.fromARGB(255, 123, 123, 123))),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: const BorderRadius.all(
+                              focusedBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
                                     Radius.circular(20),
                                   ),
                                   borderSide:
@@ -165,7 +163,10 @@ class _AddContentChildState extends State<AddContentChild> {
                                               color: greyColor, width: 1.5),
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          color: Color.fromARGB(255, 255, 255,
+                                          color: const Color.fromARGB(
+                                                  255,
+                                                  255,
+                                                  255,
                                                   255) // Color.fromARGB(255, 121, 161, 134)
                                               .withOpacity(.4)),
                                       child: Padding(
@@ -182,7 +183,7 @@ class _AddContentChildState extends State<AddContentChild> {
                                                 color: Colors.red,
                                               )
                                             else
-                                              Icon(Icons.mic,
+                                              const Icon(Icons.mic,
                                                   size: 60,
                                                   color: Color.fromARGB(
                                                       255, 132, 132, 132)),
@@ -195,7 +196,7 @@ class _AddContentChildState extends State<AddContentChild> {
                                                         fontWeight:
                                                             FontWeight.w700),
                                                   )
-                                                : Text(
+                                                : const Text(
                                                     "تسجيل صوتي",
                                                     style: TextStyle(
                                                         color: Color.fromARGB(
@@ -223,20 +224,23 @@ class _AddContentChildState extends State<AddContentChild> {
                                               color: greyColor, width: 1.5),
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          color: Color.fromARGB(255, 255, 255,
+                                          color: const Color.fromARGB(
+                                                  255,
+                                                  255,
+                                                  255,
                                                   255) // Color.fromARGB(255, 121, 161, 134)
                                               .withOpacity(.4)),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Icon(
+                                          const Icon(
                                             Icons.restart_alt,
                                             color: Color.fromARGB(
                                                 255, 132, 132, 132),
                                             size: 60,
                                           ),
-                                          Text(
+                                          const Text(
                                             "إلغاء التسجيل",
                                             style: TextStyle(
                                                 color: Color.fromARGB(
@@ -261,7 +265,10 @@ class _AddContentChildState extends State<AddContentChild> {
                                                 color: greyColor, width: 1.5),
                                             borderRadius:
                                                 BorderRadius.circular(15),
-                                            color: Color.fromARGB(255, 255, 255,
+                                            color: const Color.fromARGB(
+                                                    255,
+                                                    255,
+                                                    255,
                                                     255) // Color.fromARGB(255, 121, 161, 134)
                                                 .withOpacity(.4)),
                                         height: 100,
@@ -289,7 +296,10 @@ class _AddContentChildState extends State<AddContentChild> {
                                               color: greyColor, width: 1.5),
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          color: Color.fromARGB(255, 255, 255,
+                                          color: const Color.fromARGB(
+                                                  255,
+                                                  255,
+                                                  255,
                                                   255) // Color.fromARGB(255, 121, 161, 134)
                                               .withOpacity(.4)),
                                       height: 100,
@@ -300,13 +310,13 @@ class _AddContentChildState extends State<AddContentChild> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Icon(
+                                            const Icon(
                                               Icons.add_a_photo,
                                               color: Color.fromARGB(
                                                   255, 132, 132, 132),
                                               size: 60,
                                             ),
-                                            Text(
+                                            const Text(
                                               "صورة",
                                               style: TextStyle(
                                                   color: Color.fromARGB(
@@ -340,7 +350,7 @@ class _AddContentChildState extends State<AddContentChild> {
                                       border: Border.all(
                                           color: greyColor, width: 1.5),
                                       borderRadius: BorderRadius.circular(15),
-                                      color: Color.fromARGB(255, 255, 255,
+                                      color: const Color.fromARGB(255, 255, 255,
                                               255) // Color.fromARGB(255, 121, 161, 134)
                                           .withOpacity(.4)),
                                   height: 100,
@@ -355,7 +365,7 @@ class _AddContentChildState extends State<AddContentChild> {
                                           Icons.delete_outline,
                                           color: deleteColor
                                               ? Colors.red
-                                              : Color.fromARGB(
+                                              : const Color.fromARGB(
                                                   255, 132, 132, 132),
                                           size: 60,
                                         ),
@@ -364,7 +374,7 @@ class _AddContentChildState extends State<AddContentChild> {
                                           style: TextStyle(
                                               color: deleteColor
                                                   ? Colors.red
-                                                  : Color.fromARGB(
+                                                  : const Color.fromARGB(
                                                       255, 132, 132, 132),
                                               fontWeight: FontWeight.w800),
                                         ),
@@ -501,7 +511,7 @@ class _AddContentChildState extends State<AddContentChild> {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MainParentPage(
+                            builder: (context) => const MainParentPage(
                                   index: 0,
                                 )),
                         (route) => false);
@@ -517,7 +527,7 @@ class _AddContentChildState extends State<AddContentChild> {
                   decoration: BoxDecoration(
                       color: maincolor,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Text(
+                  child: const Text(
                     'حفظ',
                     style: TextStyle(
                         color: Colors.white,

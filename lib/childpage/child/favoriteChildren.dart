@@ -1,8 +1,9 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
 import '../../controller/var.dart';
 import '/controller/images.dart';
-import '/controller/istablet.dart';
 import '/controller/speak.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,14 +62,14 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
           ],
         ),
       ),
-      body: favorite.length == 0
-          ? Center(
+      body: favorite.isEmpty
+          ? const Center(
               child: Text(
                 "لم تم باضافة جمل مفضلة بعد",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               ),
             )
-          : Container(
+          : SizedBox(
               height: MediaQuery.of(context).size.height - 170,
               child: Column(children: [
                 Container(
@@ -84,7 +85,7 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                 MediaQuery.of(context).size.width * .06),
                         child: Text(
                           "عدد الجمل : ${favorite.length.toString()}",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.black,
                               fontSize: 30,
                               fontWeight: FontWeight.bold),
@@ -94,9 +95,9 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                         InkWell(
                           onTap: () {
                             String a = "";
-                            favorite[i].forEach((element) {
+                            for (var element in favorite[i]) {
                               a += element[0] + " ";
-                            });
+                            }
                             howtospeak(a);
                           },
                           child: Padding(
@@ -118,14 +119,16 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                         width: 110,
                                         decoration: BoxDecoration(
                                             color: pinkColor,
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(25),
-                                                bottomRight:
-                                                    Radius.circular(25))),
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(25),
+                                                    bottomRight:
+                                                        Radius.circular(25))),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          children: [
+                                          children: const [
                                             Icon(
                                               Icons.volume_up,
                                               color: Colors.white,
@@ -160,7 +163,7 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                                             .center,
                                                     children: [
                                                       Expanded(
-                                                        child: Container(
+                                                        child: SizedBox(
                                                             height: 90,
                                                             width: 90,
                                                             child: getImage(
@@ -172,7 +175,7 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                                       ),
                                                       Text(
                                                         favorite[i][j][0],
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 30),

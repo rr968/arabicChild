@@ -1,8 +1,9 @@
+// ignore_for_file: use_build_context_synchronously, camel_case_types, file_names
+
 import 'package:arabic_speaker_child/childpage/child/speakingchildtablet.dart';
 
 import '/childpage/parent/addContentChild.dart';
 import '/childpage/parent/mainparent.dart';
-import '/childpage/parent/mainparentSettings.dart';
 import '/childpage/parent/rearrangeContentChild.dart';
 import '/controller/images.dart';
 import '/controller/istablet.dart';
@@ -36,7 +37,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        drawer: Drawerc(),
+        drawer: const Drawerc(),
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -107,9 +108,8 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                         InkWell(
                           onTap: () {
                             if (libraryListChild[widget.libIndex]
-                                    .contenlist
-                                    .length !=
-                                0) {
+                                .contenlist
+                                .isNotEmpty) {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
@@ -131,7 +131,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.low_priority,
                                     color: Colors.white,
                                     size: 28,
@@ -139,7 +139,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                   Container(
                                     width: 7,
                                   ),
-                                  Text(
+                                  const Text(
                                     "إعادة ترتيب",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -170,7 +170,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.add_circle_outline,
                                     color: Colors.white,
                                     size: 35,
@@ -178,7 +178,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                   Container(
                                     width: 7,
                                   ),
-                                  Text(
+                                  const Text(
                                     "إضافة جملة",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -208,7 +208,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.delete_outlined,
                                     color: Colors.white,
                                     size: 35,
@@ -216,7 +216,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                   Container(
                                     width: 7,
                                   ),
-                                  Text(
+                                  const Text(
                                     "حذف جملة",
                                     style: TextStyle(
                                         color: Colors.white,
@@ -237,13 +237,15 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                 width: MediaQuery.of(context).size.width - 70,
                 height: MediaQuery.of(context).size.height * .5,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 202, 202, 202)),
-                  color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-                  borderRadius: BorderRadius.all(Radius.circular(27)),
+                  border: Border.all(
+                      color: const Color.fromARGB(255, 202, 202, 202)),
+                  color:
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
+                  borderRadius: const BorderRadius.all(Radius.circular(27)),
                   boxShadow: [
                     BoxShadow(
-                      color:
-                          Color.fromARGB(255, 217, 216, 216).withOpacity(0.4),
+                      color: const Color.fromARGB(255, 217, 216, 216)
+                          .withOpacity(0.4),
                       spreadRadius: 3,
                       blurRadius: 7,
                     )
@@ -254,10 +256,10 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                       const EdgeInsets.only(left: 20, right: 20, bottom: 10),
                   child: Column(
                     children: [
-                      libraryListChild[widget.libIndex].contenlist.length == 0
-                          ? Center(
+                      libraryListChild[widget.libIndex].contenlist.isEmpty
+                          ? const Center(
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(8.0),
                                 child: Text(
                                   "لم يتم إضافة أي جملة بعد ",
                                   style: TextStyle(
@@ -320,18 +322,19 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                       255, 255, 255, 255)
                                                   .withOpacity(0.5),
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(27)),
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(27)),
                                               boxShadow: [
                                                 BoxShadow(
                                                     color: Colors.grey
                                                         .withOpacity(0.3),
                                                     spreadRadius: 3,
                                                     blurRadius: 5,
-                                                    offset: Offset(0, 3)),
+                                                    offset: const Offset(0, 3)),
                                               ],
                                               border: Border.all(
                                                 width: 2,
@@ -347,17 +350,18 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                                             .contenlist[index]
                                                             .imgurl)),
                                                 Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: 5,
-                                                      left: 8,
-                                                      right: 8),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5,
+                                                          left: 8,
+                                                          right: 8),
                                                   child: Text(
                                                     noMoreText(libraryListChild[
                                                             widget.libIndex]
                                                         .contenlist[index]
                                                         .name),
                                                     textAlign: TextAlign.center,
-                                                    style: TextStyle(
+                                                    style: const TextStyle(
                                                         fontSize: 25,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -478,7 +482,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MainParentPage(
+                                    builder: (context) => const MainParentPage(
                                           index: 0,
                                         )),
                                 (route) => false);
@@ -490,7 +494,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                             decoration: BoxDecoration(
                                 color: greenColor,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Text(
+                            child: const Text(
                               "  حفظ  ",
                               style: TextStyle(
                                   color: Colors.white,
@@ -515,7 +519,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                             decoration: BoxDecoration(
                                 color: pinkColor,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Text(
+                            child: const Text(
                               "  إلغاء  ",
                               style: TextStyle(
                                   color: Colors.white,

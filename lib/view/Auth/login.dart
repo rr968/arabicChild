@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
         body: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/uiImages/bg.png"),
                       fit: BoxFit.cover)),
@@ -69,7 +69,8 @@ class _LoginState extends State<Login> {
                         : MediaQuery.of(context).size.width * .44,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Color(0xff989999), width: 2),
+                    border:
+                        Border.all(color: const Color(0xff989999), width: 2),
                     borderRadius: BorderRadius.circular(40)),
                 child: SafeArea(
                   child: Padding(
@@ -111,9 +112,9 @@ class _LoginState extends State<Login> {
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
+                                    contentPadding: const EdgeInsets.symmetric(
                                         vertical: 33, horizontal: 15),
-                                    errorStyle: TextStyle(
+                                    errorStyle: const TextStyle(
                                         fontSize: 18, color: Colors.red),
                                     filled: true,
                                     fillColor: Colors.white,
@@ -145,7 +146,7 @@ class _LoginState extends State<Login> {
                                 },
                                 obscureText: _passwordVisible,
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       vertical: 33, horizontal: 15),
                                   errorStyle: const TextStyle(
                                       fontSize: 18, color: Colors.red),
@@ -259,12 +260,11 @@ class _LoginState extends State<Login> {
                                           });
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
-                                            SnackBar(
+                                            const SnackBar(
                                               content: Text(
                                                   "لا يوجد اتصال بالانترنت",
                                                   textAlign: TextAlign.right),
-                                              duration:
-                                                  const Duration(seconds: 2),
+                                              duration: Duration(seconds: 2),
                                             ),
                                           );
                                         }
@@ -275,10 +275,10 @@ class _LoginState extends State<Login> {
                                       });
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
-                                        SnackBar(
+                                        const SnackBar(
                                           content: Text("حدث خطأ أعد المحاولة",
                                               textAlign: TextAlign.right),
-                                          duration: const Duration(seconds: 2),
+                                          duration: Duration(seconds: 2),
                                         ),
                                       );
                                     }
@@ -324,7 +324,7 @@ class _LoginState extends State<Login> {
                                         color: maincolor,
                                         borderRadius:
                                             BorderRadius.circular(15)),
-                                    child: Center(
+                                    child: const Center(
                                         child: CircularProgressIndicator(
                                       color: Colors.white,
                                     )),

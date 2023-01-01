@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import '/childpage/parent/mainparent.dart';
 
@@ -31,14 +33,15 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                borderRadius: BorderRadius.all(Radius.circular(27)),
+                color:
+                    const Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
+                borderRadius: const BorderRadius.all(Radius.circular(27)),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.grey.withOpacity(0.3),
                       spreadRadius: 3,
                       blurRadius: 5,
-                      offset: Offset(0, 3)),
+                      offset: const Offset(0, 3)),
                 ],
               ),
               child: Stack(
@@ -54,7 +57,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                         child: FittedBox(
                           child: Text(
                             libraryListChild[i].name,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 decoration: TextDecoration.none,
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold),
@@ -145,10 +148,11 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                       width: MediaQuery.of(context).size.width - 70,
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        color:
-                            Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-                        borderRadius: BorderRadius.all(Radius.circular(27)),
+                            color: const Color.fromARGB(255, 202, 202, 202)),
+                        color: const Color.fromARGB(255, 255, 255, 255)
+                            .withOpacity(0.3),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(27)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.3),
@@ -217,7 +221,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MainParentPage(index: 0)),
+                                            const MainParentPage(index: 0)),
                                     (route) => false);
                                 // acceptalert(context, "تم الحفظ بنجاح");
                               });
@@ -229,7 +233,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                               decoration: BoxDecoration(
                                   color: greenColor,
                                   borderRadius: BorderRadius.circular(10)),
-                              child: Text(
+                              child: const Text(
                                 "حفظ",
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255),
@@ -245,7 +249,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            MainParentPage(index: 0)),
+                                            const MainParentPage(index: 0)),
                                     (route) => false);
                               },
                               child: Container(
@@ -255,7 +259,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                                 decoration: BoxDecoration(
                                     color: pinkColor,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Text(
+                                child: const Text(
                                   "إلغاء",
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 255, 255, 255),

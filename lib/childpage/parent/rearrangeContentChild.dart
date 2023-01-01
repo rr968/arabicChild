@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import '/childpage/parent/mainparent.dart';
 import '/controller/images.dart';
@@ -33,14 +35,14 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
         isDraggable: true,
         child: Container(
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
-            borderRadius: BorderRadius.all(Radius.circular(27)),
+            color: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+            borderRadius: const BorderRadius.all(Radius.circular(27)),
             boxShadow: [
               BoxShadow(
                   color: Colors.grey.withOpacity(0.3),
                   spreadRadius: 3,
                   blurRadius: 5,
-                  offset: Offset(0, 3)),
+                  offset: const Offset(0, 3)),
             ],
             border: Border.all(
               width: 2,
@@ -61,7 +63,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                     child: Text(
                       libraryListChild[widget.contentIndex].contenlist[i].name,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                           decoration: TextDecoration.none,
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
@@ -139,22 +141,21 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                     width: MediaQuery.of(context).size.width - 70,
                     height: MediaQuery.of(context).size.height * .5,
                     decoration: BoxDecoration(
-                      border:
-                          Border.all(color: Color.fromARGB(255, 202, 202, 202)),
-                      color:
-                          Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-                      borderRadius: BorderRadius.all(Radius.circular(27)),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 202, 202, 202)),
+                      color: const Color.fromARGB(255, 255, 255, 255)
+                          .withOpacity(0.3),
+                      borderRadius: const BorderRadius.all(Radius.circular(27)),
                       boxShadow: [
                         BoxShadow(
-                          color: Color.fromARGB(255, 217, 216, 216)
+                          color: const Color.fromARGB(255, 217, 216, 216)
                               .withOpacity(0.4),
                           spreadRadius: 3,
                           blurRadius: 7,
                         )
                       ],
                     ),
-                    child: Container(
-                        child: Padding(
+                    child: Padding(
                       padding: const EdgeInsets.only(
                         left: 20,
                         right: 20,
@@ -207,7 +208,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                         },
                         children: _draggList,
                       ),
-                    )),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 40),
@@ -224,7 +225,8 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MainParentPage(
+                                      builder: (context) =>
+                                          const MainParentPage(
                                             index: 0,
                                           )),
                                   (route) => false);
@@ -238,7 +240,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                             decoration: BoxDecoration(
                                 color: greenColor,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Text(
+                            child: const Text(
                               "حفظ",
                               style: TextStyle(
                                   color: Colors.white,
@@ -255,7 +257,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => MainParentPage(
+                                    builder: (context) => const MainParentPage(
                                           index: 0,
                                         )),
                                 (route) => false);
@@ -267,7 +269,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                             decoration: BoxDecoration(
                                 color: pinkColor,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: Text(
+                            child: const Text(
                               "إلغاء",
                               style: TextStyle(
                                   color: Colors.white,

@@ -1,10 +1,8 @@
 import '/controller/checkinternet.dart';
-import '/controller/specialid.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 tryUploadToRealTimeForChild(String text) {
   try {
-    String d = getSpecialid();
     internetConnection().then((value) async {
       if (value == true) {
         /*   DatabaseReference ref = FirebaseDatabase.instance.ref("child/");

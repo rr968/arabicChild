@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import '/model/library.dart';
 
 import '../../model/content.dart';

@@ -1,11 +1,9 @@
 // ignore_for_file: prefer_const_constructors, file_names
 
 import 'dart:async';
-import 'package:flutter/services.dart';
 
 import '/childpage/child/mainchildPage.dart';
 import '/controller/sharedpref.dart';
-import '/controller/var.dart';
 import '/firstTimeOpenTheApp/page1.dart';
 import '/view/Auth/login.dart';
 import 'package:flutter/material.dart';

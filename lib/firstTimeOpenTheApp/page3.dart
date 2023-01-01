@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import '/firstTimeOpenTheApp/page4.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +15,7 @@ class Page3 extends StatelessWidget {
     return Scaffold(
         body: Stack(children: [
       Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/uiImages/bg.png"),
                 fit: BoxFit.cover)),
@@ -31,7 +33,8 @@ class Page3 extends StatelessWidget {
                           : MediaQuery.of(context).size.width * .44,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(color: Color(0xff989999), width: 2),
+                      border:
+                          Border.all(color: const Color(0xff989999), width: 2),
                       borderRadius: BorderRadius.circular(40)),
                   child: Padding(
                       padding: const EdgeInsets.all(10),
@@ -69,7 +72,8 @@ class Page3 extends StatelessWidget {
                         InkWell(
                           onTap: () => Navigator.pushAndRemoveUntil(
                               context,
-                              MaterialPageRoute(builder: (context) => Page4()),
+                              MaterialPageRoute(
+                                  builder: (context) => const Page4()),
                               (route) => false),
                           child: Image.asset(
                             "assets/uiImages/next.png",
@@ -87,7 +91,7 @@ class Page3 extends StatelessWidget {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Login()),
+                                    builder: (context) => const Login()),
                                 (route) => false);
                           },
                           child: Text(

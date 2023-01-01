@@ -1,5 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';

@@ -17,7 +17,10 @@ class MainParentPage extends StatefulWidget {
 }
 
 class _MainParentPageState extends State<MainParentPage> {
-  List<Widget> parentScreens = [MainParentSettings(), ParentSettingsFav()];
+  List<Widget> parentScreens = [
+    const MainParentSettings(),
+    const ParentSettingsFav()
+  ];
 
   late int indexpage;
 
@@ -91,7 +94,7 @@ class _MainParentPageState extends State<MainParentPage> {
                 ? MediaQuery.of(context).size.height * .07
                 : MediaQuery.of(context).size.height * .09,
             decoration: BoxDecoration(
-              color: Color(0xffe9edf3),
+              color: const Color(0xffe9edf3),
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               boxShadow: [
@@ -99,7 +102,7 @@ class _MainParentPageState extends State<MainParentPage> {
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 3,
                     blurRadius: 5,
-                    offset: Offset(0, 3)),
+                    offset: const Offset(0, 3)),
               ],
               border: Border.all(
                 width: 2,

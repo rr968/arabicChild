@@ -8,7 +8,6 @@ import '/childpage/parent/mainparent.dart';
 import '/controller/istablet.dart';
 import '/controller/my_provider.dart';
 import '/view/drawer/HowToUse.dart';
-import '/view/drawer/libraryUplodedSettings.dart';
 import 'package:provider/provider.dart';
 
 import '/controller/button.dart';
@@ -19,7 +18,6 @@ import '/view/drawer/contactus.dart';
 import '/view/drawer/deleteaccount.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:volume_controller/volume_controller.dart';
@@ -27,8 +25,6 @@ import 'package:volume_controller/volume_controller.dart';
 import '../../controller/erroralert.dart';
 import '../../controller/removeallshared.dart';
 import '../../controller/var.dart';
-import '../export_and_import/export.dart';
-import '../export_and_import/import.dart';
 
 class Drawerc extends StatefulWidget {
   const Drawerc({Key? key}) : super(key: key);
@@ -76,7 +72,7 @@ class _DrawercState extends State<Drawerc> {
             ),
           )
         : Drawer(
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   bottomLeft: Radius.circular(20)),
@@ -607,7 +603,7 @@ class _DrawercState extends State<Drawerc> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                MainChildPage(
+                                                                const MainChildPage(
                                                                     index: 0)),
                                                         (route) => false));
                                           })),
@@ -632,7 +628,7 @@ class _DrawercState extends State<Drawerc> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(children: [
-                          Icon(
+                          const Icon(
                             Icons.menu_book_outlined,
                             size: 34,
                           ),
@@ -696,7 +692,7 @@ class _DrawercState extends State<Drawerc> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(children: [
-                          Icon(
+                          const Icon(
                             Icons.mail_outline,
                             size: 35,
                           ),
@@ -781,7 +777,7 @@ class _DrawercState extends State<Drawerc> {
                     child: SizedBox(
                       height: 60,
                       child: Row(children: [
-                        Icon(
+                        const Icon(
                           Icons.delete_outlined,
                           size: 40,
                         ),
@@ -839,10 +835,11 @@ class _DrawercState extends State<Drawerc> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MainChildPage(index: 0)),
+                                builder: (context) =>
+                                    const MainChildPage(index: 0)),
                             (route) => false);
                       } else {
-                        Random random = new Random();
+                        Random random = Random();
                         int n1 = random.nextInt(10);
                         int n2 = random.nextInt(10);
                         int n3 = random.nextInt(10);
@@ -850,11 +847,11 @@ class _DrawercState extends State<Drawerc> {
                         String text = "";
                         for (int i = 1; i <= 4; i++) {
                           if (i == 1) {
-                            text += getNumber(n1) + ",";
+                            text += "${getNumber(n1)},";
                           } else if (i == 2) {
-                            text += getNumber(n2) + ",";
+                            text += "${getNumber(n2)},";
                           } else if (i == 3) {
-                            text += getNumber(n3) + ",";
+                            text += "${getNumber(n3)},";
                           } else if (i == 4) {
                             text += getNumber(n4);
                           }
@@ -867,14 +864,14 @@ class _DrawercState extends State<Drawerc> {
                                   textDirection: TextDirection.rtl,
                                   child: AlertDialog(
                                     backgroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
+                                    shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(32.0))),
                                     title: Column(
                                       children: [
                                         InkWell(
                                           onTap: () => Navigator.pop(context),
-                                          child: Align(
+                                          child: const Align(
                                             alignment: Alignment.topRight,
                                             child: Icon(
                                               Icons.close,
@@ -978,7 +975,7 @@ class _DrawercState extends State<Drawerc> {
                                                                     context)
                                                                 .pass4
                                                                 .toString(),
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 35),
@@ -1012,7 +1009,7 @@ class _DrawercState extends State<Drawerc> {
                                                                     context)
                                                                 .pass3
                                                                 .toString(),
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 35),
@@ -1046,7 +1043,7 @@ class _DrawercState extends State<Drawerc> {
                                                                     context)
                                                                 .pass2
                                                                 .toString(),
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 35),
@@ -1080,7 +1077,7 @@ class _DrawercState extends State<Drawerc> {
                                                                     context)
                                                                 .pass1
                                                                 .toString(),
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             fontSize: 35),
@@ -1091,10 +1088,9 @@ class _DrawercState extends State<Drawerc> {
                                                 Provider.of<MyProvider>(context,
                                                             listen: true)
                                                         .errorpass
-                                                    ? Padding(
+                                                    ? const Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
+                                                            EdgeInsets.all(8.0),
                                                         child: Text(
                                                           "رمز خاطئ",
                                                           style: TextStyle(
@@ -1533,7 +1529,8 @@ class _DrawercState extends State<Drawerc> {
                                                       },
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsets.only(
+                                                            const EdgeInsets
+                                                                    .only(
                                                                 left: 15,
                                                                 right: 15),
                                                         child: Container(
@@ -1546,7 +1543,7 @@ class _DrawercState extends State<Drawerc> {
                                                                 ? 60
                                                                 : 25,
                                                             decoration:
-                                                                BoxDecoration(
+                                                                const BoxDecoration(
                                                               image: DecorationImage(
                                                                   image: AssetImage(
                                                                       "assets/uiImages/delete.png"),
@@ -1624,7 +1621,7 @@ class _DrawercState extends State<Drawerc> {
                             child: FittedBox(
                               child: Text(
                                 isParentMode ? "شاشة الطفل" : "صلاحية التعديل",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 25,
                                     color: Colors.white),
@@ -1670,7 +1667,8 @@ class _DrawercState extends State<Drawerc> {
             Provider.of<MyProvider>(context, listen: false).pass4 == n4) {
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => MainParentPage(index: 0)),
+              MaterialPageRoute(
+                  builder: (context) => const MainParentPage(index: 0)),
               (route) => false);
           a = 0;
           Provider.of<MyProvider>(context, listen: false).seterror(false);

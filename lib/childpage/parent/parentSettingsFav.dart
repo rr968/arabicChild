@@ -1,6 +1,7 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 
-import '/childpage/parent/mainparent.dart';
 import '/childpage/parent/rearrangeFavChild.dart';
 import '/controller/istablet.dart';
 import '/controller/speak.dart';
@@ -80,7 +81,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ReArrangeFavChild()),
+                              builder: (context) => const ReArrangeFavChild()),
                           (route) => false);
                     },
                     child: Container(
@@ -88,12 +89,13 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                       width: DeviceUtil.isTablet ? 180 : 100,
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: Color.fromARGB(255, 202, 202, 202)),
+                            color: const Color.fromARGB(255, 202, 202, 202)),
                         color: maincolor,
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
                         boxShadow: [
                           BoxShadow(
-                            color: Color.fromARGB(255, 217, 216, 216)
+                            color: const Color.fromARGB(255, 217, 216, 216)
                                 .withOpacity(0.4),
                             spreadRadius: 3,
                             blurRadius: 7,
@@ -132,7 +134,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                           });
 
                           List<String> allFav = [];
-                          favorite.forEach((oneFav) {
+                          for (var oneFav in favorite) {
                             String newFav = "";
                             for (int y = 0; y < oneFav.length; y++) {
                               String input = oneFav[y][0];
@@ -152,7 +154,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                             }
                             newFav = "[$newFav]";
                             allFav.add(newFav);
-                          });
+                          }
 
                           favv.setStringList("favlistChild", allFav);
                         },
@@ -164,7 +166,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.delete,
                                 color: Colors.white,
@@ -182,9 +184,9 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                       InkWell(
                         onTap: () {
                           String a = "";
-                          favorite[i].forEach((element) {
+                          for (var element in favorite[i]) {
                             a += element[0] + " ";
-                          });
+                          }
                           howtospeak(a);
                         },
                         child: Padding(
@@ -194,12 +196,12 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                             width: 80,
                             decoration: BoxDecoration(
                                 color: maincolor,
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                     topRight: Radius.circular(20),
                                     bottomRight: Radius.circular(20))),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.volume_up,
                                   color: Colors.white,
@@ -219,15 +221,15 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                         child: InkWell(
                           onTap: () {
                             String a = "";
-                            favorite[i].forEach((element) {
+                            for (var element in favorite[i]) {
                               a += element[0] + " ";
-                            });
+                            }
                             howtospeak(a);
                           },
                           child: Container(
                             height: 120,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(20),
                                     bottomLeft: Radius.circular(20)),
                                 border: Border.all(width: 2, color: maincolor)),
@@ -242,7 +244,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Container(
+                                        SizedBox(
                                             height: 50,
                                             width: 50,
                                             child: getImage(favorite[i][j][1])),

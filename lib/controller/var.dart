@@ -4,10 +4,10 @@ bool isFemale = false;
 int size = 1;
 Color maincolor = const Color(0xff724666);
 Color purcolor = const Color(0xff724666);
-Color greyColor = Color(0xff808484);
-Color pinkColor = Color(0xffA73660);
-Color yellowColor = Color(0xffdad532);
-Color greenColor = Color(0xff57c497);
+Color greyColor = const Color(0xff808484);
+Color pinkColor = const Color(0xffA73660);
+Color yellowColor = const Color(0xffdad532);
+Color greenColor = const Color(0xff57c497);
 
 bool isoffline = false;
 int notevoiceindex = 0;

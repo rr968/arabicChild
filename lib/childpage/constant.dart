@@ -2,7 +2,7 @@ import 'child/speakingchildtablet.dart';
 
 convertFvaChildrenToString(List favList) {
   List<String> listChild = [];
-  favList.forEach((element) {
+  for (var element in favList) {
     String newFav = "";
     for (int y = 0; y < element.length; y++) {
       String name = element[y][0];
@@ -21,7 +21,7 @@ convertFvaChildrenToString(List favList) {
     }
     newFav = "[$newFav]";
     listChild.add(newFav);
-  });
+  }
   return listChild;
 }
 

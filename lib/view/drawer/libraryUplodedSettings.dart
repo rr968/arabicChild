@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, file_names
 
 import 'dart:convert';
 
@@ -30,7 +30,7 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
   List<QueryDocumentSnapshot<Map<String, dynamic>>> allData = [];
   bool loading = true;
   String searchText = "";
-  TextEditingController _controller = TextEditingController(text: "");
+  final TextEditingController _controller = TextEditingController(text: "");
 
   @override
   void initState() {
@@ -45,12 +45,12 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
 
   Future getdata() async {
     await FirebaseFirestore.instance.collection("Shared").get().then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         if (!element.data().containsKey("approval")) {
           data.add(element);
           allData.add(element);
         }
-      });
+      }
     });
   }
 
@@ -62,12 +62,12 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
         appBar: AppBar(
           title: AnimatedSearchBar(
             label: "ابحث",
-            labelStyle: TextStyle(),
+            labelStyle: const TextStyle(),
             alignment: TextAlign.center,
             controller: _controller,
-            searchStyle: TextStyle(color: Colors.white),
+            searchStyle: const TextStyle(color: Colors.white),
             cursorColor: Colors.white,
-            searchDecoration: InputDecoration(
+            searchDecoration: const InputDecoration(
               hintText: "ابحث هنا",
               alignLabelWithHint: true,
               focusColor: Colors.white,
@@ -209,12 +209,10 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
                                 ),
                               ),
                             )
-                          : Container(
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                color: maincolor,
-                              )),
-                            ),
+                          : Center(
+                              child: CircularProgressIndicator(
+                            color: maincolor,
+                          )),
                       loadingIndex != index
                           ? InkWell(
                               onTap: () async {
@@ -267,12 +265,10 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
                                 ),
                               ),
                             )
-                          : Container(
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                color: maincolor,
-                              )),
-                            ),
+                          : Center(
+                              child: CircularProgressIndicator(
+                            color: maincolor,
+                          )),
                       TextButton(
                           onPressed: () {
                             List<lib> library = [];
@@ -321,13 +317,13 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
   List<QueryDocumentSnapshot<Map<String, dynamic>>> dataAfterSearch(value) {
     List<QueryDocumentSnapshot<Map<String, dynamic>>> returnList = [];
 
-    allData.forEach((element) {
+    for (var element in allData) {
       if (element["name"].contains(value) ||
           element["publisherName"].contains(value) ||
           element["explaination"].contains(value)) {
         returnList.add(element);
       }
-    });
+    }
     return returnList;
   }
 }

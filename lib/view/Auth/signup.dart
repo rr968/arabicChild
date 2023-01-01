@@ -47,7 +47,7 @@ class _LoginState extends State<Signup> {
         body: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/uiImages/bg.png"),
                       fit: BoxFit.cover)),
@@ -65,7 +65,8 @@ class _LoginState extends State<Signup> {
                         : MediaQuery.of(context).size.width * .44,
                 decoration: BoxDecoration(
                     color: Colors.white,
-                    border: Border.all(color: Color(0xff989999), width: 2),
+                    border:
+                        Border.all(color: const Color(0xff989999), width: 2),
                     borderRadius: BorderRadius.circular(40)),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -105,9 +106,9 @@ class _LoginState extends State<Signup> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       vertical: 33, horizontal: 15),
-                                  errorStyle: TextStyle(
+                                  errorStyle: const TextStyle(
                                       fontSize: 18, color: Colors.red),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -151,7 +152,7 @@ class _LoginState extends State<Signup> {
                               controller: _passwordcontroller,
                               obscureText: true,
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 33, horizontal: 15),
                                 filled: true,
                                 errorStyle: const TextStyle(
@@ -186,7 +187,7 @@ class _LoginState extends State<Signup> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
+                                contentPadding: const EdgeInsets.symmetric(
                                     vertical: 33, horizontal: 15),
                                 errorStyle: const TextStyle(
                                     fontSize: 18, color: Colors.red),
@@ -304,7 +305,7 @@ class _LoginState extends State<Signup> {
                                     ),
                                   ),
                                   Row(
-                                    children: [],
+                                    children: const [],
                                   ),
                                 ],
                               )
@@ -319,7 +320,7 @@ class _LoginState extends State<Signup> {
                                 decoration: BoxDecoration(
                                     color: maincolor,
                                     borderRadius: BorderRadius.circular(15)),
-                                child: Center(
+                                child: const Center(
                                     child: CircularProgressIndicator(
                                   color: Colors.white,
                                 )),

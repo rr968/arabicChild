@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_build_context_synchronously
+
 import 'dart:convert';
 
 import '/childpage/parent/addlibraryChild.dart';
@@ -71,7 +73,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      drawer: Drawerc(),
+      drawer: const Drawerc(),
       body: isloading
           ? const Center(
               child: CircularProgressIndicator(),
@@ -115,7 +117,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            ReArrangeLibraryChild()),
+                                            const ReArrangeLibraryChild()),
                                     (route) => false);
                               },
                               child: Container(
@@ -130,7 +132,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.low_priority,
                                           color: Colors.white,
                                           size: 28,
@@ -138,7 +140,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                         Container(
                                           width: 7,
                                         ),
-                                        Text(
+                                        const Text(
                                           "إعادة ترتيب",
                                           style: TextStyle(
                                               color: Colors.white,
@@ -160,7 +162,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                         insetPadding: EdgeInsets.zero,
                                         title: Column(
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               height: 40,
                                               child: Stack(children: [
                                                 Center(
@@ -182,7 +184,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                       onTap: () =>
                                                           Navigator.pop(
                                                               context),
-                                                      child: Icon(
+                                                      child: const Icon(
                                                         Icons.cancel_outlined,
                                                         size: 40,
                                                       )),
@@ -194,18 +196,20 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                               decoration: BoxDecoration(
                                                 border: Border.all(
                                                     color: Colors.grey),
-                                                color: Color.fromARGB(
+                                                color: const Color.fromARGB(
                                                         255, 255, 255, 255)
                                                     .withOpacity(0.8),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(27)),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(27)),
                                                 boxShadow: [
                                                   BoxShadow(
                                                       color: Colors.grey
                                                           .withOpacity(0.3),
                                                       spreadRadius: 0,
                                                       blurRadius: 5,
-                                                      offset: Offset(0, 3)),
+                                                      offset:
+                                                          const Offset(0, 3)),
                                                 ],
                                               ),
                                               child: Column(
@@ -235,16 +239,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -253,7 +258,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -276,7 +281,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[0].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -290,16 +295,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           0)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -326,16 +327,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -344,7 +346,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -367,7 +369,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[1].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -381,16 +383,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           1)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -417,16 +415,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -435,7 +434,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -458,7 +457,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[2].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -472,16 +471,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           2)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -508,16 +503,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -526,7 +522,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -549,7 +545,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[3].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -563,16 +559,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           3)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -605,16 +597,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -623,7 +616,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -646,7 +639,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[4].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -660,16 +653,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           4)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -696,16 +685,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -714,7 +704,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -737,7 +727,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[5].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -751,16 +741,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           5)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -787,16 +773,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -805,7 +792,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -828,7 +815,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[6].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -842,16 +829,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           6)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -878,16 +861,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -896,7 +880,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -919,7 +903,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[7].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -933,16 +917,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           7)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -975,16 +955,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -993,7 +974,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -1016,7 +997,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[8].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -1030,16 +1011,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           8)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -1066,16 +1043,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -1084,7 +1062,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -1107,7 +1085,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[9].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -1121,16 +1099,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           9)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -1158,16 +1132,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -1176,7 +1151,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -1199,7 +1174,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[10].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -1213,16 +1188,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           10)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -1250,16 +1221,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   width: 140,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: Color.fromARGB(
+                                                                    color: const Color.fromARGB(
                                                                             255,
                                                                             255,
                                                                             255,
                                                                             255)
                                                                         .withOpacity(
                                                                             0.8),
-                                                                    borderRadius:
-                                                                        BorderRadius.all(
-                                                                            Radius.circular(27)),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
                                                                     boxShadow: [
                                                                       BoxShadow(
                                                                           color: Colors.grey.withOpacity(
@@ -1268,7 +1240,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               0,
                                                                           blurRadius:
                                                                               5,
-                                                                          offset: Offset(
+                                                                          offset: const Offset(
                                                                               0,
                                                                               3)),
                                                                     ],
@@ -1291,7 +1263,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               padding: const EdgeInsets.only(top: 10),
                                                                               child: Text(
                                                                                 constantLib[11].name,
-                                                                                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -1305,16 +1277,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                       .contains(
                                                                           11)
                                                                   ? Container()
-                                                                  : Container(
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .done,
-                                                                        color:
-                                                                            purcolor,
-                                                                        size:
-                                                                            150,
-                                                                      ),
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 150,
                                                                     ),
                                                             ],
                                                           ),
@@ -1348,13 +1316,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                           liblistChild.getStringList(
                                                                   "liblistChild") ??
                                                               [];
-                                                      selectedList
-                                                          .forEach((element) {
+                                                      for (var element
+                                                          in selectedList) {
                                                         library.add(
                                                             convertLibString(
                                                                 constantLib[
                                                                     element]));
-                                                      });
+                                                      }
                                                       liblistChild
                                                           .setStringList(
                                                               "liblistChild",
@@ -1363,7 +1331,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                           context,
                                                           MaterialPageRoute(
                                                               builder: (context) =>
-                                                                  MainParentPage(
+                                                                  const MainParentPage(
                                                                       index:
                                                                           0)),
                                                           (route) => false);
@@ -1383,7 +1351,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                             MainAxisAlignment
                                                                 .center,
                                                         children: [
-                                                          Text(
+                                                          const Text(
                                                             "اختيار",
                                                             style: TextStyle(
                                                                 fontWeight:
@@ -1398,7 +1366,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 ? 10
                                                                 : 5,
                                                           ),
-                                                          Icon(
+                                                          const Icon(
                                                             Icons.done,
                                                             color: Colors.white,
                                                           ),
@@ -1426,7 +1394,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                             DeviceUtil.isTablet
                                                                 ? "تنزيل مكتبة"
                                                                 : "تنزيل",
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -1439,7 +1407,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 ? 10
                                                                 : 5,
                                                           ),
-                                                          Icon(
+                                                          const Icon(
                                                             Icons
                                                                 .cloud_download,
                                                             color: Colors.white,
@@ -1453,7 +1421,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                         context,
                                                         MaterialPageRoute(
                                                             builder: (context) =>
-                                                                AddChildLibrary())),
+                                                                const AddChildLibrary())),
                                                     child: Container(
                                                       height: 40,
                                                       width: 170,
@@ -1473,7 +1441,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                             DeviceUtil.isTablet
                                                                 ? "إنشاء مكتبة"
                                                                 : "إنشاء",
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -1486,7 +1454,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 ? 10
                                                                 : 5,
                                                           ),
-                                                          Icon(
+                                                          const Icon(
                                                             Icons
                                                                 .add_circle_outline,
                                                             color: Colors.white,
@@ -1515,7 +1483,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.add_circle_outline,
                                           color: Colors.white,
                                           size: 35,
@@ -1523,7 +1491,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                         Container(
                                           width: 7,
                                         ),
-                                        Text(
+                                        const Text(
                                           "إضافة مكتبة",
                                           style: TextStyle(
                                               color: Colors.white,
@@ -1552,7 +1520,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
+                                        const Icon(
                                           Icons.delete_outlined,
                                           color: Colors.white,
                                           size: 35,
@@ -1580,14 +1548,15 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                   width: MediaQuery.of(context).size.width - 70,
                   height: MediaQuery.of(context).size.height * .44,
                   decoration: BoxDecoration(
-                    border:
-                        Border.all(color: Color.fromARGB(255, 202, 202, 202)),
-                    color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-                    borderRadius: BorderRadius.all(Radius.circular(27)),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 202, 202, 202)),
+                    color: const Color.fromARGB(255, 255, 255, 255)
+                        .withOpacity(0.3),
+                    borderRadius: const BorderRadius.all(Radius.circular(27)),
                     boxShadow: [
                       BoxShadow(
-                        color:
-                            Color.fromARGB(255, 217, 216, 216).withOpacity(0.4),
+                        color: const Color.fromARGB(255, 217, 216, 216)
+                            .withOpacity(0.4),
                         spreadRadius: 3,
                         blurRadius: 7,
                       )
@@ -1632,10 +1601,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(color: greyColor),
-                                      color: Color.fromARGB(255, 255, 255, 255)
+                                      color: const Color.fromARGB(
+                                              255, 255, 255, 255)
                                           .withOpacity(0.5),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(27)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(27)),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.white.withOpacity(0.7),
@@ -1649,18 +1619,19 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                       alignment: Alignment.center,
                                       children: [
                                         Padding(
-                                          padding: EdgeInsets.all(5),
+                                          padding: const EdgeInsets.all(5),
                                           child: Column(children: [
                                             Expanded(
                                                 child: getImage(
                                                     libraryListChild[index]
                                                         .imgurl)),
                                             Padding(
-                                              padding: EdgeInsets.only(top: 5),
+                                              padding:
+                                                  const EdgeInsets.only(top: 5),
                                               child: FittedBox(
                                                 child: Text(
                                                   libraryListChild[index].name,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 30,
                                                       fontWeight:
                                                           FontWeight.bold),
@@ -1687,7 +1658,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                         color: Colors.white
                                                             .withOpacity(0.3),
                                                         borderRadius:
-                                                            BorderRadius.all(
+                                                            const BorderRadius
+                                                                    .all(
                                                                 Radius.circular(
                                                                     27)),
                                                         boxShadow: [
@@ -1763,7 +1735,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                 decoration: BoxDecoration(
                                     color: greenColor,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Text(
+                                child: const Text(
                                   "حفظ",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -1788,7 +1760,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                 decoration: BoxDecoration(
                                     color: pinkColor,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: Text(
+                                child: const Text(
                                   "إلغاء",
                                   style: TextStyle(
                                       color: Colors.white,
@@ -1836,7 +1808,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                   width: 150,
                   decoration: BoxDecoration(
                       color: purcolor, borderRadius: BorderRadius.circular(10)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     "إلغاء",
                     style: TextStyle(
@@ -1870,7 +1842,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MainParentPage(index: 0)),
+                          builder: (context) => const MainParentPage(index: 0)),
                       (route) => false);
                 },
                 child: Container(
@@ -1878,7 +1850,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                   width: 150,
                   decoration: BoxDecoration(
                       color: purcolor, borderRadius: BorderRadius.circular(10)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     "نعم، متأكد",
                     style: TextStyle(

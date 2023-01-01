@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../controller/erroralert.dart';
-import '../../controller/validation.dart';
 import '../../controller/var.dart';
 
 class Forgetpassword extends StatefulWidget {
@@ -25,7 +24,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
       child: Scaffold(
           body: Stack(children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("assets/uiImages/bg.png"),
                   fit: BoxFit.cover)),
@@ -36,7 +35,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
             alignment: Alignment.topRight,
             child: InkWell(
               onTap: () => Navigator.pop(context),
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
                 size: 45,
               ),
@@ -54,7 +53,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                   : MediaQuery.of(context).size.width * .44,
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Color(0xff989999), width: 2),
+                  border: Border.all(color: const Color(0xff989999), width: 2),
                   borderRadius: BorderRadius.circular(40)),
               child: SafeArea(
                   child: Padding(
@@ -94,7 +93,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       vertical: 33, horizontal: 15),
                                   filled: true,
                                   fillColor: Colors.white,
@@ -142,7 +141,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                                   decoration: BoxDecoration(
                                       color: maincolor,
                                       borderRadius: BorderRadius.circular(15)),
-                                  child: Center(
+                                  child: const Center(
                                       child: CircularProgressIndicator(
                                     color: Colors.white,
                                   )),
