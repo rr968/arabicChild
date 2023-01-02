@@ -352,7 +352,8 @@ class _LoginState extends State<Signup> {
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>ChildInfo()));
+                                                  builder: (context) =>
+                                                      Selectedlib()));
                                         });
                                       } on FirebaseAuthException catch (e) {
                                         setState(() {

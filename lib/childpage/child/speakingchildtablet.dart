@@ -710,7 +710,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                     children: [
                                                       Container(
                                                         height: 20,
-                                                        width: 300,
+                                                        width: 200,
                                                         child: SliderTheme(
                                                           data: SliderTheme.of(
                                                                   context)
@@ -729,7 +729,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                             thumbShape:
                                                                 RoundSliderThumbShape(
                                                                     enabledThumbRadius:
-                                                                        15),
+                                                                        12),
                                                             overlayColor: Colors
                                                                 .red
                                                                 .withAlpha(32),
