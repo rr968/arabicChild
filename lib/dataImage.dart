@@ -1,6 +1,71 @@
 // ignore_for_file: file_names
 
 List<List> dataImage = [
+  [
+    [
+      ["و", "l"],
+    ],
+    "assets/images/and.png"
+  ],
+  [
+    [
+      ["حتى", "l"],
+    ],
+    "assets/images/statistics.png"
+  ],
+  [
+    [
+      ["عن", "l"],
+    ],
+    "assets/images/about.png"
+  ],
+  [
+    [
+      ["قد", "l"],
+    ],
+    "assets/images/maybe.png"
+  ],
+  [
+    [
+      ["إلا", "l"],
+      ["الا", "l"],
+    ],
+    "assets/images/alert.png"
+  ],
+  [
+    [
+      ["لن", "l"],
+    ],
+    "assets/images/unless.png"
+  ],
+  [
+    [
+      ["لما", "l"],
+    ],
+    "assets/images/why.png"
+  ],
+  [
+    [
+      ["لم", "l"],
+    ],
+    "assets/images/not.png"
+  ],
+  [
+    [
+      ["في", "l"],
+      ["فيه", "l"],
+      ["فيها", ""],
+      ["فيك", ""],
+      ["بداخلها", ""],
+      ["داخل", ""],
+      ["بداخل", ""],
+      ["داخلي", ""],
+      ["بداخلنا", ""],
+      ["داخله", ""],
+    ],
+    "assets/images/in.png"
+  ],
+
   ////////////////////////////////////final
 
   [
@@ -693,6 +758,7 @@ List<List> dataImage = [
   ],
   [
     [
+      ["يا", "l"],
       ["شخص", "n"],
       ["الشخص", "n"],
       ["الشخصية", "n"],
@@ -936,13 +1002,14 @@ List<List> dataImage = [
       ["المساء", "n"],
       ["مسائية", "n"],
     ],
-    "assets/images/next.png"
+    "assets/images/night.png"
   ],
   [
     [
       ["بالتالي", "n"],
       ["متتالية", "n"],
       ["التالي", "n"],
+      ["ثم", "l"],
     ],
     "assets/images/next.png"
   ],
@@ -1339,7 +1406,7 @@ List<List> dataImage = [
   ],
   [
     [
-      ["من", ""],
+      ["من", "l"],
       ["مِن", ""],
       ["منه", ""],
       ["منها", ""],
@@ -2464,7 +2531,7 @@ List<List> dataImage = [
       ["لماذا", ""],
       ["فلماذا", ""],
       ["كيف", ""],
-      ["ما", ""],
+      ["ما", "l"],
       ["مما", ""],
       ["فيما", ""],
       ["ماهي", ""],
@@ -3307,6 +3374,7 @@ List<List> dataImage = [
       ["الإقبال", "n"],
       ["نعم", "n"],
       ["صحيح", "a"],
+      ["بلى", "l"],
       ["الصحيح", "n"],
       ["يصح", "v"],
       ["أصحيح", "n"],
@@ -3391,7 +3459,7 @@ List<List> dataImage = [
     ],
     "assets/images/children.png"
   ],
-  [
+  /* [
     [
       ["تقلقد", "v"],
       ["القلق", "n"],
@@ -3400,7 +3468,7 @@ List<List> dataImage = [
       ["بالقلق", "n"],
     ],
     "assets/images/.png"
-  ],
+  ],*/
   [
     [
       ["نافذة", "n"],

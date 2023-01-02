@@ -49,29 +49,52 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
               color: Colors.grey,
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              Expanded(
-                  child: getImage(libraryListChild[widget.contentIndex]
-                      .contenlist[i]
-                      .imgurl)),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Center(
-                    child: Text(
-                      libraryListChild[widget.contentIndex].contenlist[i].name,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          decoration: TextDecoration.none,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  Expanded(
+                      child: getImage(libraryListChild[widget.contentIndex]
+                          .contenlist[i]
+                          .imgurl)),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: Text(
+                          libraryListChild[widget.contentIndex]
+                              .contenlist[i]
+                              .name,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              decoration: TextDecoration.none,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ]),
               ),
-            ]),
+              Container(
+                height: 38,
+                width: 38,
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 70, 70, 70),
+                    borderRadius: BorderRadius.circular(20)),
+                child: Center(
+                  child: Text(
+                    (i + 1).toString(),
+                    style: TextStyle(
+                        decoration: TextDecoration.none,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30),
+                  ),
+                ),
+              )
+            ],
           ),
         ),
       ));

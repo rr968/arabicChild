@@ -39,39 +39,30 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
       child: Scaffold(
         drawer: const Drawerc(),
         appBar: AppBar(
+          toolbarHeight: 70,
           elevation: 0,
           backgroundColor: Colors.transparent,
-
-          // title:
-          /* leading: Padding(
-            padding: const EdgeInsets.all(15),
-            child: InkWell(
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.grey),
-                child: Center(
-                  child: const Icon(
-                    Icons.arrow_back,
-                    size: 55,
+          leading: Align(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: InkWell(
+                child: Container(
+                  height: 70,
+                  width: 70,
+                  child: Center(
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      size: 55,
+                    ),
                   ),
                 ),
+                onTap: () {
+                  Provider.of<MyProvider>(context, listen: false)
+                      .setIscontentOfLibrary(-1);
+                },
               ),
-              onTap: () {
-                Provider.of<MyProvider>(context, listen: false)
-                    .setIscontentOfLibrary(-1);
-
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MainParentPage(
-                              index: 0,
-                            )));
-              },
             ),
-          ),*/
+          ),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

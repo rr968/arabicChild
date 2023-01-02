@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:arabic_speaker_child/controller/realtime.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../controller/erroralert.dart';
 import '/childpage/constant.dart';
@@ -27,6 +28,7 @@ class SpeakingChildTablet extends StatefulWidget {
 
 class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   int coloredOpenLibraryindex = 0;
+  double sliderValue = 1;
   List<List<List<String>>> constant = [
     [
       ["أنا", getImageWord("أنا")],
@@ -360,6 +362,11 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                           alignment: Alignment.topRight,
                                           child: InkWell(
                                             onTap: () {
+                                              if (fieldContent.length < 6) {
+                                                setState(() {
+                                                  sliderValue = 1;
+                                                });
+                                              }
                                               // clear
                                               if (fieldContent.isNotEmpty) {
                                                 if (fieldContent.length == 1) {
@@ -694,320 +701,478 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
-                                                          left: 15),
+                                                    left: 15,
+                                                  ),
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.end,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
-                                                      InkWell(
-                                                        onTap: () async {
-                                                          setState(() {
-                                                            isFav = false;
-                                                            fieldContent = [];
-
-                                                            predictionWords = [
-                                                              [
-                                                                "انا",
-                                                                getImageWord(
-                                                                    "انا")
-                                                              ],
-                                                              [
-                                                                "هل",
-                                                                getImageWord(
-                                                                    "هل")
-                                                              ],
-                                                              [
-                                                                "متى",
-                                                                getImageWord(
-                                                                    "متى")
-                                                              ],
-                                                              [
-                                                                "اين",
-                                                                getImageWord(
-                                                                    "اين")
-                                                              ],
-                                                              [
-                                                                "كيف",
-                                                                getImageWord(
-                                                                    "كيف")
-                                                              ],
-                                                              [
-                                                                "كم",
-                                                                getImageWord(
-                                                                    "كم")
-                                                              ],
-                                                              [
-                                                                "افتح",
-                                                                getImageWord(
-                                                                    "افتح")
-                                                              ],
-                                                              [
-                                                                "ممكن",
-                                                                getImageWord(
-                                                                    "ممكن")
-                                                              ],
-                                                              [
-                                                                "طيب",
-                                                                getImageWord(
-                                                                    "طيب")
-                                                              ],
-                                                              [
-                                                                "السلام",
-                                                                getImageWord(
-                                                                    "السلام")
-                                                              ],
-                                                              [
-                                                                "أريد",
-                                                                getImageWord(
-                                                                    "أريد")
-                                                              ],
-                                                              [
-                                                                "لماذا",
-                                                                getImageWord(
-                                                                    "لماذا")
-                                                              ],
-                                                              [
-                                                                "قال",
-                                                                getImageWord(
-                                                                    "قال")
-                                                              ],
-                                                              [
-                                                                "نعم",
-                                                                getImageWord(
-                                                                    "نعم")
-                                                              ],
-                                                              [
-                                                                "مع",
-                                                                getImageWord(
-                                                                    "مع")
-                                                              ],
-                                                              [
-                                                                "لكن",
-                                                                getImageWord(
-                                                                    "لكن")
-                                                              ],
-                                                            ];
-                                                          });
-                                                          controller.clear();
-                                                        },
-                                                        child: SizedBox(
-                                                          height: 33,
-                                                          width: 33,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            child: Image.asset(
-                                                              "assets/uiImages/trash.png",
-                                                              fit: BoxFit.fill,
-                                                            ),
+                                                      Container(
+                                                        height: 20,
+                                                        width: 300,
+                                                        child: SliderTheme(
+                                                          data: SliderTheme.of(
+                                                                  context)
+                                                              .copyWith(
+                                                            activeTrackColor:
+                                                                pinkColor,
+                                                            inactiveTrackColor:
+                                                                pinkColor
+                                                                    .withOpacity(
+                                                                        .5),
+                                                            trackShape:
+                                                                RectangularSliderTrackShape(),
+                                                            trackHeight: 5,
+                                                            thumbColor:
+                                                                pinkColor,
+                                                            thumbShape:
+                                                                RoundSliderThumbShape(
+                                                                    enabledThumbRadius:
+                                                                        15),
+                                                            overlayColor: Colors
+                                                                .red
+                                                                .withAlpha(32),
+                                                            overlayShape:
+                                                                RoundSliderOverlayShape(
+                                                                    overlayRadius:
+                                                                        28.0),
                                                           ),
+                                                          child: Slider(
+                                                              value:
+                                                                  sliderValue,
+                                                              onChanged:
+                                                                  ((value) {
+                                                                if (fieldContent
+                                                                        .length >
+                                                                    6) {
+                                                                  setState(() {
+                                                                    sliderValue =
+                                                                        value;
+                                                                  });
+
+                                                                  contentWordController.animateTo(
+                                                                      contentWordController
+                                                                              .position
+                                                                              .maxScrollExtent *
+                                                                          value,
+                                                                      duration: const Duration(
+                                                                          seconds:
+                                                                              1),
+                                                                      curve: Curves
+                                                                          .easeOut);
+                                                                } else {
+                                                                  setState(() {
+                                                                    sliderValue =
+                                                                        1;
+                                                                  });
+                                                                }
+                                                              })),
                                                         ),
                                                       ),
                                                       Container(
-                                                        width: 15,
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () async {
-                                                          if (controller.text
-                                                              .trim()
-                                                              .isNotEmpty) {
-                                                            setState(() {
-                                                              fieldContent.add(
-                                                                  Content(
-                                                                      controller
-                                                                          .text
-                                                                          .trim(),
-                                                                      "",
-                                                                      "yes",
-                                                                      "",
-                                                                      "",
-                                                                      "yes"));
-                                                            });
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            .25,
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: () {
+                                                                if (controller
+                                                                    .text
+                                                                    .trim()
+                                                                    .isNotEmpty) {
+                                                                  setState(() {
+                                                                    fieldContent.add(Content(
+                                                                        controller
+                                                                            .text
+                                                                            .trim(),
+                                                                        "",
+                                                                        "yes",
+                                                                        "",
+                                                                        "",
+                                                                        "yes"));
+                                                                  });
+                                                                  contentWordController.animateTo(
+                                                                      contentWordController
+                                                                          .position
+                                                                          .maxScrollExtent,
+                                                                      duration: const Duration(
+                                                                          milliseconds:
+                                                                              750),
+                                                                      curve: Curves
+                                                                          .easeOut);
 
-                                                            controller.clear();
-                                                          }
-                                                          if (fieldContent
-                                                              .isNotEmpty) {
-                                                            //speak
-                                                            String text = "";
-                                                            for (var element
-                                                                in fieldContent) {
-                                                              text +=
-                                                                  "${element.name} ";
-                                                            }
-                                                            if (controller.text
-                                                                .trim()
-                                                                .isNotEmpty) {
-                                                              predict(text
-                                                                  .replaceAll(
-                                                                      "أ", "ا")
-                                                                  .replaceAll(
-                                                                      "ة",
-                                                                      "ه"));
-                                                            }
-
-                                                            SharedPreferences
-                                                                favlist =
-                                                                await SharedPreferences
-                                                                    .getInstance();
-                                                            if (!fav.contains(
-                                                                text.trim())) {
-                                                              setState(() {
-                                                                fav.add(text
-                                                                    .trim());
-                                                                isFav = true;
-                                                              });
-
-                                                              String newFav =
-                                                                  "";
-                                                              for (int y = 0;
-                                                                  y <
-                                                                      fieldContent
-                                                                          .length;
-                                                                  y++) {
-                                                                String input =
-                                                                    fieldContent[
-                                                                            y]
-                                                                        .name;
-                                                                String imurl =
-                                                                    fieldContent[
-                                                                            y]
-                                                                        .imgurl;
-                                                                String isimup =
-                                                                    fieldContent[
-                                                                            y]
-                                                                        .isImageUpload;
-                                                                String
-                                                                    voiceurl =
-                                                                    fieldContent[
-                                                                            y]
-                                                                        .opvoice;
-                                                                String
-                                                                    voiceCache =
-                                                                    fieldContent[
-                                                                            y]
-                                                                        .cacheVoicePath;
-                                                                String
-                                                                    isvoiceUp =
-                                                                    fieldContent[
-                                                                            y]
-                                                                        .isVoiceUpload;
-
-                                                                if (y ==
-                                                                    fieldContent
-                                                                            .length -
-                                                                        1) {
-                                                                  newFav +=
-                                                                      """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
-                                                                } else {
-                                                                  newFav +=
-                                                                      """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
+                                                                  controller
+                                                                      .clear();
                                                                 }
-                                                              }
-                                                              newFav =
-                                                                  "[$newFav]";
-                                                              List<String>
-                                                                  favChildList =
-                                                                  [];
-                                                              var temp = favlist
-                                                                  .getStringList(
-                                                                      "favlistChild");
-                                                              if (temp ==
-                                                                  null) {
-                                                                favChildList = [
-                                                                  newFav
-                                                                ];
-                                                              } else {
-                                                                favChildList =
-                                                                    temp;
-                                                                favChildList
-                                                                    .add(
-                                                                        newFav);
-                                                              }
-                                                              favlist.setStringList(
-                                                                  "favlistChild",
-                                                                  favChildList);
-                                                            } else {
-                                                              fav.remove(
-                                                                  text.trim());
-                                                              setState(() {
-                                                                isFav = false;
-                                                              });
-                                                              List<String> v =
-                                                                  favlist.getStringList(
-                                                                          "favlistChild") ??
-                                                                      [];
-                                                              List favChild =
-                                                                  [];
-                                                              for (var element
-                                                                  in v) {
-                                                                favChild.add(
-                                                                    json.decode(
-                                                                        element));
-                                                              }
-                                                              favChild
-                                                                  .removeWhere(
-                                                                      (element) {
-                                                                if (element
-                                                                        .length !=
-                                                                    fieldContent
-                                                                        .length) {
-                                                                  return false;
-                                                                } else {
-                                                                  bool sam =
-                                                                      true;
-                                                                  for (int o =
-                                                                          0;
-                                                                      o <
-                                                                          element
-                                                                              .length;
-                                                                      o++) {
-                                                                    if (element[o]
-                                                                            [
-                                                                            0] !=
-                                                                        fieldContent[o]
-                                                                            .name) {
-                                                                      sam =
-                                                                          false;
-                                                                    }
-                                                                  }
-                                                                  return sam;
+                                                                //speak
+                                                                String a = "";
+                                                                for (var element
+                                                                    in fieldContent) {
+                                                                  a +=
+                                                                      "${element.name} ";
                                                                 }
-                                                              });
 
-                                                              List<String>
-                                                                  favString =
-                                                                  convertFvaChildrenToString(
-                                                                      favChild);
-                                                              favlist.setStringList(
-                                                                  "favlistChild",
-                                                                  favString);
-                                                            }
-                                                          } else {
-                                                            erroralert(context,
-                                                                "يرجى ملئ الحقل للاضافة الى المفضلة");
-                                                          }
-                                                        },
-                                                        child: SizedBox(
-                                                          height: 33,
-                                                          width: 33,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(0),
-                                                            child: isFav
-                                                                ? Image.asset(
-                                                                    "assets/uiImages/star2.png",
-                                                                    color:
-                                                                        pinkColor,
-                                                                    height: 33,
-                                                                  )
-                                                                : Image.asset(
-                                                                    "assets/uiImages/star.png",
-                                                                    height: 33,
+                                                                if (a
+                                                                    .isNotEmpty) {
+                                                                  Share.share(
+                                                                      "متننت");
+                                                                } else {
+                                                                  erroralert(
+                                                                      context,
+                                                                      "لا يمكن مشاركة حقل فارغ");
+                                                                }
+                                                              },
+                                                              child: SizedBox(
+                                                                height: 33,
+                                                                width: 33,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(0),
+                                                                  child: Image
+                                                                      .asset(
+                                                                    "assets/uiImages/share.png",
+                                                                    fit: BoxFit
+                                                                        .fill,
                                                                   ),
-                                                          ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: 15,
+                                                            ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                setState(() {
+                                                                  sliderValue =
+                                                                      1;
+                                                                  isFav = false;
+                                                                  fieldContent =
+                                                                      [];
+
+                                                                  predictionWords =
+                                                                      [
+                                                                    [
+                                                                      "انا",
+                                                                      getImageWord(
+                                                                          "انا")
+                                                                    ],
+                                                                    [
+                                                                      "هل",
+                                                                      getImageWord(
+                                                                          "هل")
+                                                                    ],
+                                                                    [
+                                                                      "متى",
+                                                                      getImageWord(
+                                                                          "متى")
+                                                                    ],
+                                                                    [
+                                                                      "اين",
+                                                                      getImageWord(
+                                                                          "اين")
+                                                                    ],
+                                                                    [
+                                                                      "كيف",
+                                                                      getImageWord(
+                                                                          "كيف")
+                                                                    ],
+                                                                    [
+                                                                      "كم",
+                                                                      getImageWord(
+                                                                          "كم")
+                                                                    ],
+                                                                    [
+                                                                      "افتح",
+                                                                      getImageWord(
+                                                                          "افتح")
+                                                                    ],
+                                                                    [
+                                                                      "ممكن",
+                                                                      getImageWord(
+                                                                          "ممكن")
+                                                                    ],
+                                                                    [
+                                                                      "طيب",
+                                                                      getImageWord(
+                                                                          "طيب")
+                                                                    ],
+                                                                    [
+                                                                      "السلام",
+                                                                      getImageWord(
+                                                                          "السلام")
+                                                                    ],
+                                                                    [
+                                                                      "أريد",
+                                                                      getImageWord(
+                                                                          "أريد")
+                                                                    ],
+                                                                    [
+                                                                      "لماذا",
+                                                                      getImageWord(
+                                                                          "لماذا")
+                                                                    ],
+                                                                    [
+                                                                      "قال",
+                                                                      getImageWord(
+                                                                          "قال")
+                                                                    ],
+                                                                    [
+                                                                      "نعم",
+                                                                      getImageWord(
+                                                                          "نعم")
+                                                                    ],
+                                                                    [
+                                                                      "مع",
+                                                                      getImageWord(
+                                                                          "مع")
+                                                                    ],
+                                                                    [
+                                                                      "لكن",
+                                                                      getImageWord(
+                                                                          "لكن")
+                                                                    ],
+                                                                  ];
+                                                                });
+                                                                controller
+                                                                    .clear();
+                                                              },
+                                                              child: SizedBox(
+                                                                height: 33,
+                                                                width: 33,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(0),
+                                                                  child: Image
+                                                                      .asset(
+                                                                    "assets/uiImages/trash.png",
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width: 15,
+                                                            ),
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                if (controller
+                                                                    .text
+                                                                    .trim()
+                                                                    .isNotEmpty) {
+                                                                  setState(() {
+                                                                    fieldContent.add(Content(
+                                                                        controller
+                                                                            .text
+                                                                            .trim(),
+                                                                        "",
+                                                                        "yes",
+                                                                        "",
+                                                                        "",
+                                                                        "yes"));
+                                                                  });
+
+                                                                  controller
+                                                                      .clear();
+                                                                }
+                                                                if (fieldContent
+                                                                    .isNotEmpty) {
+                                                                  //speak
+                                                                  String text =
+                                                                      "";
+                                                                  for (var element
+                                                                      in fieldContent) {
+                                                                    text +=
+                                                                        "${element.name} ";
+                                                                  }
+                                                                  if (controller
+                                                                      .text
+                                                                      .trim()
+                                                                      .isNotEmpty) {
+                                                                    predict(text
+                                                                        .replaceAll(
+                                                                            "أ",
+                                                                            "ا")
+                                                                        .replaceAll(
+                                                                            "ة",
+                                                                            "ه"));
+                                                                  }
+
+                                                                  SharedPreferences
+                                                                      favlist =
+                                                                      await SharedPreferences
+                                                                          .getInstance();
+                                                                  if (!fav.contains(
+                                                                      text.trim())) {
+                                                                    setState(
+                                                                        () {
+                                                                      fav.add(text
+                                                                          .trim());
+                                                                      isFav =
+                                                                          true;
+                                                                    });
+
+                                                                    String
+                                                                        newFav =
+                                                                        "";
+                                                                    for (int y =
+                                                                            0;
+                                                                        y < fieldContent.length;
+                                                                        y++) {
+                                                                      String
+                                                                          input =
+                                                                          fieldContent[y]
+                                                                              .name;
+                                                                      String
+                                                                          imurl =
+                                                                          fieldContent[y]
+                                                                              .imgurl;
+                                                                      String
+                                                                          isimup =
+                                                                          fieldContent[y]
+                                                                              .isImageUpload;
+                                                                      String
+                                                                          voiceurl =
+                                                                          fieldContent[y]
+                                                                              .opvoice;
+                                                                      String
+                                                                          voiceCache =
+                                                                          fieldContent[y]
+                                                                              .cacheVoicePath;
+                                                                      String
+                                                                          isvoiceUp =
+                                                                          fieldContent[y]
+                                                                              .isVoiceUpload;
+
+                                                                      if (y ==
+                                                                          fieldContent.length -
+                                                                              1) {
+                                                                        newFav +=
+                                                                            """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
+                                                                      } else {
+                                                                        newFav +=
+                                                                            """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
+                                                                      }
+                                                                    }
+                                                                    newFav =
+                                                                        "[$newFav]";
+                                                                    List<String>
+                                                                        favChildList =
+                                                                        [];
+                                                                    var temp = favlist
+                                                                        .getStringList(
+                                                                            "favlistChild");
+                                                                    if (temp ==
+                                                                        null) {
+                                                                      favChildList =
+                                                                          [
+                                                                        newFav
+                                                                      ];
+                                                                    } else {
+                                                                      favChildList =
+                                                                          temp;
+                                                                      favChildList
+                                                                          .add(
+                                                                              newFav);
+                                                                    }
+                                                                    favlist.setStringList(
+                                                                        "favlistChild",
+                                                                        favChildList);
+                                                                  } else {
+                                                                    fav.remove(text
+                                                                        .trim());
+                                                                    setState(
+                                                                        () {
+                                                                      isFav =
+                                                                          false;
+                                                                    });
+                                                                    List<String>
+                                                                        v =
+                                                                        favlist.getStringList("favlistChild") ??
+                                                                            [];
+                                                                    List
+                                                                        favChild =
+                                                                        [];
+                                                                    for (var element
+                                                                        in v) {
+                                                                      favChild.add(
+                                                                          json.decode(
+                                                                              element));
+                                                                    }
+                                                                    favChild.removeWhere(
+                                                                        (element) {
+                                                                      if (element
+                                                                              .length !=
+                                                                          fieldContent
+                                                                              .length) {
+                                                                        return false;
+                                                                      } else {
+                                                                        bool
+                                                                            sam =
+                                                                            true;
+                                                                        for (int o =
+                                                                                0;
+                                                                            o < element.length;
+                                                                            o++) {
+                                                                          if (element[o][0] !=
+                                                                              fieldContent[o].name) {
+                                                                            sam =
+                                                                                false;
+                                                                          }
+                                                                        }
+                                                                        return sam;
+                                                                      }
+                                                                    });
+
+                                                                    List<String>
+                                                                        favString =
+                                                                        convertFvaChildrenToString(
+                                                                            favChild);
+                                                                    favlist.setStringList(
+                                                                        "favlistChild",
+                                                                        favString);
+                                                                  }
+                                                                } else {
+                                                                  erroralert(
+                                                                      context,
+                                                                      "يرجى ملئ الحقل للاضافة الى المفضلة");
+                                                                }
+                                                              },
+                                                              child: SizedBox(
+                                                                height: 33,
+                                                                width: 33,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(0),
+                                                                  child: isFav
+                                                                      ? Image
+                                                                          .asset(
+                                                                          "assets/uiImages/star2.png",
+                                                                          color:
+                                                                              pinkColor,
+                                                                          height:
+                                                                              33,
+                                                                        )
+                                                                      : Image
+                                                                          .asset(
+                                                                          "assets/uiImages/star.png",
+                                                                          height:
+                                                                              33,
+                                                                        ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -2292,14 +2457,21 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                       isLess = !isLess;
                                     });
                                   },
-                                  child: Image.asset(
-                                    isLess
-                                        ? "assets/uiImages/down.png"
-                                        : "assets/uiImages/upArrow.png",
-                                    height: 45,
-                                    color: const Color.fromARGB(
-                                        255, 107, 107, 107),
-                                    matchTextDirection: false,
+                                  child: Container(
+                                    height: 30,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Image.asset(
+                                      isLess
+                                          ? "assets/uiImages/down.png"
+                                          : "assets/uiImages/upArrow.png",
+                                      height: 45,
+                                      color: Color.fromARGB(255, 204, 204, 204),
+                                      matchTextDirection: false,
+                                    ),
                                   ),
                                 )
                               ],
@@ -3101,22 +3273,22 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
 
   one_word_child(int counter) async {
     List wordsP = [
-      " و",
-      "على",
-      "من",
-      "إلى",
-      "عن",
-      "في",
-      "لكن",
+      "طيب",
+      "تمام",
       "لا",
-      "يا",
-      "إلا",
-      "بلى",
-      "حتى",
-      "لن",
-      "لما",
-      "ما",
-      "ثم",
+      "شكرا",
+      "أنا",
+      "هل",
+      "كم",
+      "هذا",
+      "نعم",
+      "أبغى",
+      "كيف",
+      "ممكن",
+      "السلام",
+      "هل",
+      "اهلا",
+      "مرحبا",
     ];
     for (int i = 0; i < wordsP.length; i++) {
       if (predictionWords.length < 16 &&

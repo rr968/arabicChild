@@ -57,7 +57,7 @@ class _MainChildPageState extends State<MainChildPage> {
   @override
   void initState() {
     indexpage = widget.index;
-    //getColor();
+
     getVoice();
     getfemail();
     setparentmode();
@@ -122,7 +122,7 @@ class _MainChildPageState extends State<MainChildPage> {
                     BottomBarItem(
                       inActiveItem: Image.asset(
                         "assets/bell.png",
-                        color: Colors.blueGrey,
+                        color: Colors.black,
                       ),
                       activeItem: Image.asset(
                         "assets/bell.png",
@@ -133,7 +133,7 @@ class _MainChildPageState extends State<MainChildPage> {
                     BottomBarItem(
                       inActiveItem: Image.asset(
                         "assets/uiImages/home.png",
-                        color: Colors.blueGrey,
+                        color: Colors.black,
                       ),
                       activeItem: Image.asset(
                         "assets/uiImages/home.png",
@@ -143,7 +143,7 @@ class _MainChildPageState extends State<MainChildPage> {
                     BottomBarItem(
                       inActiveItem: Image.asset(
                         "assets/uiImages/star.png",
-                        color: Colors.blueGrey,
+                        color: Colors.black,
                       ),
                       activeItem: Image.asset(
                         "assets/uiImages/star.png",
@@ -162,67 +162,6 @@ class _MainChildPageState extends State<MainChildPage> {
                       );
                     }
                   },
-                )
-
-                /*
-                bottomNavigationBar: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 70),
-                  child: Container(
-                    height: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? MediaQuery.of(context).size.height * .07
-                        : MediaQuery.of(context).size.height * .09,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffe9edf3),
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.3),
-                            spreadRadius: 3,
-                            blurRadius: 5,
-                            offset: Offset(0, 3)),
-                      ],
-                      border: Border.all(
-                        width: 2,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  indexpage = 1;
-                                });
-                              },
-                              child: Image.asset(
-                                "assets/uiImages/star.png",
-                              )),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  indexpage = 0;
-                                });
-                              },
-                              child: Image.asset(
-                                "assets/uiImages/home.png",
-                              )),
-                          InkWell(
-                              onTap: () {
-                                playaudio();
-                              },
-                              child: Image.asset("assets/bell.png")),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-            */
-                ));
+                )));
   }
 }
