@@ -13,9 +13,7 @@ deleteAccount() async {
   try {
     await FirebaseFirestore.instance.collection('Users').doc(user.uid).delete();
     await user.delete();
-  } on Exception catch (_) {
-    /// if needs sign in
-  }
+  } on Exception catch (_) {}
 
   isFemale = false; // default
   removeAllSharedPrefrences().then((value) {
