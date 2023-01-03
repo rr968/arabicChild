@@ -2,7 +2,9 @@
 
 import 'dart:convert';
 
+import 'package:arabic_speaker_child/controller/harakatPrediction.dart';
 import 'package:arabic_speaker_child/controller/realtime.dart';
+import 'package:arabic_speaker_child/data.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../controller/erroralert.dart';
@@ -11,7 +13,6 @@ import '/controller/images.dart';
 import '/controller/speak.dart';
 import '/controller/uploaddataChild.dart';
 import '/controller/var.dart';
-import '/dataImage.dart';
 import '/model/library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -383,6 +384,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                         getImageWord("هل")
                                                       ],
                                                       [
+                                                        "كم",
+                                                        getImageWord("كم")
+                                                      ],
+                                                      [
                                                         "متى",
                                                         getImageWord("متى")
                                                       ],
@@ -391,52 +396,48 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                         getImageWord("اين")
                                                       ],
                                                       [
+                                                        "بكم",
+                                                        getImageWord("بكم")
+                                                      ],
+                                                      [
+                                                        "هذا",
+                                                        getImageWord("هذا")
+                                                      ],
+                                                      [
+                                                        "أبغى",
+                                                        getImageWord("أبغى")
+                                                      ],
+                                                      [
                                                         "كيف",
                                                         getImageWord("كيف")
-                                                      ],
-                                                      [
-                                                        "كم",
-                                                        getImageWord("كم")
-                                                      ],
-                                                      [
-                                                        "افتح",
-                                                        getImageWord("افتح")
-                                                      ],
-                                                      [
-                                                        "ممكن",
-                                                        getImageWord("ممكن")
                                                       ],
                                                       [
                                                         "طيب",
                                                         getImageWord("طيب")
                                                       ],
                                                       [
+                                                        "عندي",
+                                                        getImageWord("عندي")
+                                                      ],
+                                                      [
+                                                        "شكرا",
+                                                        getImageWord("شكرا")
+                                                      ],
+                                                      [
                                                         "السلام",
                                                         getImageWord("السلام")
                                                       ],
                                                       [
-                                                        "أريد",
-                                                        getImageWord("أريد")
-                                                      ],
-                                                      [
-                                                        "لماذا",
-                                                        getImageWord("لماذا")
-                                                      ],
-                                                      [
-                                                        "قال",
-                                                        getImageWord("قال")
-                                                      ],
-                                                      [
-                                                        "نعم",
-                                                        getImageWord("نعم")
-                                                      ],
-                                                      [
-                                                        "مع",
-                                                        getImageWord("مع")
-                                                      ],
-                                                      [
                                                         "لكن",
                                                         getImageWord("لكن")
+                                                      ],
+                                                      [
+                                                        "ممكن",
+                                                        getImageWord("ممكن")
+                                                      ],
+                                                      [
+                                                        "لو",
+                                                        getImageWord("لو")
                                                       ],
                                                     ];
                                                   });
@@ -606,6 +607,11 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             "هل")
                                                                       ],
                                                                       [
+                                                                        "كم",
+                                                                        getImageWord(
+                                                                            "كم")
+                                                                      ],
+                                                                      [
                                                                         "متى",
                                                                         getImageWord(
                                                                             "متى")
@@ -616,24 +622,24 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             "اين")
                                                                       ],
                                                                       [
+                                                                        "بكم",
+                                                                        getImageWord(
+                                                                            "بكم")
+                                                                      ],
+                                                                      [
+                                                                        "هذا",
+                                                                        getImageWord(
+                                                                            "هذا")
+                                                                      ],
+                                                                      [
+                                                                        "أبغى",
+                                                                        getImageWord(
+                                                                            "أبغى")
+                                                                      ],
+                                                                      [
                                                                         "كيف",
                                                                         getImageWord(
                                                                             "كيف")
-                                                                      ],
-                                                                      [
-                                                                        "كم",
-                                                                        getImageWord(
-                                                                            "كم")
-                                                                      ],
-                                                                      [
-                                                                        "افتح",
-                                                                        getImageWord(
-                                                                            "افتح")
-                                                                      ],
-                                                                      [
-                                                                        "ممكن",
-                                                                        getImageWord(
-                                                                            "ممكن")
                                                                       ],
                                                                       [
                                                                         "طيب",
@@ -641,39 +647,34 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             "طيب")
                                                                       ],
                                                                       [
+                                                                        "عندي",
+                                                                        getImageWord(
+                                                                            "عندي")
+                                                                      ],
+                                                                      [
+                                                                        "شكرا",
+                                                                        getImageWord(
+                                                                            "شكرا")
+                                                                      ],
+                                                                      [
                                                                         "السلام",
                                                                         getImageWord(
                                                                             "السلام")
                                                                       ],
                                                                       [
-                                                                        "أريد",
-                                                                        getImageWord(
-                                                                            "أريد")
-                                                                      ],
-                                                                      [
-                                                                        "لماذا",
-                                                                        getImageWord(
-                                                                            "لماذا")
-                                                                      ],
-                                                                      [
-                                                                        "قال",
-                                                                        getImageWord(
-                                                                            "قال")
-                                                                      ],
-                                                                      [
-                                                                        "نعم",
-                                                                        getImageWord(
-                                                                            "نعم")
-                                                                      ],
-                                                                      [
-                                                                        "مع",
-                                                                        getImageWord(
-                                                                            "مع")
-                                                                      ],
-                                                                      [
                                                                         "لكن",
                                                                         getImageWord(
                                                                             "لكن")
+                                                                      ],
+                                                                      [
+                                                                        "ممكن",
+                                                                        getImageWord(
+                                                                            "ممكن")
+                                                                      ],
+                                                                      [
+                                                                        "لو",
+                                                                        getImageWord(
+                                                                            "لو")
                                                                       ],
                                                                     ];
                                                                   });
@@ -708,7 +709,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Container(
+                                                      SizedBox(
                                                         height: 20,
                                                         width: 200,
                                                         child: SliderTheme(
@@ -722,19 +723,19 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                     .withOpacity(
                                                                         .5),
                                                             trackShape:
-                                                                RectangularSliderTrackShape(),
+                                                                const RectangularSliderTrackShape(),
                                                             trackHeight: 5,
                                                             thumbColor:
                                                                 pinkColor,
                                                             thumbShape:
-                                                                RoundSliderThumbShape(
+                                                                const RoundSliderThumbShape(
                                                                     enabledThumbRadius:
                                                                         12),
                                                             overlayColor: Colors
                                                                 .red
                                                                 .withAlpha(32),
                                                             overlayShape:
-                                                                RoundSliderOverlayShape(
+                                                                const RoundSliderOverlayShape(
                                                                     overlayRadius:
                                                                         28.0),
                                                           ),
@@ -744,7 +745,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                               onChanged:
                                                                   ((value) {
                                                                 if (fieldContent
-                                                                        .length >
+                                                                        .length >=
                                                                     6) {
                                                                   setState(() {
                                                                     sliderValue =
@@ -770,7 +771,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                               })),
                                                         ),
                                                       ),
-                                                      Container(
+                                                      SizedBox(
                                                         width: MediaQuery.of(
                                                                     context)
                                                                 .size
@@ -781,70 +782,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                               MainAxisAlignment
                                                                   .spaceBetween,
                                                           children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                if (controller
-                                                                    .text
-                                                                    .trim()
-                                                                    .isNotEmpty) {
-                                                                  setState(() {
-                                                                    fieldContent.add(Content(
-                                                                        controller
-                                                                            .text
-                                                                            .trim(),
-                                                                        "",
-                                                                        "yes",
-                                                                        "",
-                                                                        "",
-                                                                        "yes"));
-                                                                  });
-                                                                  contentWordController.animateTo(
-                                                                      contentWordController
-                                                                          .position
-                                                                          .maxScrollExtent,
-                                                                      duration: const Duration(
-                                                                          milliseconds:
-                                                                              750),
-                                                                      curve: Curves
-                                                                          .easeOut);
-
-                                                                  controller
-                                                                      .clear();
-                                                                }
-                                                                //speak
-                                                                String a = "";
-                                                                for (var element
-                                                                    in fieldContent) {
-                                                                  a +=
-                                                                      "${element.name} ";
-                                                                }
-
-                                                                if (a
-                                                                    .isNotEmpty) {
-                                                                  Share.share(
-                                                                      "متننت");
-                                                                } else {
-                                                                  erroralert(
-                                                                      context,
-                                                                      "لا يمكن مشاركة حقل فارغ");
-                                                                }
-                                                              },
-                                                              child: SizedBox(
-                                                                height: 33,
-                                                                width: 33,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(0),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    "assets/uiImages/share.png",
-                                                                    fit: BoxFit
-                                                                        .fill,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
                                                             Container(
                                                               width: 15,
                                                             ),
@@ -870,6 +807,11 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                           "هل")
                                                                     ],
                                                                     [
+                                                                      "كم",
+                                                                      getImageWord(
+                                                                          "كم")
+                                                                    ],
+                                                                    [
                                                                       "متى",
                                                                       getImageWord(
                                                                           "متى")
@@ -880,24 +822,24 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                           "اين")
                                                                     ],
                                                                     [
+                                                                      "بكم",
+                                                                      getImageWord(
+                                                                          "بكم")
+                                                                    ],
+                                                                    [
+                                                                      "هذا",
+                                                                      getImageWord(
+                                                                          "هذا")
+                                                                    ],
+                                                                    [
+                                                                      "أبغى",
+                                                                      getImageWord(
+                                                                          "أبغى")
+                                                                    ],
+                                                                    [
                                                                       "كيف",
                                                                       getImageWord(
                                                                           "كيف")
-                                                                    ],
-                                                                    [
-                                                                      "كم",
-                                                                      getImageWord(
-                                                                          "كم")
-                                                                    ],
-                                                                    [
-                                                                      "افتح",
-                                                                      getImageWord(
-                                                                          "افتح")
-                                                                    ],
-                                                                    [
-                                                                      "ممكن",
-                                                                      getImageWord(
-                                                                          "ممكن")
                                                                     ],
                                                                     [
                                                                       "طيب",
@@ -905,39 +847,34 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                           "طيب")
                                                                     ],
                                                                     [
+                                                                      "عندي",
+                                                                      getImageWord(
+                                                                          "عندي")
+                                                                    ],
+                                                                    [
+                                                                      "شكرا",
+                                                                      getImageWord(
+                                                                          "شكرا")
+                                                                    ],
+                                                                    [
                                                                       "السلام",
                                                                       getImageWord(
                                                                           "السلام")
                                                                     ],
                                                                     [
-                                                                      "أريد",
-                                                                      getImageWord(
-                                                                          "أريد")
-                                                                    ],
-                                                                    [
-                                                                      "لماذا",
-                                                                      getImageWord(
-                                                                          "لماذا")
-                                                                    ],
-                                                                    [
-                                                                      "قال",
-                                                                      getImageWord(
-                                                                          "قال")
-                                                                    ],
-                                                                    [
-                                                                      "نعم",
-                                                                      getImageWord(
-                                                                          "نعم")
-                                                                    ],
-                                                                    [
-                                                                      "مع",
-                                                                      getImageWord(
-                                                                          "مع")
-                                                                    ],
-                                                                    [
                                                                       "لكن",
                                                                       getImageWord(
                                                                           "لكن")
+                                                                    ],
+                                                                    [
+                                                                      "ممكن",
+                                                                      getImageWord(
+                                                                          "ممكن")
+                                                                    ],
+                                                                    [
+                                                                      "لو",
+                                                                      getImageWord(
+                                                                          "لو")
                                                                     ],
                                                                   ];
                                                                 });
@@ -1172,6 +1109,73 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                 ),
                                                               ),
                                                             ),
+                                                            Container(
+                                                              width: 15,
+                                                            ),
+                                                            InkWell(
+                                                              onTap: () {
+                                                                if (controller
+                                                                    .text
+                                                                    .trim()
+                                                                    .isNotEmpty) {
+                                                                  setState(() {
+                                                                    fieldContent.add(Content(
+                                                                        controller
+                                                                            .text
+                                                                            .trim(),
+                                                                        "",
+                                                                        "yes",
+                                                                        "",
+                                                                        "",
+                                                                        "yes"));
+                                                                  });
+                                                                  contentWordController.animateTo(
+                                                                      contentWordController
+                                                                          .position
+                                                                          .maxScrollExtent,
+                                                                      duration: const Duration(
+                                                                          milliseconds:
+                                                                              750),
+                                                                      curve: Curves
+                                                                          .easeOut);
+
+                                                                  controller
+                                                                      .clear();
+                                                                }
+                                                                //speak
+                                                                String a = "";
+                                                                for (var element
+                                                                    in fieldContent) {
+                                                                  a +=
+                                                                      "${element.name} ";
+                                                                }
+
+                                                                if (a
+                                                                    .isNotEmpty) {
+                                                                  Share.share(
+                                                                      "متننت");
+                                                                } else {
+                                                                  erroralert(
+                                                                      context,
+                                                                      "لا يمكن مشاركة حقل فارغ");
+                                                                }
+                                                              },
+                                                              child: SizedBox(
+                                                                height: 30,
+                                                                width: 30,
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(0),
+                                                                  child: Image
+                                                                      .asset(
+                                                                    "assets/uiImages/share.png",
+                                                                    fit: BoxFit
+                                                                        .fill,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
                                                           ],
                                                         ),
                                                       ),
@@ -1193,7 +1197,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                               alignment: Alignment.bottomCenter,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding:
+                                      const EdgeInsets.only(bottom: 10, top: 8),
                                   child: Container(
                                       decoration: BoxDecoration(
                                           borderRadius:
@@ -1201,7 +1206,11 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                           border: Border.all(
                                               width: 2, color: greyColor)),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8),
+                                        padding: const EdgeInsets.only(
+                                            top: 5,
+                                            left: 8,
+                                            right: 8,
+                                            bottom: 15),
                                         child: MediaQuery.of(context)
                                                     .orientation !=
                                                 Orientation.portrait
@@ -2458,8 +2467,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                     });
                                   },
                                   child: Container(
-                                    height: 30,
-                                    width: 50,
+                                    height: 27,
+                                    width: 55,
                                     decoration: BoxDecoration(
                                         color: Colors.black,
                                         borderRadius:
@@ -2469,7 +2478,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                           ? "assets/uiImages/down.png"
                                           : "assets/uiImages/upArrow.png",
                                       height: 45,
-                                      color: Color.fromARGB(255, 204, 204, 204),
+                                      color: const Color.fromARGB(
+                                          255, 204, 204, 204),
                                       matchTextDirection: false,
                                     ),
                                   ),
@@ -2905,7 +2915,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       onTap: () {
         controller.clear();
         if (speakingWordByWord) {
-          howtospeak(predictionWords[index][0]);
+          howtospeak(harakatPrediction(predictionWords[index][0]));
         }
 
         setState(() {
@@ -3286,8 +3296,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       "كيف",
       "ممكن",
       "السلام",
-      "هل",
       "اهلا",
+      "مرحبا",
+      "متى",
+      "هذا",
       "مرحبا",
     ];
     for (int i = 0; i < wordsP.length; i++) {
@@ -3334,23 +3346,45 @@ String getImageWord(String word) {
 }
 
 Color getWordColor(String word) {
+  word = word.trim();
   Color wordColor = Colors.grey;
-  for (int j = 0; j < dataImage.length; j++) {
-    dataImage[j][0].forEach((element) {
-      if (element[0].replaceAll("أ", "ا") == word.replaceAll("أ", "ا")) {
-        if (element[1] == "n") {
-          wordColor = const Color.fromARGB(255, 214, 129, 1);
-        } else if (element[1] == "v") {
-          wordColor = Colors.green;
-        } else if (element[1] == "a") {
-          wordColor = Colors.blue;
-        } else if (element[1] == "l") {
-          wordColor = Colors.yellow;
+  if (word == "أنا" ||
+      word == "انا" ||
+      word == "هل" ||
+      word == "كم" ||
+      word == "متى" ||
+      word == "أين" ||
+      word == "اين" ||
+      word == "بكم" ||
+      word == "هذا" ||
+      word == "أبغى" ||
+      word == "كيف" ||
+      word == "طيب" ||
+      word == "عندي" ||
+      word == "شكرا" ||
+      word == "السلام" ||
+      word == "لكن" ||
+      word == "ممكن" ||
+      word == "لو") {
+    wordColor = const Color(0xffC06FB9);
+  } else {
+    for (int j = 0; j < dataImage.length; j++) {
+      dataImage[j][0].forEach((element) {
+        if (element[0].replaceAll("أ", "ا") == word.replaceAll("أ", "ا")) {
+          if (element[1] == "n") {
+            wordColor = const Color.fromARGB(255, 214, 129, 1);
+          } else if (element[1] == "v") {
+            wordColor = Colors.green;
+          } else if (element[1] == "a") {
+            wordColor = Colors.blue;
+          } else if (element[1] == "l") {
+            wordColor = Colors.yellow;
+          }
         }
+      });
+      if (wordColor != Colors.grey) {
+        break;
       }
-    });
-    if (wordColor != Colors.grey) {
-      break;
     }
   }
   return wordColor;

@@ -1,4 +1,5 @@
 import 'package:arabic_speaker_child/StartPage.dart';
+import 'package:arabic_speaker_child/childpage/child/childFirstInfo.dart';
 
 import '/controller/my_provider.dart';
 import 'package:firebase_core/firebase_core.dart';

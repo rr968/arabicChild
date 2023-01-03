@@ -4,7 +4,6 @@ import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_not
 
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
-import '/controller/data_one_time.dart';
 import '/controller/istablet.dart';
 import '/controller/var.dart';
 import '/view/drawer/drawer.dart';
@@ -40,7 +39,7 @@ class _MainChildPageState extends State<MainChildPage> {
     const FavoriteChildren(),
   ];
   late int indexpage;
-  bool isLoading = true;
+  bool isLoading = false;
   playaudio() async {
     final player = AudioPlayer(); // Create a player
     await player.setAsset(// Load a URL
@@ -61,11 +60,7 @@ class _MainChildPageState extends State<MainChildPage> {
     getVoice();
     getfemail();
     setparentmode();
-    setDataChildOneTime().then((value) {
-      setState(() {
-        isLoading = false;
-      });
-    });
+
     super.initState();
   }
 

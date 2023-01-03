@@ -81,12 +81,12 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                 height: 38,
                 width: 38,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 70, 70, 70),
+                    color: const Color.fromARGB(255, 70, 70, 70),
                     borderRadius: BorderRadius.circular(20)),
                 child: Center(
                   child: Text(
                     (i + 1).toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         decoration: TextDecoration.none,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

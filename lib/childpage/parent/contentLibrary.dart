@@ -46,11 +46,11 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: InkWell(
-                child: Container(
+                child: const SizedBox(
                   height: 70,
                   width: 70,
                   child: Center(
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_back_ios,
                       size: 55,
                     ),

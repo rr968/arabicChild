@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
+import 'package:arabic_speaker_child/childpage/child/childFirstInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../childpage/child/mainchildPage.dart';
@@ -226,6 +227,12 @@ class _LoginState extends State<Login> {
                                                         .getInstance();
                                                 getSignUpOrLogin.setBool(
                                                     "getSignUpOrLogin", true);
+                                                Navigator.of(context)
+                                                    .pushAndRemoveUntil(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                Selectedlib()),
+                                                        (route) => false);
                                               } else {
                                                 setDataOnLoginChild(
                                                         value.data())
@@ -239,6 +246,12 @@ class _LoginState extends State<Login> {
                                                 });
                                               }
                                             } else {
+                                              Navigator.of(context)
+                                                  .pushAndRemoveUntil(
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Selectedlib()),
+                                                      (route) => false);
                                               SharedPreferences
                                                   getSignUpOrLogin =
                                                   await SharedPreferences

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: use_build_context_synchronously, file_names
 
 import 'package:arabic_speaker_child/controller/erroralert.dart';
 import 'package:flutter/material.dart';
@@ -154,6 +154,7 @@ class _SelectedlibState extends State<Selectedlib> {
     ]),
   ];
 
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -164,32 +165,34 @@ class _SelectedlibState extends State<Selectedlib> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.all(20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "اختر المكتبات لاستخدامها\n في التطبيق",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 45,
-                            color: maincolor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text("يمكنك التعديل لاحقاً",
-                          style: TextStyle(fontSize: 15))
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "اختر المكتبات لاستخدامها\n في التطبيق",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 42,
+                              color: maincolor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        const Text("يمكنك التعديل لاحقاً",
+                            style: TextStyle(fontSize: 15))
+                      ],
+                    ),
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height * .15,
-                    width: MediaQuery.of(context).size.width * .3,
-                    decoration: BoxDecoration(
+                    height: 150,
+                    width: 200,
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(
                                 "assets/uiImages/chooseLibImage.png"),
@@ -218,7 +221,7 @@ class _SelectedlibState extends State<Selectedlib> {
                       decoration: BoxDecoration(
                           border: Border.all(color: Colors.black)),
                       child: Row(
-                        children: [
+                        children: const [
                           Icon(Icons.check_box_outlined),
                           SizedBox(
                             width: 3,
@@ -233,10 +236,10 @@ class _SelectedlibState extends State<Selectedlib> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
-                  indexesChooese.length > 0
+                  indexesChooese.isNotEmpty
                       ? InkWell(
                           onTap: () {
                             setState(() {
@@ -249,7 +252,7 @@ class _SelectedlibState extends State<Selectedlib> {
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black)),
                             child: Row(
-                              children: [
+                              children: const [
                                 Icon(Icons.cancel_outlined),
                                 SizedBox(
                                   width: 3,
@@ -267,18 +270,20 @@ class _SelectedlibState extends State<Selectedlib> {
               ),
             ),
             Expanded(
+              flex: 5,
               child: Container(
                 margin: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
-                  color: Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                  borderRadius: BorderRadius.all(Radius.circular(27)),
+                  color:
+                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
+                  borderRadius: const BorderRadius.all(Radius.circular(27)),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.grey.withOpacity(0.3),
                         spreadRadius: 0,
                         blurRadius: 5,
-                        offset: Offset(0, 3)),
+                        offset: const Offset(0, 3)),
                   ],
                 ),
                 child: Column(
@@ -315,10 +320,11 @@ class _SelectedlibState extends State<Selectedlib> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(color: greyColor),
-                                      color: Color.fromARGB(255, 255, 255, 255)
+                                      color: const Color.fromARGB(
+                                              255, 255, 255, 255)
                                           .withOpacity(0.5),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(27)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(27)),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.white.withOpacity(0.7),
@@ -332,7 +338,7 @@ class _SelectedlibState extends State<Selectedlib> {
                                         alignment: Alignment.center,
                                         children: [
                                           Padding(
-                                              padding: EdgeInsets.all(5),
+                                              padding: const EdgeInsets.all(5),
                                               child: Column(children: [
                                                 Expanded(
                                                     child: Image.asset(
@@ -345,7 +351,7 @@ class _SelectedlibState extends State<Selectedlib> {
                                                   child: FittedBox(
                                                     child: Text(
                                                       chooseLibrary[index].name,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 25,
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -417,6 +423,7 @@ class _SelectedlibState extends State<Selectedlib> {
                 ),
               ),
             ),
+            Expanded(child: Container()),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -426,7 +433,7 @@ class _SelectedlibState extends State<Selectedlib> {
                     Container(
                       height: 200,
                       width: 200,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           image: DecorationImage(
                               image:
                                   AssetImage("assets/uiImages/countImages.png"),
@@ -437,7 +444,7 @@ class _SelectedlibState extends State<Selectedlib> {
                       padding: const EdgeInsets.only(bottom: 20, left: 10),
                       child: Text(
                         "${indexesChooese.length} - ${chooseLibrary.length} ",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -454,15 +461,15 @@ class _SelectedlibState extends State<Selectedlib> {
                       SharedPreferences liblistChild =
                           await SharedPreferences.getInstance();
                       List<String> libstring = [];
-                      indexesChooese.forEach((index) {
+                      for (var index in indexesChooese) {
                         libstring.add(convertLibString(chooseLibrary[index]));
-                      });
+                      }
                       liblistChild.setStringList("liblistChild", libstring);
 
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MainChildPage(
+                              builder: (context) => const MainChildPage(
                                     index: 0,
                                   )));
                     } else {
@@ -475,7 +482,8 @@ class _SelectedlibState extends State<Selectedlib> {
                   ),
                 ),
               ],
-            )
+            ),
+            Expanded(child: Container()),
           ],
         ),
       )),
