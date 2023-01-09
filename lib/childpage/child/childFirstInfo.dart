@@ -22,6 +22,7 @@ class Selectedlib extends StatefulWidget {
 
 class _SelectedlibState extends State<Selectedlib> {
   List<int> indexesChooese = [];
+  int selectAl=0;
   List<lib> chooseLibrary = [
     lib("التحيات", "assets/1ss.png", "yes", [
       Content("كيف حالك؟ ", "assets/question.png", "yes", "", "", "yes"),
@@ -202,73 +203,70 @@ class _SelectedlibState extends State<Selectedlib> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30, right: 10),
+              padding: const EdgeInsets.only(top: 30, right: 15,left: 15),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      indexesChooese = [];
-                      for (int i = 0; i < chooseLibrary.length; i++) {
-                        setState(() {
-                          indexesChooese.add(i);
-                        });
-                      }
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.all(15.0),
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black)),
-                      child: Row(
-                        children: const [
-                          Icon(Icons.check_box_outlined),
-                          SizedBox(
-                            width: 3,
-                          ),
-                          Text(
-                            'تحديد الكل',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
                   indexesChooese.isNotEmpty
-                      ? InkWell(
-                          onTap: () {
-                            setState(() {
-                              indexesChooese = [];
-                            });
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.all(15.0),
-                            padding: const EdgeInsets.all(5.0),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)),
-                            child: Row(
-                              children: const [
-                                Icon(Icons.cancel_outlined),
-                                SizedBox(
-                                  width: 3,
-                                ),
-                                Text('الغاء',
+                  ?Text(
+                    "${indexesChooese.length}  من  ${chooseLibrary.length} ",
+                    style: const TextStyle(
+                        fontSize: 28, fontWeight: FontWeight.bold),
+                  ):Container(),
+
+                          InkWell(
+                            onTap: () {
+                              if(selectAl==0){
+
+                                indexesChooese = [];
+                                for (int i = 0; i < chooseLibrary.length; i++) {
+                                  setState(() {
+
+                                    indexesChooese.add(i);
+                                  });
+                                }
+                                setState(() {
+                                  selectAl=1;
+                                });
+
+
+                              }else{
+                                setState(() {
+                                  indexesChooese = [];
+                                  selectAl=0;
+                                });
+                              }
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.all(0.1),
+                              padding: const EdgeInsets.all(5.0),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black)),
+                              child: Row(
+                                children:  [
+                                  Icon(selectAl!=0?Icons.check_circle_outline:Icons.circle_outlined,
+                                    size: DeviceUtil.isTablet
+                                        ? 30
+                                        : 20,),
+                                  SizedBox(
+                                    width: 3,
+                                  ),
+                                  Text(
+                                    'تحديد الكل',
                                     style: TextStyle(
                                       fontSize: 20,
-                                    )),
-                              ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        )
-                      : Container()
+
+
                 ],
               ),
             ),
+
             Expanded(
               flex: 5,
               child: Container(
@@ -373,8 +371,8 @@ class _SelectedlibState extends State<Selectedlib> {
                                                       color: Colors.white
                                                           .withOpacity(0.3),
                                                       borderRadius:
-                                                          BorderRadius.circular(
-                                                              27),
+                                                      BorderRadius.circular(
+                                                          27),
                                                       boxShadow: [
                                                         BoxShadow(
                                                           color: Colors.white
@@ -424,10 +422,10 @@ class _SelectedlibState extends State<Selectedlib> {
               ),
             ),
             Expanded(child: Container()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Stack(
+               /* Stack(
                   alignment: AlignmentDirectional.bottomEnd,
                   children: [
                     Container(
@@ -449,12 +447,12 @@ class _SelectedlibState extends State<Selectedlib> {
                       ),
                     ),
                   ],
-                ),
-                SizedBox(
+                ),*/
+             /*   SizedBox(
                     width: MediaQuery.of(context).orientation ==
                             Orientation.portrait
                         ? 40
-                        : 130),
+                        : 130),*/
                 InkWell(
                   onTap: () async {
                     if (indexesChooese.isNotEmpty) {
@@ -481,6 +479,38 @@ class _SelectedlibState extends State<Selectedlib> {
                     height: 85,
                   ),
                 ),
+                Container(
+                  height: 18,
+                ),
+                InkWell(
+                  onTap: () async {
+                    SharedPreferences liblistChild =
+                    await SharedPreferences.getInstance();
+                    List<String> libstring = [];
+                    int j =chooseLibrary.length;
+                    for (var i=0;i< j;i++) {
+                      print(i);
+                      libstring.add(convertLibString(chooseLibrary[i]));
+                    }
+                    liblistChild.setStringList("liblistChild", libstring);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainChildPage(
+                              index: 0,
+                            )));
+                  },
+                  child: Text(
+                    "تخطي هذا",
+                    style: TextStyle(
+                        color: greyColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                ),
+                Container(
+                  height: 18,
+                ),
               ],
             ),
             Expanded(child: Container()),
@@ -490,86 +520,3 @@ class _SelectedlibState extends State<Selectedlib> {
     );
   }
 }
-/*
-double numofelements = 3;
-
-class ChildInfo extends StatefulWidget {
-  ChildInfo({Key? key}) : super(key: key);
-
-  @override
-  final List Questions = [NumofItems(), Selectedlib()];
-  State<ChildInfo> createState() => _ChildInfoState();
-}
-
-class _ChildInfoState extends State<ChildInfo> {
-  @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    return ConcentricPageView(
-      onChange: (e) {
-        if (e >= 1) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => Selectedlib()),
-                  (route) => false);
-        }
-      },
-      reverse: true,
-      colors: [maincolor,maincolor],
-      itemBuilder: (int index) {
-        return SafeArea(child: widget.Questions[index]);
-  
-      },
-      radius: screenWidth * 0.1,
-      nextButtonBuilder: (context) => Padding(
-        padding: const EdgeInsets.only(left: 3),
-        child: Icon(
-          Icons.arrow_forward_ios_outlined,
-          size: screenWidth * 0.1,
-        ),
-      ),
-    );
-  }
-}
-
-class NumofItems extends StatefulWidget {
-  const NumofItems({Key? key}) : super(key: key);
-
-  @override
-  State<NumofItems> createState() => _NumofItemsState();
-}
-
-class _NumofItemsState extends State<NumofItems> {
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("معلومات اساسية",
-              style: const TextStyle(
-                  color: Colors.white, fontSize: 20)
-          ),
-          backgroundColor: maincolor,
-        ),
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  "عدد العناصر في الصف : ",
-                  style: TextStyle(
-                    fontSize: 27,
-                  ),
-                ),
-              ),
-
-            ]),
-      ),
-    );
-  }
-
-
-}
-*/

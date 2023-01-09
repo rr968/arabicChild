@@ -118,10 +118,26 @@ String harakatPrediction(String word) {
   if (word == "فعل") return "فِعْل";
   if (word == "للاطمئنان") return "لِلِاطْمِئْنان";
   if (word == "التففنا") return "اِلّتفَفْنا";
+  if (word == "سأريك") return "سَأُريكَ";
+  if (word == "ساريك") return "سَأُريكَ";
+  if (word == "كويسه") return "كُويِّسَةٌ";
+  if (word == "كويسة") return "كُويِّسَةٌ";
+  if (word == "صداع") return "صُداعٌَ";
+  if (word == "خسارة") return "خَسارَةٌ";
+  if (word == "خساره") return "خَسارَةٌ";
+  if (word == "تشوف") return "تَشُوُّفُ";
+  if (word == "سأراه") return "سَأَراهُ";
+  if (word == "ساراه") return "سَأَراهُ";
   if (word == "") return "";
   if (word == "") return "";
   if (word == "") return "";
   if (word == "") return "";
+  if (word == "") return "";
+  if (word == "") return "";
+  if (word == "") return "";
+  if (word == "") return "";
+
+
 
   return word;
 }
