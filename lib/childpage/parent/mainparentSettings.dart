@@ -167,7 +167,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                               child: Stack(children: [
                                                 Center(
                                                   child: Text(
-                                                    "إختر من المكتبات الجاهزة التالية",
+                                                    "  إختر المكتبات الجاهزة التالية",
                                                     style: TextStyle(
                                                         color: maincolor,
                                                         fontWeight:
@@ -278,10 +278,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 2,
                                                                             child:
                                                                                 Padding(
-                                                                              padding: const EdgeInsets.only(top: 10),
-                                                                              child: Text(
-                                                                                constantLib[0].name,
-                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              padding: const EdgeInsets.only(top: 5),
+                                                                              child: FittedBox(
+                                                                                child: Text(
+                                                                                  constantLib[0].name,
+                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           )
@@ -366,10 +368,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 2,
                                                                             child:
                                                                                 Padding(
-                                                                              padding: const EdgeInsets.only(top: 10),
-                                                                              child: Text(
-                                                                                constantLib[1].name,
-                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              padding: const EdgeInsets.only(top: 5),
+                                                                              child: FittedBox(
+                                                                                child: Text(
+                                                                                  constantLib[1].name,
+                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           )
@@ -454,10 +458,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 2,
                                                                             child:
                                                                                 Padding(
-                                                                              padding: const EdgeInsets.only(top: 10),
-                                                                              child: Text(
-                                                                                constantLib[2].name,
-                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              padding: const EdgeInsets.only(top: 5),
+                                                                              child: FittedBox(
+                                                                                child: Text(
+                                                                                  constantLib[2].name,
+                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           )
@@ -542,10 +548,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 2,
                                                                             child:
                                                                                 Padding(
-                                                                              padding: const EdgeInsets.only(top: 10),
-                                                                              child: Text(
-                                                                                constantLib[3].name,
-                                                                                style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              padding: const EdgeInsets.only(top: 5),
+                                                                              child: FittedBox(
+                                                                                child: Text(
+                                                                                  constantLib[3].name,
+                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                           )
@@ -638,12 +646,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                           child:
                                                                               Padding(
                                                                             padding:
-                                                                                const EdgeInsets.only(top: 10),
+                                                                                const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                Text(
+                                                                                FittedBox(
+                                                                                  child: Text(
                                                                               constantLib[4].name,
-                                                                              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                             ),
+                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -728,12 +738,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                           child:
                                                                               Padding(
                                                                             padding:
-                                                                                const EdgeInsets.only(top: 10),
+                                                                                const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                Text(
+                                                                                FittedBox(
+                                                                                  child: Text(
                                                                               constantLib[5].name,
-                                                                              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                             ),
+                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -818,12 +830,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                           child:
                                                                               Padding(
                                                                             padding:
-                                                                                const EdgeInsets.only(top: 10),
+                                                                                const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                Text(
+                                                                                FittedBox(
+                                                                                  child: Text(
                                                                               constantLib[6].name,
-                                                                              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                             ),
+                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -908,12 +922,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                           child:
                                                                               Padding(
                                                                             padding:
-                                                                                const EdgeInsets.only(top: 10),
+                                                                                const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                Text(
+                                                                                FittedBox(
+                                                                                  child: Text(
                                                                               constantLib[7].name,
-                                                                              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                             ),
+                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -1278,7 +1294,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                 child: Text(
                                                   libraryListChild[index].name,
                                                   style: const TextStyle(
-                                                      fontSize: 30,
+                                                      fontSize: 25,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -1382,7 +1398,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                     color: greenColor,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: const Text(
-                                  "حفظ",
+                                  "حذف",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
