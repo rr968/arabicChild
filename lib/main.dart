@@ -1,6 +1,5 @@
 import 'package:arabic_speaker_child/StartPage.dart';
-import 'package:arabic_speaker_child/childpage/child/childFirstInfo.dart';
-
+import 'package:arabic_speaker_child/childpage/parent/mainparent.dart';
 import '/controller/my_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +40,6 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'المتحدث العربي',
             theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Almarai"),
-            home: const Start()));
+            home: Start()));
   }
 }

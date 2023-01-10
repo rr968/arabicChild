@@ -789,24 +789,52 @@ class _DrawercState extends State<Drawerc> {
                           ),
                           onTap: () async {
                             if (await internetConnection()) {
-                              await FirebaseAuth.instance.signOut();
-                              SharedPreferences myLoginInfo =
-                                  await SharedPreferences.getInstance();
-                              List<String> myInfo =
-                                  myLoginInfo.getStringList("myLoginInfo") ??
-                                      [];
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      title: const Text(
+                                        'تسجيل الخروج',
+                                        textDirection: TextDirection.rtl,
+                                      ),
+                                      content: const Text(
+                                        "هل أنت متأكد من تسجيل الخروج",
+                                        textDirection: TextDirection.rtl,
+                                      ),
+                                      actions: <Widget>[
+                                        button(() {
+                                          Navigator.of(context).pop();
+                                        }, 'لا، تراجع'),
+                                        button(() async {
+                                          await FirebaseAuth.instance.signOut();
+                                          SharedPreferences myLoginInfo =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          List<String> myInfo =
+                                              myLoginInfo.getStringList(
+                                                      "myLoginInfo") ??
+                                                  [];
 
-                              removeAllSharedPrefrences().then((value) {
-                                if (myInfo.isNotEmpty) {
-                                  myLoginInfo.setStringList(
-                                      "myLoginInfo", myInfo);
-                                }
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Login()),
-                                    (route) => false);
-                              });
+                                          removeAllSharedPrefrences()
+                                              .then((value) {
+                                            if (myInfo.isNotEmpty) {
+                                              myLoginInfo.setStringList(
+                                                  "myLoginInfo", myInfo);
+                                            }
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const Login()),
+                                                (route) => false);
+                                          });
+                                        }, 'نعم، أنا متأكد')
+                                      ],
+                                    );
+                                  });
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

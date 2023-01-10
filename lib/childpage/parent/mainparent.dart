@@ -1,3 +1,5 @@
+import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+
 import '/childpage/parent/contentLibrary.dart';
 import '/childpage/parent/mainparentSettings.dart';
 import '/childpage/parent/parentSettingsFav.dart';
@@ -17,9 +19,13 @@ class MainParentPage extends StatefulWidget {
 }
 
 class _MainParentPageState extends State<MainParentPage> {
+  SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
+
+  Color selectedColor = pinkColor;
   List<Widget> parentScreens = [
+    const ParentSettingsFav(),
     const MainParentSettings(),
-    const ParentSettingsFav()
+    const MainParentSettings(),
   ];
 
   late int indexpage;
@@ -89,57 +95,76 @@ class _MainParentPageState extends State<MainParentPage> {
                   libIndex: Provider.of<MyProvider>(context, listen: true)
                       .iscontentOfLibrary)
               : parentScreens[indexpage],
-          bottomNavigationBar: Container(
-            height: MediaQuery.of(context).orientation == Orientation.portrait
-                ? MediaQuery.of(context).size.height * .07
-                : MediaQuery.of(context).size.height * .09,
-            decoration: BoxDecoration(
-              color: const Color(0xffe9edf3),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 3,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3)),
-              ],
-              border: Border.all(
-                width: 2,
-                color: Colors.grey,
-              ),
+          bottomNavigationBar: SnakeNavigationBar.color(
+            shadowColor: Colors.black,
+            elevation: 20,
+            backgroundColor: Color.fromARGB(255, 245, 236, 244),
+            behaviour: snakeBarStyle,
+            snakeShape: SnakeShape.circle,
+            shape: const RoundedRectangleBorder(
+              borderRadius: /*BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20))*/
+                  BorderRadius.all(Radius.circular(25)),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  InkWell(
-                      onTap: () {
-                        Provider.of<MyProvider>(context, listen: false)
-                            .setIscontentOfLibrary(-1);
-                        setState(() {
-                          indexpage = 1;
-                        });
-                      },
-                      child: Image.asset("assets/uiImages/star.png")),
-                  InkWell(
-                      onTap: () {
-                        Provider.of<MyProvider>(context, listen: false)
-                            .setIscontentOfLibrary(-1);
-                        setState(() {
-                          indexpage = 0;
-                        });
-                      },
-                      child: Image.asset("assets/uiImages/home.png")),
-                  InkWell(
-                      onTap: () {
-                        playaudio();
-                      },
-                      child: Image.asset("assets/bell.png")),
-                ],
-              ),
-            ),
+            padding: const EdgeInsets.only(bottom: 5, right: 20, left: 20),
+            snakeViewColor: selectedColor,
+            selectedItemColor: SnakeShape.circle == SnakeShape.indicator
+                ? selectedColor
+                : null,
+            showUnselectedLabels: false,
+            showSelectedLabels: false,
+            currentIndex: indexpage,
+            onTap: (index) {
+              if (index == 2) {
+                setState(() {
+                  indexpage = index;
+                });
+                Future.delayed(Duration(milliseconds: 1000)).then((value) {
+                  Provider.of<MyProvider>(context, listen: false)
+                      .setIscontentOfLibrary(-1);
+                  setState(() {
+                    indexpage = 1;
+                  });
+                });
+                playaudio();
+              } else {
+                Provider.of<MyProvider>(context, listen: false)
+                    .setIscontentOfLibrary(-1);
+                setState(() {
+                  indexpage = index;
+                });
+              }
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/uiImages/star.png",
+                      color: indexpage == 0 ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  label: 'calendar'),
+              BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/uiImages/home.png",
+                      color: indexpage == 1 ? Colors.white : Colors.black,
+                    ),
+                  ),
+                  label: 'home'),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    "assets/bell.png",
+                    color: indexpage == 2 ? Colors.white : Colors.black,
+                  ),
+                ),
+              )
+            ],
           ),
         ));
   }

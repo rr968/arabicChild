@@ -11,7 +11,5 @@ class lib {
   lib(this.name, this.imgurl, this.isImageUpload, this.contenlist);
 }
 
-List<lib> libraryList = [];
-List<Content> favoritList = [];
 List<lib> libraryListChild = [];
 List<Content> favoritListChild = [];

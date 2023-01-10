@@ -1,13 +1,13 @@
 import '/controller/var.dart';
-import '/view/export_and_import/exportcontent.dart';
+import 'importcontent.dart';
 import 'package:flutter/material.dart';
 
 import '../../controller/images.dart';
 import '../../model/library.dart';
 
-class ExportLibrary extends StatelessWidget {
+class ImportLibrary extends StatelessWidget {
   final List<lib> data;
-  const ExportLibrary({Key? key, required this.data}) : super(key: key);
+  const ImportLibrary({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class ExportLibrary extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ExportContent(
+                            builder: (context) => ImportContent(
                                 content: data[index].contenlist)));
                   },
                   child: Container(

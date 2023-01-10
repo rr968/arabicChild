@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import '../../childpage/child/mainchildPage.dart';
 
 List<String> images = [
-  'assets/HowToUse/1.jpg',
-  'assets/HowToUse/2.jpg',
-  'assets/HowToUse/3.jpg',
-  'assets/HowToUse/4.jpg',
-  'assets/HowToUse/5.jpg',
+  'assets/HowToUse/1.png',
+  'assets/HowToUse/2.png',
+  'assets/HowToUse/3.png',
+  'assets/HowToUse/4.png',
+  'assets/HowToUse/5.png',
 ];
 
 class HowToUse extends StatefulWidget {

@@ -3,11 +3,12 @@
 import 'dart:convert';
 
 import 'package:animated_search_bar/animated_search_bar.dart';
+import 'package:arabic_speaker_child/childpage/parent/mainparent.dart';
+import 'package:arabic_speaker_child/view/export_and_import/importlibrary.dart';
 
 import '/controller/erroralert.dart';
 import '/controller/var.dart';
 import '/model/library.dart';
-import '/view/export_and_import/exportlibrary.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,210 +52,276 @@ class _ImportState extends State<Import> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
-          title: AnimatedSearchBar(
-            label: "ابحث",
-            labelStyle: const TextStyle(),
-            alignment: TextAlign.center,
-            controller: _controller,
-            searchStyle: const TextStyle(color: Colors.white),
-            cursorColor: Colors.white,
-            searchDecoration: const InputDecoration(
-              hintText: "ابحث هنا",
-              alignLabelWithHint: true,
-              focusColor: Colors.white,
-              hintStyle:
-                  TextStyle(color: Colors.white70, fontWeight: FontWeight.bold),
-              border: InputBorder.none,
+          appBar: AppBar(
+            leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                size: 40,
+              ),
             ),
-            onChanged: (value) {
-              setState(() {
-                searchText = value.trim();
-
-                data = dataAfterSearch(value);
-              });
-            },
+            title: AnimatedSearchBar(
+              closeIcon: Icon(
+                Icons.close,
+                size: 40,
+              ),
+              searchIcon: Icon(
+                Icons.search,
+                size: 40,
+              ),
+              label: "ابحث",
+              labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              alignment: TextAlign.center,
+              controller: _controller,
+              searchStyle: TextStyle(color: Colors.white),
+              cursorColor: Colors.white,
+              searchDecoration: InputDecoration(
+                hintText: "ابحث هنا",
+                alignLabelWithHint: true,
+                focusColor: Colors.white,
+                hintStyle: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
+                border: InputBorder.none,
+              ),
+              onChanged: (value) {
+                setState(() {
+                  searchText = value.trim();
+                  print(searchText);
+                  data = dataAfterSearch(value);
+                });
+              },
+            ),
+            backgroundColor: maincolor,
           ),
-          /*const Text(
-            "تنزيل مكتبات",
-            style: TextStyle(
-                fontSize: 24, //fontWeight: FontWeight.bold,
-                color: Colors.white),
-          ),*/
-          backgroundColor: maincolor,
-        ),
-        body: loading
-            ? Center(
-                child: CircularProgressIndicator(
-                  color: maincolor,
-                ),
-              )
-            : Padding(
-                padding: const EdgeInsets.only(top: 25, bottom: 25),
-                child: GridView.builder(
-                    itemCount: data.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: MediaQuery.of(context).orientation ==
-                                Orientation.portrait
-                            ? 1
-                            : 2,
-                        childAspectRatio: 2 / .85),
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: FittedBox(
-                          child: Container(
-                            width: 330,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: maincolor, width: 2)),
-                            child: Directionality(
-                              textDirection: TextDirection.rtl,
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 8),
-                                      child: Text(
-                                        "اسم التصدير : ${data[index]["name"]}",
-                                        style: const TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 8),
-                                      child: Text(
-                                          "اسم الناشر : ${data[index]["publisherName"]}",
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          right: 8, bottom: 7),
-                                      child: Text(
-                                          "شرح عن التصدير : ${data[index]["explaination"]}",
-                                          style: const TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold)),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      InkWell(
-                                        onTap: () async {
-                                          SharedPreferences liblist =
-                                              await SharedPreferences
-                                                  .getInstance();
-                                          List<String> past = liblist
-                                                  .getStringList("liblist") ??
-                                              [];
-                                          for (var element in data[index]
-                                              ["data"]) {
-                                            past.add(element.toString());
-                                          }
-                                          liblist.setStringList(
-                                              "liblist", past);
-                                          acceptalert(
-                                              context, "تم التنزيل بنجاح");
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(5.0),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons.cloud_download,
-                                                color: maincolor,
-                                                size: 25,
-                                              ),
-                                              Text(
-                                                "  تنزيل ",
-                                                style: TextStyle(
-                                                    color: maincolor,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              )
-                                            ],
+          body: loading
+              ? Center(
+                  child: CircularProgressIndicator(
+                    color: maincolor,
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.only(top: 30, bottom: 25),
+                  child: ListView(
+                    children: [
+                      for (int index = 0; index < data.length; index++)
+                        Column(
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 15, top: 10),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * .75,
+                                height: 170,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 10,
+                                        spreadRadius: .5,
+                                      )
+                                    ],
+                                    border: Border.all(
+                                        color:
+                                            Color.fromARGB(255, 172, 171, 171),
+                                        width: 3)),
+                                child: Directionality(
+                                  textDirection: TextDirection.rtl,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 8),
+                                            child: Text(
+                                              "اسم التصدير : ${data[index]["name"]}",
+                                              style: const TextStyle(
+                                                  fontSize: 22,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      TextButton(
-                                          onPressed: () {
-                                            List<lib> library = [];
-                                            for (var element in data[index]
-                                                ["data"]) {
-                                              List e = json.decode(element);
-                                              List<Content> contentlist = [];
-                                              for (List l in e[3]) {
-                                                contentlist.add(Content(
-                                                    l[0],
-                                                    l[1],
-                                                    l[2],
-                                                    l[3],
-                                                    l[4],
-                                                    l[5]));
-                                              }
-                                              library.add(lib(e[0], e[1], e[2],
-                                                  contentlist));
-                                            }
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ExportLibrary(
-                                                            data: library)));
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.folder,
-                                                color: maincolor,
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 8),
+                                            child: Text(
+                                                "اسم الناشر : ${data[index]["publisherName"]}",
+                                                style: const TextStyle(
+                                                    fontSize: 22,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8, bottom: 7),
+                                            child: Text(
+                                                "شرح عن التصدير : ${data[index]["explaination"]}",
+                                                style: const TextStyle(
+                                                    fontSize: 22,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            InkWell(
+                                              onTap: () async {
+                                                SharedPreferences liblistChild =
+                                                    await SharedPreferences
+                                                        .getInstance();
+                                                List<String> past =
+                                                    liblistChild.getStringList(
+                                                            "liblistChild") ??
+                                                        [];
+                                                for (var element in data[index]
+                                                    ["data"]) {
+                                                  past.add(element.toString());
+                                                }
+                                                liblistChild.setStringList(
+                                                    "liblistChild", past);
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            MainParentPage(
+                                                                index: 0)));
+                                                acceptalert(context,
+                                                    "تم التنزيل بنجاح");
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 160,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: maincolor,
+                                                          width: 3),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.download,
+                                                        color: maincolor,
+                                                        size: 35,
+                                                      ),
+                                                      Text(
+                                                        " تنزيل ",
+                                                        style: TextStyle(
+                                                            color: maincolor,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 22),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
                                               ),
-                                              Text(
-                                                "محتوى المكتبة",
-                                                style: TextStyle(
-                                                    color: maincolor,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
-                                            ],
-                                          )),
-                                    ],
+                                            ),
+                                            TextButton(
+                                                onPressed: () {
+                                                  List<lib> library = [];
+                                                  for (var element
+                                                      in data[index]["data"]) {
+                                                    List e =
+                                                        json.decode(element);
+                                                    List<Content> contentlist =
+                                                        [];
+                                                    for (List l in e[3]) {
+                                                      contentlist.add(Content(
+                                                          l[0],
+                                                          l[1],
+                                                          l[2],
+                                                          l[3],
+                                                          l[4],
+                                                          l[5]));
+                                                    }
+                                                    library.add(lib(e[0], e[1],
+                                                        e[2], contentlist));
+                                                  }
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              ImportLibrary(
+                                                                  data:
+                                                                      library)));
+                                                },
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 160,
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: maincolor,
+                                                          width: 3),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.folder,
+                                                        color: maincolor,
+                                                      ),
+                                                      Text(
+                                                        "محتوى المكتبة",
+                                                        style: TextStyle(
+                                                            color: maincolor,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 20),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      );
-                    }),
-              ),
-      ),
+                    ],
+                  ))),
     );
   }
 
   List<QueryDocumentSnapshot<Map<String, dynamic>>> dataAfterSearch(value) {
     List<QueryDocumentSnapshot<Map<String, dynamic>>> returnList = [];
 
-    for (var element in allData) {
+    allData.forEach((element) {
       if (element["name"].contains(value) ||
           element["publisherName"].contains(value) ||
           element["explaination"].contains(value)) {
         returnList.add(element);
       }
-    }
+    });
     return returnList;
   }
 }

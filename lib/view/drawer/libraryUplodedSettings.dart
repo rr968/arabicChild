@@ -3,13 +3,13 @@
 import 'dart:convert';
 
 import 'package:animated_search_bar/animated_search_bar.dart';
+import '../export_and_import/importlibrary.dart';
 import '/controller/checkinternet.dart';
 import '/controller/exportnote.dart';
 
 import '/controller/erroralert.dart';
 import '/controller/var.dart';
 import '/model/library.dart';
-import '/view/export_and_import/exportlibrary.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../model/content.dart';
@@ -211,8 +211,8 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
                             )
                           : Center(
                               child: CircularProgressIndicator(
-                            color: maincolor,
-                          )),
+                              color: maincolor,
+                            )),
                       loadingIndex != index
                           ? InkWell(
                               onTap: () async {
@@ -267,8 +267,8 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
                             )
                           : Center(
                               child: CircularProgressIndicator(
-                            color: maincolor,
-                          )),
+                              color: maincolor,
+                            )),
                       TextButton(
                           onPressed: () {
                             List<lib> library = [];
@@ -285,7 +285,7 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        ExportLibrary(data: library)));
+                                        ImportLibrary(data: library)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -63,11 +63,23 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
         ),
       ),
       body: favorite.isEmpty
-          ? const Center(
-              child: Text(
-                "لم تم باضافة جمل مفضلة بعد",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-              ),
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/uiImages/noSaved.png",
+                  height: 150,
+                ),
+                Container(
+                  height: 20,
+                ),
+                Center(
+                  child: Text(
+                    "لم تم باضافة جمل مفضلة بعد",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                  ),
+                ),
+              ],
             )
           : SizedBox(
               height: MediaQuery.of(context).size.height - 170,

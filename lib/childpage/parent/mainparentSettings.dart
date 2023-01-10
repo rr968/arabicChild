@@ -2,6 +2,13 @@
 
 import 'dart:convert';
 
+import 'package:arabic_speaker_child/view/export_and_import/import.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../controller/allUploadedDone.dart';
+import '../../controller/checkinternet.dart';
+import '../../controller/erroralert.dart';
+import '../../controller/uploaddataChild.dart';
 import '/childpage/parent/addlibraryChild.dart';
 
 import '/childpage/parent/constantLibraryChild.dart';
@@ -35,6 +42,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
   bool isloading = true;
   List isSelected = [];
   bool selectedAvaiabel = false;
+  bool isSelectedForDelete = true;
   final controllerList = ScrollController();
   double currentOffsetScroll = 0;
 
@@ -82,8 +90,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding:
-                      const EdgeInsets.only(right: 17, bottom: 50, top: 50),
+                  padding: EdgeInsets.only(
+                      right: 17, bottom: selectedAvaiabel ? 25 : 50, top: 50),
                   child: !selectedAvaiabel
                       ? Text(
                           "المكتبات",
@@ -93,18 +101,69 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               fontSize: DeviceUtil.isTablet ? 45 : 26,
                               fontWeight: FontWeight.bold),
                         )
-                      : Text(
-                          "حـذف مكتبة",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: purcolor,
-                              fontSize: DeviceUtil.isTablet ? 45 : 26,
-                              fontWeight: FontWeight.w900),
-                        ),
+                      : isSelectedForDelete
+                          ? Column(
+                              children: [
+                                Text(
+                                  "حـذف مكتبة",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: purcolor,
+                                      fontSize: DeviceUtil.isTablet ? 45 : 26,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                                Container(
+                                  height: 40,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "تم تحديدد ${isSelected.length} من المكتبات",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w900),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              children: [
+                                Text(
+                                  "رفع المكتبات",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: purcolor,
+                                      fontSize: DeviceUtil.isTablet ? 45 : 26,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                                Container(
+                                  height: 40,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 30),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "تم تحديدد ${isSelected.length} من المكتبات",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w900),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                 ),
                 selectedAvaiabel
                     ? Container(
-                        height: 40,
+                        height: selectedAvaiabel ? 0 : 40,
                       )
                     : Padding(
                         padding: const EdgeInsets.only(bottom: 30),
@@ -123,31 +182,35 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               child: Container(
                                   alignment: Alignment.center,
                                   height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width / 5.2,
                                   decoration: BoxDecoration(
                                       color: purcolor,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          Icons.low_priority,
-                                          color: Colors.white,
-                                          size: 28,
-                                        ),
-                                        Container(
-                                          width: 7,
-                                        ),
-                                        const Text(
-                                          "إعادة ترتيب",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 23),
-                                        ),
-                                      ],
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.low_priority,
+                                            color: Colors.white,
+                                            size: 28,
+                                          ),
+                                          Container(
+                                            width: 7,
+                                          ),
+                                          const Text(
+                                            "إعادة ترتيب",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 23),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   )),
                             ),
@@ -649,11 +712,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
                                                                                 FittedBox(
-                                                                                  child: Text(
-                                                                              constantLib[4].name,
-                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              child: Text(
+                                                                                constantLib[4].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              ),
                                                                             ),
-                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -741,11 +804,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
                                                                                 FittedBox(
-                                                                                  child: Text(
-                                                                              constantLib[5].name,
-                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              child: Text(
+                                                                                constantLib[5].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              ),
                                                                             ),
-                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -833,11 +896,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
                                                                                 FittedBox(
-                                                                                  child: Text(
-                                                                              constantLib[6].name,
-                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              child: Text(
+                                                                                constantLib[6].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              ),
                                                                             ),
-                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -925,11 +988,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
                                                                                 FittedBox(
-                                                                                  child: Text(
-                                                                              constantLib[7].name,
-                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              child: Text(
+                                                                                constantLib[7].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              ),
                                                                             ),
-                                                                                ),
                                                                           ),
                                                                         )
                                                                       ]),
@@ -1136,31 +1199,79 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               },
                               child: Container(
                                   height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width / 5.2,
                                   decoration: BoxDecoration(
                                       color: greenColor,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          Icons.add_circle_outline,
-                                          color: Colors.white,
-                                          size: 35,
-                                        ),
-                                        Container(
-                                          width: 7,
-                                        ),
-                                        const Text(
-                                          "إضافة مكتبة",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 23),
-                                        ),
-                                      ],
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.add_circle_outline,
+                                            color: Colors.white,
+                                            size: 35,
+                                          ),
+                                          Container(
+                                            width: 7,
+                                          ),
+                                          const Text(
+                                            "إضافة مكتبة",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 23),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isSelectedForDelete = true;
+                                  isSelected = [];
+                                  selectedAvaiabel = true;
+                                });
+                              },
+                              child: Container(
+                                  height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width / 5.2,
+                                  decoration: BoxDecoration(
+                                      color: pinkColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.delete_outlined,
+                                            color: Colors.white,
+                                            size: 35,
+                                          ),
+                                          Container(
+                                            width: 7,
+                                          ),
+                                          Text(
+                                            "حذف مكتبة",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: DeviceUtil.isTablet
+                                                    ? 25
+                                                    : 17),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   )),
                             ),
@@ -1169,37 +1280,83 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                 setState(() {
                                   isSelected = [];
                                   selectedAvaiabel = true;
+                                  isSelectedForDelete = false;
                                 });
                               },
                               child: Container(
                                   height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width / 5.2,
                                   decoration: BoxDecoration(
-                                      color: pinkColor,
+                                      color: Color.fromARGB(255, 232, 140, 2),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          Icons.delete_outlined,
-                                          color: Colors.white,
-                                          size: 35,
-                                        ),
-                                        Container(
-                                          width: 7,
-                                        ),
-                                        Text(
-                                          "حذف مكتبة",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: DeviceUtil.isTablet
-                                                  ? 25
-                                                  : 17),
-                                        ),
-                                      ],
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.cloud_upload,
+                                            color: Colors.white,
+                                            size: 35,
+                                          ),
+                                          Container(
+                                            width: 7,
+                                          ),
+                                          const Text(
+                                            "رفع مكتبة",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 23),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Import()));
+                              },
+                              child: Container(
+                                  height: 50,
+                                  width:
+                                      MediaQuery.of(context).size.width / 5.2,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 22, 117, 195),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Icon(
+                                            Icons.cloud_download,
+                                            color: Colors.white,
+                                            size: 35,
+                                          ),
+                                          Container(
+                                            width: 7,
+                                          ),
+                                          Text(
+                                            "تنزيل مكتبة",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: DeviceUtil.isTablet
+                                                    ? 25
+                                                    : 17),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   )),
                             ),
@@ -1388,7 +1545,398 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                           children: [
                             InkWell(
                               onTap: () {
-                                showAlertDialog(context);
+                                if (isSelectedForDelete) {
+                                  showAlertDialog(context);
+                                } else {
+                                  List<String> dataToExport = [];
+                                  for (int i in isSelected) {
+                                    String s =
+                                        convertLibString(libraryListChild[i]);
+                                    dataToExport.add(s);
+                                  } //here
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        bool isloading = false;
+                                        TextEditingController name =
+                                            TextEditingController();
+
+                                        TextEditingController publisherName =
+                                            TextEditingController();
+
+                                        TextEditingController explaination =
+                                            TextEditingController();
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                          child: Center(
+                                            child: SingleChildScrollView(
+                                              child: AlertDialog(
+                                                title: Directionality(
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  child: Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: FittedBox(
+                                                          child: Text(
+                                                            "معلومات المكتبات المرغوب مشاركتها",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 25),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 35,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                          left: 20,
+                                                          right: 20,
+                                                          //bottom: 11,
+                                                        ),
+                                                        child: TextFormField(
+                                                          controller: name,
+                                                          maxLength: 25,
+                                                          maxLines: 1,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            // hintText: "اسم التصدير",
+                                                            labelText:
+                                                                "اسم النسخة",
+                                                            hintStyle:
+                                                                const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                            labelStyle: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 22,
+                                                                color:
+                                                                    maincolor),
+                                                            focusedBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      color:
+                                                                          maincolor),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    13.0),
+                                                              ),
+                                                            ),
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      color:
+                                                                          maincolor),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    13.0),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      const Text(
+                                                        "* هذا الاسم سيظهر للمستخدمين عند تنزيل المكتبة",
+                                                        // textAlign: TextAlign.right,
+                                                        // ignore: prefer_const_constructors
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.red,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 40,
+                                                                bottom: 20,
+                                                                right: 20,
+                                                                left: 20),
+                                                        child: TextFormField(
+                                                          controller:
+                                                              publisherName,
+                                                          maxLength: 25,
+                                                          maxLines: 1,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            //   hintText: "اسم الناشر",
+                                                            labelText:
+                                                                "اسم الناشر",
+                                                            hintStyle:
+                                                                const TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                            labelStyle: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 22,
+                                                                color:
+                                                                    maincolor),
+                                                            focusedBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      color:
+                                                                          maincolor),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    13.0),
+                                                              ),
+                                                            ),
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      color:
+                                                                          maincolor),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    13.0),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 20,
+                                                                right: 20),
+                                                        child: TextFormField(
+                                                          controller:
+                                                              explaination,
+                                                          maxLength: 120,
+                                                          minLines: 4,
+                                                          maxLines: 4,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            labelText:
+                                                                "شرح توضيحي عن المكتبات ",
+                                                            hintStyle:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                            labelStyle: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 22,
+                                                                color:
+                                                                    maincolor),
+                                                            focusedBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      color:
+                                                                          maincolor),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    13.0),
+                                                              ),
+                                                            ),
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide:
+                                                                  BorderSide(
+                                                                      color:
+                                                                          maincolor),
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                Radius.circular(
+                                                                    13.0),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 20),
+                                                            child: InkWell(
+                                                              onTap: () {
+                                                                if (name.text
+                                                                        .isEmpty ||
+                                                                    publisherName
+                                                                        .text
+                                                                        .isEmpty ||
+                                                                    explaination
+                                                                        .text
+                                                                        .isEmpty) {
+                                                                  erroralert(
+                                                                      context,
+                                                                      "يجب ملىء جميع الحقول");
+                                                                } else {
+                                                                  internetConnection()
+                                                                      .then(
+                                                                          (value) {
+                                                                    if (value ==
+                                                                        true) {
+                                                                      setState(
+                                                                          () {
+                                                                        isloading =
+                                                                            true;
+                                                                      });
+                                                                      tryUploadDataChild()
+                                                                          .then(
+                                                                              (v) {
+                                                                        allUploadedDataChildDone()
+                                                                            .then((value2) {
+                                                                          if (value2 ==
+                                                                              true) {
+                                                                            FirebaseFirestore.instance.collection("Shared").doc().set({
+                                                                              "data": dataToExport,
+                                                                              "name": name.text,
+                                                                              "publisherName": publisherName.text,
+                                                                              "explaination": explaination.text,
+                                                                              "approval": "no"
+                                                                            }).then((value) {
+                                                                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainParentPage(index: 0)), (route) => false);
+                                                                              acceptalert(
+                                                                                context,
+                                                                                "تم النشر يمكنك الوصول للمكتبة من خلال اعدادات -> تنزيل المكتبات",
+                                                                              );
+                                                                            });
+                                                                          } else {
+                                                                            Navigator.pushAndRemoveUntil(
+                                                                                context,
+                                                                                MaterialPageRoute(builder: (context) => const MainParentPage(index: 0)),
+                                                                                (route) => false);
+                                                                            erroralert(context,
+                                                                                "حاول مرة اخرى");
+                                                                          }
+                                                                        });
+                                                                      });
+                                                                    } else {
+                                                                      erroralert(
+                                                                          context,
+                                                                          "يرجى الاتصال بالانترنت");
+                                                                    }
+                                                                  });
+                                                                }
+                                                              },
+                                                              child: Container(
+                                                                height: 50,
+                                                                width: 100,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            15),
+                                                                    color:
+                                                                        maincolor),
+                                                                child: Center(
+                                                                  child:
+                                                                      FittedBox(
+                                                                    child: isloading
+                                                                        ? Center(
+                                                                            child:
+                                                                                CircularProgressIndicator(),
+                                                                          )
+                                                                        : const Text(
+                                                                            "رفع",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white, fontSize: 25),
+                                                                          ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+
+                                                          ////////////////////////////////// الغاء
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    // left: 65,
+                                                                    // right: 65,
+                                                                    top: 20),
+                                                            child: InkWell(
+                                                              onTap: (() {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              }),
+                                                              child: Container(
+                                                                height: 50,
+                                                                width: 100,
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            15),
+                                                                    color:
+                                                                        maincolor),
+                                                                child: Center(
+                                                                  child:
+                                                                      FittedBox(
+                                                                    child: isloading
+                                                                        ? const Center(
+                                                                            child:
+                                                                                CircularProgressIndicator(),
+                                                                          )
+                                                                        : const Text(
+                                                                            "إلغاء",
+                                                                            style:
+                                                                                TextStyle(color: Colors.white, fontSize: 25),
+                                                                          ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      const SizedBox(
+                                                        height: 35,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                }
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -1397,8 +1945,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                 decoration: BoxDecoration(
                                     color: greenColor,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: const Text(
-                                  "حذف",
+                                child: Text(
+                                  isSelectedForDelete ? "حذف" : "رفع",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,

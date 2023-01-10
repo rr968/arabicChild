@@ -67,213 +67,244 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
           ],
         ),
       ),
-      body: Column(children: [
-        selectedAvaiabel
-            ? Container(
-                height: 50,
-              )
-            : Padding(
-                padding: const EdgeInsets.only(right: 30, top: 20, bottom: 18),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ReArrangeFavChild()),
-                          (route) => false);
-                    },
-                    child: Container(
-                      height: DeviceUtil.isTablet ? 50 : 35,
-                      width: DeviceUtil.isTablet ? 180 : 100,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 202, 202, 202)),
-                        color: maincolor,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(15)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color.fromARGB(255, 217, 216, 216)
-                                .withOpacity(0.4),
-                            spreadRadius: 3,
-                            blurRadius: 7,
-                          )
-                        ],
-                      ),
-                      child: Center(
-                          child: Text(
-                        "إعادة ترتيب",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: DeviceUtil.isTablet ? 25 : 17),
-                      )),
-                    ),
+      body: favorite.isEmpty
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/uiImages/noSaved.png",
+                  height: 150,
+                ),
+                Container(
+                  height: 20,
+                ),
+                Center(
+                  child: Text(
+                    "لم تقم باضافة جمل الى مفضلة بعد",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                 ),
-              ),
-        Expanded(
-          child: ListView(
-            children: [
-              for (int i = 0; i < favorite.length; i++)
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 10, bottom: 10, left: 30, right: 30),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          SharedPreferences favv =
-                              await SharedPreferences.getInstance();
-
-                          setState(() {
-                            favorite.removeAt(i);
-                          });
-
-                          List<String> allFav = [];
-                          for (var oneFav in favorite) {
-                            String newFav = "";
-                            for (int y = 0; y < oneFav.length; y++) {
-                              String input = oneFav[y][0];
-                              String imurl = oneFav[y][1];
-                              String isimup = oneFav[y][2];
-                              String voiceurl = oneFav[y][3];
-                              String voiceCache = oneFav[y][4];
-                              String isvoiceUp = oneFav[y][5];
-
-                              if (y == oneFav.length - 1) {
-                                newFav +=
-                                    """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
-                              } else {
-                                newFav +=
-                                    """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
-                              }
-                            }
-                            newFav = "[$newFav]";
-                            allFav.add(newFav);
-                          }
-
-                          favv.setStringList("favlistChild", allFav);
-                        },
-                        child: Container(
-                          height: 120,
-                          width: 80,
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                                size: 50,
-                              ),
-                              Text(
-                                'حذف',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 28),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          String a = "";
-                          for (var element in favorite[i]) {
-                            a += element[0] + " ";
-                          }
-                          howtospeak(a);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 13),
+              ],
+            )
+          : Column(children: [
+              selectedAvaiabel
+                  ? Container(
+                      height: 50,
+                    )
+                  : Padding(
+                      padding:
+                          const EdgeInsets.only(right: 30, top: 20, bottom: 18),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ReArrangeFavChild()),
+                                (route) => false);
+                          },
                           child: Container(
-                            height: 120,
-                            width: 80,
+                            height: DeviceUtil.isTablet ? 50 : 35,
+                            width: DeviceUtil.isTablet ? 180 : 100,
                             decoration: BoxDecoration(
-                                color: maincolor,
-                                borderRadius: const BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    bottomRight: Radius.circular(20))),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Icon(
-                                  Icons.volume_up,
-                                  color: Colors.white,
-                                  size: 54,
-                                ),
-                                Text(
-                                  'نطق',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 28),
+                              border: Border.all(
+                                  color:
+                                      const Color.fromARGB(255, 202, 202, 202)),
+                              color: maincolor,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(15)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color:
+                                      const Color.fromARGB(255, 217, 216, 216)
+                                          .withOpacity(0.4),
+                                  spreadRadius: 3,
+                                  blurRadius: 7,
                                 )
                               ],
                             ),
+                            child: Center(
+                                child: Text(
+                              "إعادة ترتيب",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: DeviceUtil.isTablet ? 25 : 17),
+                            )),
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            String a = "";
-                            for (var element in favorite[i]) {
-                              a += element[0] + " ";
-                            }
-                            howtospeak(a);
-                          },
-                          child: Container(
-                            height: 120,
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20)),
-                                border: Border.all(width: 2, color: maincolor)),
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                for (int j = 0; j < favorite[i].length; j++)
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10, bottom: 5, top: 5),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(
-                                            height: 50,
-                                            width: 50,
-                                            child: getImage(favorite[i][j][1])),
-                                        Container(
-                                          height: 5,
-                                        ),
-                                        Text(
-                                          favorite[i][j][0],
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: DeviceUtil.isTablet
-                                                  ? 30
-                                                  : 20),
-                                        )
-                                      ],
+                    ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    for (int i = 0; i < favorite.length; i++)
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10, bottom: 10, left: 30, right: 30),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                SharedPreferences favv =
+                                    await SharedPreferences.getInstance();
+
+                                setState(() {
+                                  favorite.removeAt(i);
+                                });
+
+                                List<String> allFav = [];
+                                for (var oneFav in favorite) {
+                                  String newFav = "";
+                                  for (int y = 0; y < oneFav.length; y++) {
+                                    String input = oneFav[y][0];
+                                    String imurl = oneFav[y][1];
+                                    String isimup = oneFav[y][2];
+                                    String voiceurl = oneFav[y][3];
+                                    String voiceCache = oneFav[y][4];
+                                    String isvoiceUp = oneFav[y][5];
+
+                                    if (y == oneFav.length - 1) {
+                                      newFav +=
+                                          """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
+                                    } else {
+                                      newFav +=
+                                          """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
+                                    }
+                                  }
+                                  newFav = "[$newFav]";
+                                  allFav.add(newFav);
+                                }
+
+                                favv.setStringList("favlistChild", allFav);
+                              },
+                              child: Container(
+                                height: 120,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                      size: 50,
                                     ),
-                                  ),
-                              ],
+                                    Text(
+                                      'حذف',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 28),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
+                            InkWell(
+                              onTap: () {
+                                String a = "";
+                                for (var element in favorite[i]) {
+                                  a += element[0] + " ";
+                                }
+                                howtospeak(a);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 13),
+                                child: Container(
+                                  height: 120,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      color: maincolor,
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(20),
+                                          bottomRight: Radius.circular(20))),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(
+                                        Icons.volume_up,
+                                        color: Colors.white,
+                                        size: 54,
+                                      ),
+                                      Text(
+                                        'نطق',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 28),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  String a = "";
+                                  for (var element in favorite[i]) {
+                                    a += element[0] + " ";
+                                  }
+                                  howtospeak(a);
+                                },
+                                child: Container(
+                                  height: 120,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          bottomLeft: Radius.circular(20)),
+                                      border: Border.all(
+                                          width: 2, color: maincolor)),
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      for (int j = 0;
+                                          j < favorite[i].length;
+                                          j++)
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10,
+                                              right: 10,
+                                              bottom: 5,
+                                              top: 5),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              SizedBox(
+                                                  height: 50,
+                                                  width: 50,
+                                                  child: getImage(
+                                                      favorite[i][j][1])),
+                                              Container(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                favorite[i][j][0],
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize:
+                                                        DeviceUtil.isTablet
+                                                            ? 30
+                                                            : 20),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                  ],
                 ),
-            ],
-          ),
-        ),
-      ]),
+              ),
+            ]),
     );
   }
 }

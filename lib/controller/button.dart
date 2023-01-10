@@ -18,7 +18,7 @@ Padding button(Function f, String text) {
         child: Text(
           text,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 25, color: Colors.white),
+              fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
         ),
       ),
     ),

@@ -7,15 +7,15 @@ import '../../controller/images.dart';
 import '../../controller/speak.dart';
 
 // ignore: must_be_immutable
-class ExportContent extends StatefulWidget {
+class ImportContent extends StatefulWidget {
   final List<Content> content;
-  const ExportContent({Key? key, required this.content}) : super(key: key);
+  const ImportContent({Key? key, required this.content}) : super(key: key);
 
   @override
-  State<ExportContent> createState() => _ExportContentState();
+  State<ImportContent> createState() => _ImportContentState();
 }
 
-class _ExportContentState extends State<ExportContent> {
+class _ImportContentState extends State<ImportContent> {
   bool cantPressed = false;
   int cantpressIndex = 0;
   @override
