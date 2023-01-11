@@ -820,7 +820,7 @@ List<List> dataImage = [
       ["تصنع", ""],
       ["صنيعك", ""],
     ],
-    "assets/images/manufacture"
+    "assets/images/manufacture.png",
   ],
   [
     [
