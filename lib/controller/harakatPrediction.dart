@@ -300,8 +300,8 @@ String harakatPrediction(String word) {
   if (word == "الأذرع") return "الأَذْرُع";
   if (word == "الاذرع") return "الأَذْرُع";
   if (word == "تسحبا") return "تَسْحَبُاَ";
-  if (word == "") return "";
-  if (word == "") return "";
+  if (word == "بصنعه") return "بِصُنْعِهْ";
+  if (word == "كعكة") return "كَعْكَةِ";
   if (word == "") return "";
   if (word == "") return "";
   if (word == "") return "";
