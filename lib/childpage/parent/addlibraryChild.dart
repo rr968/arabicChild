@@ -39,264 +39,278 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
           //   textAlign: TextAlign.center,
           // ),
         ),
-        body: ListView(
-          children: [
-            const SizedBox(
-              height: 25,
-            ),
-            Text(
-              "إنشاء مكتبة",
-              style: TextStyle(
-                  fontSize: 38, color: maincolor, fontWeight: FontWeight.w900),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(
-              height: 35,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width - 300,
-                height: MediaQuery.of(context).size.height - 350,
-                decoration: BoxDecoration(
-                  color:
-                      const Color.fromARGB(255, 255, 255, 255).withOpacity(0.3),
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 200, 200, 200)),
-                  borderRadius: const BorderRadius.all(Radius.circular(27)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color.fromARGB(255, 217, 216, 216)
-                          .withOpacity(0.3),
-                      spreadRadius: 3,
-                      blurRadius: 7,
-                      //offset: Offset(0, 3)),
-                    )
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width * .2,
-                          right: MediaQuery.of(context).size.width * .2),
-                      child: TextFormField(
-                        controller: libraryname,
-                        maxLines: 1,
-                        autofocus: true,
-                        decoration: InputDecoration(
-                          labelText: "اسم المكتبة",
-                          labelStyle: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: maincolor),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: maincolor),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(13.0),
+        body: Container(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "إنشاء مكتبة",
+                style: TextStyle(
+                    fontSize: 38,
+                    color: maincolor,
+                    fontWeight: FontWeight.w900),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: 40,
+                    horizontal: MediaQuery.of(context).size.width * .09),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 255, 255, 255)
+                        .withOpacity(0.3),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 200, 200, 200)),
+                    borderRadius: const BorderRadius.all(Radius.circular(27)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(255, 217, 216, 216)
+                            .withOpacity(0.3),
+                        spreadRadius: 3,
+                        blurRadius: 7,
+                        //offset: Offset(0, 3)),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            bottom: 8,
+                            left: MediaQuery.of(context).size.width * .1,
+                            right: MediaQuery.of(context).size.width * .1),
+                        child: TextFormField(
+                          controller: libraryname,
+                          maxLines: 1,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            labelText: "اسم المكتبة",
+                            labelStyle: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: maincolor),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: maincolor),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(13.0),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    errorsen
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text("يجب وضع اسم للمكتبة",
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.w900)),
-                              ],
-                            ),
-                          )
-                        : const SizedBox(),
-                    Container(
-                      height: 30,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 21, bottom: 36),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Provider.of<MyProvider>(context)
-                                  .lastimagepath
-                                  .toString()
-                                  .isNotEmpty
-                              ? InkWell(
-                                  onTap: () => diag(),
-                                  child: Container(
-                                      height: 220,
-                                      width: 220,
-                                      decoration: Provider.of<MyProvider>(context)
-                                              .lastimagepath
-                                              .toString()
-                                              .contains("assets/")
-                                          ? BoxDecoration(
-                                              border: Border.all(
-                                                  color: const Color.fromARGB(
-                                                      255, 200, 200, 200),
-                                                  width: 1.5),
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              image: DecorationImage(
-                                                  image: AssetImage(Provider.of<MyProvider>(context)
-                                                      .lastimagepath
-                                                      .toString()),
-                                                  fit: BoxFit.fill))
-                                          : Provider.of<MyProvider>(context).lastimagepath.toString().contains(
-                                                  "https://firebasestorage.googleapis.com")
-                                              ? BoxDecoration(
-                                                  border: Border.all(color: const Color.fromARGB(255, 200, 200, 200), width: 2),
-                                                  borderRadius: BorderRadius.circular(15),
-                                                  image: DecorationImage(image: NetworkImage(Provider.of<MyProvider>(context).lastimagepath.toString()), fit: BoxFit.fill))
-                                              : BoxDecoration(border: Border.all(color: const Color.fromARGB(255, 200, 200, 200), width: 2), borderRadius: BorderRadius.circular(15), image: DecorationImage(image: FileImage(File(Provider.of<MyProvider>(context).lastimagepath.toString())), fit: BoxFit.fill))),
-                                )
-                              : Container(),
-                          Provider.of<MyProvider>(context)
-                                  .lastimagepath
-                                  .toString()
-                                  .isEmpty
-                              ? InkWell(
-                                  onTap: () => diag(),
-                                  child: Container(
-                                    height: 180,
-                                    width: 180,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: greyColor, width: 1.5),
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: const Color.fromARGB(
-                                                255,
-                                                255,
-                                                255,
-                                                255) // Color.fromARGB(255, 121, 161, 134)
-                                            .withOpacity(.4)),
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            "إرفاق صورة",
-                                            style: TextStyle(
-                                                color: greyColor,
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.w900),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(
-                                              Icons.add_a_photo,
-                                              size: 50,
-                                              color: greyColor,
+                      Container(
+                        height: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 21, bottom: 36),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Provider.of<MyProvider>(context)
+                                    .lastimagepath
+                                    .toString()
+                                    .isNotEmpty
+                                ? InkWell(
+                                    onTap: () => diag(),
+                                    child: Container(
+                                        height: 220,
+                                        width: 220,
+                                        decoration: Provider.of<MyProvider>(context)
+                                                .lastimagepath
+                                                .toString()
+                                                .contains("assets/")
+                                            ? BoxDecoration(
+                                                border: Border.all(
+                                                    color: const Color.fromARGB(
+                                                        255, 200, 200, 200),
+                                                    width: 1.5),
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                image: DecorationImage(
+                                                    image: AssetImage(Provider.of<MyProvider>(context)
+                                                        .lastimagepath
+                                                        .toString()),
+                                                    fit: BoxFit.fill))
+                                            : Provider.of<MyProvider>(context).lastimagepath.toString().contains(
+                                                    "https://firebasestorage.googleapis.com")
+                                                ? BoxDecoration(
+                                                    border: Border.all(color: const Color.fromARGB(255, 200, 200, 200), width: 2),
+                                                    borderRadius: BorderRadius.circular(15),
+                                                    image: DecorationImage(image: NetworkImage(Provider.of<MyProvider>(context).lastimagepath.toString()), fit: BoxFit.fill))
+                                                : BoxDecoration(border: Border.all(color: const Color.fromARGB(255, 200, 200, 200), width: 2), borderRadius: BorderRadius.circular(15), image: DecorationImage(image: FileImage(File(Provider.of<MyProvider>(context).lastimagepath.toString())), fit: BoxFit.fill))),
+                                  )
+                                : Container(),
+                            Provider.of<MyProvider>(context)
+                                    .lastimagepath
+                                    .toString()
+                                    .isEmpty
+                                ? InkWell(
+                                    onTap: () => diag(),
+                                    child: Container(
+                                      height: 180,
+                                      width: 180,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: greyColor, width: 1.5),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: const Color.fromARGB(
+                                                  255,
+                                                  255,
+                                                  255,
+                                                  255) // Color.fromARGB(255, 121, 161, 134)
+                                              .withOpacity(.4)),
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              "إرفاق صورة",
+                                              style: TextStyle(
+                                                  color: greyColor,
+                                                  fontSize: 24,
+                                                  fontWeight: FontWeight.w900),
                                             ),
-                                          ),
-                                        ],
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Icon(
+                                                Icons.add_a_photo,
+                                                size: 50,
+                                                color: greyColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              : Container()
-                        ],
+                                  )
+                                : Container()
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: 50,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20),
-                          child: InkWell(
-                            onTap: () async {
-                              if (libraryname.text.isNotEmpty) {
-                                SharedPreferences liblistChild =
-                                    await SharedPreferences.getInstance();
-                                List<String> lb = liblistChild
-                                        .getStringList("liblistChild") ??
-                                    [];
-                                if (Provider.of<MyProvider>(context,
-                                            listen: false)
-                                        .lastimagepath
-                                        .toString()
-                                        .isEmpty ||
+                      errorsen
+                          ? Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(
+                                    Icons.error,
+                                    color: Colors.red,
+                                  ),
+                                  Container(
+                                    width: 8,
+                                  ),
+                                  Text("يجب وضع اسم للمكتبة",
+                                      style: TextStyle(
+                                          color: Colors.red,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w900)),
+                                ],
+                              ),
+                            )
+                          : const SizedBox(),
+                      Container(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: InkWell(
+                              onTap: () async {
+                                if (libraryname.text.isNotEmpty) {
+                                  SharedPreferences liblistChild =
+                                      await SharedPreferences.getInstance();
+                                  List<String> lb = liblistChild
+                                          .getStringList("liblistChild") ??
+                                      [];
+                                  if (Provider.of<MyProvider>(context,
+                                              listen: false)
+                                          .lastimagepath
+                                          .toString()
+                                          .isEmpty ||
+                                      Provider.of<MyProvider>(context,
+                                              listen: false)
+                                          .lastimagepath
+                                          .toString()
+                                          .contains("assets/")) {
+                                    lb.add(convertLibString(lib(
+                                        libraryname.text,
+                                        Provider.of<MyProvider>(context,
+                                                listen: false)
+                                            .lastimagepath
+                                            .toString(),
+                                        "yes",
+                                        [])));
+                                  } else {
+                                    lb.add(convertLibString(lib(
+                                        libraryname.text,
+                                        Provider.of<MyProvider>(context,
+                                                listen: false)
+                                            .lastimagepath
+                                            .toString(),
+                                        "no",
+                                        [])));
+                                  }
+
+                                  liblistChild
+                                      .setStringList("liblistChild", lb)
+                                      .then((value) {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MainParentPage(
+                                                  index: 1,
+                                                )),
+                                        (route) => false);
                                     Provider.of<MyProvider>(context,
                                             listen: false)
-                                        .lastimagepath
-                                        .toString()
-                                        .contains("assets/")) {
-                                  lb.add(convertLibString(lib(
-                                      libraryname.text,
-                                      Provider.of<MyProvider>(context,
-                                              listen: false)
-                                          .lastimagepath
-                                          .toString(),
-                                      "yes",
-                                      [])));
+                                        .setPath("");
+                                    // acceptalert( context, "تم إضافة المكتبة بنجاح");
+                                  });
                                 } else {
-                                  lb.add(convertLibString(lib(
-                                      libraryname.text,
-                                      Provider.of<MyProvider>(context,
-                                              listen: false)
-                                          .lastimagepath
-                                          .toString(),
-                                      "no",
-                                      [])));
+                                  setState(() {
+                                    errorsen = true;
+                                  });
                                 }
-
-                                liblistChild
-                                    .setStringList("liblistChild", lb)
-                                    .then((value) {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MainParentPage(
-                                                index: 0,
-                                              )),
-                                      (route) => false);
-                                  Provider.of<MyProvider>(context,
-                                          listen: false)
-                                      .setPath("");
-                                  // acceptalert( context, "تم إضافة المكتبة بنجاح");
-                                });
-                              } else {
-                                setState(() {
-                                  errorsen = true;
-                                });
-                              }
-                            },
-                            child: Container(
-                                alignment: Alignment.center,
-                                height: 50,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: greenColor,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: const Text(
-                                  'حفظ',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 25),
-                                )),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                              },
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  height: 50,
+                                  width: 200,
+                                  decoration: BoxDecoration(
+                                      color: maincolor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: const Text(
+                                    'حفظ',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25),
+                                  )),
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

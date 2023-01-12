@@ -250,7 +250,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const MainParentPage(
-                                            index: 0,
+                                            index: 1,
                                           )),
                                   (route) => false);
                               // acceptalert(context, "تم الحفظ بنجاح");
@@ -281,7 +281,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const MainParentPage(
-                                          index: 0,
+                                          index: 1,
                                         )),
                                 (route) => false);
                           },

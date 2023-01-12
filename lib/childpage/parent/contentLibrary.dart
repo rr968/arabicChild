@@ -474,7 +474,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => const MainParentPage(
-                                          index: 0,
+                                          index: 1,
                                         )),
                                 (route) => false);
                           },

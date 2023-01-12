@@ -1,11 +1,9 @@
 // ignore_for_file: file_names
 
-import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
-import '/controller/istablet.dart';
 import '/controller/var.dart';
 import '/view/drawer/drawer.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +105,7 @@ class _MainChildPageState extends State<MainChildPage> {
                 bottomNavigationBar: SnakeNavigationBar.color(
                   shadowColor: Colors.black,
                   elevation: 20,
-                  backgroundColor: Color.fromARGB(255, 245, 236, 244),
+                  backgroundColor: const Color.fromARGB(255, 245, 236, 244),
                   behaviour: snakeBarStyle,
                   snakeShape: SnakeShape.circle,
                   shape: const RoundedRectangleBorder(
@@ -130,7 +128,7 @@ class _MainChildPageState extends State<MainChildPage> {
                       setState(() {
                         _selectedItemPosition = index;
                       });
-                      Future.delayed(Duration(milliseconds: 1000))
+                      Future.delayed(const Duration(milliseconds: 1000))
                           .then((value) {
                         setState(() {
                           _selectedItemPosition = 1;

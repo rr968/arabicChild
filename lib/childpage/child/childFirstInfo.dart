@@ -22,7 +22,7 @@ class Selectedlib extends StatefulWidget {
 
 class _SelectedlibState extends State<Selectedlib> {
   List<int> indexesChooese = [];
-  int selectAl=0;
+  int selectAl = 0;
   List<lib> chooseLibrary = [
     lib("التحيات", "assets/1ss.png", "yes", [
       Content("كيف حالك؟ ", "assets/question.png", "yes", "", "", "yes"),
@@ -203,70 +203,65 @@ class _SelectedlibState extends State<Selectedlib> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30, right: 15,left: 15),
+              padding: const EdgeInsets.only(top: 30, right: 15, left: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   indexesChooese.isNotEmpty
-                  ?Text(
-                    "${indexesChooese.length}  من  ${chooseLibrary.length} ",
-                    style: const TextStyle(
-                        fontSize: 28, fontWeight: FontWeight.bold),
-                  ):Container(),
-
-                          InkWell(
-                            onTap: () {
-                              if(selectAl==0){
-
-                                indexesChooese = [];
-                                for (int i = 0; i < chooseLibrary.length; i++) {
-                                  setState(() {
-
-                                    indexesChooese.add(i);
-                                  });
-                                }
-                                setState(() {
-                                  selectAl=1;
-                                });
-
-
-                              }else{
-                                setState(() {
-                                  indexesChooese = [];
-                                  selectAl=0;
-                                });
-                              }
-                            },
-                            child: Container(
-                              margin: const EdgeInsets.all(0.1),
-                              padding: const EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black)),
-                              child: Row(
-                                children:  [
-                                  Icon(selectAl!=0?Icons.check_circle_outline:Icons.circle_outlined,
-                                    size: DeviceUtil.isTablet
-                                        ? 30
-                                        : 20,),
-                                  SizedBox(
-                                    width: 3,
-                                  ),
-                                  Text(
-                                    'تحديد الكل',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
+                      ? Text(
+                          "${indexesChooese.length}  من  ${chooseLibrary.length} ",
+                          style: const TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold),
+                        )
+                      : Container(),
+                  InkWell(
+                    onTap: () {
+                      if (selectAl == 0) {
+                        indexesChooese = [];
+                        for (int i = 0; i < chooseLibrary.length; i++) {
+                          setState(() {
+                            indexesChooese.add(i);
+                          });
+                        }
+                        setState(() {
+                          selectAl = 1;
+                        });
+                      } else {
+                        setState(() {
+                          indexesChooese = [];
+                          selectAl = 0;
+                        });
+                      }
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.all(0.1),
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: Row(
+                        children: [
+                          Icon(
+                            selectAl != 0
+                                ? Icons.check_circle_outline
+                                : Icons.circle_outlined,
+                            size: DeviceUtil.isTablet ? 30 : 20,
                           ),
-
-
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          const Text(
+                            'تحديد الكل',
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-
             Expanded(
               flex: 5,
               child: Container(
@@ -371,8 +366,8 @@ class _SelectedlibState extends State<Selectedlib> {
                                                       color: Colors.white
                                                           .withOpacity(0.3),
                                                       borderRadius:
-                                                      BorderRadius.circular(
-                                                          27),
+                                                          BorderRadius.circular(
+                                                              27),
                                                       boxShadow: [
                                                         BoxShadow(
                                                           color: Colors.white
@@ -425,7 +420,7 @@ class _SelectedlibState extends State<Selectedlib> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               /* Stack(
+                /* Stack(
                   alignment: AlignmentDirectional.bottomEnd,
                   children: [
                     Container(
@@ -448,7 +443,7 @@ class _SelectedlibState extends State<Selectedlib> {
                     ),
                   ],
                 ),*/
-             /*   SizedBox(
+                /*   SizedBox(
                     width: MediaQuery.of(context).orientation ==
                             Orientation.portrait
                         ? 40
@@ -485,11 +480,10 @@ class _SelectedlibState extends State<Selectedlib> {
                 InkWell(
                   onTap: () async {
                     SharedPreferences liblistChild =
-                    await SharedPreferences.getInstance();
+                        await SharedPreferences.getInstance();
                     List<String> libstring = [];
-                    int j =chooseLibrary.length;
-                    for (var i=0;i< j;i++) {
-                      print(i);
+                    int j = chooseLibrary.length;
+                    for (var i = 0; i < j; i++) {
                       libstring.add(convertLibString(chooseLibrary[i]));
                     }
                     liblistChild.setStringList("liblistChild", libstring);
@@ -497,8 +491,8 @@ class _SelectedlibState extends State<Selectedlib> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const MainChildPage(
-                              index: 0,
-                            )));
+                                  index: 0,
+                                )));
                   },
                   child: Text(
                     "تخطي هذا",

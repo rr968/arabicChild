@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:arabic_speaker_child/childpage/child/childFirstInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -12,14 +14,14 @@ class NumofItems extends StatefulWidget {
 }
 
 class _NumofItemsState extends State<NumofItems> {
-  int Itemsnum = 2;
+  int itemsnum = 2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("assets/uiImages/bg.png"),
                   fit: BoxFit.cover)),
@@ -40,7 +42,8 @@ class _NumofItemsState extends State<NumofItems> {
                           : MediaQuery.of(context).size.width * .45,
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      border: Border.all(color: Color(0xff989999), width: 2),
+                      border:
+                          Border.all(color: const Color(0xff989999), width: 2),
                       borderRadius: BorderRadius.circular(40)),
                   child: Padding(
                     padding: const EdgeInsets.all(2),
@@ -79,15 +82,16 @@ class _NumofItemsState extends State<NumofItems> {
                           margin: const EdgeInsets.all(40),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
-                            color: Color.fromARGB(255, 255, 255, 255)
+                            color: const Color.fromARGB(255, 255, 255, 255)
                                 .withOpacity(0.8),
-                            borderRadius: BorderRadius.all(Radius.circular(60)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(60)),
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.grey.withOpacity(0.1),
                                   spreadRadius: 0,
                                   blurRadius: 5,
-                                  offset: Offset(0, 3)),
+                                  offset: const Offset(0, 3)),
                             ],
                           ),
                           child: Column(
@@ -110,7 +114,7 @@ class _NumofItemsState extends State<NumofItems> {
                                                 Orientation.portrait
                                             ? 50
                                             : 20,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             image: DecorationImage(
                                                 image: AssetImage(
                                                     "assets/uiImages/bigBox.png"),
@@ -121,7 +125,7 @@ class _NumofItemsState extends State<NumofItems> {
                                         child: Container(
                                           height: 20,
                                           width: 50,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
                                                       "assets/uiImages/horBig.png"),
@@ -137,7 +141,7 @@ class _NumofItemsState extends State<NumofItems> {
                                         Container(
                                           height: 100,
                                           width: 50,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
                                                       "assets/uiImages/bigBox.png"),
@@ -149,7 +153,7 @@ class _NumofItemsState extends State<NumofItems> {
                                           child: Container(
                                             height: 20,
                                             width: 50,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
                                                         "assets/uiImages/horBig.png"),
@@ -177,7 +181,7 @@ class _NumofItemsState extends State<NumofItems> {
                                         Container(
                                           height: 50,
                                           width: 50,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
                                                       "assets/uiImages/boxSmall.png"),
@@ -189,7 +193,7 @@ class _NumofItemsState extends State<NumofItems> {
                                           child: Container(
                                             height: 50,
                                             width: 50,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
                                                         "assets/uiImages/boxSmall.png"),
@@ -206,7 +210,7 @@ class _NumofItemsState extends State<NumofItems> {
                                         Container(
                                           height: 50,
                                           width: 50,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                               image: DecorationImage(
                                                   image: AssetImage(
                                                       "assets/uiImages/boxSmall.png"),
@@ -218,7 +222,7 @@ class _NumofItemsState extends State<NumofItems> {
                                           child: Container(
                                             height: 50,
                                             width: 50,
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                                 image: DecorationImage(
                                                     image: AssetImage(
                                                         "assets/uiImages/boxSmall.png"),
@@ -238,17 +242,17 @@ class _NumofItemsState extends State<NumofItems> {
                                     Slider(
                                       onChanged: (value) {
                                         setState(() {
-                                          Itemsnum = value.toInt();
+                                          itemsnum = value.toInt();
                                         });
                                       },
-                                      value: Itemsnum.toDouble(),
+                                      value: itemsnum.toDouble(),
                                       max: 2,
                                       min: 1,
                                       divisions: 3,
-                                      label: Itemsnum.toString(),
-                                      activeColor:
-                                          Color.fromARGB(220, 220, 220, 220)
-                                              .withOpacity(0.8),
+                                      label: itemsnum.toString(),
+                                      activeColor: const Color.fromARGB(
+                                              220, 220, 220, 220)
+                                          .withOpacity(0.8),
                                       //inactiveColor: Colors.orangeAccent,
                                     ),
                                   ],
@@ -259,7 +263,7 @@ class _NumofItemsState extends State<NumofItems> {
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
-                                  children: [
+                                  children: const [
                                     Text(
                                       "كبير",
                                       style: TextStyle(
@@ -267,7 +271,7 @@ class _NumofItemsState extends State<NumofItems> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 10),
+                                      padding: EdgeInsets.only(right: 10),
                                       child: Text(
                                         "عادي",
                                         style: TextStyle(

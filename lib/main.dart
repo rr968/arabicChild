@@ -1,11 +1,8 @@
 import 'package:arabic_speaker_child/StartPage.dart';
-import 'package:arabic_speaker_child/childpage/parent/mainparent.dart';
 import '/controller/my_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'childpage/child/sizeOfITem.dart';
 
 //crossAxisAlignment: CrossAxisAlignment.stretch,
 //mainAxisSize: MainAxisSize.min,
@@ -13,11 +10,11 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(
-    const  MyApp(),
-  // MaterialApp(
-  //home: NumofItems() //create new widget class for this 'home' to
-  // escape 'No MediaQuery widget found' error
- //)
+    const MyApp(),
+    // MaterialApp(
+    //home: NumofItems() //create new widget class for this 'home' to
+    // escape 'No MediaQuery widget found' error
+    //)
   );
 }
 
@@ -40,6 +37,6 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'المتحدث العربي',
             theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Almarai"),
-            home: Start()));
+            home: const Start()));
   }
 }

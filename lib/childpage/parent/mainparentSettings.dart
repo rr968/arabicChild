@@ -122,7 +122,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                     child: Text(
                                       "تم تحديدد ${isSelected.length} من المكتبات",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 25,
                                           fontWeight: FontWeight.w900),
@@ -151,7 +151,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                     child: Text(
                                       "تم تحديدد ${isSelected.length} من المكتبات",
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.black,
                                           fontSize: 25,
                                           fontWeight: FontWeight.w900),
@@ -183,7 +183,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                   alignment: Alignment.center,
                                   height: 50,
                                   width:
-                                      MediaQuery.of(context).size.width / 5.2,
+                                      MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
                                       color: purcolor,
                                       borderRadius: BorderRadius.circular(10)),
@@ -1058,7 +1058,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                               builder: (context) =>
                                                                   const MainParentPage(
                                                                       index:
-                                                                          0)),
+                                                                          1)),
                                                           (route) => false);
                                                     },
                                                     child: Container(
@@ -1100,6 +1100,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                     ),
                                                   ),
                                                   InkWell(
+                                                    onTap: () {
+                                                      Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const Import()));
+                                                    },
                                                     child: Container(
                                                       height: 40,
                                                       width: 170,
@@ -1200,7 +1207,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               child: Container(
                                   height: 50,
                                   width:
-                                      MediaQuery.of(context).size.width / 5.2,
+                                      MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
                                       color: greenColor,
                                       borderRadius: BorderRadius.circular(10)),
@@ -1234,50 +1241,6 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  isSelectedForDelete = true;
-                                  isSelected = [];
-                                  selectedAvaiabel = true;
-                                });
-                              },
-                              child: Container(
-                                  height: 50,
-                                  width:
-                                      MediaQuery.of(context).size.width / 5.2,
-                                  decoration: BoxDecoration(
-                                      color: pinkColor,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: FittedBox(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Icon(
-                                            Icons.delete_outlined,
-                                            color: Colors.white,
-                                            size: 35,
-                                          ),
-                                          Container(
-                                            width: 7,
-                                          ),
-                                          Text(
-                                            "حذف مكتبة",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: DeviceUtil.isTablet
-                                                    ? 25
-                                                    : 17),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
                                   isSelected = [];
                                   selectedAvaiabel = true;
                                   isSelectedForDelete = false;
@@ -1286,9 +1249,10 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               child: Container(
                                   height: 50,
                                   width:
-                                      MediaQuery.of(context).size.width / 5.2,
+                                      MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 232, 140, 2),
+                                      color: const Color.fromARGB(
+                                          255, 232, 140, 2),
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -1319,17 +1283,18 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Import()));
+                                setState(() {
+                                  isSelectedForDelete = true;
+                                  isSelected = [];
+                                  selectedAvaiabel = true;
+                                });
                               },
                               child: Container(
                                   height: 50,
                                   width:
-                                      MediaQuery.of(context).size.width / 5.2,
+                                      MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 22, 117, 195),
+                                      color: pinkColor,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -1339,7 +1304,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                             MainAxisAlignment.center,
                                         children: [
                                           const Icon(
-                                            Icons.cloud_download,
+                                            Icons.delete_outlined,
                                             color: Colors.white,
                                             size: 35,
                                           ),
@@ -1347,7 +1312,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                             width: 7,
                                           ),
                                           Text(
-                                            "تنزيل مكتبة",
+                                            "حذف مكتبة",
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -1554,6 +1519,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                         convertLibString(libraryListChild[i]);
                                     dataToExport.add(s);
                                   } //here
+
                                   showDialog(
                                       context: context,
                                       builder: (context) {
@@ -1578,10 +1544,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                       TextDirection.rtl,
                                                   child: Column(
                                                     children: [
-                                                      Padding(
+                                                      const Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
+                                                            EdgeInsets.all(8.0),
                                                         child: FittedBox(
                                                           child: Text(
                                                             "معلومات المكتبات المرغوب مشاركتها",
@@ -1812,11 +1777,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                           (value) {
                                                                     if (value ==
                                                                         true) {
-                                                                      setState(
-                                                                          () {
-                                                                        isloading =
-                                                                            true;
-                                                                      });
+                                                                      Provider.of<MyProvider>(
+                                                                              context,
+                                                                              listen:
+                                                                                  false)
+                                                                          .isLoading(
+                                                                              true);
                                                                       tryUploadDataChild()
                                                                           .then(
                                                                               (v) {
@@ -1831,7 +1797,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               "explaination": explaination.text,
                                                                               "approval": "no"
                                                                             }).then((value) {
-                                                                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainParentPage(index: 0)), (route) => false);
+                                                                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainParentPage(index: 1)), (route) => false);
                                                                               acceptalert(
                                                                                 context,
                                                                                 "تم النشر يمكنك الوصول للمكتبة من خلال اعدادات -> تنزيل المكتبات",
@@ -1840,11 +1806,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                           } else {
                                                                             Navigator.pushAndRemoveUntil(
                                                                                 context,
-                                                                                MaterialPageRoute(builder: (context) => const MainParentPage(index: 0)),
+                                                                                MaterialPageRoute(builder: (context) => const MainParentPage(index: 1)),
                                                                                 (route) => false);
                                                                             erroralert(context,
                                                                                 "حاول مرة اخرى");
                                                                           }
+                                                                          Provider.of<MyProvider>(context, listen: false)
+                                                                              .isLoading(false);
                                                                         });
                                                                       });
                                                                     } else {
@@ -1865,19 +1833,19 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                     color:
                                                                         maincolor),
                                                                 child: Center(
-                                                                  child:
-                                                                      FittedBox(
-                                                                    child: isloading
-                                                                        ? Center(
-                                                                            child:
-                                                                                CircularProgressIndicator(),
-                                                                          )
-                                                                        : const Text(
+                                                                  child: Provider.of<MyProvider>(
+                                                                              context,
+                                                                              listen: true)
+                                                                          .isloading
+                                                                      ? CircularProgressIndicator()
+                                                                      : FittedBox(
+                                                                          child:
+                                                                              Text(
                                                                             "رفع",
                                                                             style:
                                                                                 TextStyle(color: Colors.white, fontSize: 25),
                                                                           ),
-                                                                  ),
+                                                                        ),
                                                                 ),
                                                               ),
                                                             ),
@@ -1947,7 +1915,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Text(
                                   isSelectedForDelete ? "حذف" : "رفع",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 25),
@@ -2052,7 +2020,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const MainParentPage(index: 0)),
+                          builder: (context) => const MainParentPage(index: 1)),
                       (route) => false);
                 },
                 child: Container(

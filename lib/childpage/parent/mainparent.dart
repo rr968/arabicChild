@@ -21,7 +21,7 @@ class MainParentPage extends StatefulWidget {
 class _MainParentPageState extends State<MainParentPage> {
   SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
 
-  Color selectedColor = pinkColor;
+  Color selectedColor = maincolor;
   List<Widget> parentScreens = [
     const ParentSettingsFav(),
     const MainParentSettings(),
@@ -98,7 +98,7 @@ class _MainParentPageState extends State<MainParentPage> {
           bottomNavigationBar: SnakeNavigationBar.color(
             shadowColor: Colors.black,
             elevation: 20,
-            backgroundColor: Color.fromARGB(255, 245, 236, 244),
+            backgroundColor: const Color.fromARGB(255, 245, 236, 244),
             behaviour: snakeBarStyle,
             snakeShape: SnakeShape.circle,
             shape: const RoundedRectangleBorder(
@@ -120,7 +120,8 @@ class _MainParentPageState extends State<MainParentPage> {
                 setState(() {
                   indexpage = index;
                 });
-                Future.delayed(Duration(milliseconds: 1000)).then((value) {
+                Future.delayed(const Duration(milliseconds: 1000))
+                    .then((value) {
                   Provider.of<MyProvider>(context, listen: false)
                       .setIscontentOfLibrary(-1);
                   setState(() {

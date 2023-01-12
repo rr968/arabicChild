@@ -24,6 +24,13 @@ class MyProvider with ChangeNotifier {
   void setIscontentOfLibrary(int index) {
     iscontentOfLibrary = index;
     notifyListeners();
+  } ///////////////////
+
+  ////////////////////
+  bool isloading = false;
+  void isLoading(bool val) {
+    isloading = val;
+    notifyListeners();
   }
 
   ///////////////////

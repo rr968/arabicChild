@@ -43,7 +43,6 @@ class _DrawercState extends State<Drawerc> {
   bool isLoading = true;
   late bool isParentMode;
   late bool switchValue;
-  ///////////////////
 
   @override
   void initState() {
@@ -62,7 +61,7 @@ class _DrawercState extends State<Drawerc> {
     switchValue = pref.getBool("switchValue") ?? true;
   }
 
-  double fontSize = size == 0 ? 28 : 24;
+  double fontSize = 24;
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -1825,7 +1824,7 @@ class _DrawercState extends State<Drawerc> {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                  builder: (context) => const MainParentPage(index: 0)),
+                  builder: (context) => const MainParentPage(index: 1)),
               (route) => false);
           a = 0;
           Provider.of<MyProvider>(context, listen: false).seterror(false);

@@ -1,3 +1,5 @@
+import 'package:arabic_speaker_child/childpage/child/speakingchildtablet.dart';
+
 import '/controller/var.dart';
 import '/model/content.dart';
 import 'package:flutter/material.dart';
@@ -31,8 +33,11 @@ class _ImportContentState extends State<ImportContent> {
               const EdgeInsets.only(top: 20, right: 15, left: 15, bottom: 10),
           child: GridView.builder(
               itemCount: widget.content.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? 4
+                        : 5,
                 childAspectRatio: 1,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
@@ -79,18 +84,25 @@ class _ImportContentState extends State<ImportContent> {
                               ? Colors.orange
                               : Colors.white,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Column(children: [
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        Expanded(child: getImage(widget.content[index].imgurl)),
-                        Text(
-                          widget.content[index].name,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                              fontSize: 21, fontWeight: FontWeight.bold),
-                        )
-                      ])),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(children: [
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Expanded(
+                              child: getImage(widget.content[index].imgurl)),
+                          Container(
+                            height: 4,
+                          ),
+                          Text(
+                            noMoreText(widget.content[index].name),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 23, fontWeight: FontWeight.bold),
+                          )
+                        ]),
+                      )),
                 );
               })),
         ),

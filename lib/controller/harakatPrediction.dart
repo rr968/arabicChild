@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 String harakatPrediction(String word) {
   if (word == "أحب") return "أُحِْبْ";
   if (word == "أنا") return "أنا";
@@ -523,8 +525,6 @@ String harakatPrediction(String word) {
   if (word == "") return "";
   if (word == "") return "";
   if (word == "") return "";
-
-
 
 
 

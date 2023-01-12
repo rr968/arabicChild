@@ -153,7 +153,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MainParentPage(index: 1)),
+                                            const MainParentPage(index: 0)),
                                     (route) => false);
                                 //  acceptalert(context, "تم الحفظ بنجاح");
                               });
@@ -181,7 +181,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MainParentPage(index: 1)),
+                                            const MainParentPage(index: 0)),
                                     (route) => false);
                               },
                               child: Container(

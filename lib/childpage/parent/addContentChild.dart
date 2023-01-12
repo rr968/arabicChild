@@ -512,7 +512,7 @@ class _AddContentChildState extends State<AddContentChild> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => const MainParentPage(
-                                  index: 0,
+                                  index: 1,
                                 )),
                         (route) => false);
 

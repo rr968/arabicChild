@@ -244,7 +244,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MainParentPage(index: 0)),
+                                            const MainParentPage(index: 1)),
                                     (route) => false);
                                 // acceptalert(context, "تم الحفظ بنجاح");
                               });
@@ -272,7 +272,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const MainParentPage(index: 0)),
+                                            const MainParentPage(index: 1)),
                                     (route) => false);
                               },
                               child: Container(

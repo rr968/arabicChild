@@ -78,7 +78,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                 Container(
                   height: 20,
                 ),
-                Center(
+                const Center(
                   child: Text(
                     "لم تقم باضافة جمل الى مفضلة بعد",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),

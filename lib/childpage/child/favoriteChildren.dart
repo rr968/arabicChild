@@ -73,7 +73,7 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                 Container(
                   height: 20,
                 ),
-                Center(
+                const Center(
                   child: Text(
                     "لم تم باضافة جمل مفضلة بعد",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),

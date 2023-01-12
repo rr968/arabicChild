@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import '../../childpage/child/childFirstInfo.dart';
 import '../../childpage/child/sizeOfITem.dart';
 import '../../controller/var.dart';
 import '/controller/validation.dart';

@@ -57,27 +57,28 @@ class _ImportState extends State<Import> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Icon(
+              child: const Icon(
                 Icons.arrow_back_ios,
                 size: 40,
               ),
             ),
             title: AnimatedSearchBar(
-              closeIcon: Icon(
+              closeIcon: const Icon(
                 Icons.close,
                 size: 40,
               ),
-              searchIcon: Icon(
+              searchIcon: const Icon(
                 Icons.search,
                 size: 40,
               ),
               label: "ابحث",
-              labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              labelStyle:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
               alignment: TextAlign.center,
               controller: _controller,
-              searchStyle: TextStyle(color: Colors.white),
+              searchStyle: const TextStyle(color: Colors.white),
               cursorColor: Colors.white,
-              searchDecoration: InputDecoration(
+              searchDecoration: const InputDecoration(
                 hintText: "ابحث هنا",
                 alignLabelWithHint: true,
                 focusColor: Colors.white,
@@ -90,7 +91,7 @@ class _ImportState extends State<Import> {
               onChanged: (value) {
                 setState(() {
                   searchText = value.trim();
-                  print(searchText);
+
                   data = dataAfterSearch(value);
                 });
               },
@@ -119,15 +120,15 @@ class _ImportState extends State<Import> {
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20),
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 10,
                                         spreadRadius: .5,
                                       )
                                     ],
                                     border: Border.all(
-                                        color:
-                                            Color.fromARGB(255, 172, 171, 171),
+                                        color: const Color.fromARGB(
+                                            255, 172, 171, 171),
                                         width: 3)),
                                 child: Directionality(
                                   textDirection: TextDirection.rtl,
@@ -197,8 +198,8 @@ class _ImportState extends State<Import> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            MainParentPage(
-                                                                index: 0)));
+                                                            const MainParentPage(
+                                                                index: 1)));
                                                 acceptalert(context,
                                                     "تم التنزيل بنجاح");
                                               },
@@ -315,13 +316,13 @@ class _ImportState extends State<Import> {
   List<QueryDocumentSnapshot<Map<String, dynamic>>> dataAfterSearch(value) {
     List<QueryDocumentSnapshot<Map<String, dynamic>>> returnList = [];
 
-    allData.forEach((element) {
+    for (var element in allData) {
       if (element["name"].contains(value) ||
           element["publisherName"].contains(value) ||
           element["explaination"].contains(value)) {
         returnList.add(element);
       }
-    });
+    }
     return returnList;
   }
 }

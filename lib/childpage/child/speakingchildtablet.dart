@@ -117,6 +117,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   bool isFav = false;
   late bool speakingWordByWord;
   bool isLess = false;
+  late int size;
 
   @override
   void initState() {
@@ -137,6 +138,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   getdata() async {
     libraryListChild = [];
     SharedPreferences liblistChild = await SharedPreferences.getInstance();
+    size = liblistChild.getInt("size") ?? 1;
+    print("the size is $size");
     List<String>? library = liblistChild.getStringList("liblistChild");
     if (library != null) {
       for (String element in library) {
@@ -214,7 +217,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                             "اختر الكلمات",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 40,
+                                fontSize: size == 0 ? 44 : 40,
                                 color: pinkColor),
                           ),
                           Text(
@@ -240,8 +243,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                       width: MediaQuery.of(context).size.width,
                       child: Center(
                           child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10,
+                        padding: EdgeInsets.only(
+                          top: size == 0 ? 3 : 10,
                         ),
                         child: Column(
                           children: [
@@ -362,7 +365,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                       ),
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(7),
+                                      padding:
+                                          EdgeInsets.all(size == 0 ? 3 : 7),
                                       child: Row(
                                         children: [
                                           Align(
@@ -481,7 +485,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                     left: 5),
                                                 child: Image.asset(
                                                   "assets/uiImages/delete.png",
-                                                  height: 40,
+                                                  height: size == 0 ? 42 : 38,
                                                   matchTextDirection: true,
                                                 ),
                                               ),
@@ -709,7 +713,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                   Padding(
                                                     padding:
                                                         const EdgeInsets.only(
-                                                      left: 15,
+                                                      left: 20,
                                                     ),
                                                     child: Row(
                                                       mainAxisAlignment:
@@ -717,7 +721,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                               .spaceBetween,
                                                       children: [
                                                         SizedBox(
-                                                            height: 20,
+                                                            height: 10,
                                                             width: 200,
                                                             child: fieldContent
                                                                         .length >=
@@ -1352,7 +1356,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             7),
                                                                 child:
                                                                     Container(
-                                                                  width: 120,
+                                                                  width:
+                                                                      size == 0
+                                                                          ? 125
+                                                                          : 120,
                                                                   decoration: BoxDecoration(
                                                                       color: const Color(
                                                                               0xff1367A2)
@@ -1476,7 +1483,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             7),
                                                                 child:
                                                                     Container(
-                                                                  width: 120,
+                                                                  width:
+                                                                      size == 0
+                                                                          ? 125
+                                                                          : 120,
                                                                   decoration: BoxDecoration(
                                                                       color: const Color(
                                                                           0xffC06FB9),
@@ -1649,8 +1659,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                               7),
                                                                       child:
                                                                           Container(
-                                                                        width:
-                                                                            120,
+                                                                        width: size ==
+                                                                                0
+                                                                            ? 125
+                                                                            : 120,
                                                                         decoration: BoxDecoration(
                                                                             color:
                                                                                 const Color(0xffE9E467),
@@ -1752,8 +1764,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                               7),
                                                                       child:
                                                                           Container(
-                                                                        width:
-                                                                            120,
+                                                                        width: size ==
+                                                                                0
+                                                                            ? 125
+                                                                            : 120,
                                                                         decoration: BoxDecoration(
                                                                             color:
                                                                                 const Color(0xffA7CB89),
@@ -1782,7 +1796,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                   : Column(
                                                       children: [
                                                         Container(
-                                                          height: 5,
+                                                          height:
+                                                              size == 0 ? 0 : 5,
                                                         ),
                                                         Expanded(
                                                             child: Row(
@@ -1917,7 +1932,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             7),
                                                                 child:
                                                                     Container(
-                                                                  width: 120,
+                                                                  width:
+                                                                      size == 0
+                                                                          ? 133
+                                                                          : 120,
                                                                   decoration: BoxDecoration(
                                                                       color: const Color(
                                                                           0xffC06FB9),
@@ -2082,7 +2100,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             7),
                                                                 child:
                                                                     Container(
-                                                                  width: 120,
+                                                                  width:
+                                                                      size == 0
+                                                                          ? 133
+                                                                          : 120,
                                                                   decoration: BoxDecoration(
                                                                       color: const Color(
                                                                           0xffA7CB89),
@@ -2252,7 +2273,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                             7),
                                                                 child:
                                                                     Container(
-                                                                  width: 120,
+                                                                  width:
+                                                                      size == 0
+                                                                          ? 133
+                                                                          : 120,
                                                                   decoration: BoxDecoration(
                                                                       color: const Color(
                                                                           0xffE9E467),
@@ -2411,8 +2435,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                               7),
                                                                       child:
                                                                           Container(
-                                                                        width:
-                                                                            120,
+                                                                        width: size ==
+                                                                                0
+                                                                            ? 133
+                                                                            : 120,
                                                                         decoration: BoxDecoration(
                                                                             color:
                                                                                 const Color(0xff1367A2).withOpacity(.6),
@@ -2607,7 +2633,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                   top: 5,
                                                   bottom: 5),
                                               child: Container(
-                                                width: 150,
+                                                width: size == 0 ? 160 : 150,
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
@@ -2623,7 +2649,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                             const Offset(0, 3)),
                                                   ],
                                                   border: Border.all(
-                                                    width: 2,
+                                                    width: size == 0 ? 3 : 2,
                                                     color: Colors.grey,
                                                   ),
                                                 ),
@@ -2646,7 +2672,9 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                         textAlign:
                                                             TextAlign.center,
                                                         style: TextStyle(
-                                                            fontSize: 20,
+                                                            fontSize: size == 0
+                                                                ? 22
+                                                                : 20,
                                                             fontWeight:
                                                                 FontWeight.w900,
                                                             color: pinkColor),
@@ -2722,7 +2750,9 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                               const EdgeInsets
                                                                   .all(5),
                                                           child: Container(
-                                                            width: 150,
+                                                            width: size == 0
+                                                                ? 165
+                                                                : 150,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color:
@@ -2749,7 +2779,9 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                               ],
                                                               border:
                                                                   Border.all(
-                                                                width: 2,
+                                                                width: size == 0
+                                                                    ? 3
+                                                                    : 2,
                                                                 color:
                                                                     Colors.grey,
                                                               ),
@@ -2776,8 +2808,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                         TextAlign
                                                                             .center,
                                                                     style: TextStyle(
-                                                                        fontSize:
-                                                                            20,
+                                                                        fontSize: size ==
+                                                                                0
+                                                                            ? 22
+                                                                            : 20,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .w900,
@@ -2930,26 +2964,31 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         padding: const EdgeInsets.only(left: 5, right: 5),
         child: Container(
           width: MediaQuery.of(context).orientation == Orientation.portrait
-              ? 120
-              : 110,
+              ? size == 0
+                  ? 133
+                  : 120
+              : size == 0
+                  ? 130
+                  : 115,
           decoration: BoxDecoration(
               // color: getWordColor(predictionWords[index][0]).withOpacity(.4),
               borderRadius: const BorderRadius.all(Radius.circular(24)),
               border: Border.all(
-                  color: getWordColor(predictionWords[index][0]), width: 3)),
+                  color: getWordColor(predictionWords[index][0]),
+                  width: size == 0 ? 5 : 3)),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 3),
             child: FittedBox(
               child: Column(children: [
                 SizedBox(
-                  height: 90,
-                  width: 90,
+                  height: size == 0 ? 85 : 90,
+                  width: size == 0 ? 85 : 90,
                   child: getImage(predictionWords[index][1]),
                 ),
                 Text(
                   predictionWords[index][0],
                   style: TextStyle(
-                      fontSize: 40,
+                      fontSize: size == 0 ? 40 : 45,
                       fontWeight: FontWeight.w900,
                       color: pinkColor),
                 )
@@ -2999,8 +3038,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                 padding: const EdgeInsets.all(10),
                                 child: Text(
                                   libraryListChild[index].name,
-                                  style: const TextStyle(
-                                      fontSize: 30,
+                                  style: TextStyle(
+                                      fontSize: size == 0 ? 35 : 30,
                                       fontWeight: FontWeight.w900,
                                       color: Colors.black),
                                 ),
@@ -3019,7 +3058,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(12)),
                           border: Border.all(
-                            width: 3,
+                            width: size == 0 ? 4 : 3,
                             color: Colors.grey,
                           ),
                         ),
@@ -3029,8 +3068,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
                                 libraryListChild[index].name,
-                                style: const TextStyle(
-                                    fontSize: 30,
+                                style: TextStyle(
+                                    fontSize: size == 0 ? 35 : 30,
                                     fontWeight: FontWeight.w900,
                                     color: Colors.black),
                               ),

@@ -28,8 +28,11 @@ class ImportLibrary extends StatelessWidget {
               const EdgeInsets.only(top: 20, right: 15, left: 15, bottom: 10),
           child: GridView.builder(
               itemCount: data.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount:
+                    MediaQuery.of(context).orientation == Orientation.portrait
+                        ? 5
+                        : 7,
                 childAspectRatio: 1,
                 mainAxisSpacing: 20,
                 crossAxisSpacing: 20,
@@ -49,17 +52,20 @@ class ImportLibrary extends StatelessWidget {
                           border: Border.all(color: maincolor, width: 1.5),
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
-                      child: Column(children: [
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        Expanded(child: getImage(data[index].imgurl)),
-                        Text(
-                          data[index].name,
-                          style: const TextStyle(
-                              fontSize: 21, fontWeight: FontWeight.bold),
-                        )
-                      ])),
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: Column(children: [
+                          Expanded(child: getImage(data[index].imgurl)),
+                          Container(
+                            height: 4,
+                          ),
+                          Text(
+                            data[index].name,
+                            style: const TextStyle(
+                                fontSize: 25, fontWeight: FontWeight.bold),
+                          )
+                        ]),
+                      )),
                 );
               })),
         ),
