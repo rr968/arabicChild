@@ -30,12 +30,13 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
       _draggList.add(DraggableGridItem(
           isDraggable: true,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(DeviceUtil.isTablet ? 8 : 2),
             child: Container(
               decoration: BoxDecoration(
                 color:
                     const Color.fromARGB(255, 255, 255, 255).withOpacity(0.8),
-                borderRadius: const BorderRadius.all(Radius.circular(27)),
+                borderRadius: BorderRadius.all(
+                    Radius.circular(DeviceUtil.isTablet ? 27 : 20)),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.grey.withOpacity(0.3),
@@ -48,7 +49,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                 alignment: Alignment.topRight,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: EdgeInsets.all(DeviceUtil.isTablet ? 8 : 5),
                     child: Center(
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,9 +63,9 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                               child: FittedBox(
                                 child: Text(
                                   libraryListChild[i].name,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       decoration: TextDecoration.none,
-                                      fontSize: 30,
+                                      fontSize: DeviceUtil.isTablet ? 25 : 20,
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -73,19 +74,19 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                     ),
                   ),
                   Container(
-                    height: 38,
-                    width: 38,
+                    height: DeviceUtil.isTablet ? 38 : 20,
+                    width: DeviceUtil.isTablet ? 38 : 20,
                     decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 70, 70, 70),
                         borderRadius: BorderRadius.circular(20)),
                     child: Center(
                       child: Text(
                         (i + 1).toString(),
-                        style: const TextStyle(
+                        style: TextStyle(
                             decoration: TextDecoration.none,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 30),
+                            fontSize: DeviceUtil.isTablet ? 30 : 13),
                       ),
                     ),
                   )
@@ -160,22 +161,23 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: purcolor,
-                        fontSize: 45,
+                        fontSize: DeviceUtil.isTablet ? 45 : 30,
                         fontWeight: FontWeight.w900),
                   ),
                   Container(
-                    height: 60,
+                    height: DeviceUtil.isTablet ? 60 : 28,
                   ),
                   Container(
+                      width: DeviceUtil.isTablet
+                          ? MediaQuery.of(context).size.width - 70
+                          : MediaQuery.of(context).size.width - 35,
                       height: MediaQuery.of(context).size.height * .44,
-                      width: MediaQuery.of(context).size.width - 70,
                       decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color.fromARGB(255, 202, 202, 202)),
                         color: const Color.fromARGB(255, 255, 255, 255)
                             .withOpacity(0.3),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(27)),
+                        borderRadius: BorderRadius.all(Radius.circular(27)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.3),
@@ -185,16 +187,18 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                         ],
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 25, bottom: 25, right: 10),
+                        padding: EdgeInsets.only(
+                            top: DeviceUtil.isTablet ? 25 : 8,
+                            bottom: DeviceUtil.isTablet ? 25 : 8,
+                            right: DeviceUtil.isTablet ? 10 : 5),
                         child: DraggableGridViewBuilder(
                           controller: controllerList,
                           scrollDirection: Axis.vertical,
                           dragFeedback:
                               (List<DraggableGridItem> list, int index) {
                             return SizedBox(
-                              width: 150,
-                              height: 150,
+                              width: DeviceUtil.isTablet ? 150 : 90,
+                              height: DeviceUtil.isTablet ? 150 : 90,
                               child: list[index].child,
                             );
                           },
@@ -212,7 +216,9 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                                   crossAxisCount:
                                       MediaQuery.of(context).orientation ==
                                               Orientation.portrait
-                                          ? 5
+                                          ? DeviceUtil.isTablet
+                                              ? 5
+                                              : 4
                                           : 7,
                                   childAspectRatio: 1 / 1),
                           dragCompletion: (List<DraggableGridItem> list,
@@ -251,8 +257,8 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                             },
                             child: Container(
                               alignment: Alignment.center,
-                              height: 50,
-                              width: 200,
+                              height: DeviceUtil.isTablet ? 50 : 44,
+                              width: DeviceUtil.isTablet ? 200 : 100,
                               decoration: BoxDecoration(
                                   color: greenColor,
                                   borderRadius: BorderRadius.circular(10)),
@@ -277,8 +283,8 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                               },
                               child: Container(
                                 alignment: Alignment.center,
-                                height: 50,
-                                width: 200,
+                                height: DeviceUtil.isTablet ? 50 : 44,
+                                width: DeviceUtil.isTablet ? 200 : 100,
                                 decoration: BoxDecoration(
                                     color: pinkColor,
                                     borderRadius: BorderRadius.circular(10)),

@@ -1,17 +1,16 @@
 // ignore_for_file: use_build_context_synchronously, file_names
 
-import 'package:arabic_speaker_child/controller/erroralert.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../controller/istablet.dart';
-import '../../controller/libtostring.dart';
-import '../../model/content.dart';
-import '../../model/library.dart';
+import '../controller/istablet.dart';
+import '../controller/libtostring.dart';
+import '../model/content.dart';
+import '../model/library.dart';
 
-import '../../controller/var.dart';
-import 'mainchildPage.dart';
+import '../controller/var.dart';
+import '../childpage/child/mainchildPage.dart';
 
 class Selectedlib extends StatefulWidget {
   const Selectedlib({Key? key}) : super(key: key);
@@ -161,7 +160,9 @@ class _SelectedlibState extends State<Selectedlib> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
           body: Padding(
-        padding: const EdgeInsets.only(top: 30, right: 20, left: 20),
+        padding: DeviceUtil.isTablet
+            ? EdgeInsets.only(top: 30, right: 20, left: 20)
+            : EdgeInsets.only(top: 15, right: 10, left: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -178,21 +179,21 @@ class _SelectedlibState extends State<Selectedlib> {
                           "اختر المكتبات لاستخدامها\n في التطبيق",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontSize: 42,
+                              fontSize: DeviceUtil.isTablet ? 42 : 26,
                               color: maincolor,
                               fontWeight: FontWeight.bold),
                         ),
-                        const SizedBox(
-                          height: 30,
+                        SizedBox(
+                          height: DeviceUtil.isTablet ? 30 : 15,
                         ),
-                        const Text("يمكنك التعديل لاحقاً",
+                        Text("يمكنك التعديل لاحقاً",
                             style: TextStyle(fontSize: 15))
                       ],
                     ),
                   ),
                   Container(
                     height: 150,
-                    width: 200,
+                    width: DeviceUtil.isTablet ? 200 : 150,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(
@@ -203,15 +204,17 @@ class _SelectedlibState extends State<Selectedlib> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 30, right: 15, left: 15),
+              padding: EdgeInsets.only(
+                  top: DeviceUtil.isTablet ? 30 : 11, right: 15, left: 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   indexesChooese.isNotEmpty
                       ? Text(
                           "${indexesChooese.length}  من  ${chooseLibrary.length} ",
-                          style: const TextStyle(
-                              fontSize: 28, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: DeviceUtil.isTablet ? 28 : 20,
+                              fontWeight: FontWeight.bold),
                         )
                       : Container(),
                   InkWell(
@@ -249,10 +252,10 @@ class _SelectedlibState extends State<Selectedlib> {
                           const SizedBox(
                             width: 3,
                           ),
-                          const Text(
+                          Text(
                             'تحديد الكل',
                             style: TextStyle(
-                              fontSize: 20,
+                              fontSize: DeviceUtil.isTablet ? 20 : 15,
                             ),
                           )
                         ],
@@ -285,12 +288,14 @@ class _SelectedlibState extends State<Selectedlib> {
                         child: GridView.builder(
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
+                              mainAxisSpacing: DeviceUtil.isTablet ? 10 : 4,
+                              crossAxisSpacing: DeviceUtil.isTablet ? 10 : 4,
                               crossAxisCount:
                                   MediaQuery.of(context).orientation ==
                                           Orientation.portrait
-                                      ? 5
+                                      ? DeviceUtil.isTablet
+                                          ? 5
+                                          : 4
                                       : 7,
                             ),
                             scrollDirection: Axis.vertical,
@@ -309,21 +314,22 @@ class _SelectedlibState extends State<Selectedlib> {
                                   }
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(
+                                      DeviceUtil.isTablet ? 8.0 : 4),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(color: greyColor),
                                       color: const Color.fromARGB(
                                               255, 255, 255, 255)
                                           .withOpacity(0.5),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(27)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              DeviceUtil.isTablet ? 27 : 20)),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.white.withOpacity(0.7),
                                           spreadRadius: 0,
                                           blurRadius: 7,
-                                          //offset: Offset(0, 3)),
                                         )
                                       ],
                                     ),
@@ -344,8 +350,11 @@ class _SelectedlibState extends State<Selectedlib> {
                                                   child: FittedBox(
                                                     child: Text(
                                                       chooseLibrary[index].name,
-                                                      style: const TextStyle(
-                                                          fontSize: 25,
+                                                      style: TextStyle(
+                                                          fontSize: DeviceUtil
+                                                                  .isTablet
+                                                              ? 25
+                                                              : 20,
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
@@ -420,34 +429,6 @@ class _SelectedlibState extends State<Selectedlib> {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                /* Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  children: [
-                    Container(
-                      height: 200,
-                      width: 200,
-                      decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image:
-                                  AssetImage("assets/uiImages/countImages.png"),
-                              fit: BoxFit.fill)),
-                    ),
-                    //  SizedBox(width: 100,height: 50,),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 20, left: 10),
-                      child: Text(
-                        "${indexesChooese.length} - ${chooseLibrary.length} ",
-                        style: const TextStyle(
-                            fontSize: 28, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),*/
-                /*   SizedBox(
-                    width: MediaQuery.of(context).orientation ==
-                            Orientation.portrait
-                        ? 40
-                        : 130),*/
                 InkWell(
                   onTap: () async {
                     if (indexesChooese.isNotEmpty) {
@@ -466,16 +447,29 @@ class _SelectedlibState extends State<Selectedlib> {
                                     index: 0,
                                   )));
                     } else {
-                      erroralert(context, "يرجى اختيار مكتبة واحدة على الاقل");
+                      SharedPreferences liblistChild =
+                          await SharedPreferences.getInstance();
+                      List<String> libstring = [];
+                      int j = chooseLibrary.length;
+                      for (var i = 0; i < j; i++) {
+                        libstring.add(convertLibString(chooseLibrary[i]));
+                      }
+                      liblistChild.setStringList("liblistChild", libstring);
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainChildPage(
+                                    index: 0,
+                                  )));
                     }
                   },
                   child: Image.asset(
                     "assets/uiImages/start.png",
-                    height: 85,
+                    height: DeviceUtil.isTablet ? 85 : 50,
                   ),
                 ),
                 Container(
-                  height: 18,
+                  height: DeviceUtil.isTablet ? 18 : 12,
                 ),
                 InkWell(
                   onTap: () async {
@@ -499,7 +493,7 @@ class _SelectedlibState extends State<Selectedlib> {
                     style: TextStyle(
                         color: greyColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                        fontSize: DeviceUtil.isTablet ? 20 : 17),
                   ),
                 ),
                 Container(

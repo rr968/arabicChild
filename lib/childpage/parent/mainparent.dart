@@ -1,5 +1,6 @@
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
+import '../../controller/istablet.dart';
 import '/childpage/parent/contentLibrary.dart';
 import '/childpage/parent/mainparentSettings.dart';
 import '/childpage/parent/parentSettingsFav.dart';
@@ -107,7 +108,8 @@ class _MainParentPageState extends State<MainParentPage> {
                           bottomRight: Radius.circular(20))*/
                   BorderRadius.all(Radius.circular(25)),
             ),
-            padding: const EdgeInsets.only(bottom: 5, right: 20, left: 20),
+            padding: EdgeInsets.only(
+                bottom: DeviceUtil.isTablet ? 5 : 0, right: 20, left: 20),
             snakeViewColor: selectedColor,
             selectedItemColor: SnakeShape.circle == SnakeShape.indicator
                 ? selectedColor

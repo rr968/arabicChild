@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +18,7 @@ class AboutApp extends StatelessWidget {
           children: [
             Image.asset(
               "assets/uiImages/circle.png",
-              height: 100,
+              height: DeviceUtil.isTablet ? 100 : 55,
               width: MediaQuery.of(context).size.width * .6,
               fit: BoxFit.fill,
             ),
@@ -29,7 +30,7 @@ class AboutApp extends StatelessWidget {
                   Text(
                     "عن التطبيق",
                     style: TextStyle(
-                        fontSize: 45,
+                        fontSize: DeviceUtil.isTablet ? 45 : 35,
                         fontWeight: FontWeight.bold,
                         color: pinkColor),
                   ),
@@ -38,41 +39,47 @@ class AboutApp extends StatelessWidget {
                   ),
                   Image.asset(
                     "assets/uiImages/logo.png",
-                    height: 170,
+                    height: DeviceUtil.isTablet ? 170 : 160,
                   ),
-                  const Text("- - - - - - - - - - - - - - - - - - - ",
+                  Text("- - - - - - - - - - - - - - - - - - - ",
                       style: TextStyle(
-                          fontSize: 35,
+                          fontSize: DeviceUtil.isTablet ? 35 : 25,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
-                  const Text(
+                  Text(
                     "أحدث تطبيق للتـواصـل والـــــــــتــحــدث بالــلــغــــــة\nالعربية لذوي صعوبات الـــنــطـــــــق لـلأطـــــفـــــال\nوالبالغيـن وكـبــار الـسـن",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: DeviceUtil.isTablet ? 25 : 18,
+                        fontWeight: FontWeight.bold),
                   ),
-                  const Text("- - - - - - - - - - - - - - - - - - - ",
+                  Text("- - - - - - - - - - - - - - - - - - - ",
                       style: TextStyle(
-                          fontSize: 35,
+                          fontSize: DeviceUtil.isTablet ? 35 : 25,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
-                  const Text(
+                  Text(
                     "فكــــــرة : د.أمــــل السيف",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: DeviceUtil.isTablet ? 25 : 20,
+                        fontWeight: FontWeight.bold),
                   ),
-                  const Text("- - - - - - - - - - - - - - - - - - - ",
+                  Text("- - - - - - - - - - - - - - - - - - - ",
                       style: TextStyle(
-                          fontSize: 35,
+                          fontSize: DeviceUtil.isTablet ? 35 : 25,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
-                  const Text(
+                  Text(
                     "تـــنـفـيــذ وتــشـغيـل",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: DeviceUtil.isTablet ? 25 : 20,
+                        fontWeight: FontWeight.bold),
                   ),
                   Image.asset(
                     "assets/uiImages/tawasal.png",
-                    height: 120,
+                    height: DeviceUtil.isTablet ? 120 : 100,
                   ),
                   const Text(
                     "جمعية تواصل للتقنيات المساعدة لذوي الإعاقة",
@@ -92,11 +99,14 @@ class AboutApp extends StatelessWidget {
                         },
                         child: Column(
                           children: [
-                            Image.asset("assets/twitter.png",
-                                fit: BoxFit.fill, height: 43, width: 43),
-                            const Text("tawasal.2019",
+                            Image.asset(
+                              "assets/twitter.png",
+                              fit: BoxFit.fill,
+                              height: DeviceUtil.isTablet ? 43 : 35,
+                            ),
+                            Text("tawasal.2019",
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: DeviceUtil.isTablet ? 20 : 17,
                                   color: Colors.black,
                                 )),
                           ],
@@ -118,11 +128,14 @@ class AboutApp extends StatelessWidget {
                             child: Column(
                               children: [
                                 //
-                                Image.asset("assets/uiImages/google.png",
-                                    fit: BoxFit.fill, height: 43, width: 43),
-                                const Text("tawasal2019",
+                                Image.asset(
+                                  "assets/uiImages/google.png",
+                                  fit: BoxFit.fill,
+                                  height: DeviceUtil.isTablet ? 43 : 35,
+                                ),
+                                Text("tawasal2019",
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: DeviceUtil.isTablet ? 20 : 17,
                                       color: Colors.black,
                                     )),
                               ],

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import '../controller/istablet.dart';
 import '/firstTimeOpenTheApp/page3.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,10 +28,15 @@ class Page2 extends StatelessWidget {
                       MediaQuery.of(context).orientation == Orientation.portrait
                           ? MediaQuery.of(context).size.height * .66
                           : MediaQuery.of(context).size.height * .92,
-                  width:
-                      MediaQuery.of(context).orientation == Orientation.portrait
+                  width: DeviceUtil.isTablet
+                      ? MediaQuery.of(context).orientation ==
+                              Orientation.portrait
                           ? MediaQuery.of(context).size.width * .6
-                          : MediaQuery.of(context).size.width * .44,
+                          : MediaQuery.of(context).size.width * .44
+                      : MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? MediaQuery.of(context).size.width * .8
+                          : MediaQuery.of(context).size.width * .5,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border:
@@ -40,7 +46,7 @@ class Page2 extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Column(children: [
                         Container(
-                          height: 18,
+                          height: DeviceUtil.isTablet ? 18 : 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 16),
@@ -48,7 +54,7 @@ class Page2 extends StatelessWidget {
                             "سهولة الكتابة\nباستخدام التوقع\nالذكي للكلمات",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 36,
+                              fontSize: DeviceUtil.isTablet ? 40 : 29,
                               color: maincolor,
                               fontWeight: FontWeight.w900,
                             ),
@@ -66,11 +72,11 @@ class Page2 extends StatelessWidget {
                               (route) => false),
                           child: Image.asset(
                             "assets/uiImages/next.png",
-                            height: 85,
+                            height: DeviceUtil.isTablet ? 85 : 50,
                           ),
                         ),
                         Container(
-                          height: 18,
+                          height: DeviceUtil.isTablet ? 18 : 12,
                         ),
                         InkWell(
                           onTap: () async {
@@ -88,7 +94,7 @@ class Page2 extends StatelessWidget {
                             style: TextStyle(
                                 color: greyColor,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: DeviceUtil.isTablet ? 20 : 18),
                           ),
                         ),
                         Container(

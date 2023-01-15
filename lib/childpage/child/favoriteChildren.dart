@@ -2,6 +2,8 @@
 
 import 'dart:convert';
 
+import 'package:arabic_speaker_child/controller/istablet.dart';
+
 import '../../controller/var.dart';
 import '/controller/images.dart';
 import '/controller/speak.dart';
@@ -55,7 +57,7 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                 'المفضلة',
                 style: TextStyle(
                     color: pinkColor,
-                    fontSize: 50,
+                    fontSize: DeviceUtil.isTablet ? 50 : 33,
                     fontWeight: FontWeight.w800),
               ),
             ),
@@ -68,38 +70,43 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
               children: [
                 Image.asset(
                   "assets/uiImages/noSaved.png",
-                  height: 150,
+                  height: DeviceUtil.isTablet ? 150 : 100,
                 ),
                 Container(
                   height: 20,
                 ),
-                const Center(
+                Center(
                   child: Text(
-                    "لم تم باضافة جمل مفضلة بعد",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                    "لم تقم باضافة جمل مفضلة بعد",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: DeviceUtil.isTablet ? 30 : 24),
                   ),
                 ),
               ],
             )
           : SizedBox(
-              height: MediaQuery.of(context).size.height - 170,
+              height: DeviceUtil.isTablet
+                  ? MediaQuery.of(context).size.height - 170
+                  : MediaQuery.of(context).size.height - 180,
               child: Column(children: [
                 Container(
-                  height: 10,
+                  height: DeviceUtil.isTablet ? 10 : 0,
                 ),
                 Expanded(
                   child: ListView(
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            vertical: 7,
-                            horizontal:
-                                MediaQuery.of(context).size.width * .06),
+                            vertical: DeviceUtil.isTablet ? 7 : 4,
+                            horizontal: DeviceUtil.isTablet
+                                ? MediaQuery.of(context).size.width * .06
+                                : 15),
                         child: Text(
                           "عدد الجمل : ${favorite.length.toString()}",
-                          style: const TextStyle(
+                          style: TextStyle(
                               color: Colors.black,
-                              fontSize: 30,
+                              fontSize: DeviceUtil.isTablet ? 30 : 25,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -114,12 +121,14 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                                vertical: 11,
-                                horizontal:
-                                    MediaQuery.of(context).size.width * .06),
+                                vertical: DeviceUtil.isTablet ? 11 : 5,
+                                horizontal: DeviceUtil.isTablet
+                                    ? MediaQuery.of(context).size.width * .06
+                                    : 15),
                             child: Container(
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
+                                    borderRadius: BorderRadius.circular(
+                                        DeviceUtil.isTablet ? 30 : 25),
                                     border:
                                         Border.all(color: pinkColor, width: 3)),
                                 child: Directionality(
@@ -127,38 +136,45 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        height: 130,
-                                        width: 110,
+                                        height: DeviceUtil.isTablet ? 130 : 100,
+                                        width: DeviceUtil.isTablet ? 110 : 70,
                                         decoration: BoxDecoration(
                                             color: pinkColor,
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topRight:
-                                                        Radius.circular(25),
-                                                    bottomRight:
-                                                        Radius.circular(25))),
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(
+                                                    DeviceUtil.isTablet
+                                                        ? 25
+                                                        : 17),
+                                                bottomRight: Radius.circular(
+                                                    DeviceUtil.isTablet
+                                                        ? 25
+                                                        : 17))),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
-                                          children: const [
+                                          children: [
                                             Icon(
                                               Icons.volume_up,
                                               color: Colors.white,
-                                              size: 65,
+                                              size:
+                                                  DeviceUtil.isTablet ? 65 : 50,
                                             ),
                                             Text(
                                               "نطق",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 28),
+                                                  fontSize: DeviceUtil.isTablet
+                                                      ? 28
+                                                      : 24),
                                             )
                                           ],
                                         ),
                                       ),
                                       Expanded(
                                         child: SizedBox(
-                                          height: 130,
+                                          height:
+                                              DeviceUtil.isTablet ? 130 : 100,
                                           child: ListView(
                                             scrollDirection: Axis.horizontal,
                                             children: [
@@ -176,8 +192,14 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                                     children: [
                                                       Expanded(
                                                         child: SizedBox(
-                                                            height: 90,
-                                                            width: 90,
+                                                            height: DeviceUtil
+                                                                    .isTablet
+                                                                ? 90
+                                                                : 55,
+                                                            width: DeviceUtil
+                                                                    .isTablet
+                                                                ? 90
+                                                                : 55,
                                                             child: getImage(
                                                                 favorite[i][j]
                                                                     [1])),
@@ -187,10 +209,13 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                                       ),
                                                       Text(
                                                         favorite[i][j][0],
-                                                        style: const TextStyle(
+                                                        style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 30),
+                                                            fontSize: DeviceUtil
+                                                                    .isTablet
+                                                                ? 30
+                                                                : 22),
                                                       ),
                                                       Container(
                                                         height: 7,

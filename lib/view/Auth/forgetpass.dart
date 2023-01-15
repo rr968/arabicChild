@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../controller/erroralert.dart';
+import '../../controller/istablet.dart';
 import '../../controller/var.dart';
 
 class Forgetpassword extends StatefulWidget {
@@ -30,14 +31,15 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                   fit: BoxFit.cover)),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 45, right: 25),
+          padding:
+              EdgeInsets.only(top: 45, right: DeviceUtil.isTablet ? 25 : 15),
           child: Align(
             alignment: Alignment.topRight,
             child: InkWell(
               onTap: () => Navigator.pop(context),
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back_ios,
-                size: 45,
+                size: DeviceUtil.isTablet ? 45 : 30,
               ),
             ),
           ),
@@ -48,9 +50,13 @@ class _ForgetpasswordState extends State<Forgetpassword> {
               height: MediaQuery.of(context).orientation == Orientation.portrait
                   ? MediaQuery.of(context).size.height * .66
                   : MediaQuery.of(context).size.height * .92,
-              width: MediaQuery.of(context).orientation == Orientation.portrait
-                  ? MediaQuery.of(context).size.width * .6
-                  : MediaQuery.of(context).size.width * .44,
+              width: DeviceUtil.isTablet
+                  ? MediaQuery.of(context).orientation == Orientation.portrait
+                      ? MediaQuery.of(context).size.width * .6
+                      : MediaQuery.of(context).size.width * .44
+                  : MediaQuery.of(context).orientation == Orientation.portrait
+                      ? MediaQuery.of(context).size.width * .8
+                      : MediaQuery.of(context).size.width * .5,
               decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(color: const Color(0xff989999), width: 2),
@@ -59,26 +65,27 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                   child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: Column(children: [
-                        Image.asset("assets/uiImages/forget.png", height: 250),
+                        Image.asset("assets/uiImages/forget.png",
+                            height: DeviceUtil.isTablet ? 250 : 130),
                         Padding(
                           padding: const EdgeInsets.all(15),
                           child: Text(
                             "إعادة تعيين كلمة المرور",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 40,
+                                fontSize: DeviceUtil.isTablet ? 40 : 20,
                                 color: maincolor),
                           ),
                         ),
                         Container(
-                          height: 15,
+                          height: DeviceUtil.isTablet ? 15 : 5,
                         ),
                         Text(
                           "قم بكتابة الايميل لإرسال\n رمز الاستعادة",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: greyColor,
-                              fontSize: 27,
+                              fontSize: DeviceUtil.isTablet ? 27 : 20,
                               fontWeight: FontWeight.bold),
                         ),
                         Expanded(child: Container()),
@@ -93,8 +100,9 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 33, horizontal: 15),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: DeviceUtil.isTablet ? 33 : 20,
+                                      horizontal: 15),
                                   filled: true,
                                   fillColor: Colors.white,
                                   labelText: "الايــمـيــل",
@@ -136,8 +144,8 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                           },
                           child: isloading
                               ? Container(
-                                  height: 80,
-                                  width: 80,
+                                  height: DeviceUtil.isTablet ? 80 : 45,
+                                  width: DeviceUtil.isTablet ? 80 : 45,
                                   decoration: BoxDecoration(
                                       color: maincolor,
                                       borderRadius: BorderRadius.circular(15)),
@@ -148,7 +156,7 @@ class _ForgetpasswordState extends State<Forgetpassword> {
                                 )
                               : Image.asset(
                                   "assets/uiImages/send.png",
-                                  height: 90,
+                                  height: DeviceUtil.isTablet ? 85 : 50,
                                 ),
                         ),
                         Expanded(child: Container()),

@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
+import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 import '/childpage/child/favoriteChildren.dart';
@@ -29,8 +31,8 @@ class _MainChildPageState extends State<MainChildPage> {
   final _pageController = PageController(initialPage: 1);
   List<Widget> screens = [
     const FavoriteChildren(),
-    const SpeakingChildTablet(),
-    const SpeakingChildTablet(),
+    DeviceUtil.isTablet ? SpeakingChildTablet() : SpeakingChildPhone(),
+    DeviceUtil.isTablet ? SpeakingChildTablet() : SpeakingChildPhone(),
   ];
   late int indexpage;
   bool isLoading = false;
@@ -61,6 +63,7 @@ class _MainChildPageState extends State<MainChildPage> {
   getVoice() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
+      size = pref.getInt("size") ?? 1;
       notevoiceindex = pref.getInt("noteVoiceIndex") ?? 0;
     });
   }
@@ -114,14 +117,15 @@ class _MainChildPageState extends State<MainChildPage> {
                           bottomRight: Radius.circular(20))*/
                         BorderRadius.all(Radius.circular(25)),
                   ),
-                  padding:
-                      const EdgeInsets.only(bottom: 5, right: 20, left: 20),
+                  padding: EdgeInsets.only(
+                      bottom: DeviceUtil.isTablet ? 5 : 0, right: 20, left: 20),
                   snakeViewColor: selectedColor,
                   selectedItemColor: SnakeShape.circle == SnakeShape.indicator
                       ? selectedColor
                       : null,
                   showUnselectedLabels: false,
                   showSelectedLabels: false,
+                  height: DeviceUtil.isTablet ? 56 : 50,
                   currentIndex: _selectedItemPosition,
                   onTap: (index) {
                     if (index == 2) {
@@ -154,7 +158,7 @@ class _MainChildPageState extends State<MainChildPage> {
                   items: [
                     BottomNavigationBarItem(
                         icon: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0),
                           child: Image.asset(
                             "assets/uiImages/star.png",
                             color: _selectedItemPosition == 0

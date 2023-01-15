@@ -139,7 +139,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     libraryListChild = [];
     SharedPreferences liblistChild = await SharedPreferences.getInstance();
     size = liblistChild.getInt("size") ?? 1;
-    print("the size is $size");
+
     List<String>? library = liblistChild.getStringList("liblistChild");
     if (library != null) {
       for (String element in library) {

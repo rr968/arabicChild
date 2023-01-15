@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, non_constant_identifier_names
 
-import 'package:arabic_speaker_child/childpage/child/childFirstInfo.dart';
+import 'package:arabic_speaker_child/controller/istablet.dart';
+import 'package:arabic_speaker_child/questionspages.dart/childFirstInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../childpage/child/mainchildPage.dart';
@@ -64,10 +65,13 @@ class _LoginState extends State<Login> {
                     MediaQuery.of(context).orientation == Orientation.portrait
                         ? MediaQuery.of(context).size.height * .7
                         : MediaQuery.of(context).size.height * .95,
-                width:
-                    MediaQuery.of(context).orientation == Orientation.portrait
+                width: DeviceUtil.isTablet
+                    ? MediaQuery.of(context).orientation == Orientation.portrait
                         ? MediaQuery.of(context).size.width * .6
-                        : MediaQuery.of(context).size.width * .44,
+                        : MediaQuery.of(context).size.width * .44
+                    : MediaQuery.of(context).orientation == Orientation.portrait
+                        ? MediaQuery.of(context).size.width * .8
+                        : MediaQuery.of(context).size.width * .5,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border:
@@ -78,15 +82,15 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.all(10),
                     child: Column(children: [
                       SizedBox(
-                          height: 100,
-                          width: 100,
+                          height: DeviceUtil.isTablet ? 100 : 50,
+                          width: DeviceUtil.isTablet ? 100 : 50,
                           child: Image.asset("assets/uiImages/user.png")),
                       Padding(
-                        padding: const EdgeInsets.only(top: 16),
+                        padding: EdgeInsets.only(top: 16),
                         child: Text(
                           "تسجيل الدخول",
                           style: TextStyle(
-                            fontSize: 40,
+                            fontSize: DeviceUtil.isTablet ? 40 : 25,
                             color: maincolor,
                             fontWeight: FontWeight.w900,
                           ),
@@ -113,8 +117,9 @@ class _LoginState extends State<Login> {
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 33, horizontal: 15),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        vertical: DeviceUtil.isTablet ? 33 : 20,
+                                        horizontal: 15),
                                     errorStyle: const TextStyle(
                                         fontSize: 18, color: Colors.red),
                                     filled: true,
@@ -131,8 +136,8 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15, right: 15, top: 10),
+                            padding:
+                                EdgeInsets.only(left: 15, right: 15, top: 10),
                             child: Material(
                               elevation: 12,
                               shadowColor: greyColor.withOpacity(.6),
@@ -147,8 +152,9 @@ class _LoginState extends State<Login> {
                                 },
                                 obscureText: _passwordVisible,
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 33, horizontal: 15),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: DeviceUtil.isTablet ? 33 : 20,
+                                      horizontal: 15),
                                   errorStyle: const TextStyle(
                                       fontSize: 18, color: Colors.red),
                                   suffixIcon: IconButton(
@@ -331,8 +337,8 @@ class _LoginState extends State<Login> {
                             },
                             child: loadingicon
                                 ? Container(
-                                    height: 80,
-                                    width: 80,
+                                    height: DeviceUtil.isTablet ? 80 : 45,
+                                    width: DeviceUtil.isTablet ? 80 : 45,
                                     decoration: BoxDecoration(
                                         color: maincolor,
                                         borderRadius:
@@ -344,14 +350,14 @@ class _LoginState extends State<Login> {
                                   )
                                 : Image.asset(
                                     "assets/uiImages/butt.png",
-                                    height: 85,
+                                    height: DeviceUtil.isTablet ? 85 : 50,
                                   ),
                           ),
                           Container(
                             height: 10,
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: EdgeInsets.all(8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -371,7 +377,7 @@ class _LoginState extends State<Login> {
                                     Text(
                                       "تذكرني",
                                       style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: DeviceUtil.isTablet ? 20 : 15,
                                         color: greyColor,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -389,7 +395,7 @@ class _LoginState extends State<Login> {
                                   child: Text(
                                     'نسيت كلمة المرور؟',
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: DeviceUtil.isTablet ? 20 : 15,
                                       color: greyColor,
                                       fontWeight: FontWeight.bold,
                                     ),
@@ -408,7 +414,7 @@ class _LoginState extends State<Login> {
                                 "ليس لديك حساب؟",
                                 style: TextStyle(
                                     color: greyColor,
-                                    fontSize: 27,
+                                    fontSize: DeviceUtil.isTablet ? 27 : 15,
                                     fontWeight: FontWeight.bold),
                               ),
                               TextButton(
@@ -422,7 +428,7 @@ class _LoginState extends State<Login> {
                                 child: Text(
                                   'تسجيل',
                                   style: TextStyle(
-                                    fontSize: 27,
+                                    fontSize: DeviceUtil.isTablet ? 27 : 20,
                                     color: pinkColor,
                                     fontWeight: FontWeight.bold,
                                   ),
