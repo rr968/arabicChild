@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import '../../childpage/child/sizeOfITem.dart';
+import '../../controller/istablet.dart';
+import '../../questionspages.dart/sizeOfITem.dart';
 import '../../controller/var.dart';
 import '/controller/validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -58,10 +59,13 @@ class _LoginState extends State<Signup> {
                     MediaQuery.of(context).orientation == Orientation.portrait
                         ? MediaQuery.of(context).size.height * .7
                         : MediaQuery.of(context).size.height * .95,
-                width:
-                    MediaQuery.of(context).orientation == Orientation.portrait
+                width: DeviceUtil.isTablet
+                    ? MediaQuery.of(context).orientation == Orientation.portrait
                         ? MediaQuery.of(context).size.width * .6
-                        : MediaQuery.of(context).size.width * .44,
+                        : MediaQuery.of(context).size.width * .44
+                    : MediaQuery.of(context).orientation == Orientation.portrait
+                        ? MediaQuery.of(context).size.width * .8
+                        : MediaQuery.of(context).size.width * .5,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border:
@@ -71,14 +75,15 @@ class _LoginState extends State<Signup> {
                   padding: const EdgeInsets.all(10),
                   child: Column(children: [
                     SizedBox(
-                        width: 90,
+                        height: DeviceUtil.isTablet ? 100 : 50,
+                        width: DeviceUtil.isTablet ? 100 : 50,
                         child: Image.asset("assets/uiImages/user.png")),
                     Padding(
                       padding: const EdgeInsets.only(top: 16),
                       child: Text(
                         "مستخدم جديد",
                         style: TextStyle(
-                          fontSize: 40,
+                          fontSize: DeviceUtil.isTablet ? 40 : 25,
                           color: maincolor,
                           fontWeight: FontWeight.w900,
                         ),
@@ -105,8 +110,9 @@ class _LoginState extends State<Signup> {
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
                               decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 33, horizontal: 15),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: DeviceUtil.isTablet ? 33 : 20,
+                                      horizontal: 15),
                                   errorStyle: const TextStyle(
                                       fontSize: 18, color: Colors.red),
                                   filled: true,
@@ -151,8 +157,9 @@ class _LoginState extends State<Signup> {
                               controller: _passwordcontroller,
                               obscureText: true,
                               decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 33, horizontal: 15),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: DeviceUtil.isTablet ? 33 : 20,
+                                    horizontal: 15),
                                 filled: true,
                                 errorStyle: const TextStyle(
                                     fontSize: 18, color: Colors.red),
@@ -186,8 +193,9 @@ class _LoginState extends State<Signup> {
                                 return null;
                               },
                               decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 33, horizontal: 15),
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: DeviceUtil.isTablet ? 33 : 20,
+                                    horizontal: 15),
                                 errorStyle: const TextStyle(
                                     fontSize: 18, color: Colors.red),
                                 filled: true,
@@ -214,7 +222,8 @@ class _LoginState extends State<Signup> {
                                       style: TextStyle(
                                           color: pinkColor,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 16),
+                                          fontSize:
+                                              DeviceUtil.isTablet ? 16 : 12),
                                       textDirection: TextDirection.rtl,
                                     ),
                                   ),
@@ -228,14 +237,17 @@ class _LoginState extends State<Signup> {
                                           children: [
                                             Icon(
                                               iconHasNum,
-                                              size: 16,
+                                              size:
+                                                  DeviceUtil.isTablet ? 16 : 10,
                                               color: iconColorHasNum,
                                             ),
                                             Text(
                                               ' رقم',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                                  fontSize: DeviceUtil.isTablet
+                                                      ? 16
+                                                      : 14,
                                                   color: hasNumber
                                                       ? Colors.green
                                                       : pinkColor),
@@ -247,14 +259,17 @@ class _LoginState extends State<Signup> {
                                           children: [
                                             Icon(
                                               iconGre,
-                                              size: 16,
+                                              size:
+                                                  DeviceUtil.isTablet ? 16 : 10,
                                               color: iconColorGre,
                                             ),
                                             Text(
                                               ' 8 خانات',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                                  fontSize: DeviceUtil.isTablet
+                                                      ? 16
+                                                      : 14,
                                                   color: greaterThan8
                                                       ? Colors.green
                                                       : pinkColor),
@@ -266,14 +281,17 @@ class _LoginState extends State<Signup> {
                                           children: [
                                             Icon(
                                               iconHasSmall,
-                                              size: 16,
+                                              size:
+                                                  DeviceUtil.isTablet ? 16 : 10,
                                               color: iconColorHasSmall,
                                             ),
                                             Text(
                                               ' حرف صغير',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                                  fontSize: DeviceUtil.isTablet
+                                                      ? 16
+                                                      : 14,
                                                   color: hasSmallLetter
                                                       ? Colors.green
                                                       : pinkColor),
@@ -285,14 +303,17 @@ class _LoginState extends State<Signup> {
                                           children: [
                                             Icon(
                                               iconHasCapi,
-                                              size: 16,
+                                              size:
+                                                  DeviceUtil.isTablet ? 16 : 10,
                                               color: iconColorHasCapi,
                                             ),
                                             Text(
                                               ' حرف كبير',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                                  fontSize: DeviceUtil.isTablet
+                                                      ? 16
+                                                      : 14,
                                                   color: hasCapitalLetter
                                                       ? Colors.green
                                                       : pinkColor),
@@ -314,8 +335,8 @@ class _LoginState extends State<Signup> {
                         ),
                         loadingicon
                             ? Container(
-                                height: 80,
-                                width: 80,
+                                height: DeviceUtil.isTablet ? 80 : 45,
+                                width: DeviceUtil.isTablet ? 80 : 45,
                                 decoration: BoxDecoration(
                                     color: maincolor,
                                     borderRadius: BorderRadius.circular(15)),
@@ -391,7 +412,7 @@ class _LoginState extends State<Signup> {
                                 },
                                 child: Image.asset(
                                   "assets/uiImages/signUp.png",
-                                  height: 85,
+                                  height: DeviceUtil.isTablet ? 85 : 50,
                                 ),
                               ),
                         Container(
@@ -404,7 +425,7 @@ class _LoginState extends State<Signup> {
                               "هل لديك حساب؟",
                               style: TextStyle(
                                   color: greyColor,
-                                  fontSize: 27,
+                                  fontSize: DeviceUtil.isTablet ? 27 : 14,
                                   fontWeight: FontWeight.bold),
                             ),
                             TextButton(
@@ -417,9 +438,9 @@ class _LoginState extends State<Signup> {
                               child: Text(
                                 'تسجيل الدخول',
                                 style: TextStyle(
-                                  fontSize: 27,
+                                  fontSize: DeviceUtil.isTablet ? 27 : 16,
                                   color: pinkColor,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w900,
                                 ),
                               ),
                             ),

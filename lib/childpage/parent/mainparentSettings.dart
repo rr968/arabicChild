@@ -98,7 +98,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: purcolor,
-                              fontSize: DeviceUtil.isTablet ? 45 : 26,
+                              fontSize: DeviceUtil.isTablet ? 45 : 30,
                               fontWeight: FontWeight.bold),
                         )
                       : isSelectedForDelete
@@ -113,18 +113,20 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                       fontWeight: FontWeight.w900),
                                 ),
                                 Container(
-                                  height: 40,
+                                  height: DeviceUtil.isTablet ? 40 : 30,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 30),
+                                  padding: EdgeInsets.only(
+                                      right: DeviceUtil.isTablet ? 30 : 10),
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
                                       "تم تحديدد ${isSelected.length} من المكتبات",
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 25,
+                                          fontSize:
+                                              DeviceUtil.isTablet ? 25 : 19,
                                           fontWeight: FontWeight.w900),
                                     ),
                                   ),
@@ -142,18 +144,20 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                       fontWeight: FontWeight.w900),
                                 ),
                                 Container(
-                                  height: 40,
+                                  height: DeviceUtil.isTablet ? 40 : 30,
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 30),
+                                  padding: EdgeInsets.only(
+                                      right: DeviceUtil.isTablet ? 30 : 10),
                                   child: Align(
                                     alignment: Alignment.centerRight,
                                     child: Text(
                                       "تم تحديدد ${isSelected.length} من المكتبات",
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 25,
+                                          fontSize:
+                                              DeviceUtil.isTablet ? 25 : 19,
                                           fontWeight: FontWeight.w900),
                                     ),
                                   ),
@@ -166,7 +170,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                         height: selectedAvaiabel ? 0 : 40,
                       )
                     : Padding(
-                        padding: const EdgeInsets.only(bottom: 30),
+                        padding: EdgeInsets.only(
+                            bottom: DeviceUtil.isTablet ? 30 : 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -181,7 +186,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               },
                               child: Container(
                                   alignment: Alignment.center,
-                                  height: 50,
+                                  height: DeviceUtil.isTablet ? 50 : 40,
                                   width:
                                       MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
@@ -279,6 +284,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                 children: [
                                                   FittedBox(
                                                     child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
                                                       children: [
                                                         InkWell(
                                                           onTap: () {
@@ -298,8 +306,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                         .all(10),
                                                                 child:
                                                                     Container(
-                                                                  height: 140,
-                                                                  width: 140,
+                                                                  height: 120,
+                                                                  width: 120,
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: const Color.fromARGB(
@@ -342,11 +350,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             child:
                                                                                 Padding(
                                                                               padding: const EdgeInsets.only(top: 5),
-                                                                              child: FittedBox(
-                                                                                child: Text(
-                                                                                  constantLib[0].name,
-                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                                ),
+                                                                              child: Text(
+                                                                                constantLib[0].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -388,8 +394,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                         .all(5),
                                                                 child:
                                                                     Container(
-                                                                  height: 140,
-                                                                  width: 140,
+                                                                  height: 120,
+                                                                  width: 120,
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: const Color.fromARGB(
@@ -432,11 +438,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             child:
                                                                                 Padding(
                                                                               padding: const EdgeInsets.only(top: 5),
-                                                                              child: FittedBox(
-                                                                                child: Text(
-                                                                                  constantLib[1].name,
-                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                                ),
+                                                                              child: Text(
+                                                                                constantLib[1].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -478,8 +482,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                         .all(5),
                                                                 child:
                                                                     Container(
-                                                                  height: 140,
-                                                                  width: 140,
+                                                                  height: 120,
+                                                                  width: 120,
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: const Color.fromARGB(
@@ -522,11 +526,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             child:
                                                                                 Padding(
                                                                               padding: const EdgeInsets.only(top: 5),
-                                                                              child: FittedBox(
-                                                                                child: Text(
-                                                                                  constantLib[2].name,
-                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                                ),
+                                                                              child: Text(
+                                                                                constantLib[2].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -568,8 +570,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                         .all(5),
                                                                 child:
                                                                     Container(
-                                                                  height: 140,
-                                                                  width: 140,
+                                                                  height: 120,
+                                                                  width: 120,
                                                                   decoration:
                                                                       BoxDecoration(
                                                                     color: const Color.fromARGB(
@@ -612,11 +614,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             child:
                                                                                 Padding(
                                                                               padding: const EdgeInsets.only(top: 5),
-                                                                              child: FittedBox(
-                                                                                child: Text(
-                                                                                  constantLib[3].name,
-                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                                ),
+                                                                              child: Text(
+                                                                                constantLib[3].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
                                                                           )
@@ -644,6 +644,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                     ),
                                                   ),
                                                   Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
                                                     children: [
                                                       InkWell(
                                                         onTap: () {
@@ -661,8 +664,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   const EdgeInsets
                                                                       .all(10),
                                                               child: Container(
-                                                                height: 140,
-                                                                width: 140,
+                                                                height: 120,
+                                                                width: 120,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: const Color
@@ -711,11 +714,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             padding:
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                FittedBox(
-                                                                              child: Text(
-                                                                                constantLib[4].name,
-                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                              ),
+                                                                                Text(
+                                                                              constantLib[4].name,
+                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                             ),
                                                                           ),
                                                                         )
@@ -753,8 +754,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   const EdgeInsets
                                                                       .all(10),
                                                               child: Container(
-                                                                height: 140,
-                                                                width: 140,
+                                                                height: 120,
+                                                                width: 120,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: const Color
@@ -803,11 +804,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             padding:
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                FittedBox(
-                                                                              child: Text(
-                                                                                constantLib[5].name,
-                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                              ),
+                                                                                Text(
+                                                                              constantLib[5].name,
+                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                             ),
                                                                           ),
                                                                         )
@@ -845,8 +844,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   const EdgeInsets
                                                                       .all(10),
                                                               child: Container(
-                                                                height: 140,
-                                                                width: 140,
+                                                                height: 120,
+                                                                width: 120,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: const Color
@@ -937,8 +936,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   const EdgeInsets
                                                                       .all(10),
                                                               child: Container(
-                                                                height: 140,
-                                                                width: 140,
+                                                                height: 120,
+                                                                width: 120,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: const Color
@@ -987,11 +986,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             padding:
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                FittedBox(
-                                                                              child: Text(
-                                                                                constantLib[7].name,
-                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                              ),
+                                                                                Text(
+                                                                              constantLib[7].name,
+                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                             ),
                                                                           ),
                                                                         )
@@ -1205,7 +1202,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                     });
                               },
                               child: Container(
-                                  height: 50,
+                                  height: DeviceUtil.isTablet ? 50 : 40,
                                   width:
                                       MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
@@ -1247,7 +1244,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                 });
                               },
                               child: Container(
-                                  height: 50,
+                                  height: DeviceUtil.isTablet ? 50 : 40,
                                   width:
                                       MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
@@ -1290,7 +1287,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                 });
                               },
                               child: Container(
-                                  height: 50,
+                                  height: DeviceUtil.isTablet ? 50 : 40,
                                   width:
                                       MediaQuery.of(context).size.width / 4.4,
                                   decoration: BoxDecoration(
@@ -1329,7 +1326,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                         ),
                       ),
                 Container(
-                  width: MediaQuery.of(context).size.width - 70,
+                  width: DeviceUtil.isTablet
+                      ? MediaQuery.of(context).size.width - 70
+                      : MediaQuery.of(context).size.width - 35,
                   height: MediaQuery.of(context).size.height * .44,
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -1358,7 +1357,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               crossAxisCount:
                                   MediaQuery.of(context).orientation ==
                                           Orientation.portrait
-                                      ? 5
+                                      ? DeviceUtil.isTablet
+                                          ? 5
+                                          : 4
                                       : 7,
                             ),
                             itemBuilder: (context, index) {
@@ -1381,21 +1382,22 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                   }
                                 },
                                 child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(
+                                      DeviceUtil.isTablet ? 8 : 4),
                                   child: Container(
                                     decoration: BoxDecoration(
                                       border: Border.all(color: greyColor),
                                       color: const Color.fromARGB(
                                               255, 255, 255, 255)
                                           .withOpacity(0.5),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(27)),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                              DeviceUtil.isTablet ? 27 : 20)),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.white.withOpacity(0.7),
                                           spreadRadius: 0,
                                           blurRadius: 7,
-                                          //offset: Offset(0, 3)),
                                         )
                                       ],
                                     ),
@@ -1403,7 +1405,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                       alignment: Alignment.center,
                                       children: [
                                         Padding(
-                                          padding: const EdgeInsets.all(5),
+                                          padding: const EdgeInsets.all(8),
                                           child: Column(children: [
                                             Expanded(
                                                 child: getImage(
@@ -1415,8 +1417,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                               child: FittedBox(
                                                 child: Text(
                                                   libraryListChild[index].name,
-                                                  style: const TextStyle(
-                                                      fontSize: 25,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          DeviceUtil.isTablet
+                                                              ? 25
+                                                              : 20,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -1434,10 +1439,10 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                       height:
                                                           DeviceUtil.isTablet
                                                               ? 34
-                                                              : 25,
+                                                              : 20,
                                                       width: DeviceUtil.isTablet
                                                           ? 34
-                                                          : 25,
+                                                          : 20,
                                                       decoration: BoxDecoration(
                                                         color: Colors.white
                                                             .withOpacity(0.3),
@@ -1474,10 +1479,10 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                       height:
                                                           DeviceUtil.isTablet
                                                               ? 34
-                                                              : 25,
+                                                              : 21,
                                                       width: DeviceUtil.isTablet
                                                           ? 34
-                                                          : 25,
+                                                          : 21,
                                                       decoration: BoxDecoration(
                                                           color: const Color
                                                                   .fromARGB(255,
@@ -1503,7 +1508,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                 !selectedAvaiabel
                     ? Container()
                     : Padding(
-                        padding: const EdgeInsets.all(50),
+                        padding: EdgeInsets.all(DeviceUtil.isTablet ? 50 : 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -1523,7 +1528,6 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        bool isloading = false;
                                         TextEditingController name =
                                             TextEditingController();
 
@@ -1539,6 +1543,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                           child: Center(
                                             child: SingleChildScrollView(
                                               child: AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius
+                                                        .all(Radius.circular(
+                                                            DeviceUtil.isTablet
+                                                                ? 32
+                                                                : 20))),
                                                 title: Directionality(
                                                   textDirection:
                                                       TextDirection.rtl,
@@ -1558,15 +1568,23 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                           ),
                                                         ),
                                                       ),
-                                                      const SizedBox(
-                                                        height: 35,
+                                                      SizedBox(
+                                                        height:
+                                                            DeviceUtil.isTablet
+                                                                ? 35
+                                                                : 15,
                                                       ),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          left: 20,
-                                                          right: 20,
+                                                            EdgeInsets.only(
+                                                          left: DeviceUtil
+                                                                  .isTablet
+                                                              ? 20
+                                                              : 8,
+                                                          right: DeviceUtil
+                                                                  .isTablet
+                                                              ? 20
+                                                              : 8,
                                                           //bottom: 11,
                                                         ),
                                                         child: TextFormField(
@@ -1619,25 +1637,38 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                           ),
                                                         ),
                                                       ),
-                                                      const Text(
+                                                      Text(
                                                         "* هذا الاسم سيظهر للمستخدمين عند تنزيل المكتبة",
                                                         // textAlign: TextAlign.right,
                                                         // ignore: prefer_const_constructors
                                                         style: TextStyle(
-                                                            fontSize: 14,
+                                                            fontSize: DeviceUtil
+                                                                    .isTablet
+                                                                ? 14
+                                                                : 11,
                                                             color: Colors.red,
                                                             fontWeight:
                                                                 FontWeight
                                                                     .bold),
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                top: 40,
-                                                                bottom: 20,
-                                                                right: 20,
-                                                                left: 20),
+                                                        padding: EdgeInsets.only(
+                                                            top: DeviceUtil
+                                                                    .isTablet
+                                                                ? 40
+                                                                : 10,
+                                                            bottom: DeviceUtil
+                                                                    .isTablet
+                                                                ? 20
+                                                                : 10,
+                                                            right: DeviceUtil
+                                                                    .isTablet
+                                                                ? 20
+                                                                : 8,
+                                                            left: DeviceUtil
+                                                                    .isTablet
+                                                                ? 20
+                                                                : 8),
                                                         child: TextFormField(
                                                           controller:
                                                               publisherName,
@@ -1690,17 +1721,27 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 20,
-                                                                right: 20),
+                                                        padding: EdgeInsets.only(
+                                                            left: DeviceUtil
+                                                                    .isTablet
+                                                                ? 20
+                                                                : 8,
+                                                            right: DeviceUtil
+                                                                    .isTablet
+                                                                ? 20
+                                                                : 8),
                                                         child: TextFormField(
                                                           controller:
                                                               explaination,
                                                           maxLength: 120,
-                                                          minLines: 4,
-                                                          maxLines: 4,
+                                                          minLines: DeviceUtil
+                                                                  .isTablet
+                                                              ? 4
+                                                              : 3,
+                                                          maxLines: DeviceUtil
+                                                                  .isTablet
+                                                              ? 4
+                                                              : 3,
                                                           decoration:
                                                               InputDecoration(
                                                             labelText:
@@ -1716,7 +1757,10 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
-                                                                fontSize: 22,
+                                                                fontSize: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 22
+                                                                    : 20,
                                                                 color:
                                                                     maincolor),
                                                             focusedBorder:
@@ -1824,8 +1868,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 }
                                                               },
                                                               child: Container(
-                                                                height: 50,
-                                                                width: 100,
+                                                                height: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 50
+                                                                    : 44,
+                                                                width: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 200
+                                                                    : 100,
                                                                 decoration: BoxDecoration(
                                                                     borderRadius:
                                                                         BorderRadius.circular(
@@ -1837,13 +1887,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               context,
                                                                               listen: true)
                                                                           .isloading
-                                                                      ? CircularProgressIndicator()
+                                                                      ? const CircularProgressIndicator()
                                                                       : FittedBox(
                                                                           child:
                                                                               Text(
                                                                             "رفع",
                                                                             style:
-                                                                                TextStyle(color: Colors.white, fontSize: 25),
+                                                                                TextStyle(color: Colors.white, fontSize: DeviceUtil.isTablet ? 25 : 20),
                                                                           ),
                                                                         ),
                                                                 ),
@@ -1865,8 +1915,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                     context);
                                                               }),
                                                               child: Container(
-                                                                height: 50,
-                                                                width: 100,
+                                                                height: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 50
+                                                                    : 44,
+                                                                width: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 200
+                                                                    : 100,
                                                                 decoration: BoxDecoration(
                                                                     borderRadius:
                                                                         BorderRadius.circular(
@@ -1876,16 +1932,15 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 child: Center(
                                                                   child:
                                                                       FittedBox(
-                                                                    child: isloading
-                                                                        ? const Center(
-                                                                            child:
-                                                                                CircularProgressIndicator(),
-                                                                          )
-                                                                        : const Text(
-                                                                            "إلغاء",
-                                                                            style:
-                                                                                TextStyle(color: Colors.white, fontSize: 25),
-                                                                          ),
+                                                                    child: Text(
+                                                                      "إلغاء",
+                                                                      style: TextStyle(
+                                                                          color: Colors
+                                                                              .white,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 25
+                                                                              : 20),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
@@ -1893,8 +1948,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                           ),
                                                         ],
                                                       ),
-                                                      const SizedBox(
-                                                        height: 35,
+                                                      SizedBox(
+                                                        height:
+                                                            DeviceUtil.isTablet
+                                                                ? 35
+                                                                : 15,
                                                       ),
                                                     ],
                                                   ),
@@ -1908,22 +1966,22 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               },
                               child: Container(
                                 alignment: Alignment.center,
-                                height: 50,
-                                width: 200,
+                                height: DeviceUtil.isTablet ? 50 : 40,
+                                width: DeviceUtil.isTablet ? 200 : 130,
                                 decoration: BoxDecoration(
                                     color: greenColor,
                                     borderRadius: BorderRadius.circular(10)),
                                 child: Text(
                                   isSelectedForDelete ? "حذف" : "رفع",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 25),
+                                      fontSize: DeviceUtil.isTablet ? 25 : 20),
                                 ),
                               ),
                             ),
                             Container(
-                              width: 100,
+                              width: DeviceUtil.isTablet ? 100 : 40,
                             ),
                             InkWell(
                               onTap: () {
@@ -1933,17 +1991,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                               },
                               child: Container(
                                 alignment: Alignment.center,
-                                height: 50,
-                                width: 200,
+                                height: DeviceUtil.isTablet ? 50 : 40,
+                                width: DeviceUtil.isTablet ? 200 : 130,
                                 decoration: BoxDecoration(
                                     color: pinkColor,
                                     borderRadius: BorderRadius.circular(10)),
-                                child: const Text(
+                                child: Text(
                                   "إلغاء",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 25),
+                                      fontSize: DeviceUtil.isTablet ? 25 : 20),
                                 ),
                               ),
                             ),
@@ -1958,15 +2016,18 @@ class _MainParentSettingsState extends State<MainParentSettings> {
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       actionsAlignment: MainAxisAlignment.center,
-      title: const Icon(
+      title: Icon(
         Icons.warning,
-        size: 100,
+        size: DeviceUtil.isTablet ? 100 : 60,
         color: Colors.red,
       ),
-      content: const Text(
+      content: Text(
         "هل أنت متأكد أنك تريد حذف هذه المكتبات؟ ",
         textDirection: TextDirection.rtl,
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: DeviceUtil.isTablet ? 25 : 20),
       ),
       actions: [
         Padding(
@@ -1982,17 +2043,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                   });
                 },
                 child: Container(
-                  height: 50,
-                  width: 150,
+                  height: DeviceUtil.isTablet ? 50 : 40,
+                  width: DeviceUtil.isTablet ? 150 : 90,
                   decoration: BoxDecoration(
                       color: purcolor, borderRadius: BorderRadius.circular(10)),
-                  child: const Center(
+                  child: Center(
                       child: Text(
                     "إلغاء",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25),
+                        fontSize: DeviceUtil.isTablet ? 25 : 19),
                   )),
                 ),
               ),
@@ -2024,17 +2085,17 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                       (route) => false);
                 },
                 child: Container(
-                  height: 50,
-                  width: 150,
+                  height: DeviceUtil.isTablet ? 50 : 40,
+                  width: DeviceUtil.isTablet ? 150 : 100,
                   decoration: BoxDecoration(
                       color: purcolor, borderRadius: BorderRadius.circular(10)),
-                  child: const Center(
+                  child: Center(
                       child: Text(
                     "نعم، متأكد",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25),
+                        fontSize: DeviceUtil.isTablet ? 25 : 19),
                   )),
                 ),
               ),

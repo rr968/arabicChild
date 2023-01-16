@@ -39,7 +39,7 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
           //   textAlign: TextAlign.center,
           // ),
         ),
-        body: Container(
+        body: SizedBox(
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -208,7 +208,7 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                   Container(
                                     width: 8,
                                   ),
-                                  Text("يجب وضع اسم للمكتبة",
+                                  const Text("يجب وضع اسم للمكتبة",
                                       style: TextStyle(
                                           color: Colors.red,
                                           fontSize: 20,

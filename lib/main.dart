@@ -1,4 +1,6 @@
 import 'package:arabic_speaker_child/StartPage.dart';
+import 'package:arabic_speaker_child/controller/istablet.dart';
+import 'package:flutter/services.dart';
 import '/controller/my_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +13,6 @@ Future main() async {
   await Firebase.initializeApp();
   runApp(
     const MyApp(),
-    // MaterialApp(
-    //home: NumofItems() //create new widget class for this 'home' to
-    // escape 'No MediaQuery widget found' error
-    //)
   );
 }
 
@@ -30,6 +28,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    if (!DeviceUtil.isTablet) {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]);
+    }
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         child: MaterialApp(

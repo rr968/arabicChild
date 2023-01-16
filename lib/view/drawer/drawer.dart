@@ -88,19 +88,16 @@ class _DrawercState extends State<Drawerc> {
                     children: [
                       Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 0),
-                            child: Image.asset(
-                              "assets/uiImages/logo.png",
-                              height: 200,
-                              width: 200,
-                              fit: BoxFit.fill,
-                            ),
+                          Image.asset(
+                            "assets/uiImages/logo.png",
+                            height: DeviceUtil.isTablet ? 200 : 150,
+                            width: DeviceUtil.isTablet ? 200 : 150,
+                            fit: BoxFit.fill,
                           ),
                         ],
                       ),
                       Container(
-                        height: 20,
+                        height: DeviceUtil.isTablet ? 20 : 0,
                       ),
                       ExpansionTile(
                         title: Row(children: [
@@ -942,816 +939,854 @@ class _DrawercState extends State<Drawerc> {
                                         textDirection: TextDirection.rtl,
                                         child: AlertDialog(
                                           backgroundColor: Colors.white,
-                                          shape: const RoundedRectangleBorder(
+                                          shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
-                                                  Radius.circular(32.0))),
+                                                  Radius.circular(
+                                                      DeviceUtil.isTablet
+                                                          ? 32
+                                                          : 20))),
                                           title: Column(
                                             children: [
                                               InkWell(
                                                 onTap: () =>
                                                     Navigator.pop(context),
-                                                child: const Align(
+                                                child: Align(
                                                   alignment: Alignment.topRight,
                                                   child: Icon(
                                                     Icons.close,
-                                                    size: 40,
+                                                    size: DeviceUtil.isTablet
+                                                        ? 40
+                                                        : 24,
                                                   ),
                                                 ),
                                               ),
                                               Row(
                                                 children: [
                                                   Expanded(
+                                                      flex: DeviceUtil.isTablet
+                                                          ? 1
+                                                          : 4,
                                                       child: Container(
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: greyColor),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(32)),
-                                                    child: Column(children: [
-                                                      Container(
-                                                        height: 17,
-                                                      ),
-                                                      Image.asset(
-                                                        "assets/uiImages/lock.png",
-                                                        height: 80,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(15),
-                                                        child: Text(
-                                                          "الدخول للصلاحيات",
-                                                          style: TextStyle(
-                                                            fontSize: 30,
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            color: pinkColor,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 8.0,
-                                                                right: 8,
-                                                                bottom: 8),
-                                                        child: Text(
-                                                          "الرجاء إدخال الرمز التالي للدخول",
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: greyColor,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 8.0,
-                                                                right: 8,
-                                                                bottom: 15),
-                                                        child: Text(
-                                                          text,
-                                                          style: TextStyle(
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: greyColor,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Container(
-                                                            height: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            width: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                border: Border.all(
-                                                                    color:
-                                                                        greyColor),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15)),
-                                                            child: Center(
-                                                                child: Text(
-                                                              Provider.of<MyProvider>(
-                                                                              context)
-                                                                          .pass4 ==
-                                                                      -1
-                                                                  ? ""
-                                                                  : Provider.of<
-                                                                              MyProvider>(
-                                                                          context)
-                                                                      .pass4
-                                                                      .toString(),
-                                                              style: const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 35),
-                                                            )),
-                                                          ),
-                                                          Container(
-                                                            height: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            width: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                border: Border.all(
-                                                                    color:
-                                                                        greyColor),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15)),
-                                                            child: Center(
-                                                                child: Text(
-                                                              Provider.of<MyProvider>(
-                                                                              context)
-                                                                          .pass3 ==
-                                                                      -1
-                                                                  ? ""
-                                                                  : Provider.of<
-                                                                              MyProvider>(
-                                                                          context)
-                                                                      .pass3
-                                                                      .toString(),
-                                                              style: const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 35),
-                                                            )),
-                                                          ),
-                                                          Container(
-                                                            height: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            width: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                border: Border.all(
-                                                                    color:
-                                                                        greyColor),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15)),
-                                                            child: Center(
-                                                                child: Text(
-                                                              Provider.of<MyProvider>(
-                                                                              context)
-                                                                          .pass2 ==
-                                                                      -1
-                                                                  ? ""
-                                                                  : Provider.of<
-                                                                              MyProvider>(
-                                                                          context)
-                                                                      .pass2
-                                                                      .toString(),
-                                                              style: const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 35),
-                                                            )),
-                                                          ),
-                                                          Container(
-                                                            height: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            width: DeviceUtil
-                                                                    .isTablet
-                                                                ? 60
-                                                                : 30,
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                border: Border.all(
-                                                                    color:
-                                                                        greyColor),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15)),
-                                                            child: Center(
-                                                                child: Text(
-                                                              Provider.of<MyProvider>(
-                                                                              context)
-                                                                          .pass1 ==
-                                                                      -1
-                                                                  ? ""
-                                                                  : Provider.of<
-                                                                              MyProvider>(
-                                                                          context)
-                                                                      .pass1
-                                                                      .toString(),
-                                                              style: const TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 35),
-                                                            )),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Provider.of<MyProvider>(
-                                                                  context,
-                                                                  listen: true)
-                                                              .errorpass
-                                                          ? const Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Text(
-                                                                "رمز خاطئ",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .red),
+                                                        decoration: BoxDecoration(
+                                                            border: Border.all(
+                                                                color:
+                                                                    greyColor),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    DeviceUtil
+                                                                            .isTablet
+                                                                        ? 32
+                                                                        : 20)),
+                                                        child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Container(
+                                                                height: 17,
                                                               ),
-                                                            )
-                                                          : Container(),
-                                                      Container(
-                                                        height: 20,
-                                                      ),
-                                                    ]),
-                                                  )),
+                                                              Image.asset(
+                                                                "assets/uiImages/lock.png",
+                                                                height: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 80
+                                                                    : 50,
+                                                              ),
+                                                              Padding(
+                                                                padding: DeviceUtil
+                                                                        .isTablet
+                                                                    ? EdgeInsets
+                                                                        .all(15)
+                                                                    : EdgeInsets.only(
+                                                                        top: 10,
+                                                                        bottom:
+                                                                            10),
+                                                                child: Text(
+                                                                  "الدخول للصلاحيات",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        DeviceUtil.isTablet
+                                                                            ? 30
+                                                                            : 17,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w900,
+                                                                    color:
+                                                                        pinkColor,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsets.only(
+                                                                    left: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 8.0
+                                                                        : 2,
+                                                                    right: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 8.0
+                                                                        : 2,
+                                                                    bottom: 8),
+                                                                child: Text(
+                                                                  "الرجاء إدخال الرمز التالي للدخول",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        DeviceUtil.isTablet
+                                                                            ? 18
+                                                                            : 10,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color:
+                                                                        greyColor,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding: EdgeInsets.only(
+                                                                    left: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 8.0
+                                                                        : 2,
+                                                                    right: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 8.0
+                                                                        : 2,
+                                                                    bottom: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 15
+                                                                        : 9),
+                                                                child: Text(
+                                                                  text,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        DeviceUtil.isTablet
+                                                                            ? 18
+                                                                            : 13,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color:
+                                                                        greyColor,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: [
+                                                                  Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      Provider.of<MyProvider>(context).pass4 ==
+                                                                              -1
+                                                                          ? ""
+                                                                          : Provider.of<MyProvider>(context)
+                                                                              .pass4
+                                                                              .toString(),
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 20),
+                                                                    )),
+                                                                  ),
+                                                                  Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      Provider.of<MyProvider>(context).pass3 ==
+                                                                              -1
+                                                                          ? ""
+                                                                          : Provider.of<MyProvider>(context)
+                                                                              .pass3
+                                                                              .toString(),
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 20),
+                                                                    )),
+                                                                  ),
+                                                                  Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      Provider.of<MyProvider>(context).pass2 ==
+                                                                              -1
+                                                                          ? ""
+                                                                          : Provider.of<MyProvider>(context)
+                                                                              .pass2
+                                                                              .toString(),
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 20),
+                                                                    )),
+                                                                  ),
+                                                                  Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 60
+                                                                        : 30,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 5)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      Provider.of<MyProvider>(context).pass1 ==
+                                                                              -1
+                                                                          ? ""
+                                                                          : Provider.of<MyProvider>(context)
+                                                                              .pass1
+                                                                              .toString(),
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 20),
+                                                                    )),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Provider.of<MyProvider>(
+                                                                          context,
+                                                                          listen:
+                                                                              true)
+                                                                      .errorpass
+                                                                  ? const Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Text(
+                                                                        "رمز خاطئ",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.red),
+                                                                      ),
+                                                                    )
+                                                                  : Container(),
+                                                              Container(
+                                                                height: 20,
+                                                              ),
+                                                            ]),
+                                                      )),
                                                   Container(
-                                                    width: 30,
+                                                    width: DeviceUtil.isTablet
+                                                        ? 30
+                                                        : 6,
                                                   ),
                                                   Expanded(
+                                                      flex: DeviceUtil.isTablet
+                                                          ? 1
+                                                          : 3,
                                                       child: Column(
-                                                    children: [
-                                                      Row(
                                                         children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  3,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "3",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      3,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
                                                                               .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  2,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "2",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "3",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
                                                                               .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  1,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "1",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      2,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "2",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
                                                                               .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      1,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "1",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      6,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "6",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      5,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "5",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      4,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "4",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      9,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "9",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      8,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "8",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      7,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "7",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      0,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      true);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.only(
+                                                                      left: DeviceUtil
+                                                                              .isTablet
+                                                                          ? 15
+                                                                          : 7,
+                                                                      right: DeviceUtil
+                                                                              .isTablet
+                                                                          ? 15
+                                                                          : 3),
+                                                                  child:
+                                                                      Container(
+                                                                          height: DeviceUtil.isTablet
+                                                                              ? 60
+                                                                              : 30,
+                                                                          width: DeviceUtil.isTablet
+                                                                              ? 60
+                                                                              : 30,
+                                                                          decoration:
+                                                                              const BoxDecoration(
+                                                                            image:
+                                                                                DecorationImage(image: AssetImage("assets/uiImages/delete.png"), matchTextDirection: true),
+                                                                          )),
+                                                                ),
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  setpass(
+                                                                      0,
+                                                                      n1,
+                                                                      n2,
+                                                                      n3,
+                                                                      n4,
+                                                                      false);
+                                                                },
+                                                                child: Padding(
+                                                                  padding: EdgeInsets.all(
+                                                                      DeviceUtil
+                                                                              .isTablet
+                                                                          ? 8.0
+                                                                          : 2),
+                                                                  child:
+                                                                      Container(
+                                                                    height: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    width: DeviceUtil
+                                                                            .isTablet
+                                                                        ? 75
+                                                                        : 32,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Colors
+                                                                            .white,
+                                                                        border: Border.all(
+                                                                            color:
+                                                                                greyColor),
+                                                                        borderRadius: BorderRadius.circular(DeviceUtil.isTablet
+                                                                            ? 15
+                                                                            : 9)),
+                                                                    child: Center(
+                                                                        child: Text(
+                                                                      "0",
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .bold,
+                                                                          fontSize: DeviceUtil.isTablet
+                                                                              ? 35
+                                                                              : 22),
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          )
                                                         ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  6,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "6",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  5,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "5",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  4,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "4",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  9,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "9",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  8,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "8",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  7,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "7",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(0, n1, n2,
-                                                                  n3, n4, true);
-                                                            },
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      left: 15,
-                                                                      right:
-                                                                          15),
-                                                              child: Container(
-                                                                  height: DeviceUtil
-                                                                          .isTablet
-                                                                      ? 60
-                                                                      : 25,
-                                                                  width: DeviceUtil
-                                                                          .isTablet
-                                                                      ? 60
-                                                                      : 25,
-                                                                  decoration:
-                                                                      const BoxDecoration(
-                                                                    image: DecorationImage(
-                                                                        image: AssetImage(
-                                                                            "assets/uiImages/delete.png"),
-                                                                        matchTextDirection:
-                                                                            true),
-                                                                  )),
-                                                            ),
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              setpass(
-                                                                  0,
-                                                                  n1,
-                                                                  n2,
-                                                                  n3,
-                                                                  n4,
-                                                                  false);
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(DeviceUtil
-                                                                          .isTablet
-                                                                      ? 8.0
-                                                                      : 2),
-                                                              child: Container(
-                                                                height: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                width: DeviceUtil
-                                                                        .isTablet
-                                                                    ? 75
-                                                                    : 30,
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    border: Border.all(
-                                                                        color:
-                                                                            greyColor),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15)),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "0",
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize: DeviceUtil
-                                                                              .isTablet
-                                                                          ? 35
-                                                                          : 22),
-                                                                )),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  )),
+                                                      )),
                                                 ],
                                               )
                                             ],

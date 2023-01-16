@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import '../controller/istablet.dart';
 import '/firstTimeOpenTheApp/page2.dart';
 import '/view/Auth/login.dart';
 import 'package:flutter/material.dart';
@@ -27,10 +28,15 @@ class Page1 extends StatelessWidget {
                       MediaQuery.of(context).orientation == Orientation.portrait
                           ? MediaQuery.of(context).size.height * .66
                           : MediaQuery.of(context).size.height * .92,
-                  width:
-                      MediaQuery.of(context).orientation == Orientation.portrait
+                  width: DeviceUtil.isTablet
+                      ? MediaQuery.of(context).orientation ==
+                              Orientation.portrait
                           ? MediaQuery.of(context).size.width * .6
-                          : MediaQuery.of(context).size.width * .44,
+                          : MediaQuery.of(context).size.width * .44
+                      : MediaQuery.of(context).orientation ==
+                              Orientation.portrait
+                          ? MediaQuery.of(context).size.width * .8
+                          : MediaQuery.of(context).size.width * .5,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border:
@@ -40,7 +46,7 @@ class Page1 extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Column(children: [
                         Container(
-                          height: 18,
+                          height: DeviceUtil.isTablet ? 18 : 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 16),
@@ -48,21 +54,21 @@ class Page1 extends StatelessWidget {
                             "مرحباً بك في تطبيق\nالمتحدث العربي",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 40,
+                              fontSize: DeviceUtil.isTablet ? 40 : 29,
                               color: maincolor,
                               fontWeight: FontWeight.w900,
                             ),
                           ),
                         ),
                         Container(
-                          height: 22,
+                          height: DeviceUtil.isTablet ? 22 : 13,
                         ),
                         Text(
                           "أحدث تطبيق للتحدث والتواصل باللغة\nالعربية لذوي صعوبات النطق للأطفال\nوالبالغين وكبار السن",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: greyColor,
-                              fontSize: 22,
+                              fontSize: DeviceUtil.isTablet ? 22 : 17,
                               fontWeight: FontWeight.bold),
                         ),
                         Expanded(
@@ -81,11 +87,11 @@ class Page1 extends StatelessWidget {
                           },
                           child: Image.asset(
                             "assets/uiImages/next.png",
-                            height: 85,
+                            height: DeviceUtil.isTablet ? 85 : 50,
                           ),
                         ),
                         Container(
-                          height: 18,
+                          height: DeviceUtil.isTablet ? 18 : 12,
                         ),
                         InkWell(
                           onTap: () async {
@@ -103,7 +109,7 @@ class Page1 extends StatelessWidget {
                             style: TextStyle(
                                 color: greyColor,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                                fontSize: DeviceUtil.isTablet ? 20 : 18),
                           ),
                         ),
                         Container(
