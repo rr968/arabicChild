@@ -458,6 +458,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                     }
                                                     predict(text
                                                         .replaceAll("أ", "ا")
+                                                        .replaceAll("إ", "ا")
                                                         .replaceAll("ة", "ه"));
                                                     if (fav.contains(
                                                         text.trim())) {
@@ -921,6 +922,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                           .replaceAll(
                                                                               "أ",
                                                                               "ا")
+                                                                          .replaceAll("إ", "ا")
                                                                           .replaceAll(
                                                                               "ة",
                                                                               "ه"));
@@ -1919,6 +1921,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                               }
                                               predict(text
                                                   .replaceAll("أ", "ا")
+                                                  .replaceAll("إ", "ا")
                                                   .replaceAll("ة", "ه")
                                                   .trim());
                                             },
@@ -2042,6 +2045,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                           predict(text
                                                               .replaceAll(
                                                                   "أ", "ا")
+                                                              .replaceAll("إ", "ا")
                                                               .replaceAll(
                                                                   "ة", "ه")
                                                               .trim());
@@ -2159,6 +2163,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
 
   autoComplete(String v) async {
     v = v.replaceAll("أ", "ا");
+    v = v.replaceAll("إ", "ا");
     v = v.replaceAll("ة", "ه");
     bool isautoComplete = true;
     if (v.trim().length > 1) {
@@ -2175,7 +2180,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("ة", "ه"));
+        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
         controller.clear();
       }
     }
@@ -2192,6 +2197,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
               if (w
                       .substring(0, leng)
                       .replaceAll("أ", "ا")
+                      .replaceAll("إ", "ا")
                       .replaceAll("ة", "ه") ==
                   v) {
                 if (!search_in_predictionWords(w)) {
@@ -2246,7 +2252,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("ة", "ه"));
+        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
         if (fav.contains(text.trim())) {
           setState(() {
             isFav = true;
@@ -2381,9 +2387,12 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     for (int i = 0; i < predictionWords.length; i++) {
       if (predictionWords[i][0]
               .replaceAll("أ", "ا")
+      //افنان
+              .replaceAll("إ", "ا")
+      //
               .replaceAll("ة", "ه")
               .trim() ==
-          word.replaceAll("أ", "ا").replaceAll("ة", "ه").trim()) {
+          word.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").trim()) {
         return true;
       }
     }
@@ -2395,6 +2404,9 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         .replaceAll("  ", " ")
         .replaceAll("أ", "ا")
         .replaceAll("ة", "ه")
+    //  Afnan
+        .replaceAll("إ", "ا")
+    ///
         .trim()
         .split(' ');
     if (sentence.length == 1) {
@@ -2415,7 +2427,11 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا")
+            //افنان
+        .replaceAll("إ", "ا")
+        //
+        .replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[1]) {
@@ -2447,7 +2463,10 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       r = r.replaceAll("\"", "");
 
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا")
+            .replaceAll("إ", "ا")
+            .replaceAll("ة", "ه")
+            .split(" ");
         List<String> sf = r.split(" ");
         if (s[1].compareTo(text[1]) == 0 &&
             s[2].compareTo(text[2]) == 0 &&
@@ -2472,7 +2491,10 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   third_word_Local(List text, int counter) async {
     for (String r in LocalDB) {
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا")
+            .replaceAll("إ", "ا")
+            .replaceAll("ة", "ه")
+            .split(" ");
         List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[0]) {
@@ -2503,7 +2525,9 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     for (String r in result) {
       r = r.replaceAll("\"", "");
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا")
+            .replaceAll("إ", "ا")
+            .replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s[0] == text[0] &&
             s[1] == text[1] &&
@@ -2522,7 +2546,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         r = r.replaceAll("\"", "");
         if (counter < 12) {
           List<String> s =
-              r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+              r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
           List<String> sf = r.split(" ");
           if (s[1] == text[1] &&
               fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
@@ -2548,7 +2572,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s.length >= 2 &&
             s[0] == text &&
@@ -2576,7 +2600,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       r = r.replaceAll("\"", "");
 
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
 
         if (s[0] == text &&

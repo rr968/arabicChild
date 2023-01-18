@@ -292,6 +292,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                       if (controller.text.trim().isNotEmpty) {
                                         predict(a
                                             .replaceAll("أ", "ا")
+                                            .replaceAll("إ", "ا")
                                             .replaceAll("ة", "ه"));
                                       }
                                       howtospeak(a);
@@ -466,6 +467,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                     }
                                                     predict(text
                                                         .replaceAll("أ", "ا")
+                                                        .replaceAll("إ", "ا")
                                                         .replaceAll("ة", "ه"));
                                                     if (fav.contains(
                                                         text.trim())) {
@@ -942,6 +944,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                           .replaceAll(
                                                                               "أ",
                                                                               "ا")
+                                                                          .replaceAll("إ", "ا")
                                                                           .replaceAll(
                                                                               "ة",
                                                                               "ه"));
@@ -2623,6 +2626,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                   curve: Curves.easeOut);
                                               predict(text
                                                   .replaceAll("أ", "ا")
+                                                  .replaceAll("إ", "ا")
                                                   .replaceAll("ة", "ه")
                                                   .trim());
                                             },
@@ -2741,6 +2745,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                           predict(text
                                                               .replaceAll(
                                                                   "أ", "ا")
+                                                              .replaceAll("إ", "ا")
                                                               .replaceAll(
                                                                   "ة", "ه")
                                                               .trim());
@@ -2858,6 +2863,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
 
   autoComplete(String v) async {
     v = v.replaceAll("أ", "ا");
+    v = v.replaceAll("إ", "ا");
     v = v.replaceAll("ة", "ه");
     bool isautoComplete = true;
     if (v.trim().length > 1) {
@@ -2874,7 +2880,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("ة", "ه"));
+        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
         controller.clear();
       }
     }
@@ -2891,6 +2897,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
               if (w
                       .substring(0, leng)
                       .replaceAll("أ", "ا")
+                      .replaceAll("إ", "ا")
                       .replaceAll("ة", "ه") ==
                   v) {
                 if (!search_in_predictionWords(w)) {
@@ -2945,7 +2952,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("ة", "ه"));
+        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
         if (fav.contains(text.trim())) {
           setState(() {
             isFav = true;
@@ -3087,9 +3094,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     for (int i = 0; i < predictionWords.length; i++) {
       if (predictionWords[i][0]
               .replaceAll("أ", "ا")
+              .replaceAll("إ", "ا")
               .replaceAll("ة", "ه")
               .trim() ==
-          word.replaceAll("أ", "ا").replaceAll("ة", "ه").trim()) {
+          word.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").trim()) {
         return true;
       }
     }
@@ -3100,6 +3108,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     List<String> sentence = word
         .replaceAll("  ", " ")
         .replaceAll("أ", "ا")
+        .replaceAll("إ", "ا")
         .replaceAll("ة", "ه")
         .trim()
         .split(' ');
@@ -3121,7 +3130,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[1]) {
@@ -3153,7 +3162,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       r = r.replaceAll("\"", "");
 
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s[1].compareTo(text[1]) == 0 &&
             s[2].compareTo(text[2]) == 0 &&
@@ -3178,7 +3187,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   third_word_Local(List text, int counter) async {
     for (String r in LocalDB) {
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[0]) {
@@ -3209,7 +3218,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     for (String r in result) {
       r = r.replaceAll("\"", "");
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s[0] == text[0] &&
             s[1] == text[1] &&
@@ -3228,7 +3237,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         r = r.replaceAll("\"", "");
         if (counter < 16) {
           List<String> s =
-              r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+              r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
           List<String> sf = r.split(" ");
           if (s[1] == text[1] &&
               fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
@@ -3254,7 +3263,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s.length >= 2 &&
             s[0] == text &&
@@ -3282,7 +3291,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       r = r.replaceAll("\"", "");
 
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
 
         if (s[0] == text &&
@@ -3358,6 +3367,10 @@ String getImageWord(String word) {
       if (element[0].replaceAll("أ", "ا") == word.replaceAll("أ", "ا")) {
         imurl = dataImage[j][1];
       }
+
+      if (element[0].replaceAll("إ", "ا") == word.replaceAll("إ", "ا")) {
+      imurl = dataImage[j][1];
+      }
     });
     if (imurl != "") {
       break;
@@ -3403,6 +3416,18 @@ Color getWordColor(String word) {
           wordColor = Colors.yellow;
         }
       }
+      if (element[0].replaceAll("إ", "ا") == word.replaceAll("إ", "ا")) {
+        if (element[1] == "n") {
+          wordColor = const Color.fromARGB(255, 214, 129, 1);
+        } else if (element[1] == "v") {
+          wordColor = Colors.green;
+        } else if (element[1] == "a") {
+          wordColor = Colors.blue;
+        } else if (element[1] == "l") {
+          wordColor = Colors.yellow;
+        }
+      }
+
     });
     if (wordColor != Colors.grey) {
       break;
