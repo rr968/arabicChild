@@ -301,6 +301,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                         if (controller.text.trim().isNotEmpty) {
                                           predict(a
                                               .replaceAll("أ", "ا")
+                                              .replaceAll("إ", "ا")
+
                                               .replaceAll("ة", "ه"));
                                         }
                                         howtospeak(a, context);
