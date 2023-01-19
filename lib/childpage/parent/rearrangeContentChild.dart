@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import '../../controller/istablet.dart';
 import '/childpage/parent/mainparent.dart';
 import '/controller/images.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
           child: Stack(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(DeviceUtil.isTablet ? 8.0 : 4),
                 child: Column(children: [
                   Expanded(
                       child: getImage(libraryListChild[widget.contentIndex]
@@ -60,16 +61,17 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                           .imgurl)),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding:
+                          EdgeInsets.only(top: DeviceUtil.isTablet ? 10 : 3),
                       child: Center(
                         child: Text(
                           libraryListChild[widget.contentIndex]
                               .contenlist[i]
                               .name,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
+                          style: TextStyle(
                               decoration: TextDecoration.none,
-                              fontSize: 25,
+                              fontSize: DeviceUtil.isTablet ? 25 : 18,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -78,19 +80,19 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                 ]),
               ),
               Container(
-                height: 38,
-                width: 38,
+                height: DeviceUtil.isTablet ? 38 : 26,
+                width: DeviceUtil.isTablet ? 38 : 26,
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 70, 70, 70),
                     borderRadius: BorderRadius.circular(20)),
                 child: Center(
                   child: Text(
                     (i + 1).toString(),
-                    style: const TextStyle(
+                    style: TextStyle(
                         decoration: TextDecoration.none,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 30),
+                        fontSize: DeviceUtil.isTablet ? 30 : 22),
                   ),
                 ),
               )
@@ -150,18 +152,21 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 80),
+                    padding: EdgeInsets.symmetric(
+                        vertical: DeviceUtil.isTablet ? 80 : 38),
                     child: Text(
                       'إعادة ترتيب الجمل',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: purcolor,
-                          fontSize: 45,
+                          fontSize: DeviceUtil.isTablet ? 45 : 30,
                           fontWeight: FontWeight.w900),
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width - 70,
+                    width: DeviceUtil.isTablet
+                        ? MediaQuery.of(context).size.width - 70
+                        : MediaQuery.of(context).size.width - 30,
                     height: MediaQuery.of(context).size.height * .5,
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -179,17 +184,19 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                      ),
+                      padding: EdgeInsets.only(
+                          left: DeviceUtil.isTablet ? 20 : 5,
+                          right: DeviceUtil.isTablet ? 20 : 5,
+                          bottom: 8,
+                          top: 8),
                       child: DraggableGridViewBuilder(
+                        padding: const EdgeInsets.all(1),
                         scrollDirection: Axis.vertical,
                         dragFeedback:
                             (List<DraggableGridItem> list, int index) {
                           return SizedBox(
-                            width: 140,
-                            height: 140,
+                            width: DeviceUtil.isTablet ? 140 : 100,
+                            height: DeviceUtil.isTablet ? 140 : 100,
                             child: list[index].child,
                           );
                         },
@@ -205,7 +212,9 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                             crossAxisCount:
                                 MediaQuery.of(context).orientation ==
                                         Orientation.portrait
-                                    ? 4
+                                    ? DeviceUtil.isTablet
+                                        ? 4
+                                        : 3
                                     : 5,
                             mainAxisSpacing: 8,
                             crossAxisSpacing: 8,
@@ -258,8 +267,8 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            height: 50,
-                            width: 200,
+                            height: DeviceUtil.isTablet ? 50 : 40,
+                            width: DeviceUtil.isTablet ? 200 : 130,
                             decoration: BoxDecoration(
                                 color: greenColor,
                                 borderRadius: BorderRadius.circular(10)),
@@ -287,8 +296,8 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            height: 50,
-                            width: 200,
+                            height: DeviceUtil.isTablet ? 50 : 40,
+                            width: DeviceUtil.isTablet ? 200 : 130,
                             decoration: BoxDecoration(
                                 color: pinkColor,
                                 borderRadius: BorderRadius.circular(10)),

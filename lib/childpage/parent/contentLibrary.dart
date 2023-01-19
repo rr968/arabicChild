@@ -39,20 +39,20 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
       child: Scaffold(
         drawer: const Drawerc(),
         appBar: AppBar(
-          toolbarHeight: 70,
+          toolbarHeight: DeviceUtil.isTablet ? 70 : 40,
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: Align(
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: EdgeInsets.all(DeviceUtil.isTablet ? 15 : 10),
               child: InkWell(
-                child: const SizedBox(
+                child: SizedBox(
                   height: 70,
                   width: 70,
                   child: Center(
                     child: Icon(
                       Icons.arrow_back_ios,
-                      size: 55,
+                      size: DeviceUtil.isTablet ? 55 : 30,
                     ),
                   ),
                 ),
@@ -68,14 +68,15 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 60),
+              padding:
+                  EdgeInsets.symmetric(vertical: DeviceUtil.isTablet ? 60 : 30),
               child: !selectedAvaiabel
                   ? Text(
                       libraryListChild[widget.libIndex].name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: purcolor,
-                          fontSize: DeviceUtil.isTablet ? 45 : 26,
+                          fontSize: DeviceUtil.isTablet ? 45 : 28,
                           fontWeight: FontWeight.bold),
                     )
                   : Text(
@@ -83,7 +84,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: purcolor,
-                          fontSize: DeviceUtil.isTablet ? 45 : 26,
+                          fontSize: DeviceUtil.isTablet ? 45 : 28,
                           fontWeight: FontWeight.bold),
                     ),
             ),
@@ -112,30 +113,32 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            height: 50,
+                            height: DeviceUtil.isTablet ? 50 : 40,
                             decoration: BoxDecoration(
                                 color: purcolor,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
                                 child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding:
+                                  EdgeInsets.all(DeviceUtil.isTablet ? 8.0 : 4),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.low_priority,
                                     color: Colors.white,
-                                    size: 28,
+                                    size: DeviceUtil.isTablet ? 28 : 23,
                                   ),
                                   Container(
-                                    width: 7,
+                                    width: DeviceUtil.isTablet ? 7 : 3,
                                   ),
-                                  const Text(
+                                  Text(
                                     "إعادة ترتيب",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 23),
+                                        fontSize:
+                                            DeviceUtil.isTablet ? 23 : 15),
                                   ),
                                 ],
                               ),
@@ -151,30 +154,32 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                         libraryindex: widget.libIndex)));
                           },
                           child: Container(
-                            height: 50,
+                            height: DeviceUtil.isTablet ? 50 : 40,
                             decoration: BoxDecoration(
                                 color: greenColor,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
                                 child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding:
+                                  EdgeInsets.all(DeviceUtil.isTablet ? 8.0 : 4),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.add_circle_outline,
                                     color: Colors.white,
-                                    size: 35,
+                                    size: DeviceUtil.isTablet ? 35 : 30,
                                   ),
                                   Container(
-                                    width: 7,
+                                    width: DeviceUtil.isTablet ? 7 : 3,
                                   ),
-                                  const Text(
+                                  Text(
                                     "إضافة جملة",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 23),
+                                        fontSize:
+                                            DeviceUtil.isTablet ? 23 : 15),
                                   ),
                                 ],
                               ),
@@ -189,30 +194,32 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                             });
                           },
                           child: Container(
-                            height: 50,
+                            height: DeviceUtil.isTablet ? 50 : 40,
                             decoration: BoxDecoration(
                                 color: pinkColor,
                                 borderRadius: BorderRadius.circular(10)),
                             child: Center(
                                 child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding:
+                                  EdgeInsets.all(DeviceUtil.isTablet ? 8.0 : 4),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Icon(
+                                  Icon(
                                     Icons.delete_outlined,
                                     color: Colors.white,
-                                    size: 35,
+                                    size: DeviceUtil.isTablet ? 35 : 30,
                                   ),
                                   Container(
-                                    width: 7,
+                                    width: DeviceUtil.isTablet ? 7 : 3,
                                   ),
-                                  const Text(
+                                  Text(
                                     "حذف جملة",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 23),
+                                        fontSize:
+                                            DeviceUtil.isTablet ? 23 : 15),
                                   ),
                                 ],
                               ),
@@ -225,7 +232,9 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                width: MediaQuery.of(context).size.width - 70,
+                width: DeviceUtil.isTablet
+                    ? MediaQuery.of(context).size.width - 70
+                    : MediaQuery.of(context).size.width - 35,
                 height: MediaQuery.of(context).size.height * .5,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -243,8 +252,11 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                   ],
                 ),
                 child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 10),
+                  padding: EdgeInsets.only(
+                      left: DeviceUtil.isTablet ? 20 : 10,
+                      right: DeviceUtil.isTablet ? 20 : 10,
+                      bottom: 10,
+                      top: 10),
                   child: Column(
                     children: [
                       libraryListChild[widget.libIndex].contenlist.isEmpty
@@ -271,10 +283,13 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                           crossAxisCount: MediaQuery.of(context)
                                                       .orientation ==
                                                   Orientation.portrait
-                                              ? 4
+                                              ? DeviceUtil.isTablet
+                                                  ? 4
+                                                  : 3
                                               : 5,
                                           mainAxisSpacing: 10,
-                                          crossAxisSpacing: 20,
+                                          crossAxisSpacing:
+                                              DeviceUtil.isTablet ? 20 : 6,
                                           childAspectRatio: 1 / 1),
                                   itemBuilder: (context, index) {
                                     return InkWell(
@@ -302,16 +317,19 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
 
                                             player.play();
                                           } else {
-                                            howtospeak(libraryListChild[
-                                                    widget.libIndex]
-                                                .contenlist[index]
-                                                .name);
+                                            howtospeak(
+                                                libraryListChild[
+                                                        widget.libIndex]
+                                                    .contenlist[index]
+                                                    .name,
+                                                context);
                                           }
                                         }
                                       },
                                       child: Stack(
                                         children: [
                                           Container(
+                                            width: double.infinity,
                                             decoration: BoxDecoration(
                                               color: const Color.fromARGB(
                                                       255, 255, 255, 255)
@@ -344,6 +362,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                                   padding:
                                                       const EdgeInsets.only(
                                                           top: 5,
+                                                          bottom: 5,
                                                           left: 8,
                                                           right: 8),
                                                   child: Text(
@@ -352,8 +371,11 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                                                         .contenlist[index]
                                                         .name),
                                                     textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                        fontSize: 25,
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                            DeviceUtil.isTablet
+                                                                ? 25
+                                                                : 18,
                                                         fontWeight:
                                                             FontWeight.bold),
                                                   ),
@@ -480,8 +502,8 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            height: 50,
-                            width: 200,
+                            height: DeviceUtil.isTablet ? 50 : 40,
+                            width: DeviceUtil.isTablet ? 200 : 130,
                             decoration: BoxDecoration(
                                 color: greenColor,
                                 borderRadius: BorderRadius.circular(10)),
@@ -495,7 +517,7 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                           ),
                         ),
                         Container(
-                          width: 60,
+                          width: DeviceUtil.isTablet ? 60 : 20,
                         ),
                         InkWell(
                           onTap: () {
@@ -505,8 +527,8 @@ class _contentLibraryChildState extends State<contentLibraryChild> {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            height: 50,
-                            width: 200,
+                            height: DeviceUtil.isTablet ? 50 : 40,
+                            width: DeviceUtil.isTablet ? 200 : 130,
                             decoration: BoxDecoration(
                                 color: pinkColor,
                                 borderRadius: BorderRadius.circular(10)),

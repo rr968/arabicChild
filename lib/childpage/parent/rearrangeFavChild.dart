@@ -33,7 +33,8 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
             padding: EdgeInsets.all(DeviceUtil.isTablet ? 15 : 5),
             child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius:
+                        BorderRadius.circular(DeviceUtil.isTablet ? 25 : 15),
                     border: Border.all(color: maincolor, width: 2)),
                 child: Directionality(
                   textDirection: TextDirection.rtl,
@@ -41,16 +42,18 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                     children: [
                       Container(
                         height: double.maxFinite,
-                        width: 90,
+                        width: DeviceUtil.isTablet ? 90 : 60,
                         decoration: BoxDecoration(
                             color: maincolor,
-                            borderRadius: const BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                bottomRight: Radius.circular(20))),
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(
+                                    DeviceUtil.isTablet ? 20 : 10),
+                                bottomRight: Radius.circular(
+                                    DeviceUtil.isTablet ? 20 : 10))),
                         child: Icon(
                           Icons.volume_up,
                           color: Colors.white,
-                          size: DeviceUtil.isTablet ? 80 : 60,
+                          size: DeviceUtil.isTablet ? 80 : 40,
                         ),
                       ),
                       Expanded(
@@ -60,25 +63,27 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                             children: [
                               for (int j = 0; j < favorite[i].length; j++)
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 15),
+                                  padding: EdgeInsets.only(
+                                      left: DeviceUtil.isTablet ? 15 : 5,
+                                      right: DeviceUtil.isTablet ? 15 : 5),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SizedBox(
-                                          height: 70,
-                                          width: 70,
+                                          height: DeviceUtil.isTablet ? 70 : 40,
+                                          width: DeviceUtil.isTablet ? 70 : 40,
                                           child: getImage(favorite[i][j][1])),
                                       Container(
-                                        height: 6,
+                                        height: DeviceUtil.isTablet ? 6 : 2,
                                       ),
                                       Text(
                                         favorite[i][j][0],
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             decoration: TextDecoration.none,
-                                            fontSize: 27),
+                                            fontSize:
+                                                DeviceUtil.isTablet ? 27 : 20),
                                       )
                                     ],
                                   ),
@@ -134,15 +139,15 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                       'إعادة ترتيب',
                       style: TextStyle(
                           color: maincolor,
-                          fontSize: 60,
+                          fontSize: DeviceUtil.isTablet ? 60 : 33,
                           fontWeight: FontWeight.w800),
                     ),
                   ),
-                  const SizedBox(
-                    height: 25,
+                  SizedBox(
+                    height: DeviceUtil.isTablet ? 25 : 10,
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: EdgeInsets.all(DeviceUtil.isTablet ? 10 : 2),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -160,8 +165,8 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                             },
                             child: Container(
                               alignment: Alignment.center,
-                              height: 50,
-                              width: 200,
+                              height: DeviceUtil.isTablet ? 50 : 38,
+                              width: DeviceUtil.isTablet ? 200 : 120,
                               decoration: BoxDecoration(
                                   color: maincolor,
                                   borderRadius: BorderRadius.circular(10)),
@@ -186,8 +191,8 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                               },
                               child: Container(
                                 alignment: Alignment.center,
-                                height: 50,
-                                width: 200,
+                                height: DeviceUtil.isTablet ? 50 : 38,
+                                width: DeviceUtil.isTablet ? 200 : 120,
                                 decoration: BoxDecoration(
                                     color: maincolor,
                                     borderRadius: BorderRadius.circular(10)),
@@ -204,17 +209,19 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 10, horizontal: DeviceUtil.isTablet ? 20 : 5),
                     child: SizedBox(
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.height,
+                        height: MediaQuery.of(context).size.height - 190,
                         child: DraggableGridViewBuilder(
                           dragFeedback:
                               (List<DraggableGridItem> list, int index) {
                             return SizedBox(
-                              width: MediaQuery.of(context).size.width * .7,
-                              height: 150,
+                              width: DeviceUtil.isTablet
+                                  ? MediaQuery.of(context).size.width * .7
+                                  : MediaQuery.of(context).size.width * .9,
+                              height: DeviceUtil.isTablet ? 150 : 90,
                               child: list[index].child,
                             );
                           },
@@ -232,7 +239,7 @@ class _ReArrangeFavChildState extends State<ReArrangeFavChild> {
                             crossAxisCount: 1,
                             mainAxisSpacing: 0,
                             crossAxisSpacing: 0,
-                            childAspectRatio: 5 / 1.1,
+                            childAspectRatio: 5 / 1.2,
                           ),
                           dragCompletion: (List<DraggableGridItem> list,
                               int beforeIndex, int afterIndex) {

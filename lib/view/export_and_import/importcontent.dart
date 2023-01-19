@@ -1,4 +1,5 @@
 import 'package:arabic_speaker_child/childpage/child/speakingchildtablet.dart';
+import 'package:arabic_speaker_child/controller/istablet.dart';
 
 import '/controller/var.dart';
 import '/model/content.dart';
@@ -36,11 +37,13 @@ class _ImportContentState extends State<ImportContent> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
                     MediaQuery.of(context).orientation == Orientation.portrait
-                        ? 4
+                        ? DeviceUtil.isTablet
+                            ? 4
+                            : 3
                         : 5,
                 childAspectRatio: 1,
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
+                mainAxisSpacing: DeviceUtil.isTablet ? 20 : 12,
+                crossAxisSpacing: DeviceUtil.isTablet ? 20 : 7,
               ),
               itemBuilder: ((context, index) {
                 return InkWell(
@@ -65,7 +68,7 @@ class _ImportContentState extends State<ImportContent> {
                           });
                         });
                       } else {
-                        howtospeak(widget.content[index].name);
+                        howtospeak(widget.content[index].name, context);
 
                         Future.delayed(const Duration(milliseconds: 1500))
                             .then((value) {
@@ -98,8 +101,9 @@ class _ImportContentState extends State<ImportContent> {
                           Text(
                             noMoreText(widget.content[index].name),
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                                fontSize: 23, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                fontSize: DeviceUtil.isTablet ? 23 : 18,
+                                fontWeight: FontWeight.bold),
                           )
                         ]),
                       )),

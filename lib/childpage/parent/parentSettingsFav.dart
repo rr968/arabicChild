@@ -22,7 +22,6 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
   List<List> favorite = [];
   bool isLoading = true;
   List isSelected = [];
-  bool selectedAvaiabel = false;
   @override
   void initState() {
     getFavData().then((v) {
@@ -60,7 +59,7 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                 'المفضلة',
                 style: TextStyle(
                     color: maincolor,
-                    fontSize: 60,
+                    fontSize: DeviceUtil.isTablet ? 60 : 35,
                     fontWeight: FontWeight.w800),
               ),
             ),
@@ -73,77 +72,77 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
               children: [
                 Image.asset(
                   "assets/uiImages/noSaved.png",
-                  height: 150,
+                  height: DeviceUtil.isTablet ? 150 : 100,
                 ),
                 Container(
                   height: 20,
                 ),
-                const Center(
+                Center(
                   child: Text(
                     "لم تقم باضافة جمل الى مفضلة بعد",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: DeviceUtil.isTablet ? 30 : 24),
                   ),
                 ),
               ],
             )
           : Column(children: [
-              selectedAvaiabel
-                  ? Container(
-                      height: 50,
-                    )
-                  : Padding(
-                      padding:
-                          const EdgeInsets.only(right: 30, top: 20, bottom: 18),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ReArrangeFavChild()),
-                                (route) => false);
-                          },
-                          child: Container(
-                            height: DeviceUtil.isTablet ? 50 : 35,
-                            width: DeviceUtil.isTablet ? 180 : 100,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      const Color.fromARGB(255, 202, 202, 202)),
-                              color: maincolor,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(15)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color:
-                                      const Color.fromARGB(255, 217, 216, 216)
-                                          .withOpacity(0.4),
-                                  spreadRadius: 3,
-                                  blurRadius: 7,
-                                )
-                              ],
-                            ),
-                            child: Center(
-                                child: Text(
-                              "إعادة ترتيب",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: DeviceUtil.isTablet ? 25 : 17),
-                            )),
-                          ),
-                        ),
+              Padding(
+                padding: EdgeInsets.only(
+                    right: DeviceUtil.isTablet ? 30 : 10,
+                    top: DeviceUtil.isTablet ? 20 : 4,
+                    bottom: DeviceUtil.isTablet ? 18 : 10),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ReArrangeFavChild()),
+                          (route) => false);
+                    },
+                    child: Container(
+                      height: DeviceUtil.isTablet ? 50 : 35,
+                      width: DeviceUtil.isTablet ? 180 : 100,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 202, 202, 202)),
+                        color: maincolor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color.fromARGB(255, 217, 216, 216)
+                                .withOpacity(0.4),
+                            spreadRadius: 3,
+                            blurRadius: 7,
+                          )
+                        ],
                       ),
+                      child: Center(
+                          child: Text(
+                        "إعادة ترتيب",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: DeviceUtil.isTablet ? 25 : 17),
+                      )),
                     ),
+                  ),
+                ),
+              ),
               Expanded(
                 child: ListView(
                   children: [
                     for (int i = 0; i < favorite.length; i++)
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 10, left: 30, right: 30),
+                        padding: EdgeInsets.only(
+                            top: 10,
+                            bottom: 10,
+                            left: DeviceUtil.isTablet ? 30 : 10,
+                            right: DeviceUtil.isTablet ? 30 : 10),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -182,23 +181,25 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                                 favv.setStringList("favlistChild", allFav);
                               },
                               child: Container(
-                                height: 120,
-                                width: 80,
+                                height: DeviceUtil.isTablet ? 120 : 90,
+                                width: DeviceUtil.isTablet ? 80 : 60,
                                 decoration: BoxDecoration(
                                     color: Colors.red,
                                     borderRadius: BorderRadius.circular(20)),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
+                                  children: [
                                     Icon(
                                       Icons.delete,
                                       color: Colors.white,
-                                      size: 50,
+                                      size: DeviceUtil.isTablet ? 50 : 35,
                                     ),
                                     Text(
                                       'حذف',
                                       style: TextStyle(
-                                          color: Colors.white, fontSize: 28),
+                                          color: Colors.white,
+                                          fontSize:
+                                              DeviceUtil.isTablet ? 28 : 22),
                                     )
                                   ],
                                 ),
@@ -210,13 +211,14 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                                 for (var element in favorite[i]) {
                                   a += element[0] + " ";
                                 }
-                                howtospeak(a);
+                                howtospeak(a, context);
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 13),
+                                padding: EdgeInsets.only(
+                                    right: DeviceUtil.isTablet ? 13 : 7),
                                 child: Container(
-                                  height: 120,
-                                  width: 80,
+                                  height: DeviceUtil.isTablet ? 120 : 90,
+                                  width: DeviceUtil.isTablet ? 80 : 60,
                                   decoration: BoxDecoration(
                                       color: maincolor,
                                       borderRadius: const BorderRadius.only(
@@ -224,16 +226,18 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                                           bottomRight: Radius.circular(20))),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
+                                    children: [
                                       Icon(
                                         Icons.volume_up,
                                         color: Colors.white,
-                                        size: 54,
+                                        size: DeviceUtil.isTablet ? 54 : 35,
                                       ),
                                       Text(
                                         'نطق',
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 28),
+                                            color: Colors.white,
+                                            fontSize:
+                                                DeviceUtil.isTablet ? 28 : 22),
                                       )
                                     ],
                                   ),
@@ -247,10 +251,10 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                                   for (var element in favorite[i]) {
                                     a += element[0] + " ";
                                   }
-                                  howtospeak(a);
+                                  howtospeak(a, context);
                                 },
                                 child: Container(
-                                  height: 120,
+                                  height: DeviceUtil.isTablet ? 120 : 90,
                                   decoration: BoxDecoration(
                                       borderRadius: const BorderRadius.only(
                                           topLeft: Radius.circular(20),
@@ -264,9 +268,11 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                                           j < favorite[i].length;
                                           j++)
                                         Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10,
-                                              right: 10,
+                                          padding: EdgeInsets.only(
+                                              left:
+                                                  DeviceUtil.isTablet ? 10 : 5,
+                                              right:
+                                                  DeviceUtil.isTablet ? 10 : 5,
                                               bottom: 5,
                                               top: 5),
                                           child: Column(
@@ -274,12 +280,17 @@ class _ParentSettingsFavState extends State<ParentSettingsFav> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               SizedBox(
-                                                  height: 50,
-                                                  width: 50,
+                                                  height: DeviceUtil.isTablet
+                                                      ? 50
+                                                      : 45,
+                                                  width: DeviceUtil.isTablet
+                                                      ? 50
+                                                      : 45,
                                                   child: getImage(
                                                       favorite[i][j][1])),
                                               Container(
-                                                height: 5,
+                                                height:
+                                                    DeviceUtil.isTablet ? 5 : 2,
                                               ),
                                               Text(
                                                 favorite[i][j][0],

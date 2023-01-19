@@ -1,6 +1,9 @@
 // ignore_for_file: empty_catches, use_build_context_synchronously, file_names
 
 import 'dart:io';
+import 'package:arabic_speaker_child/controller/istablet.dart';
+
+import '../../controller/erroralert.dart';
 import '/childpage/parent/mainparent.dart';
 import 'package:provider/provider.dart';
 
@@ -32,12 +35,8 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0, backgroundColor: Colors.transparent,
-          // title: const Text(
-          //   "إنشاء مكتبة",
-          //   style: TextStyle(fontSize: 31, color: Colors.white),
-          //   textAlign: TextAlign.center,
-          // ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
         ),
         body: SizedBox(
           width: double.infinity,
@@ -47,14 +46,14 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
               Text(
                 "إنشاء مكتبة",
                 style: TextStyle(
-                    fontSize: 38,
+                    fontSize: DeviceUtil.isTablet ? 38 : 30,
                     color: maincolor,
                     fontWeight: FontWeight.w900),
                 textAlign: TextAlign.center,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    vertical: 40,
+                    vertical: DeviceUtil.isTablet ? 40 : 30,
                     horizontal: MediaQuery.of(context).size.width * .09),
                 child: Container(
                   decoration: BoxDecoration(
@@ -76,14 +75,18 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 40,
+                      SizedBox(
+                        height: DeviceUtil.isTablet ? 40 : 30,
                       ),
                       Padding(
                         padding: EdgeInsets.only(
                             bottom: 8,
-                            left: MediaQuery.of(context).size.width * .1,
-                            right: MediaQuery.of(context).size.width * .1),
+                            left: DeviceUtil.isTablet
+                                ? MediaQuery.of(context).size.width * .1
+                                : 15,
+                            right: DeviceUtil.isTablet
+                                ? MediaQuery.of(context).size.width * .1
+                                : 15),
                         child: TextFormField(
                           controller: libraryname,
                           maxLines: 1,
@@ -91,7 +94,7 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                           decoration: InputDecoration(
                             labelText: "اسم المكتبة",
                             labelStyle: TextStyle(
-                                fontSize: 30,
+                                fontSize: DeviceUtil.isTablet ? 30 : 22,
                                 fontWeight: FontWeight.bold,
                                 color: maincolor),
                             border: OutlineInputBorder(
@@ -104,10 +107,11 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                         ),
                       ),
                       Container(
-                        height: 30,
+                        height: DeviceUtil.isTablet ? 30 : 20,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 21, bottom: 36),
+                        padding: EdgeInsets.only(
+                            right: 21, bottom: DeviceUtil.isTablet ? 36 : 6),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -118,8 +122,8 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                 ? InkWell(
                                     onTap: () => diag(),
                                     child: Container(
-                                        height: 220,
-                                        width: 220,
+                                        height: DeviceUtil.isTablet ? 220 : 150,
+                                        width: DeviceUtil.isTablet ? 220 : 150,
                                         decoration: Provider.of<MyProvider>(context)
                                                 .lastimagepath
                                                 .toString()
@@ -152,8 +156,8 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                 ? InkWell(
                                     onTap: () => diag(),
                                     child: Container(
-                                      height: 180,
-                                      width: 180,
+                                      height: DeviceUtil.isTablet ? 220 : 150,
+                                      width: DeviceUtil.isTablet ? 220 : 150,
                                       decoration: BoxDecoration(
                                           border: Border.all(
                                               color: greyColor, width: 1.5),
@@ -208,17 +212,18 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                   Container(
                                     width: 8,
                                   ),
-                                  const Text("يجب وضع اسم للمكتبة",
+                                  Text("يجب وضع اسم للمكتبة",
                                       style: TextStyle(
                                           color: Colors.red,
-                                          fontSize: 20,
+                                          fontSize:
+                                              DeviceUtil.isTablet ? 20 : 17,
                                           fontWeight: FontWeight.w900)),
                                 ],
                               ),
                             )
                           : const SizedBox(),
                       Container(
-                        height: 25,
+                        height: DeviceUtil.isTablet ? 25 : 20,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -276,7 +281,8 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                                     Provider.of<MyProvider>(context,
                                             listen: false)
                                         .setPath("");
-                                    // acceptalert( context, "تم إضافة المكتبة بنجاح");
+                                    acceptalert(
+                                        context, "تم إضافة المكتبة بنجاح");
                                   });
                                 } else {
                                   setState(() {
@@ -286,8 +292,8 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                               },
                               child: Container(
                                   alignment: Alignment.center,
-                                  height: 50,
-                                  width: 200,
+                                  height: DeviceUtil.isTablet ? 50 : 45,
+                                  width: DeviceUtil.isTablet ? 200 : 160,
                                   decoration: BoxDecoration(
                                       color: maincolor,
                                       borderRadius: BorderRadius.circular(10)),
@@ -309,6 +315,9 @@ class _AddChildLibraryState extends State<AddChildLibrary> {
                   ),
                 ),
               ),
+              Container(
+                height: 50,
+              )
             ],
           ),
         ),

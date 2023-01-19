@@ -41,11 +41,14 @@ class AboutApp extends StatelessWidget {
                     "assets/uiImages/logo.png",
                     height: DeviceUtil.isTablet ? 170 : 160,
                   ),
-                  Text("- - - - - - - - - - - - - - - - - - - ",
+                  Text("_________________________",
                       style: TextStyle(
                           fontSize: DeviceUtil.isTablet ? 35 : 25,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
+                  Container(
+                    height: 10,
+                  ),
                   Text(
                     "أحدث تطبيق للتـواصـل والـــــــــتــحــدث بالــلــغــــــة\nالعربية لذوي صعوبات الـــنــطـــــــق لـلأطـــــفـــــال\nوالبالغيـن وكـبــار الـسـن",
                     textAlign: TextAlign.center,
@@ -53,11 +56,14 @@ class AboutApp extends StatelessWidget {
                         fontSize: DeviceUtil.isTablet ? 25 : 18,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text("- - - - - - - - - - - - - - - - - - - ",
+                  Text("_________________________",
                       style: TextStyle(
                           fontSize: DeviceUtil.isTablet ? 35 : 25,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
+                  Container(
+                    height: 10,
+                  ),
                   Text(
                     "فكــــــرة : د.أمــــل السيف",
                     textAlign: TextAlign.center,
@@ -65,11 +71,14 @@ class AboutApp extends StatelessWidget {
                         fontSize: DeviceUtil.isTablet ? 25 : 20,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text("- - - - - - - - - - - - - - - - - - - ",
+                  Text("_________________________",
                       style: TextStyle(
                           fontSize: DeviceUtil.isTablet ? 35 : 25,
                           fontWeight: FontWeight.bold,
                           color: Colors.grey)),
+                  Container(
+                    height: 10,
+                  ),
                   Text(
                     "تـــنـفـيــذ وتــشـغيـل",
                     textAlign: TextAlign.center,

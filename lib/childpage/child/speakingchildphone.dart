@@ -5,11 +5,12 @@ import 'dart:convert';
 import 'package:arabic_speaker_child/childpage/child/speakingchildtablet.dart';
 import 'package:arabic_speaker_child/controller/harakatPrediction.dart';
 import 'package:arabic_speaker_child/controller/realtime.dart';
+import 'package:provider/provider.dart';
 
 import 'package:share_plus/share_plus.dart';
 
 import '../../controller/erroralert.dart';
-import '../../controller/istablet.dart';
+import '../../controller/my_provider.dart';
 import '/childpage/constant.dart';
 import '/controller/images.dart';
 import '/controller/speak.dart';
@@ -31,7 +32,7 @@ class SpeakingChildPhone extends StatefulWidget {
 
 class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   int coloredOpenLibraryindex = 0;
-  double sliderValue = 1;
+
   List<List<List<String>>> constant = [
     [
       ["أنا", getImageWord("أنا")],
@@ -120,9 +121,20 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   late bool speakingWordByWord;
   bool isLess = false;
   late int size;
+  double _scrollOffset = 0;
 
   @override
   void initState() {
+    contentWordController.addListener(() {
+      double v = contentWordController.offset / (fieldContent.length * 50);
+      setState(() {
+        _scrollOffset = v < 0
+            ? 0
+            : v >= 1
+                ? 1
+                : v;
+      });
+    });
     predictionWords = pred;
     getFavData();
     getLocalDB();
@@ -245,57 +257,67 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      if (controller.text.trim().isNotEmpty) {
-                                        setState(() {
-                                          fieldContent.add(Content(
-                                              controller.text.trim(),
-                                              "",
-                                              "yes",
-                                              "",
-                                              "",
-                                              "yes"));
-                                        });
-                                        if (fieldContent.length > 5) {
-                                          contentWordController.animateTo(
-                                              contentWordController.position
-                                                      .maxScrollExtent -
-                                                  200,
-                                              duration: const Duration(
-                                                  milliseconds: 750),
-                                              curve: Curves.easeOut);
+                                      bool t = Provider.of<MyProvider>(context,
+                                              listen: false)
+                                          .isSpeakingNow;
+                                      if (!t) {
+                                        if (controller.text.trim().isNotEmpty) {
+                                          setState(() {
+                                            fieldContent.add(Content(
+                                                controller.text.trim(),
+                                                "",
+                                                "yes",
+                                                "",
+                                                "",
+                                                "yes"));
+                                          });
+                                          if (fieldContent.length > 5) {
+                                            contentWordController.animateTo(
+                                                contentWordController.position
+                                                        .maxScrollExtent -
+                                                    200,
+                                                duration: const Duration(
+                                                    milliseconds: 750),
+                                                curve: Curves.easeOut);
+                                          }
+
+                                          controller.clear();
+                                        }
+                                        //speak
+                                        String a = "";
+                                        for (var element in fieldContent) {
+                                          a += "${element.name} ";
                                         }
 
-                                        controller.clear();
+                                        if (fav.contains(a.trim())) {
+                                          setState(() {
+                                            isFav = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            isFav = false;
+                                          });
+                                        }
+                                        if (controller.text.trim().isNotEmpty) {
+                                          predict(a
+                                              .replaceAll("أ", "ا")
+                                              .replaceAll("ة", "ه"));
+                                        }
+                                        howtospeak(a, context);
+                                        store_In_local(a);
+                                        tryUploadToRealTimeForChild(a);
                                       }
-                                      //speak
-                                      String a = "";
-                                      for (var element in fieldContent) {
-                                        a += "${element.name} ";
-                                      }
-
-                                      if (fav.contains(a.trim())) {
-                                        setState(() {
-                                          isFav = true;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          isFav = false;
-                                        });
-                                      }
-                                      if (controller.text.trim().isNotEmpty) {
-                                        predict(a
-                                            .replaceAll("أ", "ا")
-                                            .replaceAll("ة", "ه"));
-                                      }
-                                      howtospeak(a);
-                                      store_In_local(a);
-                                      tryUploadToRealTimeForChild(a);
                                     },
                                     child: Container(
                                         height: 106,
                                         width: 45,
                                         decoration: BoxDecoration(
-                                          color: pinkColor,
+                                          color: Provider.of<MyProvider>(
+                                                      context,
+                                                      listen: true)
+                                                  .isSpeakingNow
+                                              ? pinkColor.withOpacity(.6)
+                                              : pinkColor,
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(15)),
                                           boxShadow: [
@@ -365,11 +387,6 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                             alignment: Alignment.topRight,
                                             child: InkWell(
                                               onTap: () {
-                                                if (fieldContent.length < 6) {
-                                                  setState(() {
-                                                    sliderValue = 1;
-                                                  });
-                                                }
                                                 // clear
                                                 if (fieldContent.isNotEmpty) {
                                                   if (fieldContent.length ==
@@ -714,25 +731,35 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                       children: [
                                                         SizedBox(
                                                             height: 10,
-                                                            width: 120,
+                                                            width: 150,
                                                             child: fieldContent
                                                                         .length >=
-                                                                    6
+                                                                    5
                                                                 ? SliderTheme(
                                                                     data: SliderTheme.of(
                                                                             context)
                                                                         .copyWith(
-                                                                      activeTrackColor:
-                                                                          pinkColor,
-                                                                      inactiveTrackColor:
-                                                                          pinkColor
-                                                                              .withOpacity(.5),
+                                                                      activeTrackColor: Color.fromARGB(
+                                                                          255,
+                                                                          114,
+                                                                          114,
+                                                                          114),
+                                                                      inactiveTrackColor: Color.fromARGB(
+                                                                              255,
+                                                                              114,
+                                                                              114,
+                                                                              114)
+                                                                          .withOpacity(
+                                                                              .5),
                                                                       trackShape:
                                                                           const RectangularSliderTrackShape(),
                                                                       trackHeight:
                                                                           4,
-                                                                      thumbColor:
-                                                                          pinkColor,
+                                                                      thumbColor: Color.fromARGB(
+                                                                          255,
+                                                                          114,
+                                                                          114,
+                                                                          114),
                                                                       thumbShape:
                                                                           const RoundSliderThumbShape(
                                                                               enabledThumbRadius: 8),
@@ -742,14 +769,9 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                               32),
                                                                     ),
                                                                     child: Slider(
-                                                                        value: sliderValue,
+                                                                        value: _scrollOffset,
+                                                                        //sliderValue,
                                                                         onChanged: ((value) {
-                                                                          setState(
-                                                                              () {
-                                                                            sliderValue =
-                                                                                value;
-                                                                          });
-
                                                                           contentWordController.animateTo(
                                                                               contentWordController.position.maxScrollExtent * value,
                                                                               duration: const Duration(seconds: 1),
@@ -772,8 +794,6 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                 onTap:
                                                                     () async {
                                                                   setState(() {
-                                                                    sliderValue =
-                                                                        1;
                                                                     isFav =
                                                                         false;
                                                                     fieldContent =
@@ -1881,14 +1901,17 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                         Expanded(
                                           child: InkWell(
                                             onLongPress: () {
-                                              howtospeak(contentWord[i].name);
+                                              howtospeak(
+                                                  contentWord[i].name, context);
                                             },
                                             onDoubleTap: () {
-                                              howtospeak(contentWord[i].name);
+                                              howtospeak(
+                                                  contentWord[i].name, context);
                                             },
                                             onTap: () {
                                               if (speakingWordByWord) {
-                                                howtospeak(contentWord[i].name);
+                                                howtospeak(contentWord[i].name,
+                                                    context);
                                               }
                                               setState(() {
                                                 fieldContent.add(
@@ -1991,19 +2014,22 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                         onLongPress: () {
                                                           howtospeak(
                                                               contentWord[i + 1]
-                                                                  .name);
+                                                                  .name,
+                                                              context);
                                                         },
                                                         onDoubleTap: () {
                                                           howtospeak(
                                                               contentWord[i + 1]
-                                                                  .name);
+                                                                  .name,
+                                                              context);
                                                         },
                                                         onTap: () {
                                                           if (speakingWordByWord) {
                                                             howtospeak(
                                                                 contentWord[
                                                                         i + 1]
-                                                                    .name);
+                                                                    .name,
+                                                                context);
                                                           }
                                                           setState(() {
                                                             fieldContent.add(
@@ -2170,7 +2196,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       if (v[v.length - 1] == " ") {
         isautoComplete = false;
         if (speakingWordByWord) {
-          howtospeak(controller.text);
+          howtospeak(controller.text, context);
         }
         setState(() {
           fieldContent
@@ -2238,7 +2264,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       onTap: () {
         controller.clear();
         if (speakingWordByWord) {
-          howtospeak(harakatPrediction(predictionWords[index][0]));
+          howtospeak(harakatPrediction(predictionWords[index][0]), context);
         }
 
         setState(() {

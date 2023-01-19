@@ -3,7 +3,9 @@
 import 'dart:convert';
 
 import 'package:arabic_speaker_child/controller/istablet.dart';
+import 'package:provider/provider.dart';
 
+import '../../controller/my_provider.dart';
 import '../../controller/var.dart';
 import '/controller/images.dart';
 import '/controller/speak.dart';
@@ -20,6 +22,7 @@ class FavoriteChildren extends StatefulWidget {
 class _FavoriteChildrenState extends State<FavoriteChildren> {
   List<List> favorite = [];
   bool isLoading = true;
+  int currentIndex = -1;
   @override
   void initState() {
     getFavData().then((v) {
@@ -113,11 +116,20 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                       for (int i = 0; i < favorite.length; i++)
                         InkWell(
                           onTap: () {
-                            String a = "";
-                            for (var element in favorite[i]) {
-                              a += element[0] + " ";
+                            bool t =
+                                Provider.of<MyProvider>(context, listen: false)
+                                    .isSpeakingNow;
+
+                            if (!t) {
+                              setState(() {
+                                currentIndex = i;
+                              });
+                              String a = "";
+                              for (var element in favorite[i]) {
+                                a += element[0] + " ";
+                              }
+                              howtospeak(a, context);
                             }
-                            howtospeak(a);
                           },
                           child: Padding(
                             padding: EdgeInsets.symmetric(
@@ -127,6 +139,12 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                     : 15),
                             child: Container(
                                 decoration: BoxDecoration(
+                                    color: Provider.of<MyProvider>(context,
+                                                    listen: true)
+                                                .isSpeakingNow &&
+                                            currentIndex == i
+                                        ? pinkColor.withOpacity(.5)
+                                        : Colors.white,
                                     borderRadius: BorderRadius.circular(
                                         DeviceUtil.isTablet ? 30 : 25),
                                     border:

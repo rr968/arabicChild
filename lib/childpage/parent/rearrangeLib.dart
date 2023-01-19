@@ -211,6 +211,7 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                               ),
                             );
                           },
+                          padding: const EdgeInsets.all(1),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount:

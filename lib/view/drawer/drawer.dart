@@ -2,6 +2,10 @@
 
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+
+import '../../main.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/childpage/constant.dart';
 import '/childpage/parent/mainparent.dart';
@@ -15,7 +19,6 @@ import '/controller/checkinternet.dart';
 import '/view/Auth/login.dart';
 import '/view/drawer/aboutapp.dart';
 import '/view/drawer/contactus.dart';
-import '/view/drawer/deleteaccount.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
@@ -43,6 +46,7 @@ class _DrawercState extends State<Drawerc> {
   bool isLoading = true;
   late bool isParentMode;
   late bool switchValue;
+  bool isDeleting = false;
 
   @override
   void initState() {
@@ -884,13 +888,146 @@ class _DrawercState extends State<Drawerc> {
                                           textDirection: TextDirection.rtl,
                                         ),
                                         actions: <Widget>[
-                                          button(() {
-                                            Navigator.of(context).pop();
-                                          }, 'لا، تراجع'),
-                                          button(() {
-                                            Navigator.of(context).pop();
-                                            deleteAccount();
-                                          }, 'نعم، أنا متأكد')
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Container(
+                                                  height: 34,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: maincolor),
+                                                  child: Center(
+                                                      child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(7),
+                                                    child: FittedBox(
+                                                      child: Text(
+                                                        'لا، تراجع',
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 20,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  )),
+                                                ),
+                                              ),
+                                              InkWell(
+                                                onTap: () async {
+                                                  User user = FirebaseAuth
+                                                      .instance.currentUser!;
+                                                  Provider.of<MyProvider>(
+                                                          context,
+                                                          listen: false)
+                                                      .isLoading(true);
+                                                  try {
+                                                    await user
+                                                        .delete()
+                                                        .then((value) async {
+                                                      /* await FirebaseFirestore
+                                                          .instance
+                                                          .collection(
+                                                              'childUsers')
+                                                          .doc(user.uid)
+                                                          .delete();*/
+                                                      Navigator.pushAndRemoveUntil(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  const Login()),
+                                                          (route) => false);
+                                                      isFemale =
+                                                          false; // default
+                                                      removeAllSharedPrefrences();
+                                                      ScaffoldMessenger.of(
+                                                              navigatorKey
+                                                                  .currentContext!)
+                                                          .showSnackBar(
+                                                              const SnackBar(
+                                                                  content: Text(
+                                                        'تم حذف الحساب بنجاح',
+                                                        textDirection:
+                                                            TextDirection.rtl,
+                                                      )));
+                                                      Provider.of<MyProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .isLoading(false);
+                                                    });
+                                                  } on Exception catch (_) {
+                                                    Provider.of<MyProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .isLoading(false);
+                                                    removeAllSharedPrefrences();
+                                                    Navigator.pushAndRemoveUntil(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const Login()),
+                                                        (route) => false);
+                                                    ScaffoldMessenger.of(
+                                                            navigatorKey
+                                                                .currentContext!)
+                                                        .showSnackBar(
+                                                            const SnackBar(
+                                                                content: Text(
+                                                      'تم حذف الحساب بنجاح',
+                                                      textDirection:
+                                                          TextDirection.rtl,
+                                                    )));
+                                                  }
+                                                },
+                                                child: Container(
+                                                  height: 34,
+                                                  width: 120,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      color: maincolor),
+                                                  child: Center(
+                                                      child: Provider.of<
+                                                                      MyProvider>(
+                                                                  context,
+                                                                  listen: true)
+                                                              .isloading
+                                                          ? CircularProgressIndicator(
+                                                              color:
+                                                                  Colors.white,
+                                                            )
+                                                          : Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8),
+                                                              child: FittedBox(
+                                                                child: Text(
+                                                                  'نعم، أنا متأكد',
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          20,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                                ),
+                                                              ),
+                                                            )),
+                                                ),
+                                              )
+                                            ],
+                                          )
                                         ],
                                       );
                                     });
@@ -938,7 +1075,7 @@ class _DrawercState extends State<Drawerc> {
                                     return Directionality(
                                         textDirection: TextDirection.rtl,
                                         child: AlertDialog(
-                                          backgroundColor: Colors.white,
+                                          insetPadding: EdgeInsets.zero,
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(

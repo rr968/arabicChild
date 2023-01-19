@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:arabic_speaker_child/childpage/parent/mainparent.dart';
+import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/view/export_and_import/importlibrary.dart';
 
 import '/controller/erroralert.dart';
@@ -57,23 +58,24 @@ class _ImportState extends State<Import> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back_ios,
-                size: 40,
+                size: DeviceUtil.isTablet ? 40 : 30,
               ),
             ),
             title: AnimatedSearchBar(
-              closeIcon: const Icon(
+              closeIcon: Icon(
                 Icons.close,
-                size: 40,
+                size: DeviceUtil.isTablet ? 40 : 30,
               ),
-              searchIcon: const Icon(
+              searchIcon: Icon(
                 Icons.search,
-                size: 40,
+                size: DeviceUtil.isTablet ? 40 : 30,
               ),
               label: "ابحث",
-              labelStyle:
-                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+              labelStyle: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: DeviceUtil.isTablet ? 30 : 25),
               alignment: TextAlign.center,
               controller: _controller,
               searchStyle: const TextStyle(color: Colors.white),
@@ -105,18 +107,21 @@ class _ImportState extends State<Import> {
                   ),
                 )
               : Padding(
-                  padding: const EdgeInsets.only(top: 30, bottom: 25),
+                  padding: EdgeInsets.only(
+                      top: DeviceUtil.isTablet ? 30 : 10, bottom: 25),
                   child: ListView(
                     children: [
                       for (int index = 0; index < data.length; index++)
                         Column(
                           children: [
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(bottom: 15, top: 10),
+                              padding: EdgeInsets.only(
+                                  bottom: DeviceUtil.isTablet ? 15 : 10,
+                                  top: 10),
                               child: Container(
-                                width: MediaQuery.of(context).size.width * .75,
-                                height: 170,
+                                width: DeviceUtil.isTablet
+                                    ? MediaQuery.of(context).size.width * .75
+                                    : MediaQuery.of(context).size.width * .9,
                                 decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20),
@@ -139,12 +144,16 @@ class _ImportState extends State<Import> {
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 8),
+                                            padding: EdgeInsets.only(
+                                                right: DeviceUtil.isTablet
+                                                    ? 8
+                                                    : 4),
                                             child: Text(
                                               "اسم التصدير : ${data[index]["name"]}",
-                                              style: const TextStyle(
-                                                  fontSize: 22,
+                                              style: TextStyle(
+                                                  fontSize: DeviceUtil.isTablet
+                                                      ? 22
+                                                      : 18,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
@@ -152,12 +161,17 @@ class _ImportState extends State<Import> {
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: Padding(
-                                            padding:
-                                                const EdgeInsets.only(right: 8),
+                                            padding: EdgeInsets.only(
+                                                right: DeviceUtil.isTablet
+                                                    ? 8
+                                                    : 4),
                                             child: Text(
                                                 "اسم الناشر : ${data[index]["publisherName"]}",
-                                                style: const TextStyle(
-                                                    fontSize: 22,
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        DeviceUtil.isTablet
+                                                            ? 22
+                                                            : 18,
                                                     fontWeight:
                                                         FontWeight.bold)),
                                           ),
@@ -165,12 +179,17 @@ class _ImportState extends State<Import> {
                                         Align(
                                           alignment: Alignment.centerRight,
                                           child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 8, bottom: 7),
+                                            padding: EdgeInsets.only(
+                                                right:
+                                                    DeviceUtil.isTablet ? 8 : 4,
+                                                bottom: 7),
                                             child: Text(
                                                 "شرح عن التصدير : ${data[index]["explaination"]}",
-                                                style: const TextStyle(
-                                                    fontSize: 22,
+                                                style: TextStyle(
+                                                    fontSize:
+                                                        DeviceUtil.isTablet
+                                                            ? 22
+                                                            : 18,
                                                     fontWeight:
                                                         FontWeight.bold)),
                                           ),
@@ -207,8 +226,12 @@ class _ImportState extends State<Import> {
                                                 padding:
                                                     const EdgeInsets.all(5.0),
                                                 child: Container(
-                                                  height: 50,
-                                                  width: 160,
+                                                  height: DeviceUtil.isTablet
+                                                      ? 50
+                                                      : 40,
+                                                  width: DeviceUtil.isTablet
+                                                      ? 160
+                                                      : 120,
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: maincolor,
@@ -224,7 +247,10 @@ class _ImportState extends State<Import> {
                                                       Icon(
                                                         Icons.download,
                                                         color: maincolor,
-                                                        size: 35,
+                                                        size:
+                                                            DeviceUtil.isTablet
+                                                                ? 35
+                                                                : 28,
                                                       ),
                                                       Text(
                                                         " تنزيل ",
@@ -232,7 +258,10 @@ class _ImportState extends State<Import> {
                                                             color: maincolor,
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 22),
+                                                            fontSize: DeviceUtil
+                                                                    .isTablet
+                                                                ? 22
+                                                                : 18),
                                                       )
                                                     ],
                                                   ),
@@ -269,8 +298,12 @@ class _ImportState extends State<Import> {
                                                                       library)));
                                                 },
                                                 child: Container(
-                                                  height: 50,
-                                                  width: 160,
+                                                  height: DeviceUtil.isTablet
+                                                      ? 50
+                                                      : 40,
+                                                  width: DeviceUtil.isTablet
+                                                      ? 160
+                                                      : 130,
                                                   decoration: BoxDecoration(
                                                       border: Border.all(
                                                           color: maincolor,
@@ -293,7 +326,10 @@ class _ImportState extends State<Import> {
                                                             color: maincolor,
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            fontSize: 20),
+                                                            fontSize: DeviceUtil
+                                                                    .isTablet
+                                                                ? 20
+                                                                : 15),
                                                       ),
                                                     ],
                                                   ),

@@ -5,9 +5,11 @@ import 'dart:convert';
 import 'package:arabic_speaker_child/controller/harakatPrediction.dart';
 import 'package:arabic_speaker_child/controller/realtime.dart';
 import 'package:arabic_speaker_child/data.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../controller/erroralert.dart';
+import '../../controller/my_provider.dart';
 import '/childpage/constant.dart';
 import '/controller/images.dart';
 import '/controller/speak.dart';
@@ -29,7 +31,7 @@ class SpeakingChildTablet extends StatefulWidget {
 
 class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   int coloredOpenLibraryindex = 0;
-  double sliderValue = 1;
+  double _scrollOffset = 0;
   List<List<List<String>>> constant = [
     [
       ["أنا", getImageWord("أنا")],
@@ -121,6 +123,16 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
 
   @override
   void initState() {
+    contentWordController.addListener(() {
+      double v = contentWordController.offset / (fieldContent.length * 50);
+      setState(() {
+        _scrollOffset = v < 0
+            ? 0
+            : v >= 1
+                ? 1
+                : v;
+      });
+    });
     predictionWords = pred;
     getFavData();
     getLocalDB();
@@ -255,55 +267,64 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      if (controller.text.trim().isNotEmpty) {
-                                        setState(() {
-                                          fieldContent.add(Content(
-                                              controller.text.trim(),
-                                              "",
-                                              "yes",
-                                              "",
-                                              "",
-                                              "yes"));
-                                        });
-                                        contentWordController.animateTo(
-                                            contentWordController
-                                                .position.maxScrollExtent,
-                                            duration: const Duration(
-                                                milliseconds: 750),
-                                            curve: Curves.easeOut);
+                                      bool t = Provider.of<MyProvider>(context,
+                                              listen: false)
+                                          .isSpeakingNow;
+                                      if (!t) {
+                                        if (controller.text.trim().isNotEmpty) {
+                                          setState(() {
+                                            fieldContent.add(Content(
+                                                controller.text.trim(),
+                                                "",
+                                                "yes",
+                                                "",
+                                                "",
+                                                "yes"));
+                                          });
+                                          contentWordController.animateTo(
+                                              contentWordController
+                                                  .position.maxScrollExtent,
+                                              duration: const Duration(
+                                                  milliseconds: 750),
+                                              curve: Curves.easeOut);
 
-                                        controller.clear();
-                                      }
-                                      //speak
-                                      String a = "";
-                                      for (var element in fieldContent) {
-                                        a += "${element.name} ";
-                                      }
+                                          controller.clear();
+                                        }
+                                        //speak
+                                        String a = "";
+                                        for (var element in fieldContent) {
+                                          a += "${element.name} ";
+                                        }
 
-                                      if (fav.contains(a.trim())) {
-                                        setState(() {
-                                          isFav = true;
-                                        });
-                                      } else {
-                                        setState(() {
-                                          isFav = false;
-                                        });
+                                        if (fav.contains(a.trim())) {
+                                          setState(() {
+                                            isFav = true;
+                                          });
+                                        } else {
+                                          setState(() {
+                                            isFav = false;
+                                          });
+                                        }
+                                        if (controller.text.trim().isNotEmpty) {
+                                          predict(a
+                                              .replaceAll("أ", "ا")
+                                              .replaceAll("ة", "ه"));
+                                        }
+                                        howtospeak(a, context);
+                                        store_In_local(a);
+                                        tryUploadToRealTimeForChild(a);
                                       }
-                                      if (controller.text.trim().isNotEmpty) {
-                                        predict(a
-                                            .replaceAll("أ", "ا")
-                                            .replaceAll("إ", "ا")
-                                            .replaceAll("ة", "ه"));
-                                      }
-                                      howtospeak(a);
-                                      store_In_local(a);
-                                      tryUploadToRealTimeForChild(a);
                                     },
                                     child: Container(
                                         height: 130,
                                         width: 65,
                                         decoration: BoxDecoration(
-                                          color: pinkColor,
+                                          color: Provider.of<MyProvider>(
+                                                      context,
+                                                      listen: true)
+                                                  .isSpeakingNow
+                                              ? pinkColor.withOpacity(.6)
+                                              : pinkColor,
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(20)),
                                           boxShadow: [
@@ -374,11 +395,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                             alignment: Alignment.topRight,
                                             child: InkWell(
                                               onTap: () {
-                                                if (fieldContent.length < 6) {
-                                                  setState(() {
-                                                    sliderValue = 1;
-                                                  });
-                                                }
                                                 // clear
                                                 if (fieldContent.isNotEmpty) {
                                                   if (fieldContent.length ==
@@ -467,7 +483,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                     }
                                                     predict(text
                                                         .replaceAll("أ", "ا")
-                                                        .replaceAll("إ", "ا")
                                                         .replaceAll("ة", "ه"));
                                                     if (fav.contains(
                                                         text.trim())) {
@@ -724,7 +739,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                       children: [
                                                         SizedBox(
                                                             height: 10,
-                                                            width: 200,
+                                                            width: 250,
                                                             child: fieldContent
                                                                         .length >=
                                                                     6
@@ -732,17 +747,27 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                     data: SliderTheme.of(
                                                                             context)
                                                                         .copyWith(
-                                                                      activeTrackColor:
-                                                                          pinkColor,
-                                                                      inactiveTrackColor:
-                                                                          pinkColor
-                                                                              .withOpacity(.5),
+                                                                      activeTrackColor: Color.fromARGB(
+                                                                          255,
+                                                                          114,
+                                                                          114,
+                                                                          114),
+                                                                      inactiveTrackColor: Color.fromARGB(
+                                                                              255,
+                                                                              114,
+                                                                              114,
+                                                                              114)
+                                                                          .withOpacity(
+                                                                              .5),
                                                                       trackShape:
                                                                           const RectangularSliderTrackShape(),
                                                                       trackHeight:
                                                                           5,
-                                                                      thumbColor:
-                                                                          pinkColor,
+                                                                      thumbColor: Color.fromARGB(
+                                                                          255,
+                                                                          114,
+                                                                          114,
+                                                                          114),
                                                                       thumbShape:
                                                                           const RoundSliderThumbShape(
                                                                               enabledThumbRadius: 12),
@@ -755,14 +780,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                               overlayRadius: 28.0),
                                                                     ),
                                                                     child: Slider(
-                                                                        value: sliderValue,
+                                                                        value: _scrollOffset,
                                                                         onChanged: ((value) {
-                                                                          setState(
-                                                                              () {
-                                                                            sliderValue =
-                                                                                value;
-                                                                          });
-
                                                                           contentWordController.animateTo(
                                                                               contentWordController.position.maxScrollExtent * value,
                                                                               duration: const Duration(seconds: 1),
@@ -788,8 +807,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                 onTap:
                                                                     () async {
                                                                   setState(() {
-                                                                    sliderValue =
-                                                                        1;
                                                                     isFav =
                                                                         false;
                                                                     fieldContent =
@@ -944,7 +961,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                           .replaceAll(
                                                                               "أ",
                                                                               "ا")
-                                                                          .replaceAll("إ", "ا")
                                                                           .replaceAll(
                                                                               "ة",
                                                                               "ه"));
@@ -2590,14 +2606,17 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                         Expanded(
                                           child: InkWell(
                                             onLongPress: () {
-                                              howtospeak(contentWord[i].name);
+                                              howtospeak(
+                                                  contentWord[i].name, context);
                                             },
                                             onDoubleTap: () {
-                                              howtospeak(contentWord[i].name);
+                                              howtospeak(
+                                                  contentWord[i].name, context);
                                             },
                                             onTap: () {
                                               if (speakingWordByWord) {
-                                                howtospeak(contentWord[i].name);
+                                                howtospeak(contentWord[i].name,
+                                                    context);
                                               }
                                               setState(() {
                                                 fieldContent.add(
@@ -2626,7 +2645,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                   curve: Curves.easeOut);
                                               predict(text
                                                   .replaceAll("أ", "ا")
-                                                  .replaceAll("إ", "ا")
                                                   .replaceAll("ة", "ه")
                                                   .trim());
                                             },
@@ -2696,19 +2714,22 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                         onLongPress: () {
                                                           howtospeak(
                                                               contentWord[i + 1]
-                                                                  .name);
+                                                                  .name,
+                                                              context);
                                                         },
                                                         onDoubleTap: () {
                                                           howtospeak(
                                                               contentWord[i + 1]
-                                                                  .name);
+                                                                  .name,
+                                                              context);
                                                         },
                                                         onTap: () {
                                                           if (speakingWordByWord) {
                                                             howtospeak(
                                                                 contentWord[
                                                                         i + 1]
-                                                                    .name);
+                                                                    .name,
+                                                                context);
                                                           }
                                                           setState(() {
                                                             fieldContent.add(
@@ -2745,7 +2766,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                           predict(text
                                                               .replaceAll(
                                                                   "أ", "ا")
-                                                              .replaceAll("إ", "ا")
                                                               .replaceAll(
                                                                   "ة", "ه")
                                                               .trim());
@@ -2863,14 +2883,13 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
 
   autoComplete(String v) async {
     v = v.replaceAll("أ", "ا");
-    v = v.replaceAll("إ", "ا");
     v = v.replaceAll("ة", "ه");
     bool isautoComplete = true;
     if (v.trim().length > 1) {
       if (v[v.length - 1] == " ") {
         isautoComplete = false;
         if (speakingWordByWord) {
-          howtospeak(controller.text);
+          howtospeak(controller.text, context);
         }
         setState(() {
           fieldContent
@@ -2880,7 +2899,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
+        predict(text.replaceAll("أ", "ا").replaceAll("ة", "ه"));
         controller.clear();
       }
     }
@@ -2897,7 +2916,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
               if (w
                       .substring(0, leng)
                       .replaceAll("أ", "ا")
-                      .replaceAll("إ", "ا")
                       .replaceAll("ة", "ه") ==
                   v) {
                 if (!search_in_predictionWords(w)) {
@@ -2938,7 +2956,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       onTap: () {
         controller.clear();
         if (speakingWordByWord) {
-          howtospeak(harakatPrediction(predictionWords[index][0]));
+          howtospeak(harakatPrediction(predictionWords[index][0]), context);
         }
 
         setState(() {
@@ -2952,7 +2970,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
+        predict(text.replaceAll("أ", "ا").replaceAll("ة", "ه"));
         if (fav.contains(text.trim())) {
           setState(() {
             isFav = true;
@@ -2962,10 +2980,12 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
             isFav = false;
           });
         }
-        contentWordController.animateTo(
-            contentWordController.position.maxScrollExtent,
-            duration: const Duration(milliseconds: 750),
-            curve: Curves.easeOut);
+        if (fieldContent.length >= 7) {
+          contentWordController.animateTo(
+              contentWordController.position.maxScrollExtent - 180,
+              duration: const Duration(milliseconds: 750),
+              curve: Curves.easeOut);
+        }
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5),
@@ -3094,10 +3114,9 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     for (int i = 0; i < predictionWords.length; i++) {
       if (predictionWords[i][0]
               .replaceAll("أ", "ا")
-              .replaceAll("إ", "ا")
               .replaceAll("ة", "ه")
               .trim() ==
-          word.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").trim()) {
+          word.replaceAll("أ", "ا").replaceAll("ة", "ه").trim()) {
         return true;
       }
     }
@@ -3108,7 +3127,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     List<String> sentence = word
         .replaceAll("  ", " ")
         .replaceAll("أ", "ا")
-        .replaceAll("إ", "ا")
         .replaceAll("ة", "ه")
         .trim()
         .split(' ');
@@ -3130,7 +3148,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[1]) {
@@ -3162,7 +3180,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       r = r.replaceAll("\"", "");
 
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s[1].compareTo(text[1]) == 0 &&
             s[2].compareTo(text[2]) == 0 &&
@@ -3187,7 +3205,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   third_word_Local(List text, int counter) async {
     for (String r in LocalDB) {
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[0]) {
@@ -3218,7 +3236,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     for (String r in result) {
       r = r.replaceAll("\"", "");
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s[0] == text[0] &&
             s[1] == text[1] &&
@@ -3237,7 +3255,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         r = r.replaceAll("\"", "");
         if (counter < 16) {
           List<String> s =
-              r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+              r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
           List<String> sf = r.split(" ");
           if (s[1] == text[1] &&
               fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
@@ -3263,7 +3281,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
         if (s.length >= 2 &&
             s[0] == text &&
@@ -3291,7 +3309,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       r = r.replaceAll("\"", "");
 
       if (counter < 16) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r.replaceAll("أ", "ا").replaceAll("ة", "ه").split(" ");
         List<String> sf = r.split(" ");
 
         if (s[0] == text &&
@@ -3367,10 +3385,6 @@ String getImageWord(String word) {
       if (element[0].replaceAll("أ", "ا") == word.replaceAll("أ", "ا")) {
         imurl = dataImage[j][1];
       }
-
-      if (element[0].replaceAll("إ", "ا") == word.replaceAll("إ", "ا")) {
-      imurl = dataImage[j][1];
-      }
     });
     if (imurl != "") {
       break;
@@ -3416,18 +3430,6 @@ Color getWordColor(String word) {
           wordColor = Colors.yellow;
         }
       }
-      if (element[0].replaceAll("إ", "ا") == word.replaceAll("إ", "ا")) {
-        if (element[1] == "n") {
-          wordColor = const Color.fromARGB(255, 214, 129, 1);
-        } else if (element[1] == "v") {
-          wordColor = Colors.green;
-        } else if (element[1] == "a") {
-          wordColor = Colors.blue;
-        } else if (element[1] == "l") {
-          wordColor = Colors.yellow;
-        }
-      }
-
     });
     if (wordColor != Colors.grey) {
       break;

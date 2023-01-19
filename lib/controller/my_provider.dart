@@ -27,6 +27,14 @@ class MyProvider with ChangeNotifier {
   } ///////////////////
 
   ////////////////////
+  bool isSpeakingNow = false;
+  void setIsSpeakingNow(bool val) {
+    isSpeakingNow = val;
+    notifyListeners();
+  }
+  ///////////////////
+
+  ////////////////////
   bool isloading = false;
   void isLoading(bool val) {
     isloading = val;

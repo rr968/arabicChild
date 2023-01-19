@@ -94,7 +94,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                       right: 17, bottom: selectedAvaiabel ? 25 : 50, top: 50),
                   child: !selectedAvaiabel
                       ? Text(
-                          "المكتبات",
+                          "المكتبات الحالية",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: purcolor,
@@ -231,7 +231,8 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                         title: Column(
                                           children: [
                                             SizedBox(
-                                              height: 40,
+                                              height:
+                                                  DeviceUtil.isTablet ? 40 : 25,
                                               child: Stack(children: [
                                                 Center(
                                                   child: Text(
@@ -252,9 +253,12 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                       onTap: () =>
                                                           Navigator.pop(
                                                               context),
-                                                      child: const Icon(
+                                                      child: Icon(
                                                         Icons.cancel_outlined,
-                                                        size: 40,
+                                                        size:
+                                                            DeviceUtil.isTablet
+                                                                ? 40
+                                                                : 25,
                                                       )),
                                                 )
                                               ]),
@@ -643,374 +647,368 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                       ],
                                                     ),
                                                   ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          Provider.of<MyProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addOrRemove(4);
-                                                        },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              child: Container(
-                                                                height: 120,
-                                                                width: 120,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: const Color
-                                                                              .fromARGB(
-                                                                          255,
-                                                                          255,
-                                                                          255,
-                                                                          255)
-                                                                      .withOpacity(
-                                                                          0.8),
-                                                                  borderRadius: const BorderRadius
-                                                                          .all(
-                                                                      Radius.circular(
-                                                                          27)),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .withOpacity(
-                                                                                0.3),
-                                                                        spreadRadius:
-                                                                            0,
-                                                                        blurRadius:
-                                                                            5,
-                                                                        offset: const Offset(
-                                                                            0,
-                                                                            3)),
-                                                                  ],
-                                                                ),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(5),
-                                                                  child: Column(
-                                                                      children: [
-                                                                        Expanded(
-                                                                            flex:
-                                                                                3,
-                                                                            child:
-                                                                                getImage(constantLib[4].imgurl)),
-                                                                        Expanded(
-                                                                          flex:
-                                                                              2,
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(top: 5),
-                                                                            child:
-                                                                                Text(
-                                                                              constantLib[4].name,
-                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                            ),
-                                                                          ),
-                                                                        )
-                                                                      ]),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            !Provider.of<MyProvider>(
-                                                                        context)
-                                                                    .isSelectedInAlert
-                                                                    .contains(4)
-                                                                ? Container()
-                                                                : Icon(
-                                                                    Icons.done,
-                                                                    color:
-                                                                        purcolor,
-                                                                    size: 120,
+                                                  FittedBox(
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(4);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(10),
+                                                                child:
+                                                                    Container(
+                                                                  height: 120,
+                                                                  width: 120,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: const Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: const Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
                                                                   ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          Provider.of<MyProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addOrRemove(5);
-                                                        },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              child: Container(
-                                                                height: 120,
-                                                                width: 120,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: const Color
-                                                                              .fromARGB(
-                                                                          255,
-                                                                          255,
-                                                                          255,
-                                                                          255)
-                                                                      .withOpacity(
-                                                                          0.8),
-                                                                  borderRadius: const BorderRadius
-                                                                          .all(
-                                                                      Radius.circular(
-                                                                          27)),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .withOpacity(
-                                                                                0.3),
-                                                                        spreadRadius:
-                                                                            0,
-                                                                        blurRadius:
-                                                                            5,
-                                                                        offset: const Offset(
-                                                                            0,
-                                                                            3)),
-                                                                  ],
-                                                                ),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(5),
-                                                                  child: Column(
-                                                                      children: [
-                                                                        Expanded(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[4].imgurl)),
+                                                                          Expanded(
                                                                             flex:
-                                                                                3,
+                                                                                2,
                                                                             child:
-                                                                                getImage(constantLib[5].imgurl)),
-                                                                        Expanded(
-                                                                          flex:
-                                                                              2,
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(top: 5),
-                                                                            child:
-                                                                                Text(
-                                                                              constantLib[5].name,
-                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                            ),
-                                                                          ),
-                                                                        )
-                                                                      ]),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            !Provider.of<MyProvider>(
-                                                                        context)
-                                                                    .isSelectedInAlert
-                                                                    .contains(5)
-                                                                ? Container()
-                                                                : Icon(
-                                                                    Icons.done,
-                                                                    color:
-                                                                        purcolor,
-                                                                    size: 120,
-                                                                  ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          Provider.of<MyProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addOrRemove(6);
-                                                        },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              child: Container(
-                                                                height: 120,
-                                                                width: 120,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: const Color
-                                                                              .fromARGB(
-                                                                          255,
-                                                                          255,
-                                                                          255,
-                                                                          255)
-                                                                      .withOpacity(
-                                                                          0.8),
-                                                                  borderRadius: const BorderRadius
-                                                                          .all(
-                                                                      Radius.circular(
-                                                                          27)),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .withOpacity(
-                                                                                0.3),
-                                                                        spreadRadius:
-                                                                            0,
-                                                                        blurRadius:
-                                                                            5,
-                                                                        offset: const Offset(
-                                                                            0,
-                                                                            3)),
-                                                                  ],
-                                                                ),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(5),
-                                                                  child: Column(
-                                                                      children: [
-                                                                        Expanded(
-                                                                            flex:
-                                                                                3,
-                                                                            child:
-                                                                                getImage(constantLib[6].imgurl)),
-                                                                        Expanded(
-                                                                          flex:
-                                                                              2,
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(top: 5),
-                                                                            child:
-                                                                                FittedBox(
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 5),
                                                                               child: Text(
-                                                                                constantLib[6].name,
+                                                                                constantLib[4].name,
                                                                                 style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        )
-                                                                      ]),
+                                                                          )
+                                                                        ]),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            !Provider.of<MyProvider>(
-                                                                        context)
-                                                                    .isSelectedInAlert
-                                                                    .contains(6)
-                                                                ? Container()
-                                                                : Icon(
-                                                                    Icons.done,
-                                                                    color:
-                                                                        purcolor,
-                                                                    size: 120,
-                                                                  ),
-                                                          ],
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          4)
+                                                                  ? Container()
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 120,
+                                                                    ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          Provider.of<MyProvider>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addOrRemove(7);
-                                                        },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: [
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(10),
-                                                              child: Container(
-                                                                height: 120,
-                                                                width: 120,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: const Color
-                                                                              .fromARGB(
-                                                                          255,
-                                                                          255,
-                                                                          255,
-                                                                          255)
-                                                                      .withOpacity(
-                                                                          0.8),
-                                                                  borderRadius: const BorderRadius
-                                                                          .all(
-                                                                      Radius.circular(
-                                                                          27)),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                        color: Colors
-                                                                            .grey
-                                                                            .withOpacity(
-                                                                                0.3),
-                                                                        spreadRadius:
-                                                                            0,
-                                                                        blurRadius:
-                                                                            5,
-                                                                        offset: const Offset(
-                                                                            0,
-                                                                            3)),
-                                                                  ],
-                                                                ),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(5),
-                                                                  child: Column(
-                                                                      children: [
-                                                                        Expanded(
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(5);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(10),
+                                                                child:
+                                                                    Container(
+                                                                  height: 120,
+                                                                  width: 120,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: const Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: const Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[5].imgurl)),
+                                                                          Expanded(
                                                                             flex:
-                                                                                3,
+                                                                                2,
                                                                             child:
-                                                                                getImage(constantLib[7].imgurl)),
-                                                                        Expanded(
-                                                                          flex:
-                                                                              2,
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(top: 5),
-                                                                            child:
-                                                                                Text(
-                                                                              constantLib[7].name,
-                                                                              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 5),
+                                                                              child: Text(
+                                                                                constantLib[5].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              ),
                                                                             ),
-                                                                          ),
-                                                                        )
-                                                                      ]),
+                                                                          )
+                                                                        ]),
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            !Provider.of<MyProvider>(
-                                                                        context)
-                                                                    .isSelectedInAlert
-                                                                    .contains(7)
-                                                                ? Container()
-                                                                : Icon(
-                                                                    Icons.done,
-                                                                    color:
-                                                                        purcolor,
-                                                                    size: 120,
-                                                                  ),
-                                                          ],
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          5)
+                                                                  ? Container()
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 120,
+                                                                    ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(6);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(10),
+                                                                child:
+                                                                    Container(
+                                                                  height: 120,
+                                                                  width: 120,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: const Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: const Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[6].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 5),
+                                                                              child: FittedBox(
+                                                                                child: Text(
+                                                                                  constantLib[6].name,
+                                                                                  style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          6)
+                                                                  ? Container()
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 120,
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addOrRemove(7);
+                                                          },
+                                                          child: Stack(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(10),
+                                                                child:
+                                                                    Container(
+                                                                  height: 120,
+                                                                  width: 120,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: const Color.fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                    borderRadius: const BorderRadius
+                                                                            .all(
+                                                                        Radius.circular(
+                                                                            27)),
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                          color: Colors.grey.withOpacity(
+                                                                              0.3),
+                                                                          spreadRadius:
+                                                                              0,
+                                                                          blurRadius:
+                                                                              5,
+                                                                          offset: const Offset(
+                                                                              0,
+                                                                              3)),
+                                                                    ],
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .all(5),
+                                                                    child: Column(
+                                                                        children: [
+                                                                          Expanded(
+                                                                              flex: 3,
+                                                                              child: getImage(constantLib[7].imgurl)),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                2,
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 5),
+                                                                              child: Text(
+                                                                                constantLib[7].name,
+                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                            ),
+                                                                          )
+                                                                        ]),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              !Provider.of<MyProvider>(
+                                                                          context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(
+                                                                          7)
+                                                                  ? Container()
+                                                                  : Icon(
+                                                                      Icons
+                                                                          .done,
+                                                                      color:
+                                                                          purcolor,
+                                                                      size: 120,
+                                                                    ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1059,8 +1057,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                           (route) => false);
                                                     },
                                                     child: Container(
-                                                      height: 40,
-                                                      width: 170,
+                                                      height:
+                                                          DeviceUtil.isTablet
+                                                              ? 40
+                                                              : 35,
+                                                      width: DeviceUtil.isTablet
+                                                          ? 170
+                                                          : 100,
                                                       decoration: BoxDecoration(
                                                           color: greenColor,
                                                           borderRadius:
@@ -1073,12 +1076,16 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                             MainAxisAlignment
                                                                 .center,
                                                         children: [
-                                                          const Text(
+                                                          Text(
                                                             "اختيار",
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
+                                                                fontSize: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 21
+                                                                    : 18,
                                                                 color: Colors
                                                                     .white),
                                                           ),
@@ -1105,8 +1112,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                   const Import()));
                                                     },
                                                     child: Container(
-                                                      height: 40,
-                                                      width: 170,
+                                                      height:
+                                                          DeviceUtil.isTablet
+                                                              ? 40
+                                                              : 35,
+                                                      width: DeviceUtil.isTablet
+                                                          ? 170
+                                                          : 100,
                                                       decoration: BoxDecoration(
                                                           color: pinkColor,
                                                           borderRadius:
@@ -1123,10 +1135,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                             DeviceUtil.isTablet
                                                                 ? "تنزيل مكتبة"
                                                                 : "تنزيل",
-                                                            style: const TextStyle(
+                                                            style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
+                                                                fontSize: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 21
+                                                                    : 18,
                                                                 color: Colors
                                                                     .white),
                                                           ),
@@ -1136,9 +1152,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 ? 10
                                                                 : 5,
                                                           ),
-                                                          const Icon(
+                                                          Icon(
                                                             Icons
                                                                 .cloud_download,
+                                                            size: DeviceUtil
+                                                                    .isTablet
+                                                                ? 24
+                                                                : 21,
                                                             color: Colors.white,
                                                           ),
                                                         ],
@@ -1152,8 +1172,13 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                             builder: (context) =>
                                                                 const AddChildLibrary())),
                                                     child: Container(
-                                                      height: 40,
-                                                      width: 170,
+                                                      height:
+                                                          DeviceUtil.isTablet
+                                                              ? 40
+                                                              : 35,
+                                                      width: DeviceUtil.isTablet
+                                                          ? 170
+                                                          : 100,
                                                       decoration: BoxDecoration(
                                                           color: purcolor,
                                                           borderRadius:
@@ -1170,7 +1195,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                             DeviceUtil.isTablet
                                                                 ? "إنشاء مكتبة"
                                                                 : "إنشاء",
-                                                            style: const TextStyle(
+                                                            style: TextStyle(
+                                                                fontSize: DeviceUtil
+                                                                        .isTablet
+                                                                    ? 21
+                                                                    : 18,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -1183,11 +1212,14 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                 ? 10
                                                                 : 5,
                                                           ),
-                                                          const Icon(
+                                                          Icon(
                                                             Icons
                                                                 .add_circle_outline,
                                                             color: Colors.white,
-                                                            size: 35,
+                                                            size: DeviceUtil
+                                                                    .isTablet
+                                                                ? 30
+                                                                : 23,
                                                           ),
                                                         ],
                                                       )),
@@ -1346,9 +1378,11 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                     ],
                   ),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
                         child: GridView.builder(
+                            padding: const EdgeInsets.all(1),
                             controller: controllerList,
                             scrollDirection: Axis.vertical,
                             itemCount: libraryListChild.length,

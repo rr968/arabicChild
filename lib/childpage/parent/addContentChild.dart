@@ -3,6 +3,10 @@
 import 'dart:async';
 
 import 'dart:io' as io;
+import 'package:arabic_speaker_child/controller/uploaddataChild.dart';
+
+import '../../controller/erroralert.dart';
+import '../../controller/istablet.dart';
 import '/childpage/parent/mainparent.dart';
 import '/controller/my_provider.dart';
 import 'package:provider/provider.dart';
@@ -71,17 +75,20 @@ class _AddContentChildState extends State<AddContentChild> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 45),
+              padding: EdgeInsets.only(bottom: 45),
               child: Text(
                 "إضافة جملة",
                 style: TextStyle(
-                    fontSize: 45,
+                    fontSize: DeviceUtil.isTablet ? 45 : 30,
                     fontWeight: FontWeight.w900,
                     color: maincolor),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40, bottom: 22),
+              padding: EdgeInsets.only(
+                  left: DeviceUtil.isTablet ? 40 : 15,
+                  right: DeviceUtil.isTablet ? 40 : 15,
+                  bottom: 22),
               child: Container(
                 decoration: BoxDecoration(
                     border: Border.all(color: greyColor, width: 1),
@@ -96,7 +103,7 @@ class _AddContentChildState extends State<AddContentChild> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 40),
                         child: Container(
-                          height: 97,
+                          height: DeviceUtil.isTablet ? 97 : 70,
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
@@ -115,7 +122,7 @@ class _AddContentChildState extends State<AddContentChild> {
                             decoration: InputDecoration(
                               labelText: "اكتب جملة لا تتجاوز ست كلمات",
                               labelStyle: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: DeviceUtil.isTablet ? 24 : 18,
                                   fontWeight: FontWeight.bold,
                                   color: maincolor),
                               enabledBorder: const OutlineInputBorder(
@@ -158,6 +165,8 @@ class _AddContentChildState extends State<AddContentChild> {
                                       }
                                     },
                                     child: Container(
+                                      height: DeviceUtil.isTablet ? 100 : 80,
+                                      width: DeviceUtil.isTablet ? 100 : 80,
                                       decoration: BoxDecoration(
                                           border: Border.all(
                                               color: greyColor, width: 1.5),
@@ -177,32 +186,43 @@ class _AddContentChildState extends State<AddContentChild> {
                                           children: [
                                             if (_currentStatus ==
                                                 RecordingStatus.Recording)
-                                              const Icon(
+                                              Icon(
                                                 Icons.stop,
-                                                size: 60,
+                                                size: DeviceUtil.isTablet
+                                                    ? 60
+                                                    : 40,
                                                 color: Colors.red,
                                               )
                                             else
-                                              const Icon(Icons.mic,
-                                                  size: 60,
+                                              Icon(Icons.mic,
+                                                  size: DeviceUtil.isTablet
+                                                      ? 60
+                                                      : 40,
                                                   color: Color.fromARGB(
                                                       255, 132, 132, 132)),
                                             _currentStatus ==
                                                     RecordingStatus.Recording
-                                                ? const Text(
-                                                    "يتم التسجيل...",
-                                                    style: TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.w700),
+                                                ? FittedBox(
+                                                    child: const Text(
+                                                      "يتم التسجيل...",
+                                                      style: TextStyle(
+                                                          color: Colors.red,
+                                                          fontWeight:
+                                                              FontWeight.w700),
+                                                    ),
                                                   )
-                                                : const Text(
-                                                    "تسجيل صوتي",
-                                                    style: TextStyle(
-                                                        color: Color.fromARGB(
-                                                            255, 132, 132, 132),
-                                                        fontWeight:
-                                                            FontWeight.w800),
+                                                : FittedBox(
+                                                    child: const Text(
+                                                      "تسجيل صوتي",
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              132,
+                                                              132,
+                                                              132),
+                                                          fontWeight:
+                                                              FontWeight.w800),
+                                                    ),
                                                   )
                                           ],
                                         ),
@@ -217,8 +237,8 @@ class _AddContentChildState extends State<AddContentChild> {
                                       });
                                     },
                                     child: Container(
-                                      height: 100,
-                                      width: 100,
+                                      height: DeviceUtil.isTablet ? 100 : 80,
+                                      width: DeviceUtil.isTablet ? 100 : 80,
                                       decoration: BoxDecoration(
                                           border: Border.all(
                                               color: greyColor, width: 1.5),
@@ -234,18 +254,20 @@ class _AddContentChildState extends State<AddContentChild> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          const Icon(
-                                            Icons.restart_alt,
-                                            color: Color.fromARGB(
-                                                255, 132, 132, 132),
-                                            size: 60,
-                                          ),
-                                          const Text(
-                                            "إلغاء التسجيل",
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 132, 132, 132),
-                                                fontWeight: FontWeight.w700),
+                                          Icon(Icons.restart_alt,
+                                              color: Color.fromARGB(
+                                                  255, 132, 132, 132),
+                                              size: DeviceUtil.isTablet
+                                                  ? 60
+                                                  : 40),
+                                          FittedBox(
+                                            child: const Text(
+                                              "إلغاء التسجيل",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 132, 132, 132),
+                                                  fontWeight: FontWeight.w700),
+                                            ),
                                           )
                                         ],
                                       ),
@@ -271,8 +293,8 @@ class _AddContentChildState extends State<AddContentChild> {
                                                     255,
                                                     255) // Color.fromARGB(255, 121, 161, 134)
                                                 .withOpacity(.4)),
-                                        height: 100,
-                                        width: 100,
+                                        height: DeviceUtil.isTablet ? 100 : 80,
+                                        width: DeviceUtil.isTablet ? 100 : 80,
                                         child: getImage(
                                             Provider.of<MyProvider>(context)
                                                 .lastimagepath
@@ -282,7 +304,12 @@ class _AddContentChildState extends State<AddContentChild> {
                                   )
                                 : Container(),
                             Container(
-                              width: 30,
+                              width: Provider.of<MyProvider>(context)
+                                      .lastimagepath
+                                      .toString()
+                                      .isNotEmpty
+                                  ? 0
+                                  : 30,
                             ),
                             Provider.of<MyProvider>(context)
                                     .lastimagepath
@@ -302,20 +329,20 @@ class _AddContentChildState extends State<AddContentChild> {
                                                   255,
                                                   255) // Color.fromARGB(255, 121, 161, 134)
                                               .withOpacity(.4)),
-                                      height: 100,
-                                      width: 100,
+                                      height: DeviceUtil.isTablet ? 100 : 80,
+                                      width: DeviceUtil.isTablet ? 100 : 80,
                                       child: Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            const Icon(
-                                              Icons.add_a_photo,
-                                              color: Color.fromARGB(
-                                                  255, 132, 132, 132),
-                                              size: 60,
-                                            ),
+                                            Icon(Icons.add_a_photo,
+                                                color: Color.fromARGB(
+                                                    255, 132, 132, 132),
+                                                size: DeviceUtil.isTablet
+                                                    ? 60
+                                                    : 40),
                                             const Text(
                                               "صورة",
                                               style: TextStyle(
@@ -353,22 +380,21 @@ class _AddContentChildState extends State<AddContentChild> {
                                       color: const Color.fromARGB(255, 255, 255,
                                               255) // Color.fromARGB(255, 121, 161, 134)
                                           .withOpacity(.4)),
-                                  height: 100,
-                                  width: 100,
+                                  height: DeviceUtil.isTablet ? 100 : 80,
+                                  width: DeviceUtil.isTablet ? 100 : 80,
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Icon(
-                                          Icons.delete_outline,
-                                          color: deleteColor
-                                              ? Colors.red
-                                              : const Color.fromARGB(
-                                                  255, 132, 132, 132),
-                                          size: 60,
-                                        ),
+                                        Icon(Icons.delete_outline,
+                                            color: deleteColor
+                                                ? Colors.red
+                                                : const Color.fromARGB(
+                                                    255, 132, 132, 132),
+                                            size:
+                                                DeviceUtil.isTablet ? 60 : 40),
                                         Text(
                                           "مسح",
                                           style: TextStyle(
@@ -423,8 +449,9 @@ class _AddContentChildState extends State<AddContentChild> {
                               Text(
                                 message,
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: DeviceUtil.isTablet ? 16 : 14),
                               ),
                             ],
                           ),
@@ -448,11 +475,11 @@ class _AddContentChildState extends State<AddContentChild> {
                           Icons.error,
                           color: Colors.red,
                         ),
-                        const Text(
+                        Text(
                           " يجب ادخال جملة  ",
                           style: TextStyle(
                               color: Colors.red,
-                              fontSize: 20,
+                              fontSize: DeviceUtil.isTablet ? 20 : 18,
                               fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -463,8 +490,8 @@ class _AddContentChildState extends State<AddContentChild> {
               height: 15,
             ),
             SizedBox(
-              height: 65,
-              width: 220,
+              height: DeviceUtil.isTablet ? 65 : 50,
+              width: DeviceUtil.isTablet ? 220 : 160,
               child: InkWell(
                 onTap: () async {
                   if (controller.text.trim().isEmpty) {
@@ -504,7 +531,7 @@ class _AddContentChildState extends State<AddContentChild> {
                       v.add(s);
                     }
                     liblist.setStringList("liblistChild", v);
-                    //tryUploadData();
+                    //tryUploadDataChild();
                     Provider.of<MyProvider>(context, listen: false)
                         .setIscontentOfLibrary(widget.libraryindex);
 
@@ -517,7 +544,7 @@ class _AddContentChildState extends State<AddContentChild> {
                         (route) => false);
 
                     Provider.of<MyProvider>(context, listen: false).setPath("");
-                    // acceptalert(context, "تم إضافة المحتوى بنجاح");
+                    acceptalert(context, "تم إضافة المحتوى بنجاح");
                   }
                 },
                 child: Container(

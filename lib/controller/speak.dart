@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:arabic_speaker_child/controller/my_provider.dart';
+import 'package:provider/provider.dart';
+
 import '/controller/api.dart';
 import '/controller/checkinternet.dart';
 import '/controller/functionsspeak.dart';
@@ -19,7 +22,7 @@ speakTts(text) async {
   fluttertts.speak(text);
 }
 
-getspeech(String text, String name) async {
+Future getspeech(String text, String name) async {
   final String audio = await TextToSpeechAPI().synthesizeText(text, name, "ar");
   final bytes = const Base64Decoder().convert(audio, 0, audio.length);
   final dir = await getTemporaryDirectory();
@@ -30,11 +33,14 @@ getspeech(String text, String name) async {
   await player.play();
 }
 
-Future howtospeak(String text) async {
+Future howtospeak(String text, context) async {
   String voiceGoogleCloud = isFemale ? "ar-XA-Wavenet-A" : "ar-XA-Wavenet-B";
   internetConnection().then((value) {
     if (value == true) {
-      getspeech(modifyTextBeforeSpeak(text), voiceGoogleCloud);
+      Provider.of<MyProvider>(context, listen: false).setIsSpeakingNow(true);
+      getspeech(modifyTextBeforeSpeak(text), voiceGoogleCloud).then((value) {
+        Provider.of<MyProvider>(context, listen: false).setIsSpeakingNow(false);
+      });
     } else {
       speakTts(modifyTextBeforeSpeak(text));
     }

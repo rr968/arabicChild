@@ -1,3 +1,5 @@
+import 'package:arabic_speaker_child/controller/istablet.dart';
+
 import '/controller/var.dart';
 import 'importcontent.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,9 @@ class ImportLibrary extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
                     MediaQuery.of(context).orientation == Orientation.portrait
-                        ? 5
+                        ? DeviceUtil.isTablet
+                            ? 5
+                            : 3
                         : 7,
                 childAspectRatio: 1,
                 mainAxisSpacing: 20,
