@@ -749,12 +749,13 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                     data: SliderTheme.of(
                                                                             context)
                                                                         .copyWith(
-                                                                      activeTrackColor: Color.fromARGB(
+                                                                      activeTrackColor: const Color
+                                                                              .fromARGB(
                                                                           255,
                                                                           114,
                                                                           114,
                                                                           114),
-                                                                      inactiveTrackColor: Color.fromARGB(
+                                                                      inactiveTrackColor: const Color.fromARGB(
                                                                               255,
                                                                               114,
                                                                               114,
@@ -765,7 +766,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                           const RectangularSliderTrackShape(),
                                                                       trackHeight:
                                                                           5,
-                                                                      thumbColor: Color.fromARGB(
+                                                                      thumbColor: const Color
+                                                                              .fromARGB(
                                                                           255,
                                                                           114,
                                                                           114,

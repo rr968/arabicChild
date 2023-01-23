@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import '../../controller/getAllDataPediction.dart';
 import '../../controller/istablet.dart';
 import '../../questionspages.dart/sizeOfITem.dart';
 import '../../controller/var.dart';
@@ -364,6 +365,7 @@ class _LoginState extends State<Signup> {
                                                     .text
                                                     .trim())
                                             .then((value) async {
+                                          setDataPredictionWordsAndImage();
                                           SharedPreferences getSignUpOrLogin =
                                               await SharedPreferences
                                                   .getInstance();

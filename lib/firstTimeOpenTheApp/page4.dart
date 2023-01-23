@@ -63,7 +63,7 @@ class Page4 extends StatelessWidget {
                           height: 18,
                         ),
                         Text(
-                          "يعد من أحدث التطبيقات التي تخدم اللغة\nالعربية من خلال تقنيات الذكاء الاصطناعي",
+                          "يمكنك من تخصيص مكتباتك وايضا تحميل مكتبات جاهزة من اعدادات صلاحية التعديل",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: greyColor,

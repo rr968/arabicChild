@@ -382,7 +382,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                       ),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsets.all(4),
+                                      padding: const EdgeInsets.all(4),
                                       child: Row(
                                         children: [
                                           Align(
@@ -741,12 +741,13 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                     data: SliderTheme.of(
                                                                             context)
                                                                         .copyWith(
-                                                                      activeTrackColor: Color.fromARGB(
+                                                                      activeTrackColor: const Color
+                                                                              .fromARGB(
                                                                           255,
                                                                           114,
                                                                           114,
                                                                           114),
-                                                                      inactiveTrackColor: Color.fromARGB(
+                                                                      inactiveTrackColor: const Color.fromARGB(
                                                                               255,
                                                                               114,
                                                                               114,
@@ -757,7 +758,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                           const RectangularSliderTrackShape(),
                                                                       trackHeight:
                                                                           4,
-                                                                      thumbColor: Color.fromARGB(
+                                                                      thumbColor: const Color
+                                                                              .fromARGB(
                                                                           255,
                                                                           114,
                                                                           114,
@@ -944,7 +946,9 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                           .replaceAll(
                                                                               "أ",
                                                                               "ا")
-                                                                          .replaceAll("إ", "ا")
+                                                                          .replaceAll(
+                                                                              "إ",
+                                                                              "ا")
                                                                           .replaceAll(
                                                                               "ة",
                                                                               "ه"));
@@ -1225,20 +1229,20 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                   predictionWords.isNotEmpty
                                                       ? box(0)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   predictionWords.length >= 2
                                                       ? box(1)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   predictionWords.length >= 3
                                                       ? box(2)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   InkWell(
                                                     onTap: () {
@@ -1357,20 +1361,20 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                   predictionWords.length >= 4
                                                       ? box(3)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   predictionWords.length >= 5
                                                       ? box(4)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   predictionWords.length >= 6
                                                       ? box(5)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   InkWell(
                                                     onTap: () {
@@ -1493,20 +1497,20 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                   predictionWords.length >= 7
                                                       ? box(6)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   predictionWords.length >= 8
                                                       ? box(7)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   predictionWords.length >= 9
                                                       ? box(8)
                                                       : const SizedBox(
-                                                          height: 90,
-                                                          width: 90,
+                                                          height: 80,
+                                                          width: 80,
                                                         ),
                                                   InkWell(
                                                     onTap: () {
@@ -1631,24 +1635,24 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                 10
                                                             ? box(9)
                                                             : const SizedBox(
-                                                                height: 90,
-                                                                width: 90,
+                                                                height: 80,
+                                                                width: 80,
                                                               ),
                                                         predictionWords
                                                                     .length >=
                                                                 11
                                                             ? box(10)
                                                             : const SizedBox(
-                                                                height: 90,
-                                                                width: 90,
+                                                                height: 80,
+                                                                width: 80,
                                                               ),
                                                         predictionWords
                                                                     .length >=
                                                                 12
                                                             ? box(11)
                                                             : const SizedBox(
-                                                                height: 90,
-                                                                width: 90,
+                                                                height: 80,
+                                                                width: 80,
                                                               ),
                                                         InkWell(
                                                           onTap: () {
@@ -2073,7 +2077,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                           predict(text
                                                               .replaceAll(
                                                                   "أ", "ا")
-                                                              .replaceAll("إ", "ا")
+                                                              .replaceAll(
+                                                                  "إ", "ا")
                                                               .replaceAll(
                                                                   "ة", "ه")
                                                               .trim());
@@ -2208,7 +2213,10 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
+        predict(text
+            .replaceAll("أ", "ا")
+            .replaceAll("إ", "ا")
+            .replaceAll("ة", "ه"));
         controller.clear();
       }
     }
@@ -2280,7 +2288,10 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         for (var element in fieldContent) {
           text += "${element.name} ";
         }
-        predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه"));
+        predict(text
+            .replaceAll("أ", "ا")
+            .replaceAll("إ", "ا")
+            .replaceAll("ة", "ه"));
         if (fav.contains(text.trim())) {
           setState(() {
             isFav = true;
@@ -2415,12 +2426,16 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     for (int i = 0; i < predictionWords.length; i++) {
       if (predictionWords[i][0]
               .replaceAll("أ", "ا")
-      //افنان
+              //افنان
               .replaceAll("إ", "ا")
-      //
+              //
               .replaceAll("ة", "ه")
               .trim() ==
-          word.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").trim()) {
+          word
+              .replaceAll("أ", "ا")
+              .replaceAll("إ", "ا")
+              .replaceAll("ة", "ه")
+              .trim()) {
         return true;
       }
     }
@@ -2432,9 +2447,10 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         .replaceAll("  ", " ")
         .replaceAll("أ", "ا")
         .replaceAll("ة", "ه")
-    //  Afnan
+        //  Afnan
         .replaceAll("إ", "ا")
-    ///
+
+        ///
         .trim()
         .split(' ');
     if (sentence.length == 1) {
@@ -2455,11 +2471,13 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا")
+        List<String> s = r
+            .replaceAll("أ", "ا")
             //افنان
-        .replaceAll("إ", "ا")
-        //
-        .replaceAll("ة", "ه").split(" ");
+            .replaceAll("إ", "ا")
+            //
+            .replaceAll("ة", "ه")
+            .split(" ");
         List<String> sf = r.split(" ");
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text[1]) {
@@ -2491,7 +2509,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       r = r.replaceAll("\"", "");
 
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا")
+        List<String> s = r
+            .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
             .replaceAll("ة", "ه")
             .split(" ");
@@ -2519,7 +2538,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   third_word_Local(List text, int counter) async {
     for (String r in LocalDB) {
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا")
+        List<String> s = r
+            .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
             .replaceAll("ة", "ه")
             .split(" ");
@@ -2553,9 +2573,11 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     for (String r in result) {
       r = r.replaceAll("\"", "");
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا")
+        List<String> s = r
+            .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
-            .replaceAll("ة", "ه").split(" ");
+            .replaceAll("ة", "ه")
+            .split(" ");
         List<String> sf = r.split(" ");
         if (s[0] == text[0] &&
             s[1] == text[1] &&
@@ -2573,8 +2595,11 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       for (String r in result) {
         r = r.replaceAll("\"", "");
         if (counter < 12) {
-          List<String> s =
-              r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+          List<String> s = r
+              .replaceAll("أ", "ا")
+              .replaceAll("إ", "ا")
+              .replaceAll("ة", "ه")
+              .split(" ");
           List<String> sf = r.split(" ");
           if (s[1] == text[1] &&
               fieldContent[fieldContent.length - 1].name.trim() != s[2] &&
@@ -2600,7 +2625,11 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     List<String> result = LocalDB;
     for (String r in result) {
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r
+            .replaceAll("أ", "ا")
+            .replaceAll("إ", "ا")
+            .replaceAll("ة", "ه")
+            .split(" ");
         List<String> sf = r.split(" ");
         if (s.length >= 2 &&
             s[0] == text &&
@@ -2628,7 +2657,11 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       r = r.replaceAll("\"", "");
 
       if (counter < 12) {
-        List<String> s = r.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة", "ه").split(" ");
+        List<String> s = r
+            .replaceAll("أ", "ا")
+            .replaceAll("إ", "ا")
+            .replaceAll("ة", "ه")
+            .split(" ");
         List<String> sf = r.split(" ");
 
         if (s[0] == text &&

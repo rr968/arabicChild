@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'dart:io' as io;
-import 'package:arabic_speaker_child/controller/uploaddataChild.dart';
 
 import '../../controller/erroralert.dart';
 import '../../controller/istablet.dart';
@@ -75,7 +74,7 @@ class _AddContentChildState extends State<AddContentChild> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 45),
+              padding: const EdgeInsets.only(bottom: 45),
               child: Text(
                 "إضافة جملة",
                 style: TextStyle(
@@ -198,12 +197,12 @@ class _AddContentChildState extends State<AddContentChild> {
                                                   size: DeviceUtil.isTablet
                                                       ? 60
                                                       : 40,
-                                                  color: Color.fromARGB(
+                                                  color: const Color.fromARGB(
                                                       255, 132, 132, 132)),
                                             _currentStatus ==
                                                     RecordingStatus.Recording
-                                                ? FittedBox(
-                                                    child: const Text(
+                                                ? const FittedBox(
+                                                    child: Text(
                                                       "يتم التسجيل...",
                                                       style: TextStyle(
                                                           color: Colors.red,
@@ -211,8 +210,8 @@ class _AddContentChildState extends State<AddContentChild> {
                                                               FontWeight.w700),
                                                     ),
                                                   )
-                                                : FittedBox(
-                                                    child: const Text(
+                                                : const FittedBox(
+                                                    child: Text(
                                                       "تسجيل صوتي",
                                                       style: TextStyle(
                                                           color: Color.fromARGB(
@@ -255,13 +254,13 @@ class _AddContentChildState extends State<AddContentChild> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Icon(Icons.restart_alt,
-                                              color: Color.fromARGB(
+                                              color: const Color.fromARGB(
                                                   255, 132, 132, 132),
                                               size: DeviceUtil.isTablet
                                                   ? 60
                                                   : 40),
-                                          FittedBox(
-                                            child: const Text(
+                                          const FittedBox(
+                                            child: Text(
                                               "إلغاء التسجيل",
                                               style: TextStyle(
                                                   color: Color.fromARGB(
@@ -338,7 +337,7 @@ class _AddContentChildState extends State<AddContentChild> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Icon(Icons.add_a_photo,
-                                                color: Color.fromARGB(
+                                                color: const Color.fromARGB(
                                                     255, 132, 132, 132),
                                                 size: DeviceUtil.isTablet
                                                     ? 60

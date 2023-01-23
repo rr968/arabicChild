@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:arabic_speaker_child/questionspages.dart/childFirstInfo.dart';
 import 'package:flutter/material.dart';
@@ -289,7 +289,7 @@ class _NumofItemsState extends State<NumofItems> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(right: 10),
+                                    padding: const EdgeInsets.only(right: 10),
                                     child: Text(
                                       "عادي",
                                       style: TextStyle(

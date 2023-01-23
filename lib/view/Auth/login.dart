@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../childpage/child/mainchildPage.dart';
 import '../../controller/checkinternet.dart';
+import '../../controller/getAllDataPediction.dart';
 import '../../controller/setdataonlogin.dart';
 import '/controller/var.dart';
 import '/view/Auth/forgetpass.dart';
@@ -86,7 +87,7 @@ class _LoginState extends State<Login> {
                           width: DeviceUtil.isTablet ? 100 : 50,
                           child: Image.asset("assets/uiImages/user.png")),
                       Padding(
-                        padding: EdgeInsets.only(top: 16),
+                        padding: const EdgeInsets.only(top: 16),
                         child: Text(
                           "تسجيل الدخول",
                           style: TextStyle(
@@ -136,8 +137,8 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.only(left: 15, right: 15, top: 10),
+                            padding: const EdgeInsets.only(
+                                left: 15, right: 15, top: 10),
                             child: Material(
                               elevation: 12,
                               shadowColor: greyColor.withOpacity(.6),
@@ -218,8 +219,10 @@ class _LoginState extends State<Login> {
                                           .collection('childUsers')
                                           .doc(FirebaseAuth
                                               .instance.currentUser!.uid);
+
                                       internetConnection().then((value) async {
                                         if (value == true) {
+                                          setDataPredictionWordsAndImage();
                                           await userChildDoc
                                               .get()
                                               .then((value) async {
@@ -357,7 +360,7 @@ class _LoginState extends State<Login> {
                             height: 10,
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [

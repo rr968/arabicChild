@@ -2,9 +2,6 @@
 
 import 'dart:math';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-
 import '../../main.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/childpage/constant.dart';
@@ -904,10 +901,9 @@ class _DrawercState extends State<Drawerc> {
                                                           BorderRadius.circular(
                                                               10),
                                                       color: maincolor),
-                                                  child: Center(
+                                                  child: const Center(
                                                       child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(7),
+                                                    padding: EdgeInsets.all(7),
                                                     child: FittedBox(
                                                       child: Text(
                                                         'لا، تراجع',
@@ -1002,13 +998,13 @@ class _DrawercState extends State<Drawerc> {
                                                                   context,
                                                                   listen: true)
                                                               .isloading
-                                                          ? CircularProgressIndicator(
+                                                          ? const CircularProgressIndicator(
                                                               color:
                                                                   Colors.white,
                                                             )
-                                                          : Padding(
+                                                          : const Padding(
                                                               padding:
-                                                                  const EdgeInsets
+                                                                  EdgeInsets
                                                                       .all(8),
                                                               child: FittedBox(
                                                                 child: Text(
@@ -1132,9 +1128,10 @@ class _DrawercState extends State<Drawerc> {
                                                               Padding(
                                                                 padding: DeviceUtil
                                                                         .isTablet
-                                                                    ? EdgeInsets
+                                                                    ? const EdgeInsets
                                                                         .all(15)
-                                                                    : EdgeInsets.only(
+                                                                    : const EdgeInsets
+                                                                            .only(
                                                                         top: 10,
                                                                         bottom:
                                                                             10),

@@ -10,7 +10,7 @@
      </intent>
    </queries>
    <application
-        android:label="arabic_speaker_child"
+        android:label="Speak"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

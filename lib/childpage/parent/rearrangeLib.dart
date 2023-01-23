@@ -177,7 +177,8 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
                             color: const Color.fromARGB(255, 202, 202, 202)),
                         color: const Color.fromARGB(255, 255, 255, 255)
                             .withOpacity(0.3),
-                        borderRadius: BorderRadius.all(Radius.circular(27)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(27)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.3),

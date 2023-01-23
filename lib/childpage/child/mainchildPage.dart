@@ -1,9 +1,13 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
+
 import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
+import 'package:arabic_speaker_child/data.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
+import '../../controller/getAllDataPediction.dart';
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
 import '/controller/var.dart';
@@ -21,6 +25,7 @@ class MainChildPage extends StatefulWidget {
 }
 
 class _MainChildPageState extends State<MainChildPage> {
+  bool loading = true;
   SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
 
   int _selectedItemPosition = 1;
@@ -31,11 +36,15 @@ class _MainChildPageState extends State<MainChildPage> {
   final _pageController = PageController(initialPage: 1);
   List<Widget> screens = [
     const FavoriteChildren(),
-    DeviceUtil.isTablet ? SpeakingChildTablet() : SpeakingChildPhone(),
-    DeviceUtil.isTablet ? SpeakingChildTablet() : SpeakingChildPhone(),
+    DeviceUtil.isTablet
+        ? const SpeakingChildTablet()
+        : const SpeakingChildPhone(),
+    DeviceUtil.isTablet
+        ? const SpeakingChildTablet()
+        : const SpeakingChildPhone(),
   ];
   late int indexpage;
-  bool isLoading = false;
+
   playaudio() async {
     final player = AudioPlayer(); // Create a player
     await player.setAsset(// Load a URL
@@ -52,12 +61,28 @@ class _MainChildPageState extends State<MainChildPage> {
   @override
   void initState() {
     indexpage = widget.index;
-
+    setDataPredictionWordsAndImage().then((v) {
+      getData().then((val) {
+        setState(() {
+          loading = false;
+        });
+      });
+    });
     getVoice();
     getfemail();
     setparentmode();
 
     super.initState();
+  }
+
+  getData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var a = pref.getString("PredictionData");
+    if (a == null) {
+      dataImage = dataIfNoData;
+    } else {
+      dataImage = List<List>.from(json.decode(a));
+    }
   }
 
   getVoice() async {
@@ -92,105 +117,105 @@ class _MainChildPageState extends State<MainChildPage> {
   Widget build(BuildContext context) {
     return Directionality(
         textDirection: TextDirection.rtl,
-        child: isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : Scaffold(
-                body: PageView(
+        child: Scaffold(
+          body: loading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : PageView(
                   controller: _pageController,
                   physics: const NeverScrollableScrollPhysics(),
                   children:
                       List.generate(screens.length, (index) => screens[index]),
                 ),
-                extendBody: true,
-                drawer: const Drawerc(),
-                bottomNavigationBar: SnakeNavigationBar.color(
-                  shadowColor: Colors.black,
-                  elevation: 20,
-                  backgroundColor: const Color.fromARGB(255, 245, 236, 244),
-                  behaviour: snakeBarStyle,
-                  snakeShape: SnakeShape.circle,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: /*BorderRadius.only(
+          extendBody: true,
+          drawer: const Drawerc(),
+          bottomNavigationBar: SnakeNavigationBar.color(
+            shadowColor: Colors.black,
+            elevation: 20,
+            backgroundColor: const Color.fromARGB(255, 245, 236, 244),
+            behaviour: snakeBarStyle,
+            snakeShape: SnakeShape.circle,
+            shape: const RoundedRectangleBorder(
+              borderRadius: /*BorderRadius.only(
                           bottomLeft: Radius.circular(20),
                           bottomRight: Radius.circular(20))*/
-                        BorderRadius.all(Radius.circular(25)),
+                  BorderRadius.all(Radius.circular(25)),
+            ),
+            padding: EdgeInsets.only(
+                bottom: DeviceUtil.isTablet ? 5 : 0, right: 20, left: 20),
+            snakeViewColor: selectedColor,
+            selectedItemColor: SnakeShape.circle == SnakeShape.indicator
+                ? selectedColor
+                : null,
+            showUnselectedLabels: false,
+            showSelectedLabels: false,
+            height: DeviceUtil.isTablet ? 56 : 50,
+            currentIndex: _selectedItemPosition,
+            onTap: (index) {
+              if (index == 2) {
+                setState(() {
+                  _selectedItemPosition = index;
+                });
+                Future.delayed(const Duration(milliseconds: 1000))
+                    .then((value) {
+                  setState(() {
+                    _selectedItemPosition = 1;
+                  });
+                  _pageController.animateToPage(
+                    1,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeIn,
+                  );
+                });
+                playaudio();
+              } else {
+                setState(() {
+                  _selectedItemPosition = index;
+                });
+                _pageController.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn,
+                );
+              }
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/uiImages/star.png",
+                      color: _selectedItemPosition == 0
+                          ? Colors.white
+                          : Colors.black,
+                    ),
                   ),
-                  padding: EdgeInsets.only(
-                      bottom: DeviceUtil.isTablet ? 5 : 0, right: 20, left: 20),
-                  snakeViewColor: selectedColor,
-                  selectedItemColor: SnakeShape.circle == SnakeShape.indicator
-                      ? selectedColor
-                      : null,
-                  showUnselectedLabels: false,
-                  showSelectedLabels: false,
-                  height: DeviceUtil.isTablet ? 56 : 50,
-                  currentIndex: _selectedItemPosition,
-                  onTap: (index) {
-                    if (index == 2) {
-                      setState(() {
-                        _selectedItemPosition = index;
-                      });
-                      Future.delayed(const Duration(milliseconds: 1000))
-                          .then((value) {
-                        setState(() {
-                          _selectedItemPosition = 1;
-                        });
-                        _pageController.animateToPage(
-                          1,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeIn,
-                        );
-                      });
-                      playaudio();
-                    } else {
-                      setState(() {
-                        _selectedItemPosition = index;
-                      });
-                      _pageController.animateToPage(
-                        index,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeIn,
-                      );
-                    }
-                  },
-                  items: [
-                    BottomNavigationBarItem(
-                        icon: Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            "assets/uiImages/star.png",
-                            color: _selectedItemPosition == 0
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
-                        label: 'calendar'),
-                    BottomNavigationBarItem(
-                        icon: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.asset(
-                            "assets/uiImages/home.png",
-                            color: _selectedItemPosition == 1
-                                ? Colors.white
-                                : Colors.black,
-                          ),
-                        ),
-                        label: 'home'),
-                    BottomNavigationBarItem(
-                      icon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          "assets/bell.png",
-                          color: _selectedItemPosition == 2
-                              ? Colors.white
-                              : Colors.black,
-                        ),
-                      ),
-                    )
-                  ],
+                  label: 'calendar'),
+              BottomNavigationBarItem(
+                  icon: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      "assets/uiImages/home.png",
+                      color: _selectedItemPosition == 1
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ),
+                  label: 'home'),
+              BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    "assets/bell.png",
+                    color: _selectedItemPosition == 2
+                        ? Colors.white
+                        : Colors.black,
+                  ),
                 ),
-              ));
+              )
+            ],
+          ),
+        ));
   }
 }

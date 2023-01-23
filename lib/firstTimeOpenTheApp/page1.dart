@@ -51,10 +51,10 @@ class Page1 extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: 16),
                           child: Text(
-                            "مرحباً بك في تطبيق\nالمتحدث العربي",
+                            "مرحباً بك",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: DeviceUtil.isTablet ? 40 : 29,
+                              fontSize: DeviceUtil.isTablet ? 50 : 36,
                               color: maincolor,
                               fontWeight: FontWeight.w900,
                             ),
@@ -64,16 +64,19 @@ class Page1 extends StatelessWidget {
                           height: DeviceUtil.isTablet ? 22 : 13,
                         ),
                         Text(
-                          "أحدث تطبيق للتحدث والتواصل باللغة\nالعربية لذوي صعوبات النطق للأطفال\nوالبالغين وكبار السن",
+                          "تحدث يساعدك في التواصل بالعربية\nو باستخدام الصور",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: greyColor,
-                              fontSize: DeviceUtil.isTablet ? 22 : 17,
+                              fontSize: DeviceUtil.isTablet ? 23 : 18,
                               fontWeight: FontWeight.bold),
                         ),
                         Expanded(
-                          child: SizedBox(
-                              child: Image.asset("assets/uiImages/child.png")),
+                          child: Padding(
+                            padding: const EdgeInsets.all(70),
+                            child: SizedBox(
+                                child: Image.asset("assets/uiImages/logo.png")),
+                          ),
                         ),
                         InkWell(
                           onTap: () {
