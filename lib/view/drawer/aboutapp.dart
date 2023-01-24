@@ -35,12 +35,30 @@ class AboutApp extends StatelessWidget {
                         color: pinkColor),
                   ),
                   Container(
-                    height: 10,
+                    height: 20,
                   ),
-                  Image.asset(
-                    "assets/uiImages/logo.png",
-                    height: DeviceUtil.isTablet ? 170 : 160,
+                  Container(
+                    padding: EdgeInsets.zero,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          // "assets/uiImages/logo.png",
+                          "assets/uiImages/logo1.png",
+                          height: DeviceUtil.isTablet ? 160 : 150,
+                        ),
+
+
+                        Image.asset(
+                          // "assets/uiImages/logo.png",
+                          "assets/uiImages/logo2.png",
+                          height: DeviceUtil.isTablet ? 80 : 70,
+                          fit: BoxFit.contain,
+                        ),
+                      ],
+                    ),
                   ),
+
                   Text("_________________________",
                       style: TextStyle(
                           fontSize: DeviceUtil.isTablet ? 35 : 25,
