@@ -27,12 +27,8 @@ class MainChildPage extends StatefulWidget {
 class _MainChildPageState extends State<MainChildPage> {
   bool loading = true;
   SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
-
   int _selectedItemPosition = 1;
-
   Color selectedColor = pinkColor;
-
-  //////////
   final _pageController = PageController(initialPage: 1);
   List<Widget> screens = [
     const FavoriteChildren(),
@@ -68,6 +64,7 @@ class _MainChildPageState extends State<MainChildPage> {
         });
       });
     });
+    setDataHarakatWords();
     getVoice();
     getfemail();
     setparentmode();

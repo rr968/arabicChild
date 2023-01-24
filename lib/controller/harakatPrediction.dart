@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 String harakatPrediction(String word) {
   if (word == "أحب") return "أُحِْبْ";
   if (word == "أنا") return "أنا";
@@ -363,7 +362,7 @@ String harakatPrediction(String word) {
   if (word == "أهلي") return "أهلي";
   if (word == "اقاربي") return "اقاربي";
   if (word == "اروح") return "اروُِح";
- // if (word == "تروحين") return "ترْوُحين";
+  // if (word == "تروحين") return "ترْوُحين";
   if (word == "تروحين") return "تْروُحين";
   if (word == "سمعتك") return "سَمِعْتُك";
   if (word == "دعينا") return "دُعينا";
@@ -810,7 +809,7 @@ String harakatPrediction(String word) {
   if (word == "إنتهائها") return "اِنْتِهائِها";
   if (word == "أمهم") return "أُمِّهِمْ";
   if (word == "امهم") return "أُمِّهِمْ";
-  if (word == "ربتهم") return"رَبَتْهُمْ";
+  if (word == "ربتهم") return "رَبَتْهُمْ";
   if (word == "أخلاق") return "رَبَتْهُمْ";
   if (word == "اخلاق") return "رَبَتْهُمْ";
   if (word == "ارايتم") return "أَرَأَيْتُمْ";
@@ -821,7 +820,7 @@ String harakatPrediction(String word) {
   if (word == "يبوأون") return "يَبْدَأونَ";
   if (word == "يبواون") return "يَبْدَأونَ";
   if (word == "فلنلعب") return "فلنلعبْ";
- // if (word == "الغميضة") return "الغْمُيضَةُ";
+  // if (word == "الغميضة") return "الغْمُيضَةُ";
   if (word == "فلنقتسم") return "فلنقتسمْ";
   if (word == "نداعب") return "نُداعِب";
   if (word == "بعضنا") return "بَعْضُنا";
@@ -1694,7 +1693,7 @@ String harakatPrediction(String word) {
   if (word == "تملأ") return "تَمْلَأ";
   if (word == "عينه") return "عَيْنُه";
   if (word == "هداكم") return "هَداكُمْ";
- // if (word == "قنوعين") return "قَنوعَيْن";
+  // if (word == "قنوعين") return "قَنوعَيْن";
   if (word == "قنوعين") return "قنوُعَين";
   if (word == "الطامعين") return "الطّامِعين";
   if (word == "يهتز") return "يَهْتَز";
@@ -2229,9 +2228,6 @@ String harakatPrediction(String word) {
   if (word == "") return "";
   if (word == "") return "";
   if (word == "") return "";
-
-
-
 
   return word;
 }

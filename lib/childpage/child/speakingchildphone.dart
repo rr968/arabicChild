@@ -302,7 +302,6 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                           predict(a
                                               .replaceAll("أ", "ا")
                                               .replaceAll("إ", "ا")
-
                                               .replaceAll("ة", "ه"));
                                         }
                                         howtospeak(a, context);
