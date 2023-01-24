@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
+import 'package:arabic_speaker_child/controller/checkinternet.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/data.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
@@ -57,19 +58,35 @@ class _MainChildPageState extends State<MainChildPage> {
   @override
   void initState() {
     indexpage = widget.index;
-    setDataPredictionWordsAndImage().then((v) {
+    canGetData().then((v) {
       getData().then((val) {
         setState(() {
           loading = false;
         });
       });
     });
-    setDataHarakatWords();
+
     getVoice();
     getfemail();
     setparentmode();
 
     super.initState();
+  }
+
+  canGetData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    int numb = pref.getInt("numb") ?? -1;
+    internetConnection().then((value) async {
+      if (value == true) {
+        if (numb == -1 || numb == 5) {
+          setDataPredictionWordsAndImage();
+          setDataHarakatWords();
+          pref.setInt("numb", 0);
+        } else {
+          pref.setInt("numb", numb + 1);
+        }
+      }
+    });
   }
 
   getData() async {
@@ -79,6 +96,12 @@ class _MainChildPageState extends State<MainChildPage> {
       dataImage = dataIfNoData;
     } else {
       dataImage = List<List>.from(json.decode(a));
+    }
+    var harakat = pref.getString("Harakat");
+    if (harakat == null) {
+      //dataImage = dataIfNoData;
+    } else {
+      // dataImage = List<List>.from(json.decode(harakat));
     }
   }
 
