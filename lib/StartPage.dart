@@ -2,12 +2,16 @@
 
 import 'dart:async';
 
+import 'package:arabic_speaker_child/controller/getAllDataPediction.dart';
+
 import '/childpage/child/mainchildPage.dart';
 import '/controller/sharedpref.dart';
 import '/firstTimeOpenTheApp/page1.dart';
 import '/view/Auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'controller/checkinternet.dart';
 
 class Start extends StatefulWidget {
   const Start({Key? key}) : super(key: key);
@@ -21,6 +25,7 @@ class _StartState extends State<Start> {
   bool firstTimeOpenTheApp = true;
   @override
   void initState() {
+    canGetData();
     getIsSignUpOrLogin().then((sign) {
       getFirstTimeOpenApp().then((v) {
         signOrLogIn = sign;
@@ -39,6 +44,23 @@ class _StartState extends State<Start> {
                             index: 0,
                           ))));
     super.initState();
+  }
+
+  canGetData() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    int numb = pref.getInt("numb") ?? -1;
+    internetConnection().then((value) async {
+      if (value == true) {
+        if (numb == -1 || numb == 1) {
+          setDataPredictionWordsAndImage();
+          setDataHarakatWords();
+          setModonaSentence();
+          pref.setInt("numb", 0);
+        } else {
+          pref.setInt("numb", numb + 1);
+        }
+      }
+    });
   }
 
   getFirstTimeOpenApp() async {

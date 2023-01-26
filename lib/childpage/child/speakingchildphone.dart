@@ -20,7 +20,6 @@ import '/model/library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../model/content.dart';
 
 class SpeakingChildPhone extends StatefulWidget {
@@ -32,7 +31,6 @@ class SpeakingChildPhone extends StatefulWidget {
 
 class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   int coloredOpenLibraryindex = 0;
-
   List<List<List<String>>> constant = [
     [
       ["أنا", getImageWord("أنا")],
@@ -2472,9 +2470,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       if (counter < 12) {
         List<String> s = r
             .replaceAll("أ", "ا")
-            //افنان
             .replaceAll("إ", "ا")
-            //
             .replaceAll("ة", "ه")
             .split(" ");
         List<String> sf = r.split(" ");
@@ -2630,13 +2626,15 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
             .replaceAll("ة", "ه")
             .split(" ");
         List<String> sf = r.split(" ");
-        if (s.length >= 2 &&
-            s[0] == text &&
-            fieldContent[fieldContent.length - 1].name.trim() != s[1] &&
-            !search_in_predictionWords(s[1])) {
-          counter++;
 
-          predictionWords.add([sf[1], getImageWord(sf[1].trim())]);
+        for (int i = 0; i < s.length; i++) {
+          if (s[i] == text) {
+            if (s.length - i >= 2 && !search_in_predictionWords(text)) {
+              counter++;
+
+              predictionWords.add([sf[i + 1], getImageWord(sf[i + 1].trim())]);
+            }
+          }
         }
       } else {
         break;
