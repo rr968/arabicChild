@@ -18,9 +18,45 @@ String harakatOnFirstWord(String input) {
   } else if (inputlist[0] == "افتح") {
     inputlist[0] = "إِفْتَح";
   }
-  ///////////////////////
 
   //////////////////
+  else if (input.trim() == "عندي ألم في بطني") {
+    return "عندي ألمٌ في بطني ...,,,,,...... I have بَيْنْ إِنْ my stomak";
+  } else if (input.trim() == "عندي ألم في رجلي") {
+    return "عندي ألمٌ في رِجْليْ ...,,,,,...... I have بَيْنْ إِنْ my leg";
+  } else if (input.trim() == "عندي ألم في يدي") {
+    return "عندي ألمٌ في يدي ...,,,,,...... I have بَيْنْ إِنْ my hand";
+  } else if (input.trim() == "عندي ألم في رأسي") {
+    return "عندي ألمٌ في رأسي ...,,,,,...... I have بَيْنْ إِنْ my head";
+  } else if (input.trim() == "إرفع يدي") {
+    return " إرفعْ يَدْيْ...,,,,,...... raise my hand";
+  } else if (input.trim() == "إرفع رجلي") {
+    return " إرفع رِجْليْ...,,,,,...... raise my leg";
+  } else if (input.trim() == "حرك الوسادة فوق") {
+    return "حَرِكْ الوِسادَهْ فوقْ ...,,,,,...... Move the pillow up";
+  } else if (input.trim() == "حرك الوسادة تحت") {
+    return "حَرِكْ الوِسادَهْ تحتْ...,,,,,...... Move the pillow داَونْ";
+  } else if (input.trim() == "حرك الوسادة يمين") {
+    return "حَرِكْ الوِسادَهْ يمينْ ...,,,,,...... Move the pillow ْراايْت";
+  } else if (input.trim() == "حرك الوسادة يسار") {
+    return "حَرِكْ الوِسادَهْ يسارْ ...,,,,,...... Move the pillow left";
+  } else if (input.trim() == "إقلبني على جنب الأيمن") {
+    return "إِقْلِبْني علْىْ جنبِ الأيمنْ ...,,,,,...... Turn me to the ْراايْت";
+  } else if (input.trim() == "إقلبني على جنب الأيسر") {
+    return "إِقْلِبْني علْىْ جنبِ الأيسرْ ...,,,,,...... Turn me to the left";
+  } else if (input.trim() == "اغلق الباب") {
+    return "أغْلِقْ البابْ ...,,,,,...... close the door";
+  } else if (input.trim() == "اغلق النور") {
+    return "أغْلِقْ النورْ ...,,,,,...... Turn off the لَْاااايتْ";
+  } else if (input.trim() == "احتاج مساعدة") {
+    return "أَحْتاجْ مُسَاعَدهْ ...,,,,,...... I need help";
+  } else if (input.trim() == "احتاج شفط") {
+    return "أَحْتاجْ شَفْطْ  ...,,,,,...... I need suction";
+  } else if (input.trim() == "أريد الاتصال") {
+    return "أُرْيدُ الإِتِصْالْ ...,,,,,...... I wont to call";
+  }
+  ///////////
+  /*
   else if (input.trim() == "أريد أن احجز موعد قريبا") {
     return "أُريدُ أَنْ أَحْجِزَ مَوْعِدً قَرِيبًا";
   } else if (input.trim() == "لدي الم شديد هنا") {
@@ -37,7 +73,7 @@ String harakatOnFirstWord(String input) {
     return "شُكْرًا لَكَ وَ أَنَا مَمْنونٌ لك";
   } else if (input == "اطلب الطبيب لي") {
     return "أُطْلبْ الطَّبيبَ لِ";
-  }
+  }*/
   //////////////////////////
   else if (input == "هل قامت الصلاة") {
     return "هَلْ قَامَتْ الصَّلاةُ ";

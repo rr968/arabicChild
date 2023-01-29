@@ -148,7 +148,6 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   }
 
   getdata() async {
-    libraryListChild = [];
     SharedPreferences liblistChild = await SharedPreferences.getInstance();
     size = liblistChild.getInt("size") ?? 1;
 
@@ -2629,7 +2628,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
 
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text) {
-            if (s.length - i >= 2 && !search_in_predictionWords(text)) {
+            if (s.length - i >= 2 && !search_in_predictionWords(sf[i + 1])) {
               counter++;
 
               predictionWords.add([sf[i + 1], getImageWord(sf[i + 1].trim())]);

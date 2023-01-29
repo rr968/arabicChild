@@ -3336,7 +3336,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
 
         for (int i = 0; i < s.length; i++) {
           if (s[i] == text) {
-            if (s.length - i >= 2 && !search_in_predictionWords(text)) {
+            if (s.length - i >= 2 && !search_in_predictionWords(sf[i + 1])) {
               counter++;
 
               predictionWords.add([sf[i + 1], getImageWord(sf[i + 1].trim())]);

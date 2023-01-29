@@ -23,6 +23,50 @@ class _SelectedlibState extends State<Selectedlib> {
   List<int> indexesChooese = [];
   int selectAl = 0;
   List<lib> chooseLibrary = [
+    lib("المستشفى", "assets/7ss.png", "yes", [
+      Content("عندي ألم في بطني", "assets/images/stomach-ache.png", "yes", "",
+          "", "yes"),
+      Content("عندي ألم في رجلي", "assets/images/legPain.png", "yes", "", "",
+          "yes"),
+      Content(
+          "عندي ألم في يدي", "assets/images/injury.png", "yes", "", "", "yes"),
+      Content("عندي ألم في رأسي", "assets/images/headache.png", "yes", "", "",
+          "yes"),
+      Content("إرفع يدي", "assets/images/raiseHand.png", "yes", "", "", "yes"),
+      Content("إرفع رجلي", "assets/images/fitness.png", "yes", "", "", "yes"),
+      Content(
+          "حرك الوسادة فوق", "assets/images/move5.png", "yes", "", "", "yes"),
+      Content(
+          "حرك الوسادة تحت", "assets/images/move-2.png", "yes", "", "", "yes"),
+      Content(
+          "حرك الوسادة يمين", "assets/images/move-3.png", "yes", "", "", "yes"),
+      Content(
+          "حرك الوسادة يسار", "assets/images/move-4.png", "yes", "", "", "yes"),
+      Content("إقلبني على جنب الأيمن", "assets/images/driving.png", "yes", "",
+          "", "yes"),
+      Content("إقلبني على جنب الأيسر", "assets/images/driving-2.png", "yes", "",
+          "", "yes"),
+      Content("اغلق الباب", "assets/images/door.png", "yes", "", "", "yes"),
+      Content("اغلق النور", "assets/images/bulb.png", "yes", "", "", "yes"),
+      Content("احتاج مساعدة", "assets/images/help.png", "yes", "", "", "yes"),
+      Content("احتاج شفط", "assets/images/suction.png", "yes", "", "", "yes"),
+      Content(
+          "أريد الاتصال", "assets/images/phonecall.png", "yes", "", "", "yes"),
+      /* Content("أريد أن احجز موعد قريبا ", "assets/appointment.png", "yes", "", "",
+        "yes"),
+    Content(
+        "لدي الم شديد هنا ", "assets/muscle-pain.png", "yes", "", "", "yes"),
+    Content("أريد الإسعاف عاجلا ",
+        "assets/IconLib/transportation/ambulance.png", "yes", "", "", "yes"),
+    Content("هل يوجد مستوصف قريب من هنا", "assets/clinic.png", "yes", "", "",
+        "yes"),
+    Content("أريد صرف الدواء من فضلك ", "assets/medicine.png", "yes", "", "",
+        "yes"),
+    Content("كم جرعة الدواء ومتى؟", "assets/clock.png", "yes", "", "", "yes"),
+    Content("شكرا لك و أنا ممنون لك", "assets/positive-vote.png", "yes", "", "",
+        "yes"),
+    Content("اطلب الطبيب لي", "assets/doctor.png", "yes", "", "", "yes")*/
+    ]),
     lib("التحيات", "assets/1ss.png", "yes", [
       Content("كيف حالك؟ ", "assets/question.png", "yes", "", "", "yes"),
       Content("اهلا وسهلا ", "assets/waving-hand.png", "yes", "", "", "yes"),
@@ -125,22 +169,6 @@ class _SelectedlibState extends State<Selectedlib> {
           "yes", "", "", "yes"),
       Content("من فضلك إقرأ قائمة الطعام لي", "assets/menu.png", "yes", "", "",
           "yes")
-    ]),
-    lib("المستشفى", "assets/7ss.png", "yes", [
-      Content("أريد أن احجز موعد قريبا ", "assets/appointment.png", "yes", "",
-          "", "yes"),
-      Content(
-          "لدي الم شديد هنا ", "assets/muscle-pain.png", "yes", "", "", "yes"),
-      Content("أريد الإسعاف عاجلا ",
-          "assets/IconLib/transportation/ambulance.png", "yes", "", "", "yes"),
-      Content("هل يوجد مستوصف قريب من هنا", "assets/clinic.png", "yes", "", "",
-          "yes"),
-      Content("أريد صرف الدواء من فضلك ", "assets/medicine.png", "yes", "", "",
-          "yes"),
-      Content("كم جرعة الدواء ومتى؟", "assets/clock.png", "yes", "", "", "yes"),
-      Content("شكرا لك و أنا ممنون لك", "assets/positive-vote.png", "yes", "",
-          "", "yes"),
-      Content("اطلب الطبيب لي", "assets/doctor.png", "yes", "", "", "yes")
     ]),
     lib("المسجد", "assets/8ss.png", "yes", [
       Content("هل قامت الصلاة", "assets/shalat.png", "yes", "", "", "yes"),

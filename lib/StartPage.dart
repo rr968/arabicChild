@@ -25,7 +25,7 @@ class _StartState extends State<Start> {
   bool firstTimeOpenTheApp = true;
   @override
   void initState() {
-    canGetData();
+    //  canGetData();
     getIsSignUpOrLogin().then((sign) {
       getFirstTimeOpenApp().then((v) {
         signOrLogIn = sign;
