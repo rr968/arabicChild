@@ -72,20 +72,24 @@ class _MainChildPageState extends State<MainChildPage> {
   }
 
   getData() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
+    dataImage = dataIfNoData;
+    harakatWord = harakatIfNoData;
+    /* SharedPreferences pref = await SharedPreferences.getInstance();
     var a = pref.getString("PredictionData");
+
     if (a == null) {
       dataImage = dataIfNoData;
     } else {
       dataImage = List<List>.from(json.decode(a));
     }
+
     var harakat = pref.getString("Harakat");
 
     if (harakat == null) {
       harakatWord = harakatIfNoData;
     } else {
       harakatWord = List<List>.from(json.decode(harakat));
-    }
+    }*/
   }
 
   getVoice() async {
