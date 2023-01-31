@@ -151,6 +151,25 @@ class _SelectedlibState extends State<Selectedlib> {
       Content("كتاب", "assets/book.png", "yes", "", "", "yes"),
       Content("ورق", "assets/paper.png", "yes", "", "", "yes"),
       Content("ممحاة", "assets/eraser.png", "yes", "", "", "yes"),
+      Content("حاسبة ", "assets/IconLib/School/calculator.png", "yes", "", "",
+          "yes"),
+      Content("حقيبة ظهر ", "assets/IconLib/School/backpack.png", "yes", "", "",
+          "yes"),
+      Content("زائد ", "assets/IconLib/School/add.png", "yes", "", "", "yes"),
+      Content(
+          "ناقص ", "assets/IconLib/School/remove.png", "yes", "", "", "yes"),
+      Content("نصف ", "assets/IconLib/School/half.png", "yes", "", "", "yes"),
+      Content(
+          "يساوي ", "assets/IconLib/School/equal.png", "yes", "", "", "yes"),
+      Content(
+          "قسمة ", "assets/IconLib/School/divide.png", "yes", "", "", "yes"),
+      Content(
+          "رقم ", "assets/IconLib/School/numbers.png", "yes", "", "", "yes"),
+      Content(
+          "فواصل ", "assets/IconLib/School/comma.png", "yes", "", "", "yes"),
+      Content(
+          "رتب ", "assets/IconLib/School/arrange.png", "yes", "", "", "yes"),
+      Content("دبوس", "assets/IconLib/School/18.png", "yes", "", "", "yes"),
     ]),
     lib("المطعم", "assets/6ss.png", "yes", [
       Content(
@@ -179,27 +198,6 @@ class _SelectedlibState extends State<Selectedlib> {
       Content("أين يقع اقرب مسجد", "assets/ramadan.png", "yes", "", "", "yes"),
       Content("هل يوجد مدخل خاص للكراسي المتحركة ؟ ", "assets/ramp.png", "yes",
           "", "", "yes")
-    ]),
-    lib("المدرسة", "assets/IconLib/School/school.png", "yes", [
-      Content("حاسبة ", "assets/IconLib/School/calculator.png", "yes", "", "",
-          "yes"),
-      Content("حقيبة ظهر ", "assets/IconLib/School/backpack.png", "yes", "", "",
-          "yes"),
-      Content("زائد ", "assets/IconLib/School/add.png", "yes", "", "", "yes"),
-      Content(
-          "ناقص ", "assets/IconLib/School/remove.png", "yes", "", "", "yes"),
-      Content("نصف ", "assets/IconLib/School/half.png", "yes", "", "", "yes"),
-      Content(
-          "يساوي ", "assets/IconLib/School/equal.png", "yes", "", "", "yes"),
-      Content(
-          "قسمة ", "assets/IconLib/School/divide.png", "yes", "", "", "yes"),
-      Content(
-          "رقم ", "assets/IconLib/School/numbers.png", "yes", "", "", "yes"),
-      Content(
-          "فواصل ", "assets/IconLib/School/comma.png", "yes", "", "", "yes"),
-      Content(
-          "رتب ", "assets/IconLib/School/arrange.png", "yes", "", "", "yes"),
-      Content("دبوس", "assets/IconLib/School/18.png", "yes", "", "", "yes"),
     ]),
     lib("الملابس", "assets/IconLib/clothes/0.png", "yes", [
       Content("تغيير الملابس", "assets/IconLib/clothes/change.png", "yes", "",

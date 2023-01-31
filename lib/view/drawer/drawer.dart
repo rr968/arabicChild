@@ -87,28 +87,11 @@ class _DrawercState extends State<Drawerc> {
                   decoration: const BoxDecoration(),
                   child: ListView(
                     children: [
-                      Column(
-                        children: [
-                          Image.asset(
-                          //  "assets/uiImages/logo.png",
-                            "assets/uiImages/logo1.png",
-                            height: DeviceUtil.isTablet ? 160 : 210,
-                            width: DeviceUtil.isTablet ? 160 : 210,
-                            fit: BoxFit.fill,
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(top: 7),
-                            child: Image.asset(
-                              //  "assets/uiImages/logo.png",
-                              "assets/uiImages/logo2.png",
-                              height: DeviceUtil.isTablet ? 75 : 125,
-                              width: DeviceUtil.isTablet ? 100 : 150,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-
-                        ],
+                      Image.asset(
+                        "assets/uiImages/logo1.png",
+                        height: DeviceUtil.isTablet ? 160 : 150,
+                        width: DeviceUtil.isTablet ? 100 : 90,
+                        fit: BoxFit.contain,
                       ),
                       Container(
                         height: DeviceUtil.isTablet ? 20 : 0,

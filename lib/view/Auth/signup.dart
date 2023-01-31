@@ -386,7 +386,7 @@ class _LoginState extends State<Signup> {
                                           case 'ERROR_EMAIL_ALREADY_IN_USE':
                                           case 'email-already-in-use':
                                             message =
-                                                'البريد الإلكتروني المدخل مستخدم بالفعل';
+                                                'البريد الإلكتروني المدخل مستخدم في تطبيق المتحدث العربي للكبار أو تطبيق المتحدث من قبل من فضلك اضغط على زر تسجيل الدخول';
                                             break;
                                           default:
                                             message =
@@ -395,10 +395,13 @@ class _LoginState extends State<Signup> {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
-                                            content: Text(message,
-                                                textAlign: TextAlign.right),
+                                            content: Text(
+                                              message,
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(fontSize: 16),
+                                            ),
                                             duration:
-                                                const Duration(seconds: 2),
+                                                const Duration(seconds: 6),
                                           ),
                                         );
                                       }

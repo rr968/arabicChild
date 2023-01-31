@@ -39,26 +39,11 @@ class AboutApp extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.zero,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          // "assets/uiImages/logo.png",
-                          "assets/uiImages/logo1.png",
-                          height: DeviceUtil.isTablet ? 160 : 150,
-                        ),
-
-
-                        Image.asset(
-                          // "assets/uiImages/logo.png",
-                          "assets/uiImages/logo2.png",
-                          height: DeviceUtil.isTablet ? 80 : 70,
-                          fit: BoxFit.contain,
-                        ),
-                      ],
+                    child: Image.asset(
+                      "assets/uiImages/logo1.png",
+                      height: DeviceUtil.isTablet ? 160 : 150,
                     ),
                   ),
-
                   Text("_________________________",
                       style: TextStyle(
                           fontSize: DeviceUtil.isTablet ? 35 : 25,
