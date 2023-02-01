@@ -307,7 +307,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                       }
                                     },
                                     child: Container(
-                                        height: 106,
+                                        height: size == 0 ? 112 : 106,
                                         width: 45,
                                         decoration: BoxDecoration(
                                           color: Provider.of<MyProvider>(
@@ -360,7 +360,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                   ),
                                   Expanded(
                                       child: Container(
-                                    height: 106,
+                                    height: size == 0 ? 112 : 106,
                                     decoration: BoxDecoration(
                                       color: const Color(0xffe9edf3),
                                       borderRadius: const BorderRadius.all(
@@ -1213,7 +1213,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                               top: 5,
                                               left: 8,
                                               right: 8,
-                                              bottom: 15),
+                                              bottom: 10),
                                           child: Column(
                                             children: [
                                               Expanded(
@@ -1325,7 +1325,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        20)),
+                                                                        15)),
                                                         child: const Center(
                                                           child: Text(
                                                             "كلمات مفتاحية",
@@ -1461,7 +1461,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        20)),
+                                                                        15)),
                                                         child: const Center(
                                                           child: Text(
                                                             "أفعال",
@@ -1596,7 +1596,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        20)),
+                                                                        15)),
                                                         child: const Center(
                                                           child: Text(
                                                             "حروف",
@@ -1619,7 +1619,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                               Container(
                                                 height: 7,
                                               ),
-                                              !isLess
+                                              !isLess && size != 0
                                                   ? Expanded(
                                                       child: Row(
                                                       mainAxisAlignment:
@@ -1755,7 +1755,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              20)),
+                                                                              15)),
                                                               child:
                                                                   const Center(
                                                                 child: Text(
@@ -1887,7 +1887,11 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                               ),
                             ),
                             Container(
-                              height: isLess ? 200 : 110,
+                              height: isLess
+                                  ? 200
+                                  : size == 0
+                                      ? 130
+                                      : 110,
                               decoration: BoxDecoration(
                                   color:
                                       const Color.fromARGB(255, 206, 213, 218),
@@ -2305,13 +2309,13 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         }
       },
       child: Container(
-        width: size == 0 ? 80 : 75,
+        width: size == 0 ? 83 : 75,
         decoration: BoxDecoration(
             // color: getWordColor(predictionWords[index][0]).withOpacity(.4),
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
             border: Border.all(
                 color: getWordColor(predictionWords[index][0]),
-                width: size == 0 ? 5 : 3)),
+                width: size == 0 ? 4.3 : 3)),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 3),
           child: FittedBox(

@@ -154,7 +154,11 @@ class _FavoriteChildrenState extends State<FavoriteChildren> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        height: DeviceUtil.isTablet ? 130 : 100,
+                                        height: DeviceUtil.isTablet
+                                            ? size == 0
+                                                ? 150
+                                                : 130
+                                            : 100,
                                         width: DeviceUtil.isTablet ? 110 : 70,
                                         decoration: BoxDecoration(
                                             color: pinkColor,

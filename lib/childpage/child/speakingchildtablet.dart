@@ -317,7 +317,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                       }
                                     },
                                     child: Container(
-                                        height: 130,
+                                        height: size == 0 ? 140 : 130,
                                         width: 65,
                                         decoration: BoxDecoration(
                                           color: Provider.of<MyProvider>(
@@ -370,7 +370,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                   ),
                                   Expanded(
                                       child: Container(
-                                    height: 140,
+                                    height: size == 0 ? 150 : 140,
                                     decoration: BoxDecoration(
                                       color: const Color(0xffe9edf3),
                                       borderRadius: const BorderRadius.all(
@@ -1543,7 +1543,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                         Container(
                                                           height: 7,
                                                         ),
-                                                        !isLess
+                                                        !isLess && size != 0
                                                             ? Expanded(
                                                                 child: Row(
                                                                 mainAxisAlignment:
@@ -2333,7 +2333,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                         Container(
                                                           height: 7,
                                                         ),
-                                                        !isLess
+                                                        size != 0 && !isLess
                                                             ? Expanded(
                                                                 child: Row(
                                                                 mainAxisAlignment:
@@ -2492,30 +2492,33 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                     ),
                                         )),
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        isLess = !isLess;
-                                      });
-                                    },
-                                    child: Container(
-                                      height: 27,
-                                      width: 55,
-                                      decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Image.asset(
-                                        isLess
-                                            ? "assets/uiImages/down.png"
-                                            : "assets/uiImages/upArrow.png",
-                                        height: 45,
-                                        color: const Color.fromARGB(
-                                            255, 204, 204, 204),
-                                        matchTextDirection: false,
-                                      ),
-                                    ),
-                                  )
+                                  MediaQuery.of(context).orientation ==
+                                          Orientation.portrait
+                                      ? InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              isLess = !isLess;
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 27,
+                                            width: 55,
+                                            decoration: BoxDecoration(
+                                                color: Colors.black,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Image.asset(
+                                              isLess
+                                                  ? "assets/uiImages/down.png"
+                                                  : "assets/uiImages/upArrow.png",
+                                              height: 45,
+                                              color: const Color.fromARGB(
+                                                  255, 204, 204, 204),
+                                              matchTextDirection: false,
+                                            ),
+                                          ),
+                                        )
+                                      : Container()
                                 ],
                               ),
                             )),
@@ -2597,7 +2600,11 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                               ),
                             ),
                             Container(
-                              height: isLess ? 270 : 135,
+                              height: isLess
+                                  ? 270
+                                  : size == 0
+                                      ? 170
+                                      : 135,
                               decoration: BoxDecoration(
                                   color:
                                       const Color.fromARGB(255, 206, 213, 218),
@@ -2663,7 +2670,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                   top: 5,
                                                   bottom: 5),
                                               child: Container(
-                                                width: size == 0 ? 160 : 150,
+                                                width: size == 0 ? 170 : 150,
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
                                                   borderRadius:
@@ -3019,8 +3026,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
               // color: getWordColor(predictionWords[index][0]).withOpacity(.4),
               borderRadius: const BorderRadius.all(Radius.circular(24)),
               border: Border.all(
-                  color: getWordColor(predictionWords[index][0]),
-                  width: size == 0 ? 5 : 3)),
+                  color: getWordColor(predictionWords[index][0]), width: 5)),
           child: Padding(
             padding: const EdgeInsets.only(bottom: 3),
             child: FittedBox(
@@ -3080,11 +3086,11 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                           children: [
                             FittedBox(
                               child: Padding(
-                                padding: const EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(6),
                                 child: Text(
                                   libraryListChild[index].name,
                                   style: TextStyle(
-                                      fontSize: size == 0 ? 35 : 30,
+                                      fontSize: size == 0 ? 33 : 25,
                                       fontWeight: FontWeight.w900,
                                       color: Colors.black),
                                 ),
@@ -3174,7 +3180,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   fourth_word_Local(List text, int counter) async {
     List<String> result = LocalDB;
     for (String r in result) {
-      if (counter < 12) {
+      if (counter < 16) {
         List<String> s = r
             .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
@@ -3197,7 +3203,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       }
     }
     setState(() {});
-    if (counter < 12) {
+    if (counter < 16) {
       fourth_word_child(text, counter);
     } else {
       return counter;
@@ -3210,7 +3216,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     for (String r in result) {
       r = r.replaceAll("\"", "");
 
-      if (counter < 12) {
+      if (counter < 16) {
         List<String> s = r
             .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
@@ -3230,7 +3236,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     }
     setState(() {});
 
-    if (counter < 12) {
+    if (counter < 16) {
       third_word_Local(text.sublist(1, text.length), counter);
     } else {
       return counter;
@@ -3239,7 +3245,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
 
   third_word_Local(List text, int counter) async {
     for (String r in LocalDB) {
-      if (counter < 12) {
+      if (counter < 16) {
         List<String> s = r
             .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
@@ -3263,7 +3269,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       }
     }
     setState(() {});
-    if (counter < 12) {
+    if (counter < 16) {
       return third_word_child(text, counter);
     }
     return counter;
@@ -3274,7 +3280,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     List<String> result = path.split('\n');
     for (String r in result) {
       r = r.replaceAll("\"", "");
-      if (counter < 12) {
+      if (counter < 16) {
         List<String> s = r
             .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
@@ -3293,10 +3299,10 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       }
     }
     setState(() {});
-    if (counter < 12) {
+    if (counter < 16) {
       for (String r in result) {
         r = r.replaceAll("\"", "");
-        if (counter < 12) {
+        if (counter < 16) {
           List<String> s = r
               .replaceAll("أ", "ا")
               .replaceAll("إ", "ا")
@@ -3316,7 +3322,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       setState(() {});
     }
 
-    if (counter < 12) {
+    if (counter < 16) {
       second_word_Local(text[1], counter);
     } else {
       return counter;
@@ -3326,7 +3332,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   second_word_Local(String text, int counter) async {
     List<String> result = LocalDB;
     for (String r in result) {
-      if (counter < 12) {
+      if (counter < 16) {
         List<String> s = r
             .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
@@ -3348,7 +3354,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       }
     }
     setState(() {});
-    if (counter < 12) {
+    if (counter < 16) {
       return second_word_child(text, counter);
     }
   }
@@ -3360,7 +3366,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
     for (String r in result) {
       r = r.replaceAll("\"", "");
 
-      if (counter < 12) {
+      if (counter < 16) {
         List<String> s = r
             .replaceAll("أ", "ا")
             .replaceAll("إ", "ا")
@@ -3379,7 +3385,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       }
     }
     setState(() {});
-    if (counter < 12) {
+    if (counter < 16) {
       return one_word_child(counter);
     }
     return counter;
@@ -3407,7 +3413,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       "مرحبا",
     ];
     for (int i = 0; i < wordsP.length; i++) {
-      if (predictionWords.length < 12 &&
+      if (predictionWords.length < 16 &&
           !search_in_predictionWords(wordsP[i])) {
         predictionWords.add([wordsP[i], getImageWord(wordsP[i])]);
       }
