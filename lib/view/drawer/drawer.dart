@@ -2,6 +2,8 @@
 
 import 'dart:math';
 
+import 'package:arabic_speaker_child/view/editFiles/editfile.dart';
+
 import '../../main.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/childpage/constant.dart';
@@ -592,8 +594,8 @@ class _DrawercState extends State<Drawerc> {
                                                 () => isExpanded1 = expanding),
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 20),
+                                        padding: const EdgeInsets.only(
+                                            right: 20, bottom: 16),
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -649,6 +651,40 @@ class _DrawercState extends State<Drawerc> {
                                           ],
                                         ),
                                       ),
+                                      /* InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditFilesContent()));
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 20, bottom: 15),
+                                          child: Row(
+                                            children: [
+                                              const Icon(Icons.edit),
+                                              Container(
+                                                width: 10,
+                                              ),
+                                              FittedBox(
+                                                child: Text(
+                                                  "تعديل محتوى الملفات",
+                                                  style: TextStyle(
+                                                    fontSize: 22,
+                                                    color: isExpanded1
+                                                        ? pinkColor
+                                                        : const Color.fromARGB(
+                                                            255, 0, 0, 0),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                  */
                                     ],
                                   )
                                 ],

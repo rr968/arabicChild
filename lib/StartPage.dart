@@ -39,7 +39,9 @@ class _StartState extends State<Start> {
                 builder: (context) => firstTimeOpenTheApp == true
                     ? Page1()
                     : signOrLogIn == false
-                        ? const Login()
+                        ? const MainChildPage(
+                            index: 0,
+                          )
                         : MainChildPage(
                             index: 0,
                           ))));

@@ -11,6 +11,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../controller/erroralert.dart';
 import '../../controller/my_provider.dart';
+import '../../model/libraryToChoose.dart';
 import '/childpage/constant.dart';
 import '/controller/images.dart';
 import '/controller/speak.dart';
@@ -161,6 +162,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         }
         libraryListChild.add(lib(e[0], e[1], e[2], contentlist));
       }
+    } else {
+      libraryListChild = chooseLibrary;
     }
     speakingWordByWord = liblistChild.getBool("switchValue") ?? true;
   }
@@ -1328,7 +1331,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                         15)),
                                                         child: const Center(
                                                           child: Text(
-                                                            "كلمات مفتاحية",
+                                                            "الرئيسية",
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
@@ -2309,7 +2312,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
         }
       },
       child: Container(
-        width: size == 0 ? 83 : 75,
+        width: size == 0 ? 83 : 80,
+        height: 500,
         decoration: BoxDecoration(
             // color: getWordColor(predictionWords[index][0]).withOpacity(.4),
             borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -2328,8 +2332,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
               Text(
                 predictionWords[index][0],
                 style: TextStyle(
-                    fontSize: size == 0 ? 40 : 45,
-                    fontWeight: FontWeight.w900,
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600,
                     color: pinkColor),
               )
             ]),
