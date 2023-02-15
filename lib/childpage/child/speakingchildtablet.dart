@@ -3416,6 +3416,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       "هذا",
       "مرحبا",
     ];
+
     for (int i = 0; i < wordsP.length; i++) {
       if (predictionWords.length < 16 &&
           !search_in_predictionWords(wordsP[i])) {
