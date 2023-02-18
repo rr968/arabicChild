@@ -1,4 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
+import 'package:arabic_speaker_child/controller/harakatPrediction.dart';
+
 String scoonAtLast(String input) {
   return "$input\u{0652}";
 }
@@ -236,6 +238,27 @@ String harakatOnFirstWord(String input) {
     return "تَفَضلْ مَعِي إلى البَيْتْ";
   }
   return inputlist.join(" ");
+}
+
+String putDotAfterAllWords(String input) {
+  String output = input;
+  output = output.replaceAll(" ", " .");
+  return output;
+}
+
+String putHarakatOnSomeWords(String input) {
+  String output = "";
+  List<String> spliteInput = input.split(" ");
+  for (int i = 0; i < spliteInput.length; i++) {
+    for (int j = 0; j < harakatIfNoData.length; j++) {
+      if (harakatIfNoData[j][0] == spliteInput[i]) {
+        spliteInput[i] = harakatIfNoData[j][1];
+      }
+    }
+  }
+  output = spliteInput.join(" ");
+
+  return output;
 }
 
 String putDot(String input) {

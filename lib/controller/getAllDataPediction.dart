@@ -50,7 +50,6 @@ setDataHarakatWords() async {
 }
 
 setModonaSentence() async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
   final userChildDoc = FirebaseFirestore.instance
       .collection('dataImagesAndWordsPrediction')
       .doc("3DJgYAEB5dGZx9ockUfW");

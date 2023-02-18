@@ -398,7 +398,8 @@ class _LoginState extends State<Signup> {
                                             content: Text(
                                               message,
                                               textAlign: TextAlign.right,
-                                              style: TextStyle(fontSize: 16),
+                                              style:
+                                                  const TextStyle(fontSize: 16),
                                             ),
                                             duration:
                                                 const Duration(seconds: 6),

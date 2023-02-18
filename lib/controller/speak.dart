@@ -58,17 +58,11 @@ String modifyTextBeforeSpeak(String text) {
 
   //finaltext = TurnAToAA(finaltext);
   //finaltext = preRplace(finaltext);
-  finaltext = someModify(finaltext);
+
   finaltext = scoonAtLast(finaltext);
   finaltext = putDot(finaltext);
+  finaltext = putHarakatOnSomeWords(finaltext);
+  finaltext = putDotAfterAllWords(finaltext);
 
   return finaltext;
-}
-
-String someModify(String text) {
-  String fText = text;
-  fText = fText.replaceAll("انا", "أَنَاْ").replaceAll("أنا", "أَنَاْ");
-  fText = fText.replaceAll("أحب", "أُحِبُ").replaceAll("احب", "أُحِبُ");
-  fText = fText.replaceAll("الخضار", "الخُضار");
-  return fText;
 }

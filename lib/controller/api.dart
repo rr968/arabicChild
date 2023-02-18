@@ -24,7 +24,7 @@ class TextToSpeechAPI {
       final Map json = {
         'input': {'text': text},
         'voice': {'name': name, 'languageCode': languageCode},
-        'audioConfig': {'audioEncoding': 'MP3'}
+        'audioConfig': {'audioEncoding': 'MP3', "speakingRate": 0.77}
       };
 
       final jsonResponse = await _postJson(uri, json);

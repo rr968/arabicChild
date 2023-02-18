@@ -7,8 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/istablet.dart';
 import '../controller/libtostring.dart';
-import '../model/content.dart';
-import '../model/library.dart';
 
 import '../controller/var.dart';
 import '../childpage/child/mainchildPage.dart';

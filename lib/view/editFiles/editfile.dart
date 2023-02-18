@@ -25,7 +25,7 @@ class _EditFilesContentState extends State<EditFilesContent> {
               child: Column(
                 children: [
                   Row(
-                    children: [],
+                    children: const [],
                   )
                 ],
               ),

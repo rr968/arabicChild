@@ -32,80 +32,6 @@ class SpeakingChildPhone extends StatefulWidget {
 
 class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   int coloredOpenLibraryindex = 0;
-  List<List<List<String>>> constant = [
-    [
-      ["أنا", getImageWord("أنا")],
-      ["هل", getImageWord("هل")],
-      ["كم", getImageWord("كم")],
-      ["متى", getImageWord("متى")],
-      ["أين", getImageWord("أين")],
-      ["بكم", getImageWord("بكم")],
-      ["هذا", getImageWord("هذا")],
-      ["أبغى", getImageWord("أبغى")],
-      ["كيف", getImageWord("كيف")],
-      ["طيب", getImageWord("طيب")],
-      ["عندي", getImageWord("عندي")],
-      ["شكرا", getImageWord("شكرا")],
-      ["السلام", getImageWord("السلام")],
-      ["لكن", getImageWord("لكن")],
-      ["ممكن", getImageWord("ممكن")],
-      ["لو", getImageWord("لو")],
-    ],
-    [
-      ["أستطيع", getImageWord("أستطيع")],
-      ["أشتري", getImageWord("أشتري")],
-      ["أريد", getImageWord("أريد")],
-      ["أحب", getImageWord("أحب")],
-      ["أشعر", getImageWord("أشعر")],
-      ["أعمل", getImageWord("أعمل")],
-      ["أرى", getImageWord("أرى")],
-      ["أروح", getImageWord("أروح")],
-      ["أدرس", getImageWord("أدرس")],
-      ["ألعب", getImageWord("ألعب")],
-      ["أعطني", getImageWord("أعطني")],
-      ["ألبس", getImageWord("ألبس")],
-      ["أنام", getImageWord("أنام")],
-      ["اتألم", getImageWord("اتألم")],
-      ["أتحرك", getImageWord("أتحرك")],
-      ["أمشي", getImageWord("أمشي")],
-    ],
-    [
-      ["من", getImageWord("من")],
-      ["إلى", getImageWord("إلى")],
-      ["عن", getImageWord("عن")], //
-      ["على", getImageWord("على")], //
-      ["في", getImageWord("في")], //
-      ["لم", getImageWord("لم")], //
-      ["لا", getImageWord("لا")], //
-      ["قد", getImageWord("قد")], //
-      ["إلا", getImageWord("إلا")], //
-      ["بلى", getImageWord("بلى")], //
-      ["حتى", getImageWord("حتى")], //
-      ["لن", getImageWord("لن")], //
-      ["لما", getImageWord("لما")], //
-      ["ما", getImageWord("ما")], //
-      ["ثم", getImageWord("ثم")], //
-      ["و", getImageWord("و")], //
-    ],
-    [
-      ["سعيد", getImageWord("سعيد")],
-      ["حزين", getImageWord("حزين")],
-      ["جوعان", getImageWord("جوعان")],
-      ["عطشان", getImageWord("عطشان")],
-      ["خائف", getImageWord("خائف")],
-      ["رائع", getImageWord("رائع")],
-      ["جميل", getImageWord("جميل")],
-      ["سهل", getImageWord("سهل")],
-      ["صعب", getImageWord("صعب")],
-      ["سريع", getImageWord("سريع")],
-      ["بطيء", getImageWord("بطيء")],
-      ["تعبان", getImageWord("تعبان")],
-      ["طويل", getImageWord("طويل")],
-      ["قصير", getImageWord("قصير")],
-      ["جيد", getImageWord("جيد")],
-      ["سيء", getImageWord("سيء")],
-    ],
-  ];
   late List<List<String>> predictionWords;
   List<Content> fieldContent = [];
   List<Content> contentWord = [];
@@ -1245,74 +1171,18 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                         ),
                                                   InkWell(
                                                     onTap: () {
+                                                      List<List<String>> main =
+                                                          [];
+                                                      for (var element
+                                                          in librarywordChild[0]
+                                                              .contenlist) {
+                                                        main.add([
+                                                          element.name,
+                                                          element.imgurl
+                                                        ]);
+                                                      }
                                                       setState(() {
-                                                        predictionWords = [
-                                                          [
-                                                            "أنا",
-                                                            getImageWord("أنا")
-                                                          ],
-                                                          [
-                                                            "هل",
-                                                            getImageWord("هل")
-                                                          ],
-                                                          [
-                                                            "كم",
-                                                            getImageWord("كم")
-                                                          ],
-                                                          [
-                                                            "متى",
-                                                            getImageWord("متى")
-                                                          ],
-                                                          [
-                                                            "أين",
-                                                            getImageWord("أين")
-                                                          ],
-                                                          [
-                                                            "بكم",
-                                                            getImageWord("بكم")
-                                                          ],
-                                                          [
-                                                            "هذا",
-                                                            getImageWord("هذا")
-                                                          ],
-                                                          [
-                                                            "أبغى",
-                                                            getImageWord("أبغى")
-                                                          ],
-                                                          [
-                                                            "كيف",
-                                                            getImageWord("كيف")
-                                                          ],
-                                                          [
-                                                            "طيب",
-                                                            getImageWord("طيب")
-                                                          ],
-                                                          [
-                                                            "عندي",
-                                                            getImageWord("عندي")
-                                                          ],
-                                                          [
-                                                            "شكرا",
-                                                            getImageWord("شكرا")
-                                                          ],
-                                                          [
-                                                            "السلام",
-                                                            getImageWord(
-                                                                "السلام")
-                                                          ],
-                                                          [
-                                                            "لكن",
-                                                            getImageWord("لكن")
-                                                          ],
-                                                          [
-                                                            "ممكن",
-                                                            getImageWord("ممكن")
-                                                          ],
-                                                          [
-                                                            "لو",
-                                                            getImageWord("لو")
-                                                          ],
-                                                        ];
+                                                        predictionWords = main;
                                                       });
                                                     },
                                                     child: Padding(
@@ -1377,78 +1247,18 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                         ),
                                                   InkWell(
                                                     onTap: () {
+                                                      List<List<String>> verbs =
+                                                          [];
+                                                      for (var element
+                                                          in librarywordChild[1]
+                                                              .contenlist) {
+                                                        verbs.add([
+                                                          element.name,
+                                                          element.imgurl
+                                                        ]);
+                                                      }
                                                       setState(() {
-                                                        predictionWords = [
-                                                          [
-                                                            "أستطيع",
-                                                            getImageWord(
-                                                                "أستطيع")
-                                                          ],
-                                                          [
-                                                            "أشتري",
-                                                            getImageWord(
-                                                                "أشتري")
-                                                          ],
-                                                          [
-                                                            "أريد",
-                                                            getImageWord("أريد")
-                                                          ],
-                                                          [
-                                                            "أحب",
-                                                            getImageWord("أحب")
-                                                          ],
-                                                          [
-                                                            "أشعر",
-                                                            getImageWord("أشعر")
-                                                          ],
-                                                          [
-                                                            "أعمل",
-                                                            getImageWord("أعمل")
-                                                          ],
-                                                          [
-                                                            "أرى",
-                                                            getImageWord("أرى")
-                                                          ],
-                                                          [
-                                                            "أروح",
-                                                            getImageWord("أروح")
-                                                          ],
-                                                          [
-                                                            "أدرس",
-                                                            getImageWord("أدرس")
-                                                          ],
-                                                          [
-                                                            "ألعب",
-                                                            getImageWord("ألعب")
-                                                          ],
-                                                          [
-                                                            "أعطني",
-                                                            getImageWord(
-                                                                "أعطني")
-                                                          ],
-                                                          [
-                                                            "ألبس",
-                                                            getImageWord("ألبس")
-                                                          ],
-                                                          [
-                                                            "أنام",
-                                                            getImageWord("أنام")
-                                                          ],
-                                                          [
-                                                            "اتألم",
-                                                            getImageWord(
-                                                                "اتألم")
-                                                          ],
-                                                          [
-                                                            "أتحرك",
-                                                            getImageWord(
-                                                                "أتحرك")
-                                                          ],
-                                                          [
-                                                            "أمشي",
-                                                            getImageWord("أمشي")
-                                                          ],
-                                                        ];
+                                                        predictionWords = verbs;
                                                       });
                                                     },
                                                     child: Padding(
@@ -1513,77 +1323,19 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                         ),
                                                   InkWell(
                                                     onTap: () {
+                                                      List<List<String>>
+                                                          letters = [];
+                                                      for (var element
+                                                          in librarywordChild[2]
+                                                              .contenlist) {
+                                                        letters.add([
+                                                          element.name,
+                                                          element.imgurl
+                                                        ]);
+                                                      }
                                                       setState(() {
-                                                        predictionWords = [
-                                                          [
-                                                            "من",
-                                                            getImageWord("من")
-                                                          ],
-                                                          [
-                                                            "إلى",
-                                                            getImageWord("إلى")
-                                                          ],
-                                                          [
-                                                            "عن",
-                                                            getImageWord("عن")
-                                                          ],
-                                                          [
-                                                            "على",
-                                                            getImageWord("على")
-                                                          ],
-                                                          [
-                                                            "في",
-                                                            getImageWord("في")
-                                                          ],
-                                                          [
-                                                            "على",
-                                                            getImageWord("على")
-                                                          ],
-                                                          [
-                                                            "لم",
-                                                            getImageWord("لم")
-                                                          ],
-                                                          [
-                                                            "لا",
-                                                            getImageWord("لا")
-                                                          ],
-                                                          [
-                                                            "قد",
-                                                            getImageWord("قد")
-                                                          ],
-                                                          [
-                                                            "إلا",
-                                                            getImageWord("إلا")
-                                                          ],
-                                                          [
-                                                            "بلى",
-                                                            getImageWord("بلى")
-                                                          ],
-                                                          [
-                                                            "حتى",
-                                                            getImageWord("حتى")
-                                                          ],
-                                                          [
-                                                            "لن",
-                                                            getImageWord("لن")
-                                                          ],
-                                                          [
-                                                            "لما",
-                                                            getImageWord("لما")
-                                                          ],
-                                                          [
-                                                            "ما",
-                                                            getImageWord("ما")
-                                                          ],
-                                                          [
-                                                            "ثم",
-                                                            getImageWord("ثم")
-                                                          ],
-                                                          [
-                                                            "و",
-                                                            getImageWord("و")
-                                                          ],
-                                                        ];
+                                                        predictionWords =
+                                                            letters;
                                                       });
                                                     },
                                                     child: Padding(
@@ -1655,90 +1407,20 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                               ),
                                                         InkWell(
                                                           onTap: () {
+                                                            List<List<String>>
+                                                                con = [];
+                                                            for (var element
+                                                                in librarywordChild[
+                                                                        3]
+                                                                    .contenlist) {
+                                                              con.add([
+                                                                element.name,
+                                                                element.imgurl
+                                                              ]);
+                                                            }
                                                             setState(() {
                                                               predictionWords =
-                                                                  [
-                                                                [
-                                                                  "سعيد",
-                                                                  getImageWord(
-                                                                      "سعيد")
-                                                                ],
-                                                                [
-                                                                  "حزين",
-                                                                  getImageWord(
-                                                                      "حزين")
-                                                                ],
-                                                                [
-                                                                  "جوعان",
-                                                                  getImageWord(
-                                                                      "جوعان")
-                                                                ],
-                                                                [
-                                                                  "عطشان",
-                                                                  getImageWord(
-                                                                      "عطشان")
-                                                                ],
-                                                                [
-                                                                  "خائف",
-                                                                  getImageWord(
-                                                                      "خائف")
-                                                                ],
-                                                                [
-                                                                  "رائع",
-                                                                  getImageWord(
-                                                                      "رائع")
-                                                                ],
-                                                                [
-                                                                  "جميل",
-                                                                  getImageWord(
-                                                                      "جميل")
-                                                                ],
-                                                                [
-                                                                  "سهل",
-                                                                  getImageWord(
-                                                                      "سهل")
-                                                                ],
-                                                                [
-                                                                  "صعب",
-                                                                  getImageWord(
-                                                                      "صعب")
-                                                                ],
-                                                                [
-                                                                  "سريع",
-                                                                  getImageWord(
-                                                                      "سريع")
-                                                                ],
-                                                                [
-                                                                  "بطيء",
-                                                                  getImageWord(
-                                                                      "بطيء")
-                                                                ],
-                                                                [
-                                                                  "تعبان",
-                                                                  getImageWord(
-                                                                      "تعبان")
-                                                                ],
-                                                                [
-                                                                  "طويل",
-                                                                  getImageWord(
-                                                                      "طويل")
-                                                                ],
-                                                                [
-                                                                  "قصير",
-                                                                  getImageWord(
-                                                                      "قصير")
-                                                                ],
-                                                                [
-                                                                  "جيد",
-                                                                  getImageWord(
-                                                                      "جيد")
-                                                                ],
-                                                                [
-                                                                  "سيء",
-                                                                  getImageWord(
-                                                                      "سيء")
-                                                                ],
-                                                              ];
+                                                                  con;
                                                             });
                                                           },
                                                           child: Padding(

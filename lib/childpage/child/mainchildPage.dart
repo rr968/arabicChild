@@ -8,6 +8,9 @@ import 'package:arabic_speaker_child/data.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 import '../../controller/harakatPrediction.dart';
+import '../../model/content.dart';
+import '../../model/filesContent.dart';
+import '../../model/library.dart';
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
 import '/controller/var.dart';
@@ -63,12 +66,37 @@ class _MainChildPageState extends State<MainChildPage> {
         loading = false;
       });
     });
+    getworddata().then((val) {
+      /* contentWord =
+          libraryListChild.isNotEmpty ? libraryListChild[0].contenlist : [];*/
+      setState(() {
+        loading = false;
+      });
+    });
 
     getVoice();
     getfemail();
     setparentmode();
 
     super.initState();
+  }
+
+  getworddata() async {
+    librarywordChild = [];
+    SharedPreferences liblistwordChild = await SharedPreferences.getInstance();
+    List<String>? libraryword = liblistwordChild.getStringList("wordListChild");
+    if (libraryword != null) {
+      for (String element in libraryword) {
+        List e = json.decode(element);
+        List<Content> contentwordlist = [];
+        for (List l in e[3]) {
+          contentwordlist.add(Content(l[0], l[1], l[2], l[3], l[4], l[5]));
+        }
+        librarywordChild.add(lib(e[0], e[1], e[2], contentwordlist));
+      }
+    } else {
+      librarywordChild = wordLib;
+    }
   }
 
   getData() async {

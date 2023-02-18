@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
 
 import 'package:arabic_speaker_child/controller/harakatPrediction.dart';
@@ -33,80 +31,6 @@ class SpeakingChildTablet extends StatefulWidget {
 class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   int coloredOpenLibraryindex = 0;
   double _scrollOffset = 0;
-  List<List<List<String>>> constant = [
-    [
-      ["أنا", getImageWord("أنا")],
-      ["هل", getImageWord("هل")],
-      ["كم", getImageWord("كم")],
-      ["متى", getImageWord("متى")],
-      ["أين", getImageWord("أين")],
-      ["بكم", getImageWord("بكم")],
-      ["هذا", getImageWord("هذا")],
-      ["أبغى", getImageWord("أبغى")],
-      ["كيف", getImageWord("كيف")],
-      ["طيب", getImageWord("طيب")],
-      ["عندي", getImageWord("عندي")],
-      ["شكرا", getImageWord("شكرا")],
-      ["السلام", getImageWord("السلام")],
-      ["لكن", getImageWord("لكن")],
-      ["ممكن", getImageWord("ممكن")],
-      ["لو", getImageWord("لو")],
-    ],
-    [
-      ["أستطيع", getImageWord("أستطيع")],
-      ["أشتري", getImageWord("أشتري")],
-      ["أريد", getImageWord("أريد")],
-      ["أحب", getImageWord("أحب")],
-      ["أشعر", getImageWord("أشعر")],
-      ["أعمل", getImageWord("أعمل")],
-      ["أرى", getImageWord("أرى")],
-      ["أروح", getImageWord("أروح")],
-      ["أدرس", getImageWord("أدرس")],
-      ["ألعب", getImageWord("ألعب")],
-      ["أعطني", getImageWord("أعطني")],
-      ["ألبس", getImageWord("ألبس")],
-      ["أنام", getImageWord("أنام")],
-      ["اتألم", getImageWord("اتألم")],
-      ["أتحرك", getImageWord("أتحرك")],
-      ["أمشي", getImageWord("أمشي")],
-    ],
-    [
-      ["من", getImageWord("من")],
-      ["إلى", getImageWord("إلى")],
-      ["عن", getImageWord("عن")], //
-      ["على", getImageWord("على")], //
-      ["في", getImageWord("في")], //
-      ["لم", getImageWord("لم")], //
-      ["لا", getImageWord("لا")], //
-      ["قد", getImageWord("قد")], //
-      ["إلا", getImageWord("إلا")], //
-      ["بلى", getImageWord("بلى")], //
-      ["حتى", getImageWord("حتى")], //
-      ["لن", getImageWord("لن")], //
-      ["لما", getImageWord("لما")], //
-      ["ما", getImageWord("ما")], //
-      ["ثم", getImageWord("ثم")], //
-      ["و", getImageWord("و")], //
-    ],
-    [
-      ["سعيد", getImageWord("سعيد")],
-      ["حزين", getImageWord("حزين")],
-      ["جوعان", getImageWord("جوعان")],
-      ["عطشان", getImageWord("عطشان")],
-      ["خائف", getImageWord("خائف")],
-      ["رائع", getImageWord("رائع")],
-      ["جميل", getImageWord("جميل")],
-      ["سهل", getImageWord("سهل")],
-      ["صعب", getImageWord("صعب")],
-      ["سريع", getImageWord("سريع")],
-      ["بطيء", getImageWord("بطيء")],
-      ["تعبان", getImageWord("تعبان")],
-      ["طويل", getImageWord("طويل")],
-      ["قصير", getImageWord("قصير")],
-      ["جيد", getImageWord("جيد")],
-      ["سيء", getImageWord("سيء")],
-    ],
-  ];
   late List<List<String>> predictionWords;
   List<Content> fieldContent = [];
   List<Content> contentWord = [];
@@ -1238,1261 +1162,739 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                               left: 8,
                                               right: 8,
                                               bottom: 15),
-                                          child:
-                                              MediaQuery.of(context)
-                                                          .orientation !=
-                                                      Orientation.portrait
-                                                  ? Column(
+                                          child: MediaQuery.of(context)
+                                                      .orientation !=
+                                                  Orientation.portrait
+                                              ? Column(
+                                                  children: [
+                                                    Expanded(
+                                                        child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
                                                       children: [
-                                                        Expanded(
-                                                            child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            predictionWords
-                                                                    .isNotEmpty
-                                                                ? box(0)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    2
-                                                                ? box(1)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    3
-                                                                ? box(2)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    4
-                                                                ? box(3)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    5
-                                                                ? box(4)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  predictionWords =
-                                                                      [
-                                                                    [
-                                                                      "سعيد",
-                                                                      getImageWord(
-                                                                          "سعيد")
-                                                                    ],
-                                                                    [
-                                                                      "حزين",
-                                                                      getImageWord(
-                                                                          "حزين")
-                                                                    ],
-                                                                    [
-                                                                      "جوعان",
-                                                                      getImageWord(
-                                                                          "جوعان")
-                                                                    ],
-                                                                    [
-                                                                      "عطشان",
-                                                                      getImageWord(
-                                                                          "عطشان")
-                                                                    ],
-                                                                    [
-                                                                      "خائف",
-                                                                      getImageWord(
-                                                                          "خائف")
-                                                                    ],
-                                                                    [
-                                                                      "رائع",
-                                                                      getImageWord(
-                                                                          "رائع")
-                                                                    ],
-                                                                    [
-                                                                      "جميل",
-                                                                      getImageWord(
-                                                                          "جميل")
-                                                                    ],
-                                                                    [
-                                                                      "سهل",
-                                                                      getImageWord(
-                                                                          "سهل")
-                                                                    ],
-                                                                    [
-                                                                      "صعب",
-                                                                      getImageWord(
-                                                                          "صعب")
-                                                                    ],
-                                                                    [
-                                                                      "سريع",
-                                                                      getImageWord(
-                                                                          "سريع")
-                                                                    ],
-                                                                    [
-                                                                      "بطيء",
-                                                                      getImageWord(
-                                                                          "بطيء")
-                                                                    ],
-                                                                    [
-                                                                      "تعبان",
-                                                                      getImageWord(
-                                                                          "تعبان")
-                                                                    ],
-                                                                    [
-                                                                      "طويل",
-                                                                      getImageWord(
-                                                                          "طويل")
-                                                                    ],
-                                                                    [
-                                                                      "قصير",
-                                                                      getImageWord(
-                                                                          "قصير")
-                                                                    ],
-                                                                    [
-                                                                      "جيد",
-                                                                      getImageWord(
-                                                                          "جيد")
-                                                                    ],
-                                                                    [
-                                                                      "سيء",
-                                                                      getImageWord(
-                                                                          "سيء")
-                                                                    ],
-                                                                  ];
-                                                                });
-                                                              },
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        right:
-                                                                            7),
-                                                                child:
-                                                                    Container(
-                                                                  width:
-                                                                      size == 0
-                                                                          ? 125
-                                                                          : 120,
-                                                                  decoration: BoxDecoration(
-                                                                      color: const Color(
-                                                                              0xff1367A2)
-                                                                          .withOpacity(
-                                                                              .6),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
+                                                        predictionWords
+                                                                .isNotEmpty
+                                                            ? box(0)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                2
+                                                            ? box(1)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                3
+                                                            ? box(2)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                4
+                                                            ? box(3)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                5
+                                                            ? box(4)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            List<List<String>>
+                                                                con = [];
+                                                            for (var element
+                                                                in librarywordChild[
+                                                                        3]
+                                                                    .contenlist) {
+                                                              con.add([
+                                                                element.name,
+                                                                element.imgurl
+                                                              ]);
+                                                            }
+                                                            setState(() {
+                                                              predictionWords =
+                                                                  con;
+                                                            });
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 7),
+                                                            child: Container(
+                                                              width: size == 0
+                                                                  ? 125
+                                                                  : 120,
+                                                              decoration: BoxDecoration(
+                                                                  color: const Color(
+                                                                          0xff1367A2)
+                                                                      .withOpacity(
+                                                                          .6),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
                                                                               30)),
-                                                                  child:
-                                                                      const Center(
-                                                                    child: Text(
-                                                                      "صفات",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "صفات",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
                                                                               .bold,
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              30),
-                                                                    ),
-                                                                  ),
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          30),
                                                                 ),
                                                               ),
                                                             ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  predictionWords =
-                                                                      [
-                                                                    [
-                                                                      "أنا",
-                                                                      getImageWord(
-                                                                          "أنا")
-                                                                    ],
-                                                                    [
-                                                                      "هل",
-                                                                      getImageWord(
-                                                                          "هل")
-                                                                    ],
-                                                                    [
-                                                                      "كم",
-                                                                      getImageWord(
-                                                                          "كم")
-                                                                    ],
-                                                                    [
-                                                                      "متى",
-                                                                      getImageWord(
-                                                                          "متى")
-                                                                    ],
-                                                                    [
-                                                                      "أين",
-                                                                      getImageWord(
-                                                                          "أين")
-                                                                    ],
-                                                                    [
-                                                                      "بكم",
-                                                                      getImageWord(
-                                                                          "بكم")
-                                                                    ],
-                                                                    [
-                                                                      "هذا",
-                                                                      getImageWord(
-                                                                          "هذا")
-                                                                    ],
-                                                                    [
-                                                                      "أبغى",
-                                                                      getImageWord(
-                                                                          "أبغى")
-                                                                    ],
-                                                                    [
-                                                                      "كيف",
-                                                                      getImageWord(
-                                                                          "كيف")
-                                                                    ],
-                                                                    [
-                                                                      "طيب",
-                                                                      getImageWord(
-                                                                          "طيب")
-                                                                    ],
-                                                                    [
-                                                                      "عندي",
-                                                                      getImageWord(
-                                                                          "عندي")
-                                                                    ],
-                                                                    [
-                                                                      "شكرا",
-                                                                      getImageWord(
-                                                                          "شكرا")
-                                                                    ],
-                                                                    [
-                                                                      "السلام",
-                                                                      getImageWord(
-                                                                          "السلام")
-                                                                    ],
-                                                                    [
-                                                                      "لكن",
-                                                                      getImageWord(
-                                                                          "لكن")
-                                                                    ],
-                                                                    [
-                                                                      "ممكن",
-                                                                      getImageWord(
-                                                                          "ممكن")
-                                                                    ],
-                                                                    [
-                                                                      "لو",
-                                                                      getImageWord(
-                                                                          "لو")
-                                                                    ],
-                                                                  ];
-                                                                });
-                                                              },
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        right:
-                                                                            7),
-                                                                child:
-                                                                    Container(
-                                                                  width:
-                                                                      size == 0
-                                                                          ? 125
-                                                                          : 120,
-                                                                  decoration: BoxDecoration(
-                                                                      color: const Color(
-                                                                          0xffC06FB9),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            List<List<String>>
+                                                                main = [];
+                                                            for (var element
+                                                                in librarywordChild[
+                                                                        0]
+                                                                    .contenlist) {
+                                                              main.add([
+                                                                element.name,
+                                                                element.imgurl
+                                                              ]);
+                                                            }
+                                                            setState(() {
+                                                              predictionWords =
+                                                                  main;
+                                                            });
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 7),
+                                                            child: Container(
+                                                              width: size == 0
+                                                                  ? 125
+                                                                  : 120,
+                                                              decoration: BoxDecoration(
+                                                                  color: const Color(
+                                                                      0xffC06FB9),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
                                                                               30)),
-                                                                  child:
-                                                                      const Center(
-                                                                    child: Text(
-                                                                      "الرئيسية",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "الرئيسية",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
                                                                               .bold,
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              28),
-                                                                    ),
-                                                                  ),
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          28),
                                                                 ),
                                                               ),
-                                                            )
-                                                          ],
-                                                        )),
-                                                        Container(
-                                                          height: 7,
-                                                        ),
-                                                        !isLess && size != 0
-                                                            ? Expanded(
-                                                                child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          6
-                                                                      ? box(5)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          7
-                                                                      ? box(6)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          8
-                                                                      ? box(7)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          9
-                                                                      ? box(8)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          10
-                                                                      ? box(9)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        predictionWords =
-                                                                            [
-                                                                          [
-                                                                            "من",
-                                                                            getImageWord("من")
-                                                                          ],
-                                                                          [
-                                                                            "إلى",
-                                                                            getImageWord("إلى")
-                                                                          ],
-                                                                          [
-                                                                            "عن",
-                                                                            getImageWord("عن")
-                                                                          ],
-                                                                          [
-                                                                            "على",
-                                                                            getImageWord("على")
-                                                                          ],
-                                                                          [
-                                                                            "في",
-                                                                            getImageWord("في")
-                                                                          ],
-                                                                          [
-                                                                            "على",
-                                                                            getImageWord("على")
-                                                                          ],
-                                                                          [
-                                                                            "لم",
-                                                                            getImageWord("لم")
-                                                                          ],
-                                                                          [
-                                                                            "لا",
-                                                                            getImageWord("لا")
-                                                                          ],
-                                                                          [
-                                                                            "قد",
-                                                                            getImageWord("قد")
-                                                                          ],
-                                                                          [
-                                                                            "إلا",
-                                                                            getImageWord("إلا")
-                                                                          ],
-                                                                          [
-                                                                            "بلى",
-                                                                            getImageWord("بلى")
-                                                                          ],
-                                                                          [
-                                                                            "حتى",
-                                                                            getImageWord("حتى")
-                                                                          ],
-                                                                          [
-                                                                            "لن",
-                                                                            getImageWord("لن")
-                                                                          ],
-                                                                          [
-                                                                            "لما",
-                                                                            getImageWord("لما")
-                                                                          ],
-                                                                          [
-                                                                            "ما",
-                                                                            getImageWord("ما")
-                                                                          ],
-                                                                          [
-                                                                            "ثم",
-                                                                            getImageWord("ثم")
-                                                                          ],
-                                                                          [
-                                                                            "و",
-                                                                            getImageWord("و")
-                                                                          ],
-                                                                        ];
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          right:
-                                                                              7),
-                                                                      child:
-                                                                          Container(
-                                                                        width: size ==
-                                                                                0
-                                                                            ? 125
-                                                                            : 120,
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                const Color(0xffE9E467),
-                                                                            borderRadius: BorderRadius.circular(30)),
-                                                                        child:
-                                                                            const Center(
-                                                                          child:
-                                                                              Text(
-                                                                            "حروف",
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                            style: TextStyle(
-                                                                                fontWeight: FontWeight.bold,
-                                                                                color: Colors.white,
-                                                                                fontSize: 30),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        predictionWords =
-                                                                            [
-                                                                          [
-                                                                            "أستطيع",
-                                                                            getImageWord("أستطيع")
-                                                                          ],
-                                                                          [
-                                                                            "أشتري",
-                                                                            getImageWord("أشتري")
-                                                                          ],
-                                                                          [
-                                                                            "أريد",
-                                                                            getImageWord("أريد")
-                                                                          ],
-                                                                          [
-                                                                            "أحب",
-                                                                            getImageWord("أحب")
-                                                                          ],
-                                                                          [
-                                                                            "أشعر",
-                                                                            getImageWord("أشعر")
-                                                                          ],
-                                                                          [
-                                                                            "أعمل",
-                                                                            getImageWord("أعمل")
-                                                                          ],
-                                                                          [
-                                                                            "أرى",
-                                                                            getImageWord("أرى")
-                                                                          ],
-                                                                          [
-                                                                            "أروح",
-                                                                            getImageWord("أروح")
-                                                                          ],
-                                                                          [
-                                                                            "أدرس",
-                                                                            getImageWord("أدرس")
-                                                                          ],
-                                                                          [
-                                                                            "ألعب",
-                                                                            getImageWord("ألعب")
-                                                                          ],
-                                                                          [
-                                                                            "أعطني",
-                                                                            getImageWord("أعطني")
-                                                                          ],
-                                                                          [
-                                                                            "ألبس",
-                                                                            getImageWord("ألبس")
-                                                                          ],
-                                                                          [
-                                                                            "أنام",
-                                                                            getImageWord("أنام")
-                                                                          ],
-                                                                          [
-                                                                            "اتألم",
-                                                                            getImageWord("اتألم")
-                                                                          ],
-                                                                          [
-                                                                            "أتحرك",
-                                                                            getImageWord("أتحرك")
-                                                                          ],
-                                                                          [
-                                                                            "أمشي",
-                                                                            getImageWord("أمشي")
-                                                                          ],
-                                                                        ];
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          right:
-                                                                              7),
-                                                                      child:
-                                                                          Container(
-                                                                        width: size ==
-                                                                                0
-                                                                            ? 125
-                                                                            : 120,
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                const Color(0xffA7CB89),
-                                                                            borderRadius: BorderRadius.circular(30)),
-                                                                        child:
-                                                                            const Center(
-                                                                          child:
-                                                                              Text(
-                                                                            "أفعال",
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                            style: TextStyle(
-                                                                                fontWeight: FontWeight.bold,
-                                                                                color: Colors.black,
-                                                                                fontSize: 30),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ))
-                                                            : Container(),
+                                                            ),
+                                                          ),
+                                                        )
                                                       ],
-                                                    )
-                                                  : Column(
-                                                      children: [
-                                                        Container(
-                                                          height:
-                                                              size == 0 ? 0 : 5,
-                                                        ),
-                                                        Expanded(
-                                                            child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            predictionWords
-                                                                    .isNotEmpty
-                                                                ? box(0)
-                                                                : const SizedBox(
-                                                                    height: 110,
-                                                                    width: 110,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    2
-                                                                ? box(1)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    3
-                                                                ? box(2)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    4
-                                                                ? box(3)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  predictionWords =
-                                                                      [
-                                                                    [
-                                                                      "أنا",
-                                                                      getImageWord(
-                                                                          "أنا")
-                                                                    ],
-                                                                    [
-                                                                      "هل",
-                                                                      getImageWord(
-                                                                          "هل")
-                                                                    ],
-                                                                    [
-                                                                      "كم",
-                                                                      getImageWord(
-                                                                          "كم")
-                                                                    ],
-                                                                    [
-                                                                      "متى",
-                                                                      getImageWord(
-                                                                          "متى")
-                                                                    ],
-                                                                    [
-                                                                      "أين",
-                                                                      getImageWord(
-                                                                          "أين")
-                                                                    ],
-                                                                    [
-                                                                      "بكم",
-                                                                      getImageWord(
-                                                                          "بكم")
-                                                                    ],
-                                                                    [
-                                                                      "هذا",
-                                                                      getImageWord(
-                                                                          "هذا")
-                                                                    ],
-                                                                    [
-                                                                      "أبغى",
-                                                                      getImageWord(
-                                                                          "أبغى")
-                                                                    ],
-                                                                    [
-                                                                      "كيف",
-                                                                      getImageWord(
-                                                                          "كيف")
-                                                                    ],
-                                                                    [
-                                                                      "طيب",
-                                                                      getImageWord(
-                                                                          "طيب")
-                                                                    ],
-                                                                    [
-                                                                      "عندي",
-                                                                      getImageWord(
-                                                                          "عندي")
-                                                                    ],
-                                                                    [
-                                                                      "شكرا",
-                                                                      getImageWord(
-                                                                          "شكرا")
-                                                                    ],
-                                                                    [
-                                                                      "السلام",
-                                                                      getImageWord(
-                                                                          "السلام")
-                                                                    ],
-                                                                    [
-                                                                      "لكن",
-                                                                      getImageWord(
-                                                                          "لكن")
-                                                                    ],
-                                                                    [
-                                                                      "ممكن",
-                                                                      getImageWord(
-                                                                          "ممكن")
-                                                                    ],
-                                                                    [
-                                                                      "لو",
-                                                                      getImageWord(
-                                                                          "لو")
-                                                                    ],
-                                                                  ];
-                                                                });
-                                                              },
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        right:
-                                                                            7),
-                                                                child:
-                                                                    Container(
-                                                                  width:
-                                                                      size == 0
-                                                                          ? 133
-                                                                          : 120,
-                                                                  decoration: BoxDecoration(
-                                                                      color: const Color(
-                                                                          0xffC06FB9),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30)),
-                                                                  child:
-                                                                      const Center(
-                                                                    child: Text(
-                                                                      "الرئيسية",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              28),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )),
-                                                        Container(
-                                                          height: 7,
-                                                        ),
-                                                        Expanded(
-                                                            child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            predictionWords
-                                                                        .length >=
-                                                                    5
-                                                                ? box(4)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    6
-                                                                ? box(5)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    7
-                                                                ? box(6)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    8
-                                                                ? box(7)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  predictionWords =
-                                                                      [
-                                                                    [
-                                                                      "أستطيع",
-                                                                      getImageWord(
-                                                                          "أستطيع")
-                                                                    ],
-                                                                    [
-                                                                      "أشتري",
-                                                                      getImageWord(
-                                                                          "أشتري")
-                                                                    ],
-                                                                    [
-                                                                      "أريد",
-                                                                      getImageWord(
-                                                                          "أريد")
-                                                                    ],
-                                                                    [
-                                                                      "أحب",
-                                                                      getImageWord(
-                                                                          "أحب")
-                                                                    ],
-                                                                    [
-                                                                      "أشعر",
-                                                                      getImageWord(
-                                                                          "أشعر")
-                                                                    ],
-                                                                    [
-                                                                      "أعمل",
-                                                                      getImageWord(
-                                                                          "أعمل")
-                                                                    ],
-                                                                    [
-                                                                      "أرى",
-                                                                      getImageWord(
-                                                                          "أرى")
-                                                                    ],
-                                                                    [
-                                                                      "أروح",
-                                                                      getImageWord(
-                                                                          "أروح")
-                                                                    ],
-                                                                    [
-                                                                      "أدرس",
-                                                                      getImageWord(
-                                                                          "أدرس")
-                                                                    ],
-                                                                    [
-                                                                      "ألعب",
-                                                                      getImageWord(
-                                                                          "ألعب")
-                                                                    ],
-                                                                    [
-                                                                      "أعطني",
-                                                                      getImageWord(
-                                                                          "أعطني")
-                                                                    ],
-                                                                    [
-                                                                      "ألبس",
-                                                                      getImageWord(
-                                                                          "ألبس")
-                                                                    ],
-                                                                    [
-                                                                      "أنام",
-                                                                      getImageWord(
-                                                                          "أنام")
-                                                                    ],
-                                                                    [
-                                                                      "اتألم",
-                                                                      getImageWord(
-                                                                          "اتألم")
-                                                                    ],
-                                                                    [
-                                                                      "أتحرك",
-                                                                      getImageWord(
-                                                                          "أتحرك")
-                                                                    ],
-                                                                    [
-                                                                      "أمشي",
-                                                                      getImageWord(
-                                                                          "أمشي")
-                                                                    ],
-                                                                  ];
-                                                                });
-                                                              },
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        right:
-                                                                            7),
-                                                                child:
-                                                                    Container(
-                                                                  width:
-                                                                      size == 0
-                                                                          ? 133
-                                                                          : 120,
-                                                                  decoration: BoxDecoration(
-                                                                      color: const Color(
-                                                                          0xffA7CB89),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30)),
-                                                                  child:
-                                                                      const Center(
-                                                                    child: Text(
-                                                                      "أفعال",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              30),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )),
-                                                        Container(
-                                                          height: 7,
-                                                        ),
-                                                        Expanded(
-                                                            child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            predictionWords
-                                                                        .length >=
-                                                                    9
-                                                                ? box(8)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    10
-                                                                ? box(9)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    11
-                                                                ? box(10)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            predictionWords
-                                                                        .length >=
-                                                                    12
-                                                                ? box(11)
-                                                                : const SizedBox(
-                                                                    height: 140,
-                                                                    width: 140,
-                                                                  ),
-                                                            InkWell(
-                                                              onTap: () {
-                                                                setState(() {
-                                                                  predictionWords =
-                                                                      [
-                                                                    [
-                                                                      "من",
-                                                                      getImageWord(
-                                                                          "من")
-                                                                    ],
-                                                                    [
-                                                                      "إلى",
-                                                                      getImageWord(
-                                                                          "إلى")
-                                                                    ],
-                                                                    [
-                                                                      "عن",
-                                                                      getImageWord(
-                                                                          "عن")
-                                                                    ],
-                                                                    [
-                                                                      "على",
-                                                                      getImageWord(
-                                                                          "على")
-                                                                    ],
-                                                                    [
-                                                                      "في",
-                                                                      getImageWord(
-                                                                          "في")
-                                                                    ],
-                                                                    [
-                                                                      "على",
-                                                                      getImageWord(
-                                                                          "على")
-                                                                    ],
-                                                                    [
-                                                                      "لم",
-                                                                      getImageWord(
-                                                                          "لم")
-                                                                    ],
-                                                                    [
-                                                                      "لا",
-                                                                      getImageWord(
-                                                                          "لا")
-                                                                    ],
-                                                                    [
-                                                                      "قد",
-                                                                      getImageWord(
-                                                                          "قد")
-                                                                    ],
-                                                                    [
-                                                                      "إلا",
-                                                                      getImageWord(
-                                                                          "إلا")
-                                                                    ],
-                                                                    [
-                                                                      "بلى",
-                                                                      getImageWord(
-                                                                          "بلى")
-                                                                    ],
-                                                                    [
-                                                                      "حتى",
-                                                                      getImageWord(
-                                                                          "حتى")
-                                                                    ],
-                                                                    [
-                                                                      "لن",
-                                                                      getImageWord(
-                                                                          "لن")
-                                                                    ],
-                                                                    [
-                                                                      "لما",
-                                                                      getImageWord(
-                                                                          "لما")
-                                                                    ],
-                                                                    [
-                                                                      "ما",
-                                                                      getImageWord(
-                                                                          "ما")
-                                                                    ],
-                                                                    [
-                                                                      "ثم",
-                                                                      getImageWord(
-                                                                          "ثم")
-                                                                    ],
-                                                                    [
-                                                                      "و",
-                                                                      getImageWord(
-                                                                          "و")
-                                                                    ],
-                                                                  ];
-                                                                });
-                                                              },
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        right:
-                                                                            7),
-                                                                child:
-                                                                    Container(
-                                                                  width:
-                                                                      size == 0
-                                                                          ? 133
-                                                                          : 120,
-                                                                  decoration: BoxDecoration(
-                                                                      color: const Color(
-                                                                          0xffE9E467),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              30)),
-                                                                  child:
-                                                                      const Center(
-                                                                    child: Text(
-                                                                      "حروف",
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: TextStyle(
-                                                                          fontWeight: FontWeight
-                                                                              .bold,
-                                                                          color: Colors
-                                                                              .white,
-                                                                          fontSize:
-                                                                              30),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        )),
-                                                        Container(
-                                                          height: 7,
-                                                        ),
-                                                        size != 0 && !isLess
-                                                            ? Expanded(
-                                                                child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          13
-                                                                      ? box(12)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          14
-                                                                      ? box(13)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          15
-                                                                      ? box(14)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  predictionWords
-                                                                              .length >=
-                                                                          16
-                                                                      ? box(15)
-                                                                      : const SizedBox(
-                                                                          height:
-                                                                              140,
-                                                                          width:
-                                                                              140,
-                                                                        ),
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      setState(
-                                                                          () {
-                                                                        predictionWords =
-                                                                            [
-                                                                          [
-                                                                            "سعيد",
-                                                                            getImageWord("سعيد")
-                                                                          ],
-                                                                          [
-                                                                            "حزين",
-                                                                            getImageWord("حزين")
-                                                                          ],
-                                                                          [
-                                                                            "جوعان",
-                                                                            getImageWord("جوعان")
-                                                                          ],
-                                                                          [
-                                                                            "عطشان",
-                                                                            getImageWord("عطشان")
-                                                                          ],
-                                                                          [
-                                                                            "خائف",
-                                                                            getImageWord("خائف")
-                                                                          ],
-                                                                          [
-                                                                            "رائع",
-                                                                            getImageWord("رائع")
-                                                                          ],
-                                                                          [
-                                                                            "جميل",
-                                                                            getImageWord("جميل")
-                                                                          ],
-                                                                          [
-                                                                            "سهل",
-                                                                            getImageWord("سهل")
-                                                                          ],
-                                                                          [
-                                                                            "صعب",
-                                                                            getImageWord("صعب")
-                                                                          ],
-                                                                          [
-                                                                            "سريع",
-                                                                            getImageWord("سريع")
-                                                                          ],
-                                                                          [
-                                                                            "بطيء",
-                                                                            getImageWord("بطيء")
-                                                                          ],
-                                                                          [
-                                                                            "تعبان",
-                                                                            getImageWord("تعبان")
-                                                                          ],
-                                                                          [
-                                                                            "طويل",
-                                                                            getImageWord("طويل")
-                                                                          ],
-                                                                          [
-                                                                            "قصير",
-                                                                            getImageWord("قصير")
-                                                                          ],
-                                                                          [
-                                                                            "جيد",
-                                                                            getImageWord("جيد")
-                                                                          ],
-                                                                          [
-                                                                            "سيء",
-                                                                            getImageWord("سيء")
-                                                                          ],
-                                                                        ];
-                                                                      });
-                                                                    },
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          right:
-                                                                              7),
-                                                                      child:
-                                                                          Container(
-                                                                        width: size ==
-                                                                                0
-                                                                            ? 133
-                                                                            : 120,
-                                                                        decoration: BoxDecoration(
-                                                                            color:
-                                                                                const Color(0xff1367A2).withOpacity(.6),
-                                                                            borderRadius: BorderRadius.circular(30)),
-                                                                        child:
-                                                                            const Center(
-                                                                          child:
-                                                                              Text(
-                                                                            "صفات",
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                            style: TextStyle(
-                                                                                fontWeight: FontWeight.bold,
-                                                                                color: Colors.white,
-                                                                                fontSize: 30),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ))
-                                                            : Container()
-                                                      ],
+                                                    )),
+                                                    Container(
+                                                      height: 7,
                                                     ),
+                                                    !isLess && size != 0
+                                                        ? Expanded(
+                                                            child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              predictionWords
+                                                                          .length >=
+                                                                      6
+                                                                  ? box(5)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              predictionWords
+                                                                          .length >=
+                                                                      7
+                                                                  ? box(6)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              predictionWords
+                                                                          .length >=
+                                                                      8
+                                                                  ? box(7)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              predictionWords
+                                                                          .length >=
+                                                                      9
+                                                                  ? box(8)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              predictionWords
+                                                                          .length >=
+                                                                      10
+                                                                  ? box(9)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  List<List<String>>
+                                                                      letters =
+                                                                      [];
+                                                                  for (var element
+                                                                      in librarywordChild[
+                                                                              2]
+                                                                          .contenlist) {
+                                                                    letters
+                                                                        .add([
+                                                                      element
+                                                                          .name,
+                                                                      element
+                                                                          .imgurl
+                                                                    ]);
+                                                                  }
+                                                                  setState(() {
+                                                                    predictionWords =
+                                                                        letters;
+                                                                  });
+                                                                },
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      right: 7),
+                                                                  child:
+                                                                      Container(
+                                                                    width: size ==
+                                                                            0
+                                                                        ? 125
+                                                                        : 120,
+                                                                    decoration: BoxDecoration(
+                                                                        color: const Color(
+                                                                            0xffE9E467),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(30)),
+                                                                    child:
+                                                                        const Center(
+                                                                      child:
+                                                                          Text(
+                                                                        "حروف",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.white,
+                                                                            fontSize: 30),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  List<List<String>>
+                                                                      verbs =
+                                                                      [];
+                                                                  for (var element
+                                                                      in librarywordChild[
+                                                                              1]
+                                                                          .contenlist) {
+                                                                    verbs.add([
+                                                                      element
+                                                                          .name,
+                                                                      element
+                                                                          .imgurl
+                                                                    ]);
+                                                                  }
+                                                                  setState(() {
+                                                                    predictionWords =
+                                                                        verbs;
+                                                                  });
+                                                                },
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      right: 7),
+                                                                  child:
+                                                                      Container(
+                                                                    width: size ==
+                                                                            0
+                                                                        ? 125
+                                                                        : 120,
+                                                                    decoration: BoxDecoration(
+                                                                        color: const Color(
+                                                                            0xffA7CB89),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(30)),
+                                                                    child:
+                                                                        const Center(
+                                                                      child:
+                                                                          Text(
+                                                                        "أفعال",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.black,
+                                                                            fontSize: 30),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ))
+                                                        : Container(),
+                                                  ],
+                                                )
+                                              : Column(
+                                                  children: [
+                                                    Container(
+                                                      height: size == 0 ? 0 : 5,
+                                                    ),
+                                                    Expanded(
+                                                        child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        predictionWords
+                                                                .isNotEmpty
+                                                            ? box(0)
+                                                            : const SizedBox(
+                                                                height: 110,
+                                                                width: 110,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                2
+                                                            ? box(1)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                3
+                                                            ? box(2)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                4
+                                                            ? box(3)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            List<List<String>>
+                                                                main = [];
+                                                            for (var element
+                                                                in librarywordChild[
+                                                                        0]
+                                                                    .contenlist) {
+                                                              main.add([
+                                                                element.name,
+                                                                element.imgurl
+                                                              ]);
+                                                            }
+                                                            setState(() {
+                                                              predictionWords =
+                                                                  main;
+                                                            });
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 7),
+                                                            child: Container(
+                                                              width: size == 0
+                                                                  ? 133
+                                                                  : 120,
+                                                              decoration: BoxDecoration(
+                                                                  color: const Color(
+                                                                      0xffC06FB9),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30)),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "الرئيسية",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          28),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )),
+                                                    Container(
+                                                      height: 7,
+                                                    ),
+                                                    Expanded(
+                                                        child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        predictionWords
+                                                                    .length >=
+                                                                5
+                                                            ? box(4)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                6
+                                                            ? box(5)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                7
+                                                            ? box(6)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                8
+                                                            ? box(7)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            List<List<String>>
+                                                                verbs = [];
+                                                            for (var element
+                                                                in librarywordChild[
+                                                                        1]
+                                                                    .contenlist) {
+                                                              verbs.add([
+                                                                element.name,
+                                                                element.imgurl
+                                                              ]);
+                                                            }
+                                                            setState(() {
+                                                              predictionWords =
+                                                                  verbs;
+                                                            });
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 7),
+                                                            child: Container(
+                                                              width: size == 0
+                                                                  ? 133
+                                                                  : 120,
+                                                              decoration: BoxDecoration(
+                                                                  color: const Color(
+                                                                      0xffA7CB89),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30)),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "أفعال",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          30),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )),
+                                                    Container(
+                                                      height: 7,
+                                                    ),
+                                                    Expanded(
+                                                        child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        predictionWords
+                                                                    .length >=
+                                                                9
+                                                            ? box(8)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                10
+                                                            ? box(9)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                11
+                                                            ? box(10)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        predictionWords
+                                                                    .length >=
+                                                                12
+                                                            ? box(11)
+                                                            : const SizedBox(
+                                                                height: 140,
+                                                                width: 140,
+                                                              ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            List<List<String>>
+                                                                letters = [];
+                                                            for (var element
+                                                                in librarywordChild[
+                                                                        2]
+                                                                    .contenlist) {
+                                                              letters.add([
+                                                                element.name,
+                                                                element.imgurl
+                                                              ]);
+                                                            }
+                                                            setState(() {
+                                                              predictionWords =
+                                                                  letters;
+                                                            });
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 7),
+                                                            child: Container(
+                                                              width: size == 0
+                                                                  ? 133
+                                                                  : 120,
+                                                              decoration: BoxDecoration(
+                                                                  color: const Color(
+                                                                      0xffE9E467),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              30)),
+                                                              child:
+                                                                  const Center(
+                                                                child: Text(
+                                                                  "حروف",
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          30),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )),
+                                                    Container(
+                                                      height: 7,
+                                                    ),
+                                                    size != 0 && !isLess
+                                                        ? Expanded(
+                                                            child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              predictionWords
+                                                                          .length >=
+                                                                      13
+                                                                  ? box(12)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              predictionWords
+                                                                          .length >=
+                                                                      14
+                                                                  ? box(13)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              predictionWords
+                                                                          .length >=
+                                                                      15
+                                                                  ? box(14)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              predictionWords
+                                                                          .length >=
+                                                                      16
+                                                                  ? box(15)
+                                                                  : const SizedBox(
+                                                                      height:
+                                                                          140,
+                                                                      width:
+                                                                          140,
+                                                                    ),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  List<List<String>>
+                                                                      con = [];
+                                                                  for (var element
+                                                                      in librarywordChild[
+                                                                              3]
+                                                                          .contenlist) {
+                                                                    con.add([
+                                                                      element
+                                                                          .name,
+                                                                      element
+                                                                          .imgurl
+                                                                    ]);
+                                                                  }
+                                                                  setState(() {
+                                                                    predictionWords =
+                                                                        con;
+                                                                  });
+                                                                },
+                                                                child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      right: 7),
+                                                                  child:
+                                                                      Container(
+                                                                    width: size ==
+                                                                            0
+                                                                        ? 133
+                                                                        : 120,
+                                                                    decoration: BoxDecoration(
+                                                                        color: const Color(0xff1367A2).withOpacity(
+                                                                            .6),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(30)),
+                                                                    child:
+                                                                        const Center(
+                                                                      child:
+                                                                          Text(
+                                                                        "صفات",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            color: Colors.white,
+                                                                            fontSize: 30),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ))
+                                                        : Container()
+                                                  ],
+                                                ),
                                         )),
                                   ),
                                   MediaQuery.of(context).orientation ==
@@ -3161,10 +2563,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
         .replaceAll("  ", " ")
         .replaceAll("أ", "ا")
         .replaceAll("ة", "ه")
-        //  Afnan
         .replaceAll("إ", "ا")
-
-        ///
         .trim()
         .split(' ');
     if (sentence.length == 1) {
@@ -3303,7 +2702,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       }
     }
     setState(() {});
-    if (counter < 16) {
+    /*  if (counter < 16) {
       for (String r in result) {
         r = r.replaceAll("\"", "");
         if (counter < 16) {
@@ -3325,6 +2724,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       }
       setState(() {});
     }
+    */
 
     if (counter < 16) {
       second_word_Local(text[1], counter);
@@ -3416,7 +2816,6 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       "هذا",
       "مرحبا",
     ];
-
     for (int i = 0; i < wordsP.length; i++) {
       if (predictionWords.length < 16 &&
           !search_in_predictionWords(wordsP[i])) {

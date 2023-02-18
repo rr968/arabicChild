@@ -2,8 +2,6 @@
 
 import 'dart:math';
 
-import 'package:arabic_speaker_child/view/editFiles/editfile.dart';
-
 import '../../main.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/childpage/constant.dart';

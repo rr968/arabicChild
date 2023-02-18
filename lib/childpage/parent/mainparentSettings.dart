@@ -264,8 +264,10 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                               ]),
                                             ),
                                             Container(
-                                                height: 200,
-                                                width: 300,
+                                                height: DeviceUtil.isTablet
+                                                    ? 350
+                                                    : 250,
+                                                width: 600,
                                                 margin: const EdgeInsets.all(5),
                                                 decoration: BoxDecoration(
                                                   border: Border.all(
@@ -278,7 +280,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                           Radius.circular(
                                                               DeviceUtil
                                                                       .isTablet
-                                                                  ? 27
+                                                                  ? 20
                                                                   : 15)),
                                                   boxShadow: [
                                                     BoxShadow(
@@ -295,7 +297,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                     itemCount:
                                                         constantLib.length,
                                                     gridDelegate:
-                                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                                        const SliverGridDelegateWithFixedCrossAxisCount(
                                                             childAspectRatio:
                                                                 1 / 1.1,
                                                             crossAxisSpacing: 1,
@@ -378,11 +380,9 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             padding:
                                                                                 const EdgeInsets.only(top: 5),
                                                                             child:
-                                                                                FittedBox(
-                                                                              child: Text(
-                                                                                constantLib[index].name,
-                                                                                style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                                                              ),
+                                                                                Text(
+                                                                              constantLib[index].name,
+                                                                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                                                                             ),
                                                                           ),
                                                                         )

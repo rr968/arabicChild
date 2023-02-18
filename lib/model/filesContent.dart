@@ -1,0 +1,82 @@
+// ignore_for_file: file_names
+
+import '/model/library.dart';
+
+import '../../model/content.dart';
+
+List<lib> wordLib = [
+  lib("الرئيسية", "assets/7ss.png", "yes", [
+    Content("أنا", "assets/images/i_i_am.png", "yes", "", "", "yes"),
+    Content("هل", "assets/images/symbol00194768.png", "yes", "", "", "yes"),
+    Content("كم", "assets/images/how_much.png", "yes", "", "", "yes"),
+    Content("السلام", "assets/images/hello.png", "yes", "", "", "yes"),
+    Content("شكرا", "assets/images/symbol00196946.png", "yes", "", "", "yes"),
+    Content("عندي", "assets/images/have.png", "yes", "", "", "yes"),
+    Content("طيب", "assets/images/right_e4bc96.png", "yes", "", "", "yes"),
+    Content("كيف", "assets/images/symbol00054213.png", "yes", "", "", "yes"),
+    Content("أبغى", "assets/images/want.png", "yes", "", "", "yes"),
+    Content("هذا", "assets/images/this.png", "yes", "", "", "yes"),
+    Content("بكم", "assets/images/how_much.png", "yes", "", "", "yes"),
+    Content("أين", "assets/images/where_2.png", "yes", "", "", "yes"),
+    Content("متى", "assets/images/when_2.png", "yes", "", "", "yes"),
+    Content("لكن", "assets/images/but.png", "yes", "", "", "yes"),
+    Content("ممكن", "assets/images/symbol00177872.png", "yes", "", "", "yes"),
+    Content("لو", "assets/images/symbol00199966.png", "yes", "", "", "yes"),
+  ]),
+  lib("أفعال", "assets/1ss.png", "yes", [
+    Content("أشتري", "assets/images/buy_1.png", "yes", "", "", "yes"),
+    Content("أريد", "assets/images/want.png", "yes", "", "", "yes"),
+    Content("أحب", "assets/images/love.png", "yes", "", "", "yes"),
+    Content("أشعر", "assets/images/feelings_2.png", "yes", "", "", "yes"),
+    Content("أعمل", "assets/images/work.png", "yes", "", "", "yes"),
+    Content("أرى", "assets/images/symbol00053398.png", "yes", "", "", "yes"),
+    Content("أروح", "assets/images/symbol00122581_e4bc96.png", "yes", "", "",
+        "yes"),
+    Content("أدرس", "assets/images/study.png", "yes", "", "", "yes"),
+    Content("ألعب", "assets/images/symbol00182985.png", "yes", "", "", "yes"),
+    Content("أعطني", "assets/images/give_2.png", "yes", "", "", "yes"),
+    Content("ألبس", "assets/images/symbol00167101.png", "yes", "", "", "yes"),
+    Content("أنام", "assets/images/sleep.png", "yes", "", "", "yes"),
+    Content("اتألم", "assets/images/pain.png", "yes", "", "", "yes"),
+    Content("أتحرك", "assets/images/move.png", "yes", "", "", "yes"),
+    Content("أمشي", "assets/images/walk.png", "yes", "", "", "yes"),
+    Content("فهمت", "assets/images/understand_e4bc96.png", "yes", "", "", "yes")
+  ]),
+  lib("حروف", "", "yes", [
+    Content("من", "assets/images/from.png", "yes", "", "", "yes"),
+    Content("إلى", "assets/images/symbol00151681.png", "yes", "", "", "yes"),
+    Content("عن", "assets/images/about.png", "yes", "", "", "yes"),
+    Content("على", "assets/images/on.png", "yes", "", "", "yes"),
+    Content("في", "assets/images/in.png", "yes", "", "", "yes"),
+    Content("لم", "assets/images/not.png", "yes", "", "", "yes"),
+    Content("لا", "assets/images/symbol00199599.png", "yes", "", "", "yes"),
+    Content("قد", "assets/images/maybe_2.png", "yes", "", "", "yes"),
+    Content("إلا", "assets/images/but.png", "yes", "", "", "yes"),
+    Content("بلى", "assets/images/right_e4bc96.png", "yes", "", "", "yes"),
+    Content("حتى", "assets/images/until.png", "yes", "", "", "yes"),
+    Content("لن", "assets/images/not.png", "yes", "", "", "yes"),
+    Content("لما", "assets/images/about.png", "yes", "", "", "yes"),
+    Content("ما", "assets/images/symbol00054213.png", "yes", "", "", "yes"),
+    Content("ثم", "assets/images/symbol00053371.png", "yes", "", "", "yes"),
+    Content("و", "assets/images/and_plus.png", "yes", "", "", "yes")
+  ]),
+  lib("صفات", "", "yes", [
+    Content("سعيد", "assets/images/symbol00002700.png", "yes", "", "", "yes"),
+    Content("حزين", "assets/images/symbol00002851_e4bc96.png", "yes", "", "",
+        "yes"),
+    Content("جوعان", "assets/images/hungry_2.png", "yes", "", "", "yes"),
+    Content("عطشان", "assets/images/thirsty.png", "yes", "", "", "yes"),
+    Content("خائف", "assets/images/afraid.png", "yes", "", "", "yes"),
+    Content("رائع", "assets/images/amazing_awesome.png", "yes", "", "", "yes"),
+    Content("جميل", "assets/images/symbol00196885.png", "yes", "", "", "yes"),
+    Content("سهل", "assets/images/easy_light.png", "yes", "", "", "yes"),
+    Content("صعب", "assets/images/hard_heavy.png", "yes", "", "", "yes"),
+    Content("سريع", "assets/images/fast.png", "yes", "", "", "yes"),
+    Content("بطيء", "assets/images/slow.png", "yes", "", "", "yes"),
+    Content("تعبان", "assets/images/symbol00121111.png", "yes", "", "", "yes"),
+    Content("طويل", "assets/images/tall.png", "yes", "", "", "yes"),
+    Content("قصير", "assets/images/short_1.png", "yes", "", "", "yes"),
+    Content("جيد", "assets/images/good.png", "yes", "", "", "yes"),
+    Content("سيء", "assets/images/bad_e4bc96.png", "yes", "", "", "yes")
+  ]),
+];
