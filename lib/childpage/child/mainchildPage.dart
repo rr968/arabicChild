@@ -142,6 +142,20 @@ class _MainChildPageState extends State<MainChildPage> {
     }
   }
 
+  getCurrentSpeakSpeed() async {
+    SharedPreferences currentSpeed = await SharedPreferences.getInstance();
+    var f = currentSpeed.getInt("CurrentSpeakSpeed");
+    if (f == null) {
+      setState(() {
+        currentSpeakSpead = 1;
+      });
+    } else {
+      setState(() {
+        currentSpeakSpead = f;
+      });
+    }
+  }
+
   setparentmode() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 

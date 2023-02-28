@@ -382,7 +382,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                             child:
                                                                                 Text(
                                                                               constantLib[index].name,
-                                                                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                                                                              style: TextStyle(fontSize: DeviceUtil.isTablet ? 26 : 15, fontWeight: FontWeight.bold),
                                                                             ),
                                                                           ),
                                                                         )

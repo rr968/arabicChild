@@ -4,6 +4,8 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:convert' show json, utf8;
 
+import 'package:arabic_speaker_child/controller/var.dart';
+
 import '../model/mykey.dart';
 
 class TextToSpeechAPI {
@@ -24,7 +26,14 @@ class TextToSpeechAPI {
       final Map json = {
         'input': {'text': text},
         'voice': {'name': name, 'languageCode': languageCode},
-        'audioConfig': {'audioEncoding': 'MP3', "speakingRate": 0.77}
+        'audioConfig': {
+          'audioEncoding': 'MP3',
+          "speakingRate": currentSpeakSpead == 0
+              ? 1
+              : currentSpeakSpead == 1
+                  ? 0.77
+                  : .66
+        }
       };
 
       final jsonResponse = await _postJson(uri, json);

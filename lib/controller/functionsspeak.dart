@@ -5,6 +5,13 @@ String scoonAtLast(String input) {
   return "$input\u{0652}";
 }
 
+String someWords(String input) {
+  String output = input;
+  output = output.replaceAll("أحب", "أُحِبْ");
+  output = output.replaceAll("احب", "أُحِبْ");
+  return output;
+}
+
 String harakatOnFirstWord(String input) {
   List<String> inputlist = input.split(" ");
   if (inputlist[0] == "بكم") {

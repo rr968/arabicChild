@@ -1,16 +1,23 @@
 // ignore_for_file: file_names
 
+import 'package:arabic_speaker_child/controller/istablet.dart';
+
 import '/controller/var.dart';
 import 'package:flutter/material.dart';
 
 import '../../childpage/child/mainchildPage.dart';
 
 List<String> images = [
-  'assets/HowToUse/1.png',
-  'assets/HowToUse/2.png',
-  'assets/HowToUse/3.png',
-  'assets/HowToUse/4.png',
-  'assets/HowToUse/5.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t1.png' : 'assets/HowToUse/p1.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t2.png' : 'assets/HowToUse/p2.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t3.png' : 'assets/HowToUse/p3.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t4.png' : 'assets/HowToUse/p4.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t5.png' : 'assets/HowToUse/p5.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t6.png' : 'assets/HowToUse/p6.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t7.png' : 'assets/HowToUse/p7.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t8.png' : 'assets/HowToUse/p8.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t9.png' : 'assets/HowToUse/p9.png',
+  DeviceUtil.isTablet ? 'assets/HowToUse/t10.png' : 'assets/HowToUse/p10.png',
 ];
 
 class HowToUse extends StatefulWidget {
@@ -29,7 +36,7 @@ class _HowToUseState extends State<HowToUse> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: maincolor,
+          backgroundColor: pinkColor,
           leading: InkWell(
               onTap: () {
                 Navigator.pop(context);
@@ -42,54 +49,61 @@ class _HowToUseState extends State<HowToUse> {
                 // fontWeight: FontWeight.bold
               )),
         ),
-        body: Stack(
-          children: [
-            Column(children: [
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(images[currentStep]),
-                          fit: BoxFit.fill)),
-                ),
-              ),
-            ]),
-            InkWell(
-              onTap: () async {
-                if (currentStep < 4) {
-                  setState(() {
-                    currentStep += 1;
-                  });
-                } else if (currentStep == 4) {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainChildPage(index: 0)),
-                      (route) => false);
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 60, left: 20),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
+        body: Container(
+          decoration: BoxDecoration(
+              border: Border.all(
+                  color: pinkColor, width: DeviceUtil.isTablet ? 8 : 3)),
+          child: Stack(
+            children: [
+              Column(children: [
+                Expanded(
                   child: Container(
-                    height: 75,
-                    width: 75,
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: maincolor),
-                    child: const Center(
-                        child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
-                      size: 50,
-                    )),
+                        image: DecorationImage(
+                            image: AssetImage(images[currentStep]),
+                            fit: BoxFit.fill)),
+                  ),
+                ),
+              ]),
+              InkWell(
+                onTap: () async {
+                  if (currentStep < 9) {
+                    setState(() {
+                      currentStep += 1;
+                    });
+                  } else if (currentStep == 9) {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const MainChildPage(index: 0)),
+                        (route) => false);
+                  }
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: DeviceUtil.isTablet ? 60 : 25, left: 20),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Container(
+                      height: 75,
+                      width: 75,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: pinkColor),
+                      child: const Center(
+                          child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                        size: 50,
+                      )),
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

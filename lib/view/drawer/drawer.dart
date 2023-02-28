@@ -38,6 +38,7 @@ class _DrawercState extends State<Drawerc> {
   int radiovalue2 = 0;
   int radiovalue3 = size;
   int radiovalue4 = notevoiceindex;
+  int radiovalue5 = 1;
   bool isExpanded = false;
   bool isExpanded1 = false;
   bool isLoading = true;
@@ -60,6 +61,7 @@ class _DrawercState extends State<Drawerc> {
     radiovalue2 = pref.getInt("volume") ?? 0;
     isParentMode = pref.getBool("isParentMode") ?? false;
     switchValue = pref.getBool("switchValue") ?? true;
+    radiovalue5 = pref.getInt("CurrentSpeakSpeed") ?? 1;
   }
 
   double fontSize = 24;
@@ -206,6 +208,126 @@ class _DrawercState extends State<Drawerc> {
                                                           setState(() {
                                                             isFemale = true;
                                                             radiovalue1 =
+                                                                v as int;
+                                                          });
+                                                        },
+                                                        activeColor: pinkColor),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        onExpansionChanged: (bool expanding) =>
+                                            setState(
+                                                () => isExpanded1 = expanding),
+                                      ),
+                                      ExpansionTile(
+                                        title: Row(
+                                          children: [
+                                            const Icon(Icons.speed),
+                                            Container(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              "سرعة المتحدث",
+                                              style: TextStyle(
+                                                fontSize: fontSize,
+                                                color: isExpanded1
+                                                    ? pinkColor
+                                                    : const Color.fromARGB(
+                                                        255, 0, 0, 0),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 16.0),
+                                            child: Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  ListTile(
+                                                    title: Text(
+                                                      "عادي",
+                                                      style: TextStyle(
+                                                        fontSize: fontSize,
+                                                      ),
+                                                    ),
+                                                    leading: Radio(
+                                                      value: 0,
+                                                      groupValue: radiovalue5,
+                                                      onChanged: (v) async {
+                                                        SharedPreferences
+                                                            speed =
+                                                            await SharedPreferences
+                                                                .getInstance();
+                                                        speed.setInt(
+                                                            "CurrentSpeakSpeed",
+                                                            0);
+                                                        setState(() {
+                                                          currentSpeakSpead = 0;
+                                                          radiovalue5 =
+                                                              v as int;
+                                                        });
+                                                      },
+                                                      activeColor: pinkColor,
+                                                    ),
+                                                  ),
+                                                  ListTile(
+                                                    title: Text(
+                                                      "متوسط",
+                                                      style: TextStyle(
+                                                        fontSize: fontSize,
+                                                      ),
+                                                    ),
+                                                    leading: Radio(
+                                                        value: 1,
+                                                        groupValue: radiovalue5,
+                                                        onChanged: (v) async {
+                                                          SharedPreferences
+                                                              speed =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          speed.setInt(
+                                                              "CurrentSpeakSpeed",
+                                                              1);
+                                                          setState(() {
+                                                            currentSpeakSpead =
+                                                                1;
+                                                            radiovalue5 =
+                                                                v as int;
+                                                          });
+                                                        },
+                                                        activeColor: pinkColor),
+                                                  ),
+                                                  ListTile(
+                                                    title: Text(
+                                                      "بطيء",
+                                                      style: TextStyle(
+                                                        fontSize: fontSize,
+                                                      ),
+                                                    ),
+                                                    leading: Radio(
+                                                        value: 2,
+                                                        groupValue: radiovalue5,
+                                                        onChanged: (v) async {
+                                                          SharedPreferences
+                                                              speed =
+                                                              await SharedPreferences
+                                                                  .getInstance();
+                                                          speed.setInt(
+                                                              "CurrentSpeakSpeed",
+                                                              2);
+                                                          setState(() {
+                                                            currentSpeakSpead =
+                                                                2;
+                                                            radiovalue5 =
                                                                 v as int;
                                                           });
                                                         },
