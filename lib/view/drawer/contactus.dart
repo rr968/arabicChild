@@ -228,7 +228,7 @@ class _ContentState extends State<Content> {
 
               final Uri emailLaunchUri = Uri(
                   scheme: 'mailto',
-                  path: "arabic_speaker@tawasal.org.sa",
+                  path: "info.tawasal2019@gmail.com",
                   query: encodquery({
                     'subject': topic.text,
                     'body':
