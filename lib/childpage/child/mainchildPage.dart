@@ -5,12 +5,16 @@ import 'dart:convert';
 import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
+import '../../controller/checkinternet.dart';
 import '../../controller/harakatPrediction.dart';
 import '../../model/content.dart';
 import '../../model/filesContent.dart';
 import '../../model/library.dart';
+import '../../pay/deviceinfo.dart';
+import '../../pay/pay.dart';
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
 import '/controller/var.dart';
@@ -59,6 +63,60 @@ class _MainChildPageState extends State<MainChildPage> {
 
   @override
   void initState() {
+    ///////pay
+    internetConnection().then((value) {
+      if (value) {
+        initPlatformState().then((value) {
+          String d = "${value[0]}${value[1]}";
+          FirebaseFirestore.instance
+              .collection("payChildApp")
+              .doc("mi63rhuIAw1hKJDnLNwx")
+              .get()
+              .then((value) {
+            if (value.data() != null) {
+              Timestamp v = value.data()![d];
+
+              if (v.toDate().isBefore(DateTime.now())) {
+                showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: AlertDialog(
+                        title: Text("لقد انتهى الاشتراك الخاص بك"),
+                        content: Text("قيمة الاشتراك السنوي ٤٩ ريال "),
+                        actions: [
+                          TextButton(
+                            child: Text(
+                              "اشتراك",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => PaymentView(
+                                            amount: 49,
+                                          )),
+                                  (route) => false);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
+            }
+          });
+        });
+      }
+    });
+
+    ////////
     indexpage = widget.index;
 
     getData().then((val) {

@@ -74,6 +74,16 @@ class AboutApp extends StatelessWidget {
                         fontSize: DeviceUtil.isTablet ? 25 : 20,
                         fontWeight: FontWeight.bold),
                   ),
+                  Container(
+                    height: 10,
+                  ),
+                  Text(
+                    "تصميم : م.خالد مسلم",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: DeviceUtil.isTablet ? 25 : 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                   Text("_________________________",
                       style: TextStyle(
                           fontSize: DeviceUtil.isTablet ? 35 : 25,

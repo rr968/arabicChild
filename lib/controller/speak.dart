@@ -53,6 +53,7 @@ String modifyTextBeforeSpeak(String text) {
   //finaltext = pronounceShaddaIOS(finaltext);
   finaltext = harakatOnFirstWord(finaltext);
   finaltext = someWords(finaltext);
+  finaltext = putHarakatOnSomeWords(finaltext);
   try {
     finaltext = TurnTaaToHaa(finaltext);
   } catch (_) {}
@@ -62,7 +63,7 @@ String modifyTextBeforeSpeak(String text) {
 
   finaltext = scoonAtLast(finaltext);
   finaltext = putDot(finaltext);
-  //finaltext = putHarakatOnSomeWords(finaltext);
+
   //finaltext = putDotAfterAllWords(finaltext);
 
   return finaltext;

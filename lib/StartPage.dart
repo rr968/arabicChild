@@ -3,6 +3,10 @@
 import 'dart:async';
 
 import 'package:arabic_speaker_child/controller/getAllDataPediction.dart';
+import 'package:arabic_speaker_child/pay/deviceinfo.dart';
+import 'package:arabic_speaker_child/pay/needPay.dart';
+import 'package:arabic_speaker_child/pay/pay.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/controller/sharedpref.dart';
 import '/firstTimeOpenTheApp/page1.dart';
@@ -22,12 +26,16 @@ class Start extends StatefulWidget {
 class _StartState extends State<Start> {
   bool signOrLogIn = false;
   bool firstTimeOpenTheApp = true;
+  bool needPay = false;
   @override
   void initState() {
     //  canGetData();
+    getSetPayData().then((v) {
+      if (!v) setpayData();
+    });
 
-    getIsSignUpOrLogin().then((sign) {
-      getFirstTimeOpenApp().then((v) {
+    getFirstTimeOpenApp().then((v) {
+      getIsSignUpOrLogin().then((sign) {
         signOrLogIn = sign;
       });
     });
@@ -65,7 +73,13 @@ class _StartState extends State<Start> {
 
   getFirstTimeOpenApp() async {
     SharedPreferences firstTimeOpenApp = await SharedPreferences.getInstance();
-    firstTimeOpenTheApp = firstTimeOpenApp.getBool("firstTimeOpenApp") ?? true;
+    return firstTimeOpenTheApp =
+        firstTimeOpenApp.getBool("firstTimeOpenApp") ?? true;
+  }
+
+  getSetPayData() async {
+    SharedPreferences setPayData = await SharedPreferences.getInstance();
+    return setPayData.getBool("isSetPayData") ?? false;
   }
 
   @override

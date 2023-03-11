@@ -80,8 +80,6 @@ class Page1 extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            //SharedPreferences firstTimeOpenApp = await SharedPreferences.getInstance();
-                            //firstTimeOpenApp.setBool("firstTimeOpenApp",true) ;
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
