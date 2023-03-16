@@ -1081,10 +1081,10 @@ packages:
     dependency: "direct main"
     description:
       name: unicode_moyasar
-      sha256: "0583f4c2b78a154d15464a0e0879d9e08af39bbcac4ab54bcdacfc68a4deafe1"
+      sha256: c6fa647e5c90ef4cc5ff6b442ef5aea662bfc642c5c44df819f02bde3ecc929d
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.3"
   url_launcher:
     dependency: "direct main"
     description:

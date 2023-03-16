@@ -29,6 +29,7 @@ class _StartState extends State<Start> {
   bool needPay = false;
   @override
   void initState() {
+    print(DateTime.now());
     //  canGetData();
     getSetPayData().then((v) {
       if (!v) setpayData();

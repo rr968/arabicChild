@@ -2,11 +2,8 @@ import 'package:arabic_speaker_child/childpage/child/mainchildPage.dart';
 import 'package:arabic_speaker_child/pay/deviceinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:unicode_moyasar/unicode_moyasar.dart';
-
 import '../controller/checkinternet.dart';
-import '../controller/var.dart';
 
 class PaymentView extends StatefulWidget {
   final double amount;
@@ -22,8 +19,12 @@ class _PaymentViewState extends State<PaymentView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-          title: const Text("Checkout"),
-          backgroundColor: maincolor,
+          title: const Text(
+            "الدفع",
+            style: TextStyle(
+                color: Colors.white, fontSize: 23, fontWeight: FontWeight.w500),
+          ),
+          backgroundColor: Color.fromARGB(255, 20, 20, 20),
           shape: const Border(
             bottom: BorderSide(
               color: Colors.black,
@@ -32,20 +33,20 @@ class _PaymentViewState extends State<PaymentView> {
           )),
       body: MoyasarPayment(
         moyasarPaymentData: MoyasarPaymentData(
-          appName: "App Name",
+          appName: "تطبيق تحدث",
           secretKey:
-              // "sk_test_rb9t7aUSFB9qLWsKoGRgm48mavCthrqa1A11jeVN",
+              //"sk_test_rb9t7aUSFB9qLWsKoGRgm48mavCthrqa1A11jeVN",
               "sk_live_t25FRpFc8VJge19EXuxyaPFPMrHSQhfNLEPD6Gyx",
           publishableSecretKey:
-              //   "pk_test_o2hGGCfRdscvmesVgcuRpgGUUwUA2c1A7f5TuPSB",
+              //     "pk_test_o2hGGCfRdscvmesVgcuRpgGUUwUA2c1A7f5TuPSB",
               "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
           purchaseAmount: widget.amount,
           locale: PaymentLocale.ar,
-          paymentEnvironment: PaymentEnvironment.test,
+          paymentEnvironment: PaymentEnvironment.live,
           paymentOptions: [
             PaymentOption.card,
             PaymentOption.applepay,
-            PaymentOption.stcpay,
+            // PaymentOption.stcpay,
           ],
         ),
         onPaymentSucess: (response) async {

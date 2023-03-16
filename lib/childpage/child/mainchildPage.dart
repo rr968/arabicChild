@@ -74,41 +74,43 @@ class _MainChildPageState extends State<MainChildPage> {
               .get()
               .then((value) {
             if (value.data() != null) {
-              Timestamp v = value.data()![d];
-
-              if (v.toDate().isBefore(DateTime.now())) {
-                showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Directionality(
-                      textDirection: TextDirection.rtl,
-                      child: AlertDialog(
-                        title: Text("لقد انتهى الاشتراك الخاص بك"),
-                        content: Text("قيمة الاشتراك السنوي ٤٩ ريال "),
-                        actions: [
-                          TextButton(
-                            child: Text(
-                              "اشتراك",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
+              if (value.data()![d] == null) {
+              } else {
+                Timestamp v = value.data()![d];
+                if (v.toDate().isBefore(DateTime.now())) {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: AlertDialog(
+                          title: Text("لقد انتهى الاشتراك الخاص بك"),
+                          content: Text("قيمة الاشتراك السنوي ٤٩ ريال "),
+                          actions: [
+                            TextButton(
+                              child: Text(
+                                "اشتراك",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => PaymentView(
+                                              amount: 2,
+                                            )),
+                                    (route) => false);
+                              },
                             ),
-                            onPressed: () {
-                              Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PaymentView(
-                                            amount: 49,
-                                          )),
-                                  (route) => false);
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }
               }
             }
           });
