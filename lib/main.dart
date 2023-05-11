@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 //crossAxisAlignment: CrossAxisAlignment.stretch,
 //mainAxisSize: MainAxisSize.min,
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         DeviceOrientation.portraitUp,
       ]);
     }
+
     return ChangeNotifierProvider(
         create: (context) => MyProvider(),
         child: MaterialApp(

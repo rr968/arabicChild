@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:arabic_speaker_child/controller/my_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
 import '/controller/api.dart';
 import '/controller/checkinternet.dart';
 import '/controller/functionsspeak.dart';
@@ -28,6 +29,7 @@ Future getspeech(String text, String name) async {
   final dir = await getTemporaryDirectory();
   final file = File("${dir.path}/wavenet.mp3");
   await file.writeAsBytes(bytes);
+
   final player = AudioPlayer(); // Create a player
   await player.setFilePath(file.path); // Play without waiting for completion
   await player.play();

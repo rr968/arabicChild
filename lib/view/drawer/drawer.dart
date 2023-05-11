@@ -1187,41 +1187,6 @@ class _DrawercState extends State<Drawerc> {
                           },
                         ),
                       ),
-                      DateTime.now().isAfter(DateTime.utc(2023, 3, 19))
-                          ? Container()
-                          : Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 8.0, left: 8.0),
-                              child: InkWell(
-                                child: SizedBox(
-                                  height: 60,
-                                  child: Row(children: [
-                                    const Icon(
-                                      Icons.money,
-                                      size: 40,
-                                    ),
-                                    Container(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      "ادعم التطبيق",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: fontSize),
-                                    ),
-                                  ]),
-                                ),
-                                onTap: () {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PaymentView(
-                                                amount: 2,
-                                              )),
-                                      (route) => false);
-                                },
-                              ),
-                            ),
                       Padding(
                         padding:
                             const EdgeInsets.only(right: 30, left: 30, top: 25),

@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:convert';
-
 import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:arabic_speaker_child/childpage/parent/mainparent.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
@@ -13,7 +12,6 @@ import '/model/library.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../model/content.dart';
 
 class Import extends StatefulWidget {
@@ -200,6 +198,80 @@ class _ImportState extends State<Import> {
                                           children: [
                                             InkWell(
                                               onTap: () async {
+                                                /*   if (DateTime.now().isBefore(
+                                                    DateTime.utc(
+                                                        2023, 3, 27))) 
+                                                        {
+                                                  if (Platform.isAndroid) {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                PaymentView(
+                                                                    amount:
+                                                                        49)));
+                                                  } else {
+                                                    PayModel data =
+                                                        await MoyasarPayment().applePay(
+                                                            amount: 49,
+                                                            publishableKey:
+                                                                "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
+                                                            applepayMerchantId:
+                                                                "merchant.sa.org.tawasal.store",
+                                                            paymentItems: {
+                                                              ' ': 1.0
+                                                            },
+                                                            currencyCode: "SAR",
+                                                            countryCode: "SA");
+                                                    if (data.type != null) {
+                                                      print(data.message);
+                                                    } else {
+                                                      ApplePayModel
+                                                          applePayModel =
+                                                          ApplePayModel
+                                                              .fromJson(
+                                                                  data.source);
+                                                      internetConnection()
+                                                          .then((value) {
+                                                        if (value) {
+                                                          initPlatformState()
+                                                              .then((value) {
+                                                            try {
+                                                              FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      "payChildApp")
+                                                                  .doc(
+                                                                      "mi63rhuIAw1hKJDnLNwx")
+                                                                  .set(
+                                                                      {
+                                                                    "${value[0]}${value[1]}": DateTime
+                                                                            .now()
+                                                                        .add(Duration(
+                                                                            days:
+                                                                                365))
+                                                                  },
+                                                                      SetOptions(
+                                                                          merge:
+                                                                              true));
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pushReplacement(
+                                                                MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          const MainChildPage(
+                                                                    index: 0,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            } catch (e) {}
+                                                          });
+                                                        }
+                                                      });
+                                                    }
+                                                  }
+                                                } else {*/
                                                 SharedPreferences liblistChild =
                                                     await SharedPreferences
                                                         .getInstance();
@@ -221,6 +293,7 @@ class _ImportState extends State<Import> {
                                                                 index: 1)));
                                                 acceptalert(context,
                                                     "تم التنزيل بنجاح");
+                                                // }
                                               },
                                               child: Padding(
                                                 padding:

@@ -1,12 +1,15 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:moyasar_payment/model/paymodel.dart';
+import 'package:moyasar_payment/moyasar_payment.dart';
 
 import '../../controller/checkinternet.dart';
 import '../../controller/harakatPrediction.dart';
@@ -74,8 +77,7 @@ class _MainChildPageState extends State<MainChildPage> {
               .get()
               .then((value) {
             if (value.data() != null) {
-              if (value.data()![d] == null) {
-              } else {
+              if (value.data()![d] != null) {
                 Timestamp v = value.data()![d];
                 if (v.toDate().isBefore(DateTime.now())) {
                   showDialog(
@@ -95,14 +97,51 @@ class _MainChildPageState extends State<MainChildPage> {
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
-                              onPressed: () {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => PaymentView(
-                                              amount: 2,
-                                            )),
-                                    (route) => false);
+                              onPressed: () async {
+                                if (Platform.isAndroid) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PaymentView(amount: 49)));
+                                } else {
+                                  PayModel data = await MoyasarPayment().applePay(
+                                      amount: 49,
+                                      publishableKey:
+                                          "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
+                                      applepayMerchantId:
+                                          "merchant.sa.org.tawasal.store",
+                                      paymentItems: {' ': 1.0},
+                                      currencyCode: "SAR",
+                                      countryCode: "SA");
+                                  if (data.status == 'paid') {
+                                    internetConnection().then((value) {
+                                      if (value) {
+                                        initPlatformState().then((value) {
+                                          try {
+                                            FirebaseFirestore.instance
+                                                .collection("payChildApp")
+                                                .doc("mi63rhuIAw1hKJDnLNwx")
+                                                .set({
+                                              "${value[0]}${value[1]}":
+                                                  DateTime.now()
+                                                      .add(Duration(days: 365))
+                                            }, SetOptions(merge: true));
+                                            Navigator.of(context)
+                                                .pushReplacement(
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const MainChildPage(
+                                                  index: 0,
+                                                ),
+                                              ),
+                                            );
+                                          } catch (e) {}
+                                        });
+                                      }
+                                    });
+                                  }
+                                }
                               },
                             ),
                           ],

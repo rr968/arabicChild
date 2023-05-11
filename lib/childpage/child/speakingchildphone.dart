@@ -2135,7 +2135,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
     }*/
 
     if (counter < 12) {
-      one_word_child(counter);
+      second_word_Local(text[1], counter);
     } else {
       return counter;
     }

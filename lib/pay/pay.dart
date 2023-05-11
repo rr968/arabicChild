@@ -45,8 +45,6 @@ class _PaymentViewState extends State<PaymentView> {
           paymentEnvironment: PaymentEnvironment.live,
           paymentOptions: [
             PaymentOption.card,
-            PaymentOption.applepay,
-            // PaymentOption.stcpay,
           ],
         ),
         onPaymentSucess: (response) async {
@@ -74,7 +72,6 @@ class _PaymentViewState extends State<PaymentView> {
           });
         },
         onPaymentFailed: (response) {
-          //TODO Handle failed payment response
           debugPrint("Failed ------> ${response.toMap()}");
           Navigator.of(context).push(
             MaterialPageRoute(
