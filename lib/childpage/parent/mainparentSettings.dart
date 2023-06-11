@@ -1274,7 +1274,7 @@ class _MainParentSettingsState extends State<MainParentSettings> {
                                                                               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const MainParentPage(index: 1)), (route) => false);
                                                                               acceptalert(
                                                                                 context,
-                                                                                "تم النشر يمكنك الوصول للمكتبة من خلال اعدادات -> تنزيل المكتبات",
+                                                                                "سيتم نشر مكتبتك بعد مراجعتها يمكنك الوصول للمكتبات من خلال اعدادات -> تنزيل المكتبات",
                                                                               );
                                                                             });
                                                                           } else {

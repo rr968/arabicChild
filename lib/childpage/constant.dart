@@ -1,5 +1,3 @@
-import 'child/speakingchildtablet.dart';
-
 convertFvaChildrenToString(List favList) {
   List<String> listChild = [];
   for (var element in favList) {
@@ -38,22 +36,3 @@ String getNumber(int num) {
   if (num == 9) return "تسعة";
   return "صفر";
 }
-
-List<List<String>> pred = [
-  ["انا", getImageWord("انا")],
-  ["هل", getImageWord("هل")],
-  ["كم", getImageWord("كم")],
-  ["متى", getImageWord("متى")],
-  ["اين", getImageWord("اين")],
-  ["بكم", getImageWord("بكم")],
-  ["هذا", getImageWord("هذا")],
-  ["أبغى", getImageWord("أبغى")],
-  ["كيف", getImageWord("كيف")],
-  ["طيب", getImageWord("طيب")],
-  ["عندي", getImageWord("عندي")],
-  ["شكرا", getImageWord("شكرا")],
-  ["السلام", getImageWord("السلام")],
-  ["لكن", getImageWord("لكن")],
-  ["ممكن", getImageWord("ممكن")],
-  ["لو", getImageWord("لو")],
-];

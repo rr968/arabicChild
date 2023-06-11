@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import '../../controller/getAllDataPediction.dart';
 import '../../controller/istablet.dart';
 import '../../questionspages.dart/sizeOfITem.dart';
@@ -8,10 +6,8 @@ import '/controller/validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'login.dart';
 
-//
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
 
@@ -40,6 +36,7 @@ class _LoginState extends State<Signup> {
   Color iconColorHasSmall = pinkColor;
   IconData iconGre = Icons.circle;
   Color iconColorGre = pinkColor;
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -325,9 +322,6 @@ class _LoginState extends State<Signup> {
                                       ],
                                     ),
                                   ),
-                                  Row(
-                                    children: const [],
-                                  ),
                                 ],
                               )
                             : const SizedBox(),
@@ -371,6 +365,15 @@ class _LoginState extends State<Signup> {
                                                   .getInstance();
                                           getSignUpOrLogin.setBool(
                                               "getSignUpOrLogin", true);
+                                          /*showDialog(
+                                            context: context,
+                                            barrierDismissible:
+                                                false, // Prevent dismissing by tapping outside
+                                            builder: (BuildContext context) {
+                                              return CustomPopup();
+                                            },
+                                          ); */
+
                                           Navigator.pushReplacement(
                                               context,
                                               MaterialPageRoute(

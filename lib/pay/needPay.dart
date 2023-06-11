@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:arabic_speaker_child/controller/checkinternet.dart';
 import 'package:arabic_speaker_child/pay/deviceinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,10 +15,11 @@ setpayData() async {
               .collection("payChildApp")
               .doc("mi63rhuIAw1hKJDnLNwx")
               .set({
-            "${value[0]}${value[1]}": DateTime.now().add(Duration(days: 60))
+            "${value[0]}${value[1]}":
+                DateTime.now().add(const Duration(days: 60))
           }, SetOptions(merge: true));
           isSetPayData.setBool("isSetPayData", true);
-        } catch (e) {}
+        } catch (_) {}
       });
     }
   });

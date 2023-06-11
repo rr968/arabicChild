@@ -1,7 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
-
+import 'package:arabic_speaker_child/controller/var.dart';
+import 'package:flutter/services.dart';
 import 'package:arabic_speaker_child/controller/harakatPrediction.dart';
 import 'package:arabic_speaker_child/controller/realtime.dart';
 import 'package:arabic_speaker_child/data.dart';
@@ -10,15 +11,16 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../controller/erroralert.dart';
 import '../../controller/my_provider.dart';
+
 import '../../model/libraryToChoose.dart';
 import '/childpage/constant.dart';
 import '/controller/images.dart';
 import '/controller/speak.dart';
 import '/controller/uploaddataChild.dart';
-import '/controller/var.dart';
+
 import '/model/library.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/content.dart';
@@ -60,7 +62,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                 : v;
       });
     });
-    predictionWords = pred;
+
     getFavData();
     getLocalDB();
     getdata().then((v) {
@@ -75,6 +77,12 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   }
 
   getdata() async {
+    List<List<String>> p = [];
+    for (var element in librarywordChild[0].contenlist) {
+      p.add([element.name, element.imgurl]);
+    }
+    predictionWords = p;
+    /////////////////////////////////
     libraryListChild = [];
     SharedPreferences liblistChild = await SharedPreferences.getInstance();
     size = liblistChild.getInt("size") ?? 1;
@@ -138,359 +146,375 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : ListView(
-                  children: [
-                    //appbar
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 15, right: 22, top: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () => Scaffold.of(context).openDrawer(),
-                            child: Image.asset(
-                              "assets/uiImages/drawer.png",
-                              height: 40,
-                            ),
-                          ),
-                          Text(
-                            "اختر الكلمات",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: size == 0 ? 44 : 40,
-                                color: pinkColor),
-                          ),
-                          Text(
-                            "         ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: pinkColor),
-                          )
-                        ],
-                      ),
-                    ),
-                    ////////////
-                    SizedBox(
-                      height: MediaQuery.of(context).orientation !=
-                              Orientation.portrait
-                          ? MediaQuery.of(context).size.height -
-                              80 -
-                              MediaQuery.of(context).size.height * .09
-                          : MediaQuery.of(context).size.height -
-                              80 -
-                              MediaQuery.of(context).size.height * .07,
-                      width: MediaQuery.of(context).size.width,
-                      child: Center(
-                          child: Padding(
-                        padding: EdgeInsets.only(
-                          top: size == 0 ? 3 : 10,
-                        ),
-                        child: Column(
+              : SafeArea(
+                  child: Column(
+                    children: [
+                      //appbar
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: 15, right: 22, top: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 15, left: 15),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      bool t = Provider.of<MyProvider>(context,
-                                              listen: false)
-                                          .isSpeakingNow;
-                                      if (!t) {
-                                        if (controller.text.trim().isNotEmpty) {
-                                          setState(() {
-                                            fieldContent.add(Content(
-                                                controller.text.trim(),
-                                                "",
-                                                "yes",
-                                                "",
-                                                "",
-                                                "yes"));
-                                          });
-                                          contentWordController.animateTo(
-                                              contentWordController
-                                                  .position.maxScrollExtent,
-                                              duration: const Duration(
-                                                  milliseconds: 750),
-                                              curve: Curves.easeOut);
+                            InkWell(
+                              onTap: () => Scaffold.of(context).openDrawer(),
+                              child: Image.asset(
+                                "assets/uiImages/drawer.png",
+                                height: 40,
+                              ),
+                            ),
+                            Text(
+                              "اختر الكلمات",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: size == 0 ? 44 : 40,
+                                  color: pinkColor),
+                            ),
+                            Text(
+                              "         ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: pinkColor),
+                            )
+                          ],
+                        ),
+                      ),
+                      ////////////
+                      Expanded(
+                        child: SizedBox(
+                          height: MediaQuery.of(context).orientation !=
+                                  Orientation.portrait
+                              ? MediaQuery.of(context).size.height -
+                                  80 -
+                                  MediaQuery.of(context).size.height * .09
+                              : MediaQuery.of(context).size.height -
+                                  80 -
+                                  MediaQuery.of(context).size.height * .07,
+                          width: MediaQuery.of(context).size.width,
+                          child: Center(
+                              child: Padding(
+                            padding: EdgeInsets.only(
+                              top: size == 0 ? 3 : 10,
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 15, left: 15),
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () async {
+                                          bool t = Provider.of<MyProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .isSpeakingNow;
+                                          if (!t) {
+                                            if (controller.text
+                                                .trim()
+                                                .isNotEmpty) {
+                                              setState(() {
+                                                fieldContent.add(Content(
+                                                    controller.text.trim(),
+                                                    "",
+                                                    "yes",
+                                                    "",
+                                                    "",
+                                                    "yes"));
+                                              });
+                                              contentWordController.animateTo(
+                                                  contentWordController
+                                                      .position.maxScrollExtent,
+                                                  duration: const Duration(
+                                                      milliseconds: 750),
+                                                  curve: Curves.easeOut);
 
-                                          controller.clear();
-                                        }
-                                        //speak
-                                        String a = "";
-                                        for (var element in fieldContent) {
-                                          a += "${element.name} ";
-                                        }
+                                              controller.clear();
+                                            }
+                                            //speak
+                                            String a = "";
+                                            for (var element in fieldContent) {
+                                              a += "${element.name} ";
+                                            }
 
-                                        if (fav.contains(a.trim())) {
-                                          setState(() {
-                                            isFav = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            isFav = false;
-                                          });
-                                        }
-                                        if (controller.text.trim().isNotEmpty) {
-                                          predict(a
-                                              .replaceAll("أ", "ا")
-                                              .replaceAll("إ", "ا")
-                                              .replaceAll("ة", "ه"));
-                                        }
-                                        howtospeak(a, context);
-                                        store_In_local(a);
-                                        tryUploadToRealTimeForChild(a);
-                                      }
-                                    },
-                                    child: Container(
-                                        height: size == 0 ? 140 : 130,
-                                        width: 65,
-                                        decoration: BoxDecoration(
-                                          color: Provider.of<MyProvider>(
-                                                      context,
-                                                      listen: true)
-                                                  .isSpeakingNow
-                                              ? pinkColor.withOpacity(.6)
-                                              : pinkColor,
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(20)),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: Colors.grey
-                                                    .withOpacity(0.3),
-                                                spreadRadius: 3,
-                                                blurRadius: 5,
-                                                offset: const Offset(0, 3)),
-                                          ],
-                                          border: Border.all(
-                                            width: 2,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              "assets/uiImages/volume.png",
-                                              height: 45,
-                                              color: Colors.white,
-                                            ),
-                                            const Padding(
-                                              padding:
-                                                  EdgeInsets.only(top: 8.0),
-                                              child: Text(
-                                                "نطق",
-                                                style: TextStyle(
-                                                    fontSize: 22,
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            )
-                                          ],
-                                        )),
-                                  ),
-                                  Container(
-                                    width: 7,
-                                  ),
-                                  Expanded(
-                                      child: InkWell(
-                                    onTap: () async {
-                                      bool t = Provider.of<MyProvider>(context,
-                                              listen: false)
-                                          .isSpeakingNow;
-                                      if (!t) {
-                                        if (controller.text.trim().isNotEmpty) {
-                                          setState(() {
-                                            fieldContent.add(Content(
-                                                controller.text.trim(),
-                                                "",
-                                                "yes",
-                                                "",
-                                                "",
-                                                "yes"));
-                                          });
-                                          if (fieldContent.length > 5) {
-                                            contentWordController.animateTo(
-                                                contentWordController.position
-                                                        .maxScrollExtent -
-                                                    200,
-                                                duration: const Duration(
-                                                    milliseconds: 750),
-                                                curve: Curves.easeOut);
+                                            if (fav.contains(a.trim())) {
+                                              setState(() {
+                                                isFav = true;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                isFav = false;
+                                              });
+                                            }
+                                            if (controller.text
+                                                .trim()
+                                                .isNotEmpty) {
+                                              predict(a
+                                                  .replaceAll("أ", "ا")
+                                                  .replaceAll("إ", "ا")
+                                                  .replaceAll("ة", "ه"));
+                                            }
+                                            howtospeak(a, context);
+                                            store_In_local(a);
+                                            tryUploadToRealTimeForChild(a);
                                           }
-
-                                          controller.clear();
-                                        }
-                                        //speak
-                                        String a = "";
-                                        for (var element in fieldContent) {
-                                          a += "${element.name} ";
-                                        }
-
-                                        if (fav.contains(a.trim())) {
-                                          setState(() {
-                                            isFav = true;
-                                          });
-                                        } else {
-                                          setState(() {
-                                            isFav = false;
-                                          });
-                                        }
-                                        if (controller.text.trim().isNotEmpty) {
-                                          predict(a
-                                              .replaceAll("أ", "ا")
-                                              .replaceAll("إ", "ا")
-                                              .replaceAll("ة", "ه"));
-                                        }
-                                        howtospeak(a, context);
-                                        store_In_local(a);
-                                        tryUploadToRealTimeForChild(a);
-                                      }
-                                    },
-                                    child: Container(
-                                      height: size == 0 ? 150 : 140,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xffe9edf3),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(27)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color:
-                                                  Colors.grey.withOpacity(0.3),
-                                              spreadRadius: 3,
-                                              blurRadius: 5,
-                                              offset: const Offset(0, 3)),
-                                        ],
-                                        border: Border.all(
-                                          width: 2,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding:
-                                            EdgeInsets.all(size == 0 ? 3 : 7),
-                                        child: Row(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.topRight,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  // clear
-                                                  if (fieldContent.isNotEmpty) {
-                                                    if (fieldContent.length ==
-                                                        1) {
-                                                      List<List<String>> main =
-                                                          [];
-                                                      for (var element
-                                                          in librarywordChild[0]
-                                                              .contenlist) {
-                                                        main.add([
-                                                          element.name,
-                                                          element.imgurl
-                                                        ]);
-                                                      }
-                                                      setState(() {
-                                                        fieldContent = [];
-                                                        isFav = false;
-                                                        predictionWords = main;
-                                                      });
-                                                    } else {
-                                                      setState(() {
-                                                        fieldContent.removeAt(
-                                                            fieldContent
-                                                                    .length -
-                                                                1);
-                                                      });
-                                                      String text = "";
-                                                      for (var element
-                                                          in fieldContent) {
-                                                        text +=
-                                                            "${element.name} ";
-                                                      }
-                                                      predict(text
-                                                          .replaceAll("أ", "ا")
-                                                          .replaceAll("إ", "ا")
-                                                          .replaceAll(
-                                                              "ة", "ه"));
-                                                      if (fav.contains(
-                                                          text.trim())) {
-                                                        setState(() {
-                                                          isFav = true;
-                                                        });
-                                                      } else {
-                                                        setState(() {
-                                                          isFav = false;
-                                                        });
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                child: Padding(
+                                        },
+                                        child: Container(
+                                            height: size == 0 ? 140 : 130,
+                                            width: 65,
+                                            decoration: BoxDecoration(
+                                              color: Provider.of<MyProvider>(
+                                                          context,
+                                                          listen: true)
+                                                      .isSpeakingNow
+                                                  ? pinkColor.withOpacity(.6)
+                                                  : pinkColor,
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(20)),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 3,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0, 3)),
+                                              ],
+                                              border: Border.all(
+                                                width: 2,
+                                                color: Colors.grey,
+                                              ),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(
+                                                  "assets/uiImages/volume.png",
+                                                  height: 45,
+                                                  color: Colors.white,
+                                                ),
+                                                const Padding(
                                                   padding:
-                                                      const EdgeInsets.only(
-                                                          left: 5),
-                                                  child: Image.asset(
-                                                    "assets/uiImages/delete.png",
-                                                    height: size == 0 ? 42 : 38,
-                                                    matchTextDirection: true,
+                                                      EdgeInsets.only(top: 8.0),
+                                                  child: Text(
+                                                    "نطق",
+                                                    style: TextStyle(
+                                                        fontSize: 22,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                )
+                                              ],
+                                            )),
+                                      ),
+                                      Container(
+                                        width: 7,
+                                      ),
+                                      Expanded(
+                                          child: InkWell(
+                                        onTap: () async {
+                                          bool t = Provider.of<MyProvider>(
+                                                  context,
+                                                  listen: false)
+                                              .isSpeakingNow;
+                                          if (!t) {
+                                            if (controller.text
+                                                .trim()
+                                                .isNotEmpty) {
+                                              setState(() {
+                                                fieldContent.add(Content(
+                                                    controller.text.trim(),
+                                                    "",
+                                                    "yes",
+                                                    "",
+                                                    "",
+                                                    "yes"));
+                                              });
+                                              if (fieldContent.length > 5) {
+                                                contentWordController.animateTo(
+                                                    contentWordController
+                                                            .position
+                                                            .maxScrollExtent -
+                                                        200,
+                                                    duration: const Duration(
+                                                        milliseconds: 750),
+                                                    curve: Curves.easeOut);
+                                              }
+
+                                              controller.clear();
+                                            }
+                                            //speak
+                                            String a = "";
+                                            for (var element in fieldContent) {
+                                              a += "${element.name} ";
+                                            }
+
+                                            if (fav.contains(a.trim())) {
+                                              setState(() {
+                                                isFav = true;
+                                              });
+                                            } else {
+                                              setState(() {
+                                                isFav = false;
+                                              });
+                                            }
+                                            if (controller.text
+                                                .trim()
+                                                .isNotEmpty) {
+                                              predict(a
+                                                  .replaceAll("أ", "ا")
+                                                  .replaceAll("إ", "ا")
+                                                  .replaceAll("ة", "ه"));
+                                            }
+                                            howtospeak(a, context);
+                                            store_In_local(a);
+                                            tryUploadToRealTimeForChild(a);
+                                          }
+                                        },
+                                        child: Container(
+                                          height: size == 0 ? 150 : 140,
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xffe9edf3),
+                                            borderRadius:
+                                                const BorderRadius.all(
+                                                    Radius.circular(27)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.3),
+                                                  spreadRadius: 3,
+                                                  blurRadius: 5,
+                                                  offset: const Offset(0, 3)),
+                                            ],
+                                            border: Border.all(
+                                              width: 2,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                size == 0 ? 3 : 7),
+                                            child: Row(
+                                              children: [
+                                                Align(
+                                                  alignment: Alignment.topRight,
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      // clear
+                                                      if (fieldContent
+                                                          .isNotEmpty) {
+                                                        if (fieldContent
+                                                                .length ==
+                                                            1) {
+                                                          List<List<String>>
+                                                              main = [];
+                                                          for (var element
+                                                              in librarywordChild[
+                                                                      0]
+                                                                  .contenlist) {
+                                                            main.add([
+                                                              element.name,
+                                                              element.imgurl
+                                                            ]);
+                                                          }
+                                                          setState(() {
+                                                            fieldContent = [];
+                                                            isFav = false;
+                                                            predictionWords =
+                                                                main;
+                                                          });
+                                                        } else {
+                                                          setState(() {
+                                                            fieldContent.removeAt(
+                                                                fieldContent
+                                                                        .length -
+                                                                    1);
+                                                          });
+                                                          String text = "";
+                                                          for (var element
+                                                              in fieldContent) {
+                                                            text +=
+                                                                "${element.name} ";
+                                                          }
+                                                          predict(text
+                                                              .replaceAll(
+                                                                  "أ", "ا")
+                                                              .replaceAll(
+                                                                  "إ", "ا")
+                                                              .replaceAll(
+                                                                  "ة", "ه"));
+                                                          if (fav.contains(
+                                                              text.trim())) {
+                                                            setState(() {
+                                                              isFav = true;
+                                                            });
+                                                          } else {
+                                                            setState(() {
+                                                              isFav = false;
+                                                            });
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 5),
+                                                      child: Image.asset(
+                                                        "assets/uiImages/delete.png",
+                                                        height:
+                                                            size == 0 ? 42 : 38,
+                                                        matchTextDirection:
+                                                            true,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: SizedBox(
-                                                height: 140,
-                                                child: Column(
-                                                  children: [
-                                                    Expanded(
-                                                      child: ListView(
-                                                        controller:
-                                                            contentWordController,
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        children: [
-                                                          for (int i = 0;
-                                                              i <
-                                                                  fieldContent
-                                                                      .length;
-                                                              i++)
-                                                            fieldContent[i]
-                                                                    .imgurl
-                                                                    .isEmpty
-                                                                ? FittedBox(
-                                                                    child: Column(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          const SizedBox(
-                                                                            height:
-                                                                                110,
-                                                                            width:
-                                                                                110,
-                                                                          ),
-                                                                          Text(
-                                                                            fieldContent[i].name,
-                                                                            style: TextStyle(
-                                                                                fontSize: 40,
-                                                                                fontWeight: FontWeight.w900,
-                                                                                color: pinkColor),
-                                                                          )
-                                                                        ]),
-                                                                  )
-                                                                : FittedBox(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          left:
-                                                                              12),
-                                                                      child: Column(
-                                                                          children: [
+                                                Expanded(
+                                                  child: SizedBox(
+                                                    height: 140,
+                                                    child: Column(
+                                                      children: [
+                                                        Expanded(
+                                                          child: ListView(
+                                                            controller:
+                                                                contentWordController,
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            children: [
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      fieldContent
+                                                                          .length;
+                                                                  i++)
+                                                                fieldContent[i]
+                                                                        .imgurl
+                                                                        .isEmpty
+                                                                    ? FittedBox(
+                                                                        child: Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              const SizedBox(
+                                                                                height: 110,
+                                                                                width: 110,
+                                                                              ),
+                                                                              Text(
+                                                                                fieldContent[i].name,
+                                                                                style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900, color: pinkColor),
+                                                                              )
+                                                                            ]),
+                                                                      )
+                                                                    : FittedBox(
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.only(left: 12),
+                                                                          child:
+                                                                              Column(children: [
                                                                             SizedBox(
                                                                               height: 110,
                                                                               width: 110,
@@ -501,165 +525,575 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900, color: pinkColor),
                                                                             )
                                                                           ]),
-                                                                    ),
-                                                                  ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 15),
-                                                            child: SizedBox(
-                                                              height: 140,
-                                                              width: 300,
-                                                              child: Center(
-                                                                child:
-                                                                    TextField(
-                                                                  controller:
-                                                                      controller,
-                                                                  cursorColor:
-                                                                      pinkColor,
-                                                                  onTap: () {
-                                                                    controller.selection = TextSelection.fromPosition(TextPosition(
-                                                                        offset: controller
-                                                                            .text
-                                                                            .trim()
-                                                                            .length));
-                                                                  },
-                                                                  onChanged:
-                                                                      (v) async {
-                                                                    if (v
-                                                                        .trim()
-                                                                        .isNotEmpty) {
-                                                                      autoComplete(
-                                                                          v);
-                                                                    } else if (v
-                                                                            .trim()
-                                                                            .isEmpty &&
-                                                                        fieldContent
-                                                                            .isNotEmpty) {
-                                                                      predict(fieldContent[fieldContent.length -
-                                                                              1]
-                                                                          .name);
-                                                                    } else if (fieldContent
-                                                                            .isEmpty &&
-                                                                        v
-                                                                            .trim()
-                                                                            .isEmpty) {
-                                                                      List<List<String>>
-                                                                          main =
-                                                                          [];
-                                                                      for (var element
-                                                                          in librarywordChild[0]
-                                                                              .contenlist) {
-                                                                        main.add([
-                                                                          element
-                                                                              .name,
-                                                                          element
-                                                                              .imgurl
-                                                                        ]);
-                                                                      }
-                                                                      setState(
+                                                                        ),
+                                                                      ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            15),
+                                                                child: SizedBox(
+                                                                  height: 140,
+                                                                  width: 300,
+                                                                  child: Center(
+                                                                    child:
+                                                                        TextField(
+                                                                      controller:
+                                                                          controller,
+                                                                      cursorColor:
+                                                                          pinkColor,
+                                                                      onTap:
                                                                           () {
-                                                                        predictionWords =
-                                                                            main;
-                                                                      });
-                                                                    }
-                                                                  },
-                                                                  cursorWidth:
-                                                                      4,
-                                                                  style: const TextStyle(
-                                                                      fontSize:
-                                                                          35,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w900),
-                                                                  decoration:
-                                                                      const InputDecoration(
-                                                                    border:
-                                                                        InputBorder
-                                                                            .none,
+                                                                        controller.selection =
+                                                                            TextSelection.fromPosition(TextPosition(offset: controller.text.trim().length));
+                                                                      },
+                                                                      onChanged:
+                                                                          (v) async {
+                                                                        if (v
+                                                                            .trim()
+                                                                            .isNotEmpty) {
+                                                                          autoComplete(
+                                                                              v);
+                                                                        } else if (v.trim().isEmpty &&
+                                                                            fieldContent
+                                                                                .isNotEmpty) {
+                                                                          predict(
+                                                                              fieldContent[fieldContent.length - 1].name);
+                                                                        } else if (fieldContent.isEmpty &&
+                                                                            v.trim().isEmpty) {
+                                                                          List<List<String>>
+                                                                              main =
+                                                                              [];
+                                                                          for (var element
+                                                                              in librarywordChild[0].contenlist) {
+                                                                            main.add([
+                                                                              element.name,
+                                                                              element.imgurl
+                                                                            ]);
+                                                                          }
+                                                                          setState(
+                                                                              () {
+                                                                            predictionWords =
+                                                                                main;
+                                                                          });
+                                                                        }
+                                                                      },
+                                                                      cursorWidth:
+                                                                          4,
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              35,
+                                                                          fontWeight:
+                                                                              FontWeight.w900),
+                                                                      decoration:
+                                                                          const InputDecoration(
+                                                                        border:
+                                                                            InputBorder.none,
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                        left: 20,
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          SizedBox(
-                                                              height: 10,
-                                                              width: 250,
-                                                              child: fieldContent
-                                                                          .length >=
-                                                                      6
-                                                                  ? SliderTheme(
-                                                                      data: SliderTheme.of(
-                                                                              context)
-                                                                          .copyWith(
-                                                                        activeTrackColor: const Color.fromARGB(
-                                                                            255,
-                                                                            114,
-                                                                            114,
-                                                                            114),
-                                                                        inactiveTrackColor: const Color.fromARGB(
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                            left: 20,
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              SizedBox(
+                                                                  height: 10,
+                                                                  width: 250,
+                                                                  child: fieldContent
+                                                                              .length >=
+                                                                          6
+                                                                      ? SliderTheme(
+                                                                          data:
+                                                                              SliderTheme.of(context).copyWith(
+                                                                            activeTrackColor: const Color.fromARGB(
                                                                                 255,
                                                                                 114,
                                                                                 114,
-                                                                                114)
-                                                                            .withOpacity(.5),
-                                                                        trackShape:
-                                                                            const RectangularSliderTrackShape(),
-                                                                        trackHeight:
-                                                                            5,
-                                                                        thumbColor: const Color.fromARGB(
-                                                                            255,
-                                                                            114,
-                                                                            114,
-                                                                            114),
-                                                                        thumbShape:
-                                                                            const RoundSliderThumbShape(enabledThumbRadius: 12),
-                                                                        overlayColor: Colors
-                                                                            .red
-                                                                            .withAlpha(32),
-                                                                        overlayShape:
-                                                                            const RoundSliderOverlayShape(overlayRadius: 28.0),
+                                                                                114),
+                                                                            inactiveTrackColor:
+                                                                                const Color.fromARGB(255, 114, 114, 114).withOpacity(.5),
+                                                                            trackShape:
+                                                                                const RectangularSliderTrackShape(),
+                                                                            trackHeight:
+                                                                                5,
+                                                                            thumbColor: const Color.fromARGB(
+                                                                                255,
+                                                                                114,
+                                                                                114,
+                                                                                114),
+                                                                            thumbShape:
+                                                                                const RoundSliderThumbShape(enabledThumbRadius: 12),
+                                                                            overlayColor:
+                                                                                Colors.red.withAlpha(32),
+                                                                            overlayShape:
+                                                                                const RoundSliderOverlayShape(overlayRadius: 28.0),
+                                                                          ),
+                                                                          child: Slider(
+                                                                              value: _scrollOffset,
+                                                                              onChanged: ((value) {
+                                                                                contentWordController.animateTo(contentWordController.position.maxScrollExtent * value, duration: const Duration(seconds: 1), curve: Curves.easeOut);
+                                                                              })),
+                                                                        )
+                                                                      : Container()),
+                                                              SizedBox(
+                                                                width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width *
+                                                                    .25,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: 15,
+                                                                    ),
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () async {
+                                                                        List<List<String>>
+                                                                            main =
+                                                                            [];
+                                                                        for (var element
+                                                                            in librarywordChild[0].contenlist) {
+                                                                          main.add([
+                                                                            element.name,
+                                                                            element.imgurl
+                                                                          ]);
+                                                                        }
+                                                                        setState(
+                                                                            () {
+                                                                          isFav =
+                                                                              false;
+                                                                          fieldContent =
+                                                                              [];
+                                                                          predictionWords =
+                                                                              main;
+                                                                        });
+
+                                                                        controller
+                                                                            .clear();
+                                                                      },
+                                                                      child:
+                                                                          SizedBox(
+                                                                        height:
+                                                                            33,
+                                                                        width:
+                                                                            33,
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(0),
+                                                                          child:
+                                                                              Image.asset(
+                                                                            "assets/uiImages/trash.png",
+                                                                            fit:
+                                                                                BoxFit.fill,
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                      child: Slider(
-                                                                          value: _scrollOffset,
-                                                                          onChanged: ((value) {
-                                                                            contentWordController.animateTo(contentWordController.position.maxScrollExtent * value,
-                                                                                duration: const Duration(seconds: 1),
-                                                                                curve: Curves.easeOut);
-                                                                          })),
-                                                                    )
-                                                                  : Container()),
-                                                          SizedBox(
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                .25,
-                                                            child: Row(
+                                                                    ),
+                                                                    Container(
+                                                                      width: 15,
+                                                                    ),
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () async {
+                                                                        if (controller
+                                                                            .text
+                                                                            .trim()
+                                                                            .isNotEmpty) {
+                                                                          setState(
+                                                                              () {
+                                                                            fieldContent.add(Content(
+                                                                                controller.text.trim(),
+                                                                                "",
+                                                                                "yes",
+                                                                                "",
+                                                                                "",
+                                                                                "yes"));
+                                                                          });
+
+                                                                          controller
+                                                                              .clear();
+                                                                        }
+                                                                        if (fieldContent
+                                                                            .isNotEmpty) {
+                                                                          //speak
+                                                                          String
+                                                                              text =
+                                                                              "";
+                                                                          for (var element
+                                                                              in fieldContent) {
+                                                                            text +=
+                                                                                "${element.name} ";
+                                                                          }
+                                                                          if (controller
+                                                                              .text
+                                                                              .trim()
+                                                                              .isNotEmpty) {
+                                                                            predict(text.replaceAll("أ", "ا").replaceAll("إ", "ا").replaceAll("ة",
+                                                                                "ه"));
+                                                                          }
+
+                                                                          SharedPreferences
+                                                                              favlist =
+                                                                              await SharedPreferences.getInstance();
+                                                                          if (!fav
+                                                                              .contains(text.trim())) {
+                                                                            setState(() {
+                                                                              fav.add(text.trim());
+                                                                              isFav = true;
+                                                                            });
+
+                                                                            String
+                                                                                newFav =
+                                                                                "";
+                                                                            for (int y = 0;
+                                                                                y < fieldContent.length;
+                                                                                y++) {
+                                                                              String input = fieldContent[y].name;
+                                                                              String imurl = fieldContent[y].imgurl;
+                                                                              String isimup = fieldContent[y].isImageUpload;
+                                                                              String voiceurl = fieldContent[y].opvoice;
+                                                                              String voiceCache = fieldContent[y].cacheVoicePath;
+                                                                              String isvoiceUp = fieldContent[y].isVoiceUpload;
+
+                                                                              if (y == fieldContent.length - 1) {
+                                                                                newFav += """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
+                                                                              } else {
+                                                                                newFav += """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
+                                                                              }
+                                                                            }
+                                                                            newFav =
+                                                                                "[$newFav]";
+                                                                            List<String>
+                                                                                favChildList =
+                                                                                [];
+                                                                            var temp =
+                                                                                favlist.getStringList("favlistChild");
+                                                                            if (temp ==
+                                                                                null) {
+                                                                              favChildList = [
+                                                                                newFav
+                                                                              ];
+                                                                            } else {
+                                                                              favChildList = temp;
+                                                                              favChildList.add(newFav);
+                                                                            }
+                                                                            favlist.setStringList("favlistChild",
+                                                                                favChildList);
+                                                                          } else {
+                                                                            fav.remove(text.trim());
+                                                                            setState(() {
+                                                                              isFav = false;
+                                                                            });
+                                                                            List<String>
+                                                                                v =
+                                                                                favlist.getStringList("favlistChild") ?? [];
+                                                                            List
+                                                                                favChild =
+                                                                                [];
+                                                                            for (var element
+                                                                                in v) {
+                                                                              favChild.add(json.decode(element));
+                                                                            }
+                                                                            favChild.removeWhere((element) {
+                                                                              if (element.length != fieldContent.length) {
+                                                                                return false;
+                                                                              } else {
+                                                                                bool sam = true;
+                                                                                for (int o = 0; o < element.length; o++) {
+                                                                                  if (element[o][0] != fieldContent[o].name) {
+                                                                                    sam = false;
+                                                                                  }
+                                                                                }
+                                                                                return sam;
+                                                                              }
+                                                                            });
+
+                                                                            List<String>
+                                                                                favString =
+                                                                                convertFvaChildrenToString(favChild);
+                                                                            favlist.setStringList("favlistChild",
+                                                                                favString);
+                                                                          }
+                                                                        } else {
+                                                                          erroralert(
+                                                                              context,
+                                                                              "يرجى ملئ الحقل للاضافة الى المفضلة");
+                                                                        }
+                                                                      },
+                                                                      child:
+                                                                          SizedBox(
+                                                                        height:
+                                                                            33,
+                                                                        width:
+                                                                            33,
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(0),
+                                                                          child: isFav
+                                                                              ? Image.asset(
+                                                                                  "assets/uiImages/star2.png",
+                                                                                  color: pinkColor,
+                                                                                  height: 33,
+                                                                                )
+                                                                              : Image.asset(
+                                                                                  "assets/uiImages/star.png",
+                                                                                  height: 33,
+                                                                                ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Container(
+                                                                      width: 15,
+                                                                    ),
+                                                                    InkWell(
+                                                                      onTap:
+                                                                          () async {
+                                                                        if (controller
+                                                                            .text
+                                                                            .trim()
+                                                                            .isNotEmpty) {
+                                                                          setState(
+                                                                              () {
+                                                                            fieldContent.add(Content(
+                                                                                controller.text.trim(),
+                                                                                "",
+                                                                                "yes",
+                                                                                "",
+                                                                                "",
+                                                                                "yes"));
+                                                                          });
+                                                                          contentWordController.animateTo(
+                                                                              contentWordController.position.maxScrollExtent,
+                                                                              duration: const Duration(milliseconds: 750),
+                                                                              curve: Curves.easeOut);
+
+                                                                          controller
+                                                                              .clear();
+                                                                        }
+                                                                        //speak
+                                                                        String
+                                                                            a =
+                                                                            "";
+                                                                        for (var element
+                                                                            in fieldContent) {
+                                                                          a +=
+                                                                              "${element.name} ";
+                                                                        }
+
+                                                                        if (a
+                                                                            .isNotEmpty) {
+                                                                          final String
+                                                                              text =
+                                                                              a;
+                                                                          final Rect
+                                                                              sharePositionOrigin =
+                                                                              const Offset(0, 0) & const Size(100, 400);
+
+                                                                          Share.share(
+                                                                              text,
+                                                                              sharePositionOrigin: sharePositionOrigin);
+                                                                        } else {
+                                                                          erroralert(
+                                                                              context,
+                                                                              "لا يمكن مشاركة حقل فارغ");
+                                                                        }
+                                                                      },
+                                                                      child:
+                                                                          SizedBox(
+                                                                        height:
+                                                                            30,
+                                                                        width:
+                                                                            30,
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(0),
+                                                                          child:
+                                                                              Image.asset(
+                                                                            "assets/uiImages/share.png",
+                                                                            fit:
+                                                                                BoxFit.fill,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      )),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 15, left: 15),
+                                  child: Stack(
+                                    alignment: Alignment.bottomCenter,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 10, top: 8),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                                border: Border.all(
+                                                    width: 2,
+                                                    color: greyColor)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 5,
+                                                  left: 8,
+                                                  right: 8,
+                                                  bottom: 15),
+                                              child:
+                                                  MediaQuery.of(context)
+                                                              .orientation !=
+                                                          Orientation.portrait
+                                                      ? Column(
+                                                          children: [
+                                                            Expanded(
+                                                                child: Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
                                                                       .spaceBetween,
                                                               children: [
-                                                                Container(
-                                                                  width: 15,
+                                                                predictionWords
+                                                                        .isNotEmpty
+                                                                    ? box(0)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        2
+                                                                    ? box(1)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        3
+                                                                    ? box(2)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        4
+                                                                    ? box(3)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        5
+                                                                    ? box(4)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    List<List<String>>
+                                                                        con =
+                                                                        [];
+                                                                    for (var element
+                                                                        in librarywordChild[3]
+                                                                            .contenlist) {
+                                                                      con.add([
+                                                                        element
+                                                                            .name,
+                                                                        element
+                                                                            .imgurl
+                                                                      ]);
+                                                                    }
+                                                                    setState(
+                                                                        () {
+                                                                      predictionWords =
+                                                                          con;
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            7),
+                                                                    child:
+                                                                        Container(
+                                                                      width: size ==
+                                                                              0
+                                                                          ? 125
+                                                                          : 120,
+                                                                      decoration: BoxDecoration(
+                                                                          color: const Color(0xff1367A2).withOpacity(
+                                                                              .6),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(30)),
+                                                                      child:
+                                                                          const Center(
+                                                                        child:
+                                                                            Text(
+                                                                          "صفات",
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.white,
+                                                                              fontSize: 30),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 ),
                                                                 InkWell(
-                                                                  onTap:
-                                                                      () async {
+                                                                  onTap: () {
                                                                     List<List<String>>
                                                                         main =
                                                                         [];
@@ -675,1458 +1109,1024 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                                     }
                                                                     setState(
                                                                         () {
-                                                                      isFav =
-                                                                          false;
-                                                                      fieldContent =
-                                                                          [];
                                                                       predictionWords =
                                                                           main;
                                                                     });
-
-                                                                    controller
-                                                                        .clear();
                                                                   },
                                                                   child:
-                                                                      SizedBox(
-                                                                    height: 33,
-                                                                    width: 33,
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            7),
                                                                     child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              0),
-                                                                      child: Image
-                                                                          .asset(
-                                                                        "assets/uiImages/trash.png",
-                                                                        fit: BoxFit
-                                                                            .fill,
+                                                                        Container(
+                                                                      width: size ==
+                                                                              0
+                                                                          ? 125
+                                                                          : 120,
+                                                                      decoration: BoxDecoration(
+                                                                          color: const Color(
+                                                                              0xffC06FB9),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(30)),
+                                                                      child:
+                                                                          const Center(
+                                                                        child:
+                                                                            Text(
+                                                                          "الرئيسية",
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.white,
+                                                                              fontSize: 28),
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Container(
-                                                                  width: 15,
-                                                                ),
-                                                                InkWell(
-                                                                  onTap:
-                                                                      () async {
-                                                                    if (controller
-                                                                        .text
-                                                                        .trim()
-                                                                        .isNotEmpty) {
-                                                                      setState(
-                                                                          () {
-                                                                        fieldContent.add(Content(
-                                                                            controller.text.trim(),
-                                                                            "",
-                                                                            "yes",
-                                                                            "",
-                                                                            "",
-                                                                            "yes"));
-                                                                      });
-
-                                                                      controller
-                                                                          .clear();
-                                                                    }
-                                                                    if (fieldContent
-                                                                        .isNotEmpty) {
-                                                                      //speak
-                                                                      String
-                                                                          text =
-                                                                          "";
-                                                                      for (var element
-                                                                          in fieldContent) {
-                                                                        text +=
-                                                                            "${element.name} ";
-                                                                      }
-                                                                      if (controller
-                                                                          .text
-                                                                          .trim()
-                                                                          .isNotEmpty) {
-                                                                        predict(text
-                                                                            .replaceAll("أ",
-                                                                                "ا")
-                                                                            .replaceAll("إ",
-                                                                                "ا")
-                                                                            .replaceAll("ة",
-                                                                                "ه"));
-                                                                      }
-
-                                                                      SharedPreferences
-                                                                          favlist =
-                                                                          await SharedPreferences
-                                                                              .getInstance();
-                                                                      if (!fav.contains(
-                                                                          text.trim())) {
-                                                                        setState(
-                                                                            () {
-                                                                          fav.add(
-                                                                              text.trim());
-                                                                          isFav =
-                                                                              true;
-                                                                        });
-
-                                                                        String
-                                                                            newFav =
-                                                                            "";
-                                                                        for (int y =
-                                                                                0;
-                                                                            y < fieldContent.length;
-                                                                            y++) {
-                                                                          String
-                                                                              input =
-                                                                              fieldContent[y].name;
-                                                                          String
-                                                                              imurl =
-                                                                              fieldContent[y].imgurl;
-                                                                          String
-                                                                              isimup =
-                                                                              fieldContent[y].isImageUpload;
-                                                                          String
-                                                                              voiceurl =
-                                                                              fieldContent[y].opvoice;
-                                                                          String
-                                                                              voiceCache =
-                                                                              fieldContent[y].cacheVoicePath;
-                                                                          String
-                                                                              isvoiceUp =
-                                                                              fieldContent[y].isVoiceUpload;
-
-                                                                          if (y ==
-                                                                              fieldContent.length - 1) {
-                                                                            newFav +=
-                                                                                """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"]""";
-                                                                          } else {
-                                                                            newFav +=
-                                                                                """["$input","$imurl","$isimup","$voiceurl","$voiceCache","$isvoiceUp"],""";
-                                                                          }
-                                                                        }
-                                                                        newFav =
-                                                                            "[$newFav]";
-                                                                        List<String>
-                                                                            favChildList =
-                                                                            [];
-                                                                        var temp =
-                                                                            favlist.getStringList("favlistChild");
-                                                                        if (temp ==
-                                                                            null) {
-                                                                          favChildList =
-                                                                              [
-                                                                            newFav
-                                                                          ];
-                                                                        } else {
-                                                                          favChildList =
-                                                                              temp;
-                                                                          favChildList
-                                                                              .add(newFav);
-                                                                        }
-                                                                        favlist.setStringList(
-                                                                            "favlistChild",
-                                                                            favChildList);
-                                                                      } else {
-                                                                        fav.remove(
-                                                                            text.trim());
-                                                                        setState(
-                                                                            () {
-                                                                          isFav =
-                                                                              false;
-                                                                        });
-                                                                        List<String>
-                                                                            v =
-                                                                            favlist.getStringList("favlistChild") ??
-                                                                                [];
-                                                                        List
-                                                                            favChild =
-                                                                            [];
-                                                                        for (var element
-                                                                            in v) {
-                                                                          favChild
-                                                                              .add(json.decode(element));
-                                                                        }
-                                                                        favChild
-                                                                            .removeWhere((element) {
-                                                                          if (element.length !=
-                                                                              fieldContent.length) {
-                                                                            return false;
-                                                                          } else {
-                                                                            bool
-                                                                                sam =
-                                                                                true;
-                                                                            for (int o = 0;
-                                                                                o < element.length;
-                                                                                o++) {
-                                                                              if (element[o][0] != fieldContent[o].name) {
-                                                                                sam = false;
-                                                                              }
-                                                                            }
-                                                                            return sam;
-                                                                          }
-                                                                        });
-
-                                                                        List<String>
-                                                                            favString =
-                                                                            convertFvaChildrenToString(favChild);
-                                                                        favlist.setStringList(
-                                                                            "favlistChild",
-                                                                            favString);
-                                                                      }
-                                                                    } else {
-                                                                      erroralert(
-                                                                          context,
-                                                                          "يرجى ملئ الحقل للاضافة الى المفضلة");
-                                                                    }
-                                                                  },
-                                                                  child:
-                                                                      SizedBox(
-                                                                    height: 33,
-                                                                    width: 33,
-                                                                    child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              0),
-                                                                      child: isFav
-                                                                          ? Image.asset(
-                                                                              "assets/uiImages/star2.png",
-                                                                              color: pinkColor,
-                                                                              height: 33,
-                                                                            )
-                                                                          : Image.asset(
-                                                                              "assets/uiImages/star.png",
-                                                                              height: 33,
+                                                                )
+                                                              ],
+                                                            )),
+                                                            Container(
+                                                              height: 7,
+                                                            ),
+                                                            !isLess && size != 0
+                                                                ? Expanded(
+                                                                    child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      predictionWords.length >=
+                                                                              6
+                                                                          ? box(
+                                                                              5)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
                                                                             ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: 15,
-                                                                ),
+                                                                      predictionWords.length >=
+                                                                              7
+                                                                          ? box(
+                                                                              6)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      predictionWords.length >=
+                                                                              8
+                                                                          ? box(
+                                                                              7)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      predictionWords.length >=
+                                                                              9
+                                                                          ? box(
+                                                                              8)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      predictionWords.length >=
+                                                                              10
+                                                                          ? box(
+                                                                              9)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          List<List<String>>
+                                                                              letters =
+                                                                              [];
+                                                                          for (var element
+                                                                              in librarywordChild[2].contenlist) {
+                                                                            letters.add([
+                                                                              element.name,
+                                                                              element.imgurl
+                                                                            ]);
+                                                                          }
+                                                                          setState(
+                                                                              () {
+                                                                            predictionWords =
+                                                                                letters;
+                                                                          });
+                                                                        },
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.only(right: 7),
+                                                                          child:
+                                                                              Container(
+                                                                            width: size == 0
+                                                                                ? 125
+                                                                                : 120,
+                                                                            decoration:
+                                                                                BoxDecoration(color: const Color(0xffE9E467), borderRadius: BorderRadius.circular(30)),
+                                                                            child:
+                                                                                const Center(
+                                                                              child: Text(
+                                                                                "حروف",
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          List<List<String>>
+                                                                              verbs =
+                                                                              [];
+                                                                          for (var element
+                                                                              in librarywordChild[1].contenlist) {
+                                                                            verbs.add([
+                                                                              element.name,
+                                                                              element.imgurl
+                                                                            ]);
+                                                                          }
+                                                                          setState(
+                                                                              () {
+                                                                            predictionWords =
+                                                                                verbs;
+                                                                          });
+                                                                        },
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.only(right: 7),
+                                                                          child:
+                                                                              Container(
+                                                                            width: size == 0
+                                                                                ? 125
+                                                                                : 120,
+                                                                            decoration:
+                                                                                BoxDecoration(color: const Color(0xffA7CB89), borderRadius: BorderRadius.circular(30)),
+                                                                            child:
+                                                                                const Center(
+                                                                              child: Text(
+                                                                                "أفعال",
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 30),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ))
+                                                                : Container(),
+                                                          ],
+                                                        )
+                                                      : Column(
+                                                          children: [
+                                                            Container(
+                                                              height: size == 0
+                                                                  ? 0
+                                                                  : 5,
+                                                            ),
+                                                            Expanded(
+                                                                child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                predictionWords
+                                                                        .isNotEmpty
+                                                                    ? box(0)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            110,
+                                                                        width:
+                                                                            110,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        2
+                                                                    ? box(1)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        3
+                                                                    ? box(2)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        4
+                                                                    ? box(3)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
                                                                 InkWell(
                                                                   onTap: () {
-                                                                    if (controller
-                                                                        .text
-                                                                        .trim()
-                                                                        .isNotEmpty) {
-                                                                      setState(
-                                                                          () {
-                                                                        fieldContent.add(Content(
-                                                                            controller.text.trim(),
-                                                                            "",
-                                                                            "yes",
-                                                                            "",
-                                                                            "",
-                                                                            "yes"));
-                                                                      });
-                                                                      contentWordController.animateTo(
-                                                                          contentWordController
-                                                                              .position
-                                                                              .maxScrollExtent,
-                                                                          duration: const Duration(
-                                                                              milliseconds:
-                                                                                  750),
-                                                                          curve:
-                                                                              Curves.easeOut);
-
-                                                                      controller
-                                                                          .clear();
-                                                                    }
-                                                                    //speak
-                                                                    String a =
-                                                                        "";
+                                                                    List<List<String>>
+                                                                        main =
+                                                                        [];
                                                                     for (var element
-                                                                        in fieldContent) {
-                                                                      a +=
-                                                                          "${element.name} ";
+                                                                        in librarywordChild[0]
+                                                                            .contenlist) {
+                                                                      main.add([
+                                                                        element
+                                                                            .name,
+                                                                        element
+                                                                            .imgurl
+                                                                      ]);
                                                                     }
-
-                                                                    if (a
-                                                                        .isNotEmpty) {
-                                                                      Share.share(
-                                                                          "متننت");
-                                                                    } else {
-                                                                      erroralert(
-                                                                          context,
-                                                                          "لا يمكن مشاركة حقل فارغ");
-                                                                    }
+                                                                    setState(
+                                                                        () {
+                                                                      predictionWords =
+                                                                          main;
+                                                                    });
                                                                   },
                                                                   child:
-                                                                      SizedBox(
-                                                                    height: 30,
-                                                                    width: 30,
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            7),
                                                                     child:
-                                                                        Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(
-                                                                              0),
-                                                                      child: Image
-                                                                          .asset(
-                                                                        "assets/uiImages/share.png",
-                                                                        fit: BoxFit
-                                                                            .fill,
+                                                                        Container(
+                                                                      width: size ==
+                                                                              0
+                                                                          ? 133
+                                                                          : 120,
+                                                                      decoration: BoxDecoration(
+                                                                          color: const Color(
+                                                                              0xffC06FB9),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(30)),
+                                                                      child:
+                                                                          const Center(
+                                                                        child:
+                                                                            Text(
+                                                                          "الرئيسية",
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.white,
+                                                                              fontSize: 28),
+                                                                        ),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                ),
+                                                                )
                                                               ],
+                                                            )),
+                                                            Container(
+                                                              height: 7,
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
+                                                            Expanded(
+                                                                child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                predictionWords
+                                                                            .length >=
+                                                                        5
+                                                                    ? box(4)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        6
+                                                                    ? box(5)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        7
+                                                                    ? box(6)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        8
+                                                                    ? box(7)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    List<List<String>>
+                                                                        verbs =
+                                                                        [];
+                                                                    for (var element
+                                                                        in librarywordChild[1]
+                                                                            .contenlist) {
+                                                                      verbs
+                                                                          .add([
+                                                                        element
+                                                                            .name,
+                                                                        element
+                                                                            .imgurl
+                                                                      ]);
+                                                                    }
+                                                                    setState(
+                                                                        () {
+                                                                      predictionWords =
+                                                                          verbs;
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            7),
+                                                                    child:
+                                                                        Container(
+                                                                      width: size ==
+                                                                              0
+                                                                          ? 133
+                                                                          : 120,
+                                                                      decoration: BoxDecoration(
+                                                                          color: const Color(
+                                                                              0xffA7CB89),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(30)),
+                                                                      child:
+                                                                          const Center(
+                                                                        child:
+                                                                            Text(
+                                                                          "أفعال",
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.white,
+                                                                              fontSize: 30),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            )),
+                                                            Container(
+                                                              height: 7,
+                                                            ),
+                                                            Expanded(
+                                                                child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                predictionWords
+                                                                            .length >=
+                                                                        9
+                                                                    ? box(8)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        10
+                                                                    ? box(9)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        11
+                                                                    ? box(10)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                predictionWords
+                                                                            .length >=
+                                                                        12
+                                                                    ? box(11)
+                                                                    : const SizedBox(
+                                                                        height:
+                                                                            140,
+                                                                        width:
+                                                                            140,
+                                                                      ),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    List<List<String>>
+                                                                        letters =
+                                                                        [];
+                                                                    for (var element
+                                                                        in librarywordChild[2]
+                                                                            .contenlist) {
+                                                                      letters
+                                                                          .add([
+                                                                        element
+                                                                            .name,
+                                                                        element
+                                                                            .imgurl
+                                                                      ]);
+                                                                    }
+                                                                    setState(
+                                                                        () {
+                                                                      predictionWords =
+                                                                          letters;
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        right:
+                                                                            7),
+                                                                    child:
+                                                                        Container(
+                                                                      width: size ==
+                                                                              0
+                                                                          ? 133
+                                                                          : 120,
+                                                                      decoration: BoxDecoration(
+                                                                          color: const Color(
+                                                                              0xffE9E467),
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(30)),
+                                                                      child:
+                                                                          const Center(
+                                                                        child:
+                                                                            Text(
+                                                                          "حروف",
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              color: Colors.white,
+                                                                              fontSize: 30),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            )),
+                                                            Container(
+                                                              height: 7,
+                                                            ),
+                                                            size != 0 && !isLess
+                                                                ? Expanded(
+                                                                    child: Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      predictionWords.length >=
+                                                                              13
+                                                                          ? box(
+                                                                              12)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      predictionWords.length >=
+                                                                              14
+                                                                          ? box(
+                                                                              13)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      predictionWords.length >=
+                                                                              15
+                                                                          ? box(
+                                                                              14)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      predictionWords.length >=
+                                                                              16
+                                                                          ? box(
+                                                                              15)
+                                                                          : const SizedBox(
+                                                                              height: 140,
+                                                                              width: 140,
+                                                                            ),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          List<List<String>>
+                                                                              con =
+                                                                              [];
+                                                                          for (var element
+                                                                              in librarywordChild[3].contenlist) {
+                                                                            con.add([
+                                                                              element.name,
+                                                                              element.imgurl
+                                                                            ]);
+                                                                          }
+                                                                          setState(
+                                                                              () {
+                                                                            predictionWords =
+                                                                                con;
+                                                                          });
+                                                                        },
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.only(right: 7),
+                                                                          child:
+                                                                              Container(
+                                                                            width: size == 0
+                                                                                ? 133
+                                                                                : 120,
+                                                                            decoration:
+                                                                                BoxDecoration(color: const Color(0xff1367A2).withOpacity(.6), borderRadius: BorderRadius.circular(30)),
+                                                                            child:
+                                                                                const Center(
+                                                                              child: Text(
+                                                                                "صفات",
+                                                                                textAlign: TextAlign.center,
+                                                                                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 30),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ))
+                                                                : Container()
+                                                          ],
+                                                        ),
+                                            )),
+                                      ),
+                                      MediaQuery.of(context).orientation ==
+                                              Orientation.portrait
+                                          ? InkWell(
+                                              onTap: () {
+                                                setState(() {
+                                                  isLess = !isLess;
+                                                });
+                                              },
+                                              child: Container(
+                                                height: 27,
+                                                width: 55,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.black,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Image.asset(
+                                                  isLess
+                                                      ? "assets/uiImages/down.png"
+                                                      : "assets/uiImages/upArrow.png",
+                                                  height: 45,
+                                                  color: const Color.fromARGB(
+                                                      255, 204, 204, 204),
+                                                  matchTextDirection: false,
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            )
+                                          : Container()
+                                    ],
+                                  ),
+                                )),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      right: 15, left: 15),
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                          onTap: () {
+                                            if (currentOffsetScroll - 100 > 0) {
+                                              setState(() {
+                                                currentOffsetScroll -= 100;
+                                                controllerList.animateTo(
+                                                    currentOffsetScroll,
+                                                    duration: const Duration(
+                                                        seconds: 1),
+                                                    curve: Curves.easeOut);
+                                              });
+                                            } else {
+                                              setState(() {
+                                                currentOffsetScroll = 0;
+
+                                                controllerList.jumpTo(0);
+                                              });
+                                            }
+                                          },
+                                          child: Image.asset(
+                                            "assets/uiImages/arrow.png",
+                                            height: 40,
+                                            color: Colors.grey,
+                                          )),
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 80,
+                                          child: ListView(
+                                            controller: controllerList,
+                                            scrollDirection: Axis.horizontal,
+                                            children: [
+                                              for (int i = 0;
+                                                  i < libraryListChild.length;
+                                                  i++)
+                                                box2(i)
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                                child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 15, left: 15),
-                              child: Stack(
-                                alignment: Alignment.bottomCenter,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        bottom: 10, top: 8),
-                                    child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(25),
-                                            border: Border.all(
-                                                width: 2, color: greyColor)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 5,
-                                              left: 8,
-                                              right: 8,
-                                              bottom: 15),
-                                          child: MediaQuery.of(context)
-                                                      .orientation !=
-                                                  Orientation.portrait
-                                              ? Column(
-                                                  children: [
-                                                    Expanded(
-                                                        child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        predictionWords
-                                                                .isNotEmpty
-                                                            ? box(0)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                2
-                                                            ? box(1)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                3
-                                                            ? box(2)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                4
-                                                            ? box(3)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                5
-                                                            ? box(4)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            List<List<String>>
-                                                                con = [];
-                                                            for (var element
-                                                                in librarywordChild[
-                                                                        3]
-                                                                    .contenlist) {
-                                                              con.add([
-                                                                element.name,
-                                                                element.imgurl
-                                                              ]);
-                                                            }
-                                                            setState(() {
-                                                              predictionWords =
-                                                                  con;
-                                                            });
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 7),
-                                                            child: Container(
-                                                              width: size == 0
-                                                                  ? 125
-                                                                  : 120,
-                                                              decoration: BoxDecoration(
-                                                                  color: const Color(
-                                                                          0xff1367A2)
-                                                                      .withOpacity(
-                                                                          .6),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30)),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  "صفات",
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          30),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            List<List<String>>
-                                                                main = [];
-                                                            for (var element
-                                                                in librarywordChild[
-                                                                        0]
-                                                                    .contenlist) {
-                                                              main.add([
-                                                                element.name,
-                                                                element.imgurl
-                                                              ]);
-                                                            }
-                                                            setState(() {
-                                                              predictionWords =
-                                                                  main;
-                                                            });
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 7),
-                                                            child: Container(
-                                                              width: size == 0
-                                                                  ? 125
-                                                                  : 120,
-                                                              decoration: BoxDecoration(
-                                                                  color: const Color(
-                                                                      0xffC06FB9),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30)),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  "الرئيسية",
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          28),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                    Container(
-                                                      height: 7,
-                                                    ),
-                                                    !isLess && size != 0
-                                                        ? Expanded(
-                                                            child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              predictionWords
-                                                                          .length >=
-                                                                      6
-                                                                  ? box(5)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              predictionWords
-                                                                          .length >=
-                                                                      7
-                                                                  ? box(6)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              predictionWords
-                                                                          .length >=
-                                                                      8
-                                                                  ? box(7)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              predictionWords
-                                                                          .length >=
-                                                                      9
-                                                                  ? box(8)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              predictionWords
-                                                                          .length >=
-                                                                      10
-                                                                  ? box(9)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  List<List<String>>
-                                                                      letters =
-                                                                      [];
-                                                                  for (var element
-                                                                      in librarywordChild[
-                                                                              2]
-                                                                          .contenlist) {
-                                                                    letters
-                                                                        .add([
-                                                                      element
-                                                                          .name,
-                                                                      element
-                                                                          .imgurl
-                                                                    ]);
-                                                                  }
-                                                                  setState(() {
-                                                                    predictionWords =
-                                                                        letters;
-                                                                  });
-                                                                },
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      right: 7),
-                                                                  child:
-                                                                      Container(
-                                                                    width: size ==
-                                                                            0
-                                                                        ? 125
-                                                                        : 120,
-                                                                    decoration: BoxDecoration(
-                                                                        color: const Color(
-                                                                            0xffE9E467),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(30)),
-                                                                    child:
-                                                                        const Center(
-                                                                      child:
-                                                                          Text(
-                                                                        "حروف",
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: Colors.white,
-                                                                            fontSize: 30),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  List<List<String>>
-                                                                      verbs =
-                                                                      [];
-                                                                  for (var element
-                                                                      in librarywordChild[
-                                                                              1]
-                                                                          .contenlist) {
-                                                                    verbs.add([
-                                                                      element
-                                                                          .name,
-                                                                      element
-                                                                          .imgurl
-                                                                    ]);
-                                                                  }
-                                                                  setState(() {
-                                                                    predictionWords =
-                                                                        verbs;
-                                                                  });
-                                                                },
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      right: 7),
-                                                                  child:
-                                                                      Container(
-                                                                    width: size ==
-                                                                            0
-                                                                        ? 125
-                                                                        : 120,
-                                                                    decoration: BoxDecoration(
-                                                                        color: const Color(
-                                                                            0xffA7CB89),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(30)),
-                                                                    child:
-                                                                        const Center(
-                                                                      child:
-                                                                          Text(
-                                                                        "أفعال",
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: Colors.black,
-                                                                            fontSize: 30),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ))
-                                                        : Container(),
-                                                  ],
-                                                )
-                                              : Column(
-                                                  children: [
-                                                    Container(
-                                                      height: size == 0 ? 0 : 5,
-                                                    ),
-                                                    Expanded(
-                                                        child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        predictionWords
-                                                                .isNotEmpty
-                                                            ? box(0)
-                                                            : const SizedBox(
-                                                                height: 110,
-                                                                width: 110,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                2
-                                                            ? box(1)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                3
-                                                            ? box(2)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                4
-                                                            ? box(3)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            List<List<String>>
-                                                                main = [];
-                                                            for (var element
-                                                                in librarywordChild[
-                                                                        0]
-                                                                    .contenlist) {
-                                                              main.add([
-                                                                element.name,
-                                                                element.imgurl
-                                                              ]);
-                                                            }
-                                                            setState(() {
-                                                              predictionWords =
-                                                                  main;
-                                                            });
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 7),
-                                                            child: Container(
-                                                              width: size == 0
-                                                                  ? 133
-                                                                  : 120,
-                                                              decoration: BoxDecoration(
-                                                                  color: const Color(
-                                                                      0xffC06FB9),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30)),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  "الرئيسية",
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          28),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                    Container(
-                                                      height: 7,
-                                                    ),
-                                                    Expanded(
-                                                        child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        predictionWords
-                                                                    .length >=
-                                                                5
-                                                            ? box(4)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                6
-                                                            ? box(5)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                7
-                                                            ? box(6)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                8
-                                                            ? box(7)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            List<List<String>>
-                                                                verbs = [];
-                                                            for (var element
-                                                                in librarywordChild[
-                                                                        1]
-                                                                    .contenlist) {
-                                                              verbs.add([
-                                                                element.name,
-                                                                element.imgurl
-                                                              ]);
-                                                            }
-                                                            setState(() {
-                                                              predictionWords =
-                                                                  verbs;
-                                                            });
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 7),
-                                                            child: Container(
-                                                              width: size == 0
-                                                                  ? 133
-                                                                  : 120,
-                                                              decoration: BoxDecoration(
-                                                                  color: const Color(
-                                                                      0xffA7CB89),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30)),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  "أفعال",
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          30),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                    Container(
-                                                      height: 7,
-                                                    ),
-                                                    Expanded(
-                                                        child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        predictionWords
-                                                                    .length >=
-                                                                9
-                                                            ? box(8)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                10
-                                                            ? box(9)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                11
-                                                            ? box(10)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        predictionWords
-                                                                    .length >=
-                                                                12
-                                                            ? box(11)
-                                                            : const SizedBox(
-                                                                height: 140,
-                                                                width: 140,
-                                                              ),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            List<List<String>>
-                                                                letters = [];
-                                                            for (var element
-                                                                in librarywordChild[
-                                                                        2]
-                                                                    .contenlist) {
-                                                              letters.add([
-                                                                element.name,
-                                                                element.imgurl
-                                                              ]);
-                                                            }
-                                                            setState(() {
-                                                              predictionWords =
-                                                                  letters;
-                                                            });
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 7),
-                                                            child: Container(
-                                                              width: size == 0
-                                                                  ? 133
-                                                                  : 120,
-                                                              decoration: BoxDecoration(
-                                                                  color: const Color(
-                                                                      0xffE9E467),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              30)),
-                                                              child:
-                                                                  const Center(
-                                                                child: Text(
-                                                                  "حروف",
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          30),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    )),
-                                                    Container(
-                                                      height: 7,
-                                                    ),
-                                                    size != 0 && !isLess
-                                                        ? Expanded(
-                                                            child: Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              predictionWords
-                                                                          .length >=
-                                                                      13
-                                                                  ? box(12)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              predictionWords
-                                                                          .length >=
-                                                                      14
-                                                                  ? box(13)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              predictionWords
-                                                                          .length >=
-                                                                      15
-                                                                  ? box(14)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              predictionWords
-                                                                          .length >=
-                                                                      16
-                                                                  ? box(15)
-                                                                  : const SizedBox(
-                                                                      height:
-                                                                          140,
-                                                                      width:
-                                                                          140,
-                                                                    ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  List<List<String>>
-                                                                      con = [];
-                                                                  for (var element
-                                                                      in librarywordChild[
-                                                                              3]
-                                                                          .contenlist) {
-                                                                    con.add([
-                                                                      element
-                                                                          .name,
-                                                                      element
-                                                                          .imgurl
-                                                                    ]);
-                                                                  }
-                                                                  setState(() {
-                                                                    predictionWords =
-                                                                        con;
-                                                                  });
-                                                                },
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      right: 7),
-                                                                  child:
-                                                                      Container(
-                                                                    width: size ==
-                                                                            0
-                                                                        ? 133
-                                                                        : 120,
-                                                                    decoration: BoxDecoration(
-                                                                        color: const Color(0xff1367A2).withOpacity(
-                                                                            .6),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(30)),
-                                                                    child:
-                                                                        const Center(
-                                                                      child:
-                                                                          Text(
-                                                                        "صفات",
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: TextStyle(
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            color: Colors.white,
-                                                                            fontSize: 30),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ))
-                                                        : Container()
-                                                  ],
-                                                ),
-                                        )),
-                                  ),
-                                  MediaQuery.of(context).orientation ==
-                                          Orientation.portrait
-                                      ? InkWell(
+                                      InkWell(
                                           onTap: () {
-                                            setState(() {
-                                              isLess = !isLess;
-                                            });
-                                          },
-                                          child: Container(
-                                            height: 27,
-                                            width: 55,
-                                            decoration: BoxDecoration(
-                                                color: Colors.black,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Image.asset(
-                                              isLess
-                                                  ? "assets/uiImages/down.png"
-                                                  : "assets/uiImages/upArrow.png",
-                                              height: 45,
-                                              color: const Color.fromARGB(
-                                                  255, 204, 204, 204),
-                                              matchTextDirection: false,
-                                            ),
-                                          ),
-                                        )
-                                      : Container()
-                                ],
-                              ),
-                            )),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 15, left: 15),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        if (currentOffsetScroll - 100 > 0) {
-                                          setState(() {
-                                            currentOffsetScroll -= 100;
-                                            controllerList.animateTo(
-                                                currentOffsetScroll,
-                                                duration:
-                                                    const Duration(seconds: 1),
-                                                curve: Curves.easeOut);
-                                          });
-                                        } else {
-                                          setState(() {
-                                            currentOffsetScroll = 0;
-
-                                            controllerList.jumpTo(0);
-                                          });
-                                        }
-                                      },
-                                      child: Image.asset(
-                                        "assets/uiImages/arrow.png",
-                                        height: 40,
-                                        color: Colors.grey,
-                                      )),
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: 80,
-                                      child: ListView(
-                                        controller: controllerList,
-                                        scrollDirection: Axis.horizontal,
-                                        children: [
-                                          for (int i = 0;
-                                              i < libraryListChild.length;
-                                              i++)
-                                            box2(i)
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                      onTap: () {
-                                        if (currentOffsetScroll + 100 <
-                                            70 * libraryListChild.length) {
-                                          setState(() {
-                                            currentOffsetScroll += 70;
-                                            controllerList.animateTo(
-                                                currentOffsetScroll,
-                                                duration:
-                                                    const Duration(seconds: 1),
-                                                curve: Curves.easeOut);
-                                          });
-                                        } else {
-                                          setState(() {
-                                            currentOffsetScroll =
-                                                70.0 * libraryListChild.length;
-                                            controllerList.animateTo(
-                                                70.0 * libraryListChild.length,
-                                                duration:
-                                                    const Duration(seconds: 1),
-                                                curve: Curves.easeOut);
-                                          });
-                                        }
-                                      },
-                                      child: Image.asset(
-                                        "assets/uiImages/arrow.png",
-                                        height: 40,
-                                        matchTextDirection: true,
-                                        color: Colors.grey,
-                                      )),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              height: isLess
-                                  ? 270
-                                  : size == 0
-                                      ? 170
-                                      : 135,
-                              decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 206, 213, 218),
-                                  borderRadius: BorderRadius.circular(7)),
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  for (int i = 0;
-                                      i < contentWord.length;
-                                      isLess ? i = i + 2 : i++)
-                                    Column(
-                                      children: [
-                                        Expanded(
-                                          child: InkWell(
-                                            onLongPress: () {
-                                              howtospeak(
-                                                  contentWord[i].name, context);
-                                            },
-                                            onDoubleTap: () {
-                                              howtospeak(
-                                                  contentWord[i].name, context);
-                                            },
-                                            onTap: () {
-                                              if (speakingWordByWord) {
-                                                howtospeak(contentWord[i].name,
-                                                    context);
-                                              }
+                                            if (currentOffsetScroll + 100 <
+                                                70 * libraryListChild.length) {
                                               setState(() {
-                                                fieldContent.add(
-                                                  contentWord[i],
-                                                );
+                                                currentOffsetScroll += 70;
+                                                controllerList.animateTo(
+                                                    currentOffsetScroll,
+                                                    duration: const Duration(
+                                                        seconds: 1),
+                                                    curve: Curves.easeOut);
                                               });
-                                              String text = "";
-                                              for (var element
-                                                  in fieldContent) {
-                                                text += "${element.name} ";
-                                              }
-                                              if (fav.contains(text.trim())) {
-                                                setState(() {
-                                                  isFav = true;
-                                                });
-                                              } else {
-                                                setState(() {
-                                                  isFav = false;
-                                                });
-                                              }
-                                              contentWordController.animateTo(
-                                                  contentWordController
-                                                      .position.maxScrollExtent,
-                                                  duration: const Duration(
-                                                      milliseconds: 750),
-                                                  curve: Curves.easeOut);
-                                              predict(text
-                                                  .replaceAll("أ", "ا")
-                                                  .replaceAll("إ", "ا")
-                                                  .replaceAll("ة", "ه")
-                                                  .trim());
-                                            },
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 5,
-                                                  left: 2,
-                                                  top: 5,
-                                                  bottom: 5),
-                                              child: Container(
-                                                width: size == 0 ? 170 : 150,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(27)),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        color: Colors.grey
-                                                            .withOpacity(0.3),
-                                                        spreadRadius: 3,
-                                                        blurRadius: 5,
-                                                        offset:
-                                                            const Offset(0, 3)),
-                                                  ],
-                                                  border: Border.all(
-                                                    width: size == 0 ? 3 : 2,
-                                                    color: Colors.grey,
+                                            } else {
+                                              setState(() {
+                                                currentOffsetScroll = 70.0 *
+                                                    libraryListChild.length;
+                                                controllerList.animateTo(
+                                                    70.0 *
+                                                        libraryListChild.length,
+                                                    duration: const Duration(
+                                                        seconds: 1),
+                                                    curve: Curves.easeOut);
+                                              });
+                                            }
+                                          },
+                                          child: Image.asset(
+                                            "assets/uiImages/arrow.png",
+                                            height: 40,
+                                            matchTextDirection: true,
+                                            color: Colors.grey,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  height: isLess
+                                      ? 270
+                                      : size == 0
+                                          ? 170
+                                          : 135,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 206, 213, 218),
+                                      borderRadius: BorderRadius.circular(7)),
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      for (int i = 0;
+                                          i < contentWord.length;
+                                          isLess ? i = i + 2 : i++)
+                                        Column(
+                                          children: [
+                                            Expanded(
+                                              child: InkWell(
+                                                onLongPress: () {
+                                                  bool t =
+                                                      Provider.of<MyProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .isSpeakingNow;
+                                                  if (!t) {
+                                                    howtospeak(
+                                                        contentWord[i].name,
+                                                        context);
+                                                  }
+                                                },
+                                                onDoubleTap: () {
+                                                  bool t =
+                                                      Provider.of<MyProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .isSpeakingNow;
+                                                  if (!t) {
+                                                    howtospeak(
+                                                        contentWord[i].name,
+                                                        context);
+                                                  }
+                                                },
+                                                onTap: () {
+                                                  bool t =
+                                                      Provider.of<MyProvider>(
+                                                              context,
+                                                              listen: false)
+                                                          .isSpeakingNow;
+                                                  if (!t) {
+                                                    if (speakingWordByWord) {
+                                                      howtospeak(
+                                                          contentWord[i].name,
+                                                          context);
+                                                    }
+                                                    setState(() {
+                                                      fieldContent.add(
+                                                        contentWord[i],
+                                                      );
+                                                    });
+                                                    String text = "";
+                                                    for (var element
+                                                        in fieldContent) {
+                                                      text +=
+                                                          "${element.name} ";
+                                                    }
+                                                    if (fav.contains(
+                                                        text.trim())) {
+                                                      setState(() {
+                                                        isFav = true;
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        isFav = false;
+                                                      });
+                                                    }
+                                                    contentWordController
+                                                        .animateTo(
+                                                            contentWordController
+                                                                .position
+                                                                .maxScrollExtent,
+                                                            duration:
+                                                                const Duration(
+                                                                    milliseconds:
+                                                                        750),
+                                                            curve:
+                                                                Curves.easeOut);
+                                                    predict(text
+                                                        .replaceAll("أ", "ا")
+                                                        .replaceAll("إ", "ا")
+                                                        .replaceAll("ة", "ه")
+                                                        .trim());
+                                                  }
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 5,
+                                                          left: 2,
+                                                          top: 5,
+                                                          bottom: 5),
+                                                  child: Container(
+                                                    width:
+                                                        size == 0 ? 170 : 150,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                                  .all(
+                                                              Radius.circular(
+                                                                  27)),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: Colors.grey
+                                                                .withOpacity(
+                                                                    0.3),
+                                                            spreadRadius: 3,
+                                                            blurRadius: 5,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 3)),
+                                                      ],
+                                                      border: Border.all(
+                                                        width:
+                                                            size == 0 ? 3 : 2,
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                    child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          SizedBox(
+                                                            height: 60,
+                                                            width: 60,
+                                                            child: getImage(
+                                                                contentWord[i]
+                                                                    .imgurl),
+                                                          ),
+                                                          Text(
+                                                            noMoreText(
+                                                                contentWord[i]
+                                                                    .name),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                    size == 0
+                                                                        ? 22
+                                                                        : 20,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w900,
+                                                                color:
+                                                                    pinkColor),
+                                                          ),
+                                                        ]),
                                                   ),
                                                 ),
-                                                child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceAround,
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 60,
-                                                        width: 60,
-                                                        child: getImage(
-                                                            contentWord[i]
-                                                                .imgurl),
-                                                      ),
-                                                      Text(
-                                                        noMoreText(
-                                                            contentWord[i]
-                                                                .name),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: size == 0
-                                                                ? 22
-                                                                : 20,
-                                                            fontWeight:
-                                                                FontWeight.w900,
-                                                            color: pinkColor),
-                                                      ),
-                                                    ]),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                        isLess
-                                            ? Expanded(
-                                                child: i + 1 !=
-                                                        contentWord.length
-                                                    ? InkWell(
-                                                        onLongPress: () {
-                                                          howtospeak(
-                                                              contentWord[i + 1]
-                                                                  .name,
-                                                              context);
-                                                        },
-                                                        onDoubleTap: () {
-                                                          howtospeak(
-                                                              contentWord[i + 1]
-                                                                  .name,
-                                                              context);
-                                                        },
-                                                        onTap: () {
-                                                          if (speakingWordByWord) {
-                                                            howtospeak(
-                                                                contentWord[
-                                                                        i + 1]
-                                                                    .name,
-                                                                context);
-                                                          }
-                                                          setState(() {
-                                                            fieldContent.add(
-                                                              contentWord[
-                                                                  i + 1],
-                                                            );
-                                                          });
-                                                          String text = "";
-                                                          for (var element
-                                                              in fieldContent) {
-                                                            text +=
-                                                                "${element.name} ";
-                                                          }
-                                                          if (fav.contains(
-                                                              text.trim())) {
-                                                            setState(() {
-                                                              isFav = true;
-                                                            });
-                                                          } else {
-                                                            setState(() {
-                                                              isFav = false;
-                                                            });
-                                                          }
-                                                          contentWordController.animateTo(
-                                                              contentWordController
-                                                                  .position
-                                                                  .maxScrollExtent,
-                                                              duration:
-                                                                  const Duration(
-                                                                      milliseconds:
-                                                                          750),
-                                                              curve: Curves
-                                                                  .easeOut);
-                                                          predict(text
-                                                              .replaceAll(
-                                                                  "أ", "ا")
-                                                              .replaceAll(
-                                                                  "إ", "ا")
-                                                              .replaceAll(
-                                                                  "ة", "ه")
-                                                              .trim());
-                                                        },
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(5),
-                                                          child: Container(
-                                                            width: size == 0
-                                                                ? 165
-                                                                : 150,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              borderRadius:
-                                                                  const BorderRadius
-                                                                          .all(
-                                                                      Radius.circular(
-                                                                          27)),
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                    color: Colors
-                                                                        .grey
-                                                                        .withOpacity(
-                                                                            0.3),
-                                                                    spreadRadius:
-                                                                        3,
-                                                                    blurRadius:
-                                                                        5,
-                                                                    offset:
-                                                                        const Offset(
-                                                                            0,
-                                                                            3)),
-                                                              ],
-                                                              border:
-                                                                  Border.all(
-                                                                width: size == 0
-                                                                    ? 3
-                                                                    : 2,
-                                                                color:
-                                                                    Colors.grey,
-                                                              ),
-                                                            ),
-                                                            child: Column(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceAround,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    height: 60,
-                                                                    width: 60,
-                                                                    child: getImage(
+                                            isLess
+                                                ? Expanded(
+                                                    child:
+                                                        i + 1 !=
+                                                                contentWord
+                                                                    .length
+                                                            ? InkWell(
+                                                                onLongPress:
+                                                                    () {
+                                                                  howtospeak(
+                                                                      contentWord[i +
+                                                                              1]
+                                                                          .name,
+                                                                      context);
+                                                                },
+                                                                onDoubleTap:
+                                                                    () {
+                                                                  howtospeak(
+                                                                      contentWord[i +
+                                                                              1]
+                                                                          .name,
+                                                                      context);
+                                                                },
+                                                                onTap: () {
+                                                                  if (speakingWordByWord) {
+                                                                    howtospeak(
                                                                         contentWord[i +
                                                                                 1]
-                                                                            .imgurl),
-                                                                  ),
-                                                                  Text(
-                                                                    noMoreText(
-                                                                        contentWord[i +
-                                                                                1]
-                                                                            .name),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: TextStyle(
-                                                                        fontSize: size ==
+                                                                            .name,
+                                                                        context);
+                                                                  }
+                                                                  setState(() {
+                                                                    fieldContent
+                                                                        .add(
+                                                                      contentWord[
+                                                                          i + 1],
+                                                                    );
+                                                                  });
+                                                                  String text =
+                                                                      "";
+                                                                  for (var element
+                                                                      in fieldContent) {
+                                                                    text +=
+                                                                        "${element.name} ";
+                                                                  }
+                                                                  if (fav.contains(
+                                                                      text.trim())) {
+                                                                    setState(
+                                                                        () {
+                                                                      isFav =
+                                                                          true;
+                                                                    });
+                                                                  } else {
+                                                                    setState(
+                                                                        () {
+                                                                      isFav =
+                                                                          false;
+                                                                    });
+                                                                  }
+                                                                  contentWordController.animateTo(
+                                                                      contentWordController
+                                                                          .position
+                                                                          .maxScrollExtent,
+                                                                      duration: const Duration(
+                                                                          milliseconds:
+                                                                              750),
+                                                                      curve: Curves
+                                                                          .easeOut);
+                                                                  predict(text
+                                                                      .replaceAll(
+                                                                          "أ",
+                                                                          "ا")
+                                                                      .replaceAll(
+                                                                          "إ",
+                                                                          "ا")
+                                                                      .replaceAll(
+                                                                          "ة",
+                                                                          "ه")
+                                                                      .trim());
+                                                                },
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .all(5),
+                                                                  child:
+                                                                      Container(
+                                                                    width: size ==
+                                                                            0
+                                                                        ? 165
+                                                                        : 150,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      borderRadius: const BorderRadius
+                                                                              .all(
+                                                                          Radius.circular(
+                                                                              27)),
+                                                                      boxShadow: [
+                                                                        BoxShadow(
+                                                                            color: Colors.grey.withOpacity(
+                                                                                0.3),
+                                                                            spreadRadius:
+                                                                                3,
+                                                                            blurRadius:
+                                                                                5,
+                                                                            offset:
+                                                                                const Offset(0, 3)),
+                                                                      ],
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        width: size ==
                                                                                 0
-                                                                            ? 22
-                                                                            : 20,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w900,
-                                                                        color:
-                                                                            pinkColor),
+                                                                            ? 3
+                                                                            : 2,
+                                                                        color: Colors
+                                                                            .grey,
+                                                                      ),
+                                                                    ),
+                                                                    child: Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceAround,
+                                                                        children: [
+                                                                          SizedBox(
+                                                                            height:
+                                                                                60,
+                                                                            width:
+                                                                                60,
+                                                                            child:
+                                                                                getImage(contentWord[i + 1].imgurl),
+                                                                          ),
+                                                                          Text(
+                                                                            noMoreText(contentWord[i + 1].name),
+                                                                            textAlign:
+                                                                                TextAlign.center,
+                                                                            style: TextStyle(
+                                                                                fontSize: size == 0 ? 22 : 20,
+                                                                                fontWeight: FontWeight.w900,
+                                                                                color: pinkColor),
+                                                                          ),
+                                                                        ]),
                                                                   ),
-                                                                ]),
-                                                          ),
-                                                        ),
-                                                      )
-                                                    : Container(),
-                                              )
-                                            : Container()
-                                      ],
-                                    ),
-                                ],
-                              ),
+                                                                ),
+                                                              )
+                                                            : Container(),
+                                                  )
+                                                : Container()
+                                          ],
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          )),
                         ),
-                      )),
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 )),
     );
   }

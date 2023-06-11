@@ -3,7 +3,6 @@
 import 'dart:math';
 
 import '../../main.dart';
-import '../../pay/pay.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/childpage/constant.dart';
 import '/childpage/parent/mainparent.dart';

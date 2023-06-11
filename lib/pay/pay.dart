@@ -24,7 +24,7 @@ class _PaymentViewState extends State<PaymentView> {
             style: TextStyle(
                 color: Colors.white, fontSize: 23, fontWeight: FontWeight.w500),
           ),
-          backgroundColor: Color.fromARGB(255, 20, 20, 20),
+          backgroundColor: const Color.fromARGB(255, 20, 20, 20),
           shape: const Border(
             bottom: BorderSide(
               color: Colors.black,
@@ -57,7 +57,7 @@ class _PaymentViewState extends State<PaymentView> {
                       .doc("mi63rhuIAw1hKJDnLNwx")
                       .set({
                     "${value[0]}${value[1]}":
-                        DateTime.now().add(Duration(days: 365))
+                        DateTime.now().add(const Duration(days: 365))
                   }, SetOptions(merge: true));
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
@@ -66,7 +66,7 @@ class _PaymentViewState extends State<PaymentView> {
                       ),
                     ),
                   );
-                } catch (e) {}
+                } catch (_) {}
               });
             }
           });
@@ -93,7 +93,7 @@ class FailPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Fail"),
       ),
-      body: Center(
+      body: const Center(
         child: Text("Payment fail"),
       ),
     );

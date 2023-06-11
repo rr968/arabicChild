@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:arabic_speaker_child/controller/my_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
 import '/controller/api.dart';
 import '/controller/checkinternet.dart';
 import '/controller/functionsspeak.dart';

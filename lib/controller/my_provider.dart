@@ -32,6 +32,10 @@ class MyProvider with ChangeNotifier {
     isSpeakingNow = val;
     notifyListeners();
   }
+
+  bool getIsSpeakingNow() {
+    return isSpeakingNow;
+  }
   ///////////////////
 
   ////////////////////
@@ -82,5 +86,4 @@ class MyProvider with ChangeNotifier {
   }
 
   /////////////
-
 }

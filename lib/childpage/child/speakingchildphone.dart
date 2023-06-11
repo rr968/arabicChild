@@ -60,7 +60,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                 : v;
       });
     });
-    predictionWords = pred;
+
     getFavData();
     getLocalDB();
     getdata().then((v) {
@@ -71,10 +71,17 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       });
     });
     tryUploadDataChild();
+
     super.initState();
   }
 
   getdata() async {
+    List<List<String>> p = [];
+    for (var element in librarywordChild[0].contenlist) {
+      p.add([element.name, element.imgurl]);
+    }
+    predictionWords = p;
+    /////////////////////////////////
     SharedPreferences liblistChild = await SharedPreferences.getInstance();
     size = liblistChild.getInt("size") ?? 1;
 
@@ -137,44 +144,43 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : ListView(
-                  children: [
-                    //appbar
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 15, right: 10, top: 8, bottom: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () => Scaffold.of(context).openDrawer(),
-                            child: Image.asset(
-                              "assets/uiImages/drawer.png",
-                              height: 24,
+              : SafeArea(
+                  child: Column(
+                    children: [
+                      //appbar
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 15, right: 10, top: 8, bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              onTap: () => Scaffold.of(context).openDrawer(),
+                              child: Image.asset(
+                                "assets/uiImages/drawer.png",
+                                height: 24,
+                              ),
                             ),
-                          ),
-                          Text(
-                            "اختر الكلمات",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: pinkColor),
-                          ),
-                          Text(
-                            "         ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 30,
-                                color: pinkColor),
-                          )
-                        ],
+                            Text(
+                              "اختر الكلمات",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: pinkColor),
+                            ),
+                            Text(
+                              "         ",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: pinkColor),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    ////////////
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height - 180,
-                      width: MediaQuery.of(context).size.width,
-                      child: Center(
+
+                      ////////////
+                      Expanded(
                         child: Column(
                           children: [
                             Padding(
@@ -920,7 +926,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                                                     if (a
                                                                         .isNotEmpty) {
                                                                       Share.share(
-                                                                          "متننت");
+                                                                          a);
                                                                     } else {
                                                                       erroralert(
                                                                           context,
@@ -1433,52 +1439,71 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                         Expanded(
                                           child: InkWell(
                                             onLongPress: () {
-                                              howtospeak(
-                                                  contentWord[i].name, context);
-                                            },
-                                            onDoubleTap: () {
-                                              howtospeak(
-                                                  contentWord[i].name, context);
-                                            },
-                                            onTap: () {
-                                              if (speakingWordByWord) {
+                                              bool t = Provider.of<MyProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .isSpeakingNow;
+                                              if (!t) {
                                                 howtospeak(contentWord[i].name,
                                                     context);
                                               }
-                                              setState(() {
-                                                fieldContent.add(
-                                                  contentWord[i],
-                                                );
-                                              });
-                                              String text = "";
-                                              for (var element
-                                                  in fieldContent) {
-                                                text += "${element.name} ";
+                                            },
+                                            onDoubleTap: () {
+                                              bool t = Provider.of<MyProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .isSpeakingNow;
+                                              if (!t) {
+                                                howtospeak(contentWord[i].name,
+                                                    context);
                                               }
-                                              if (fav.contains(text.trim())) {
+                                            },
+                                            onTap: () {
+                                              bool t = Provider.of<MyProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .isSpeakingNow;
+                                              if (!t) {
+                                                if (speakingWordByWord) {
+                                                  howtospeak(
+                                                      contentWord[i].name,
+                                                      context);
+                                                }
                                                 setState(() {
-                                                  isFav = true;
+                                                  fieldContent.add(
+                                                    contentWord[i],
+                                                  );
                                                 });
-                                              } else {
-                                                setState(() {
-                                                  isFav = false;
-                                                });
+                                                String text = "";
+                                                for (var element
+                                                    in fieldContent) {
+                                                  text += "${element.name} ";
+                                                }
+                                                if (fav.contains(text.trim())) {
+                                                  setState(() {
+                                                    isFav = true;
+                                                  });
+                                                } else {
+                                                  setState(() {
+                                                    isFav = false;
+                                                  });
+                                                }
+                                                if (fieldContent.length > 5) {
+                                                  contentWordController.animateTo(
+                                                      contentWordController
+                                                              .position
+                                                              .maxScrollExtent -
+                                                          200,
+                                                      duration: const Duration(
+                                                          milliseconds: 750),
+                                                      curve: Curves.easeOut);
+                                                }
+                                                predict(text
+                                                    .replaceAll("أ", "ا")
+                                                    .replaceAll("إ", "ا")
+                                                    .replaceAll("ة", "ه")
+                                                    .trim());
                                               }
-                                              if (fieldContent.length > 5) {
-                                                contentWordController.animateTo(
-                                                    contentWordController
-                                                            .position
-                                                            .maxScrollExtent -
-                                                        200,
-                                                    duration: const Duration(
-                                                        milliseconds: 750),
-                                                    curve: Curves.easeOut);
-                                              }
-                                              predict(text
-                                                  .replaceAll("أ", "ا")
-                                                  .replaceAll("إ", "ا")
-                                                  .replaceAll("ة", "ه")
-                                                  .trim());
                                             },
                                             child: Padding(
                                               padding: const EdgeInsets.only(
@@ -1697,8 +1722,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                           ],
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )),
     );
   }

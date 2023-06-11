@@ -27,8 +27,8 @@ class Contactus extends StatelessWidget {
         body: SafeArea(
           child: ListView(children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: const [
+              padding: EdgeInsets.all(8.0),
+              child: Column(children: [
                 // const SizedBox(
                 //   height: 20,
                 // ),
@@ -45,7 +45,7 @@ class Contactus extends StatelessWidget {
                 ),
               ]),
             ),
-            const Content(),
+            Content(),
           ]),
         ),
       ),

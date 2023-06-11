@@ -1,23 +1,16 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/data.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:moyasar_payment/model/paymodel.dart';
-import 'package:moyasar_payment/moyasar_payment.dart';
 
-import '../../controller/checkinternet.dart';
 import '../../controller/harakatPrediction.dart';
 import '../../model/content.dart';
 import '../../model/filesContent.dart';
 import '../../model/library.dart';
-import '../../pay/deviceinfo.dart';
-import '../../pay/pay.dart';
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
 import '/controller/var.dart';
@@ -36,6 +29,7 @@ class MainChildPage extends StatefulWidget {
 
 class _MainChildPageState extends State<MainChildPage> {
   bool loading = true;
+  bool loading2 = true;
   SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
   int _selectedItemPosition = 1;
   Color selectedColor = pinkColor;
@@ -66,6 +60,7 @@ class _MainChildPageState extends State<MainChildPage> {
 
   @override
   void initState() {
+    /*
     ///////pay
     internetConnection().then((value) {
       if (value) {
@@ -156,8 +151,8 @@ class _MainChildPageState extends State<MainChildPage> {
         });
       }
     });
+*/
 
-    ////////
     indexpage = widget.index;
 
     getData().then((val) {
@@ -166,10 +161,8 @@ class _MainChildPageState extends State<MainChildPage> {
       });
     });
     getworddata().then((val) {
-      /* contentWord =
-          libraryListChild.isNotEmpty ? libraryListChild[0].contenlist : [];*/
       setState(() {
-        loading = false;
+        loading2 = false;
       });
     });
 
@@ -266,7 +259,7 @@ class _MainChildPageState extends State<MainChildPage> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          body: loading
+          body: loading || loading2
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
