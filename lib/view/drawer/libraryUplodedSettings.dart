@@ -3,10 +3,10 @@
 import 'dart:convert';
 
 import 'package:animated_search_bar/animated_search_bar.dart';
-import '../export_and_import/importlibrary.dart';
-import '/controller/checkinternet.dart';
-import '/controller/exportnote.dart';
+import 'package:arabic_speaker_child/view/export_and_import/importlibrary.dart';
 
+import '../../controller/checkinternet.dart';
+import '../../controller/exportnote.dart';
 import '/controller/erroralert.dart';
 import '/controller/var.dart';
 import '/model/library.dart';
@@ -46,7 +46,7 @@ class _LibraryUploadedSettingsState extends State<LibraryUploadedSettings> {
   Future getdata() async {
     await FirebaseFirestore.instance.collection("Shared").get().then((value) {
       for (var element in value.docs) {
-        if (!element.data().containsKey("approval")) {
+        if (element.data()["approval"] != "true") {
           data.add(element);
           allData.add(element);
         }

@@ -25,6 +25,7 @@ import 'package:volume_controller/volume_controller.dart';
 import '../../controller/erroralert.dart';
 import '../../controller/removeallshared.dart';
 import '../../controller/var.dart';
+import 'libraryUplodedSettings.dart';
 
 class Drawerc extends StatefulWidget {
   const Drawerc({Key? key}) : super(key: key);
@@ -45,6 +46,7 @@ class _DrawercState extends State<Drawerc> {
   late bool isParentMode;
   late bool switchValue;
   bool isDeleting = false;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -94,6 +96,17 @@ class _DrawercState extends State<Drawerc> {
                         height: DeviceUtil.isTablet ? 160 : 150,
                         width: DeviceUtil.isTablet ? 100 : 90,
                         fit: BoxFit.contain,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Center(
+                            child: FittedBox(
+                          child: Text(
+                            "   ${user!.email ?? 'Anonymous'}  ",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        )),
                       ),
                       Container(
                         height: DeviceUtil.isTablet ? 20 : 0,
@@ -914,6 +927,40 @@ class _DrawercState extends State<Drawerc> {
                           },
                         ),
                       ),
+                      FirebaseAuth.instance.currentUser!.uid ==
+                              "ROobAfpdsdP8nViYxAKJbQu2fkr1"
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 8.0, left: 8.0),
+                              child: InkWell(
+                                  child: SizedBox(
+                                    height: 60,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(children: [
+                                        Icon(
+                                          Icons.control_camera,
+                                          color: maincolor,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Text("متابعة التنزيلات",
+                                              style: TextStyle(
+                                                fontSize: fontSize,
+                                              )),
+                                        ),
+                                      ]),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LibraryUploadedSettings()));
+                                  }),
+                            )
+                          : Container(),
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                         child: InkWell(
