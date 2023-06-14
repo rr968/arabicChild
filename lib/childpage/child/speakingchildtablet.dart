@@ -42,6 +42,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   List<String> fav = [];
   TextEditingController controller = TextEditingController();
   final controllerList = ScrollController();
+  final controllerList2 = ScrollController();
   final contentWordController = ScrollController();
   double currentOffsetScroll = 0;
   bool isLoading = true;
@@ -1808,13 +1809,404 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                   height: isLess
                                       ? 270
                                       : size == 0
+                                      ? 170
+                                      : 135,
+                                  decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 206, 213, 218),
+                                      borderRadius: BorderRadius.circular(7)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(right: 5, left: 5),
+                                    child: Container(
+                                      //  color: Colors.white,
+                                      child: Row(
+                                        children: [
+                                          InkWell(
+                                              onTap: () {
+                                                if (currentOffsetScroll - 100 > 0) {
+                                                  setState(() {
+                                                    currentOffsetScroll -= 100;
+                                                    controllerList2.animateTo(
+                                                        currentOffsetScroll,
+                                                        duration: const Duration(
+                                                            seconds: 1),
+                                                        curve: Curves.easeOut);
+                                                  });
+                                                } else {
+                                                  setState(() {
+                                                    currentOffsetScroll = 0;
+
+                                                    controllerList2.jumpTo(0);
+                                                  });
+                                                }
+                                              },
+                                              child: Image.asset(
+                                                "assets/uiImages/arrow.png",
+                                                height: 30,
+                                                color: Colors.black,
+                                              )),
+                                          Expanded(
+
+                                            child: Container(
+                                              color:Color.fromARGB(255, 206, 213, 218),
+                                              child: ListView(
+                                                controller: controllerList2,
+                                                scrollDirection: Axis.horizontal,
+                                                children: [
+                                                  for (int i = 0;
+                                                  i < contentWord.length;
+                                                  isLess ? i = i + 2 : i++)
+                                                    Column(
+                                                      children: [
+                                                        Expanded(
+                                                          child: InkWell(
+                                                            onLongPress: () {
+                                                              bool t =
+                                                                  Provider.of<MyProvider>(
+                                                                      context,
+                                                                      listen: false)
+                                                                      .isSpeakingNow;
+                                                              if (!t) {
+                                                                howtospeak(
+                                                                    contentWord[i].name,
+                                                                    context);
+                                                              }
+                                                            },
+                                                            onDoubleTap: () {
+                                                              bool t =
+                                                                  Provider.of<MyProvider>(
+                                                                      context,
+                                                                      listen: false)
+                                                                      .isSpeakingNow;
+                                                              if (!t) {
+                                                                howtospeak(
+                                                                    contentWord[i].name,
+                                                                    context);
+                                                              }
+                                                            },
+                                                            onTap: () {
+                                                              bool t =
+                                                                  Provider.of<MyProvider>(
+                                                                      context,
+                                                                      listen: false)
+                                                                      .isSpeakingNow;
+                                                              if (!t) {
+                                                                if (speakingWordByWord) {
+                                                                  howtospeak(
+                                                                      contentWord[i].name,
+                                                                      context);
+                                                                }
+                                                                setState(() {
+                                                                  fieldContent.add(
+                                                                    contentWord[i],
+                                                                  );
+                                                                });
+                                                                String text = "";
+                                                                for (var element
+                                                                in fieldContent) {
+                                                                  text +=
+                                                                  "${element.name} ";
+                                                                }
+                                                                if (fav.contains(
+                                                                    text.trim())) {
+                                                                  setState(() {
+                                                                    isFav = true;
+                                                                  });
+                                                                } else {
+                                                                  setState(() {
+                                                                    isFav = false;
+                                                                  });
+                                                                }
+                                                                contentWordController
+                                                                    .animateTo(
+                                                                    contentWordController
+                                                                        .position
+                                                                        .maxScrollExtent,
+                                                                    duration:
+                                                                    const Duration(
+                                                                        milliseconds:
+                                                                        750),
+                                                                    curve:
+                                                                    Curves.easeOut);
+                                                                predict(text
+                                                                    .replaceAll("أ", "ا")
+                                                                    .replaceAll("إ", "ا")
+                                                                    .replaceAll("ة", "ه")
+                                                                    .trim());
+                                                              }
+                                                            },
+                                                            child: Padding(
+                                                              padding:
+                                                              const EdgeInsets.only(
+                                                                  right: 5,
+                                                                  left: 2,
+                                                                  top: 5,
+                                                                  bottom: 5),
+                                                              child: Container(
+                                                                width:
+                                                                size == 0 ? 170 : 150,
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.white,
+                                                                  borderRadius:
+                                                                  const BorderRadius
+                                                                      .all(
+                                                                      Radius.circular(
+                                                                          27)),
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: Colors.grey
+                                                                            .withOpacity(
+                                                                            0.3),
+                                                                        spreadRadius: 3,
+                                                                        blurRadius: 5,
+                                                                        offset:
+                                                                        const Offset(
+                                                                            0, 3)),
+                                                                  ],
+                                                                  border: Border.all(
+                                                                    width:
+                                                                    size == 0 ? 3 : 2,
+                                                                    color: Colors.grey,
+                                                                  ),
+                                                                ),
+                                                                child: Column(
+                                                                    mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                    children: [
+                                                                      SizedBox(
+                                                                        height: 60,
+                                                                        width: 60,
+                                                                        child: getImage(
+                                                                            contentWord[i]
+                                                                                .imgurl),
+                                                                      ),
+                                                                      Text(
+                                                                        noMoreText(
+                                                                            contentWord[i]
+                                                                                .name),
+                                                                        textAlign: TextAlign
+                                                                            .center,
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                            size == 0
+                                                                                ? 22
+                                                                                : 20,
+                                                                            fontWeight:
+                                                                            FontWeight
+                                                                                .w900,
+                                                                            color:
+                                                                            pinkColor),
+                                                                      ),
+                                                                    ]),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        isLess
+                                                            ? Expanded(
+                                                          child:
+                                                          i + 1 !=
+                                                              contentWord
+                                                                  .length
+                                                              ? InkWell(
+                                                            onLongPress:
+                                                                () {
+                                                              howtospeak(
+                                                                  contentWord[i +
+                                                                      1]
+                                                                      .name,
+                                                                  context);
+                                                            },
+                                                            onDoubleTap:
+                                                                () {
+                                                              howtospeak(
+                                                                  contentWord[i +
+                                                                      1]
+                                                                      .name,
+                                                                  context);
+                                                            },
+                                                            onTap: () {
+                                                              if (speakingWordByWord) {
+                                                                howtospeak(
+                                                                    contentWord[i +
+                                                                        1]
+                                                                        .name,
+                                                                    context);
+                                                              }
+                                                              setState(() {
+                                                                fieldContent
+                                                                    .add(
+                                                                  contentWord[
+                                                                  i + 1],
+                                                                );
+                                                              });
+                                                              String text =
+                                                                  "";
+                                                              for (var element
+                                                              in fieldContent) {
+                                                                text +=
+                                                                "${element.name} ";
+                                                              }
+                                                              if (fav.contains(
+                                                                  text.trim())) {
+                                                                setState(
+                                                                        () {
+                                                                      isFav =
+                                                                      true;
+                                                                    });
+                                                              } else {
+                                                                setState(
+                                                                        () {
+                                                                      isFav =
+                                                                      false;
+                                                                    });
+                                                              }
+                                                              contentWordController.animateTo(
+                                                                  contentWordController
+                                                                      .position
+                                                                      .maxScrollExtent,
+                                                                  duration: const Duration(
+                                                                      milliseconds:
+                                                                      750),
+                                                                  curve: Curves
+                                                                      .easeOut);
+                                                              predict(text
+                                                                  .replaceAll(
+                                                                  "أ",
+                                                                  "ا")
+                                                                  .replaceAll(
+                                                                  "إ",
+                                                                  "ا")
+                                                                  .replaceAll(
+                                                                  "ة",
+                                                                  "ه")
+                                                                  .trim());
+                                                            },
+                                                            child: Padding(
+                                                              padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                              child:
+                                                              Container(
+                                                                width: size ==
+                                                                    0
+                                                                    ? 165
+                                                                    : 150,
+                                                                decoration:
+                                                                BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius: const BorderRadius
+                                                                      .all(
+                                                                      Radius.circular(
+                                                                          27)),
+                                                                  boxShadow: [
+                                                                    BoxShadow(
+                                                                        color: Colors.grey.withOpacity(
+                                                                            0.3),
+                                                                        spreadRadius:
+                                                                        3,
+                                                                        blurRadius:
+                                                                        5,
+                                                                        offset:
+                                                                        const Offset(0, 3)),
+                                                                  ],
+                                                                  border:
+                                                                  Border
+                                                                      .all(
+                                                                    width: size ==
+                                                                        0
+                                                                        ? 3
+                                                                        : 2,
+                                                                    color: Colors
+                                                                        .grey,
+                                                                  ),
+                                                                ),
+                                                                child: Column(
+                                                                    mainAxisAlignment:
+                                                                    MainAxisAlignment.spaceAround,
+                                                                    children: [
+                                                                      SizedBox(
+                                                                        height:
+                                                                        60,
+                                                                        width:
+                                                                        60,
+                                                                        child:
+                                                                        getImage(contentWord[i + 1].imgurl),
+                                                                      ),
+                                                                      Text(
+                                                                        noMoreText(contentWord[i + 1].name),
+                                                                        textAlign:
+                                                                        TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            fontSize: size == 0 ? 22 : 20,
+                                                                            fontWeight: FontWeight.w900,
+                                                                            color: pinkColor),
+                                                                      ),
+                                                                    ]),
+                                                              ),
+                                                            ),
+                                                          )
+                                                              : Container(),
+                                                        )
+                                                            : Container()
+                                                      ],
+                                                    ),
+                                                ],
+                                              ),
+
+                                            ),
+                                          ),
+                                          InkWell(
+                                              onTap: () {
+                                                if (currentOffsetScroll + 100 <
+                                                    70 * libraryListChild.length) {
+                                                  setState(() {
+                                                    currentOffsetScroll += 60;
+                                                    controllerList2.animateTo(
+                                                        currentOffsetScroll,
+                                                        duration: const Duration(
+                                                            seconds: 1),
+                                                        curve: Curves.easeOut);
+                                                  });
+                                                } else {
+                                                  setState(() {
+                                                    currentOffsetScroll = 70.0 *
+                                                        libraryListChild.length;
+                                                    controllerList2.animateTo(
+                                                        70.0 *
+                                                            libraryListChild.length,
+                                                        duration: const Duration(
+                                                            seconds: 1),
+                                                        curve: Curves.easeOut);
+                                                  });
+                                                }
+                                              },
+                                              child: Image.asset(
+                                                "assets/uiImages/arrow.png",
+                                                height: 30,
+                                                matchTextDirection: true,
+                                                color: Colors.black,
+                                              )),
+
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                /*Container(
+                                  height: isLess
+                                      ? 270
+                                      : size == 0
                                           ? 170
                                           : 135,
                                   decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 206, 213, 218),
                                       borderRadius: BorderRadius.circular(7)),
-                                  child: ListView(
+                                  child:
+                                  ListView(
                                     scrollDirection: Axis.horizontal,
                                     children: [
                                       for (int i = 0;
@@ -2119,7 +2511,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                         ),
                                     ],
                                   ),
-                                ),
+                                ),*/
                               ],
                             ),
                           )),
