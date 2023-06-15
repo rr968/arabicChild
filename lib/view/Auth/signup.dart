@@ -1,3 +1,5 @@
+import 'package:arabic_speaker_child/view/Auth/verifyEmail.dart';
+
 import '../../controller/getAllDataPediction.dart';
 import '../../controller/istablet.dart';
 import '../../questionspages.dart/sizeOfITem.dart';
@@ -359,26 +361,27 @@ class _LoginState extends State<Signup> {
                                                     .text
                                                     .trim())
                                             .then((value) async {
-                                          setDataPredictionWordsAndImage();
+                                          setState(() {
+                                            loadingicon = false;
+                                          });
                                           SharedPreferences getSignUpOrLogin =
                                               await SharedPreferences
                                                   .getInstance();
+
                                           getSignUpOrLogin.setBool(
                                               "getSignUpOrLogin", true);
-                                          /*showDialog(
+                                          final FirebaseAuth _auth =
+                                              FirebaseAuth.instance;
+                                          await _auth.currentUser!
+                                              .sendEmailVerification();
+                                          showDialog(
                                             context: context,
                                             barrierDismissible:
                                                 false, // Prevent dismissing by tapping outside
                                             builder: (BuildContext context) {
                                               return CustomPopup();
                                             },
-                                          ); */
-
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const NumofItems()));
+                                          );
                                         });
                                       } on FirebaseAuthException catch (e) {
                                         setState(() {

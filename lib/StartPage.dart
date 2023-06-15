@@ -3,6 +3,8 @@
 import 'dart:async';
 
 import 'package:arabic_speaker_child/controller/getAllDataPediction.dart';
+import 'package:arabic_speaker_child/view/Auth/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/controller/sharedpref.dart';
 import '/firstTimeOpenTheApp/page1.dart';
@@ -21,6 +23,7 @@ class Start extends StatefulWidget {
 
 class _StartState extends State<Start> {
   bool signOrLogIn = false;
+  bool isverifyEmail = true;
   bool firstTimeOpenTheApp = true;
   bool needPay = false;
   @override
@@ -33,6 +36,12 @@ class _StartState extends State<Start> {
     getFirstTimeOpenApp().then((v) {
       getIsSignUpOrLogin().then((sign) {
         signOrLogIn = sign;
+        if (signOrLogIn) {
+          isverifyEmail = FirebaseAuth.instance.currentUser!.emailVerified;
+        }
+        if (isverifyEmail == false && signOrLogIn) {
+          notverifyEmailYet();
+        }
       });
     });
     Timer(
@@ -48,6 +57,23 @@ class _StartState extends State<Start> {
                             index: 0,
                           ))));
     super.initState();
+  }
+
+  notverifyEmailYet() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    User? user = _auth.currentUser;
+    if (user != null) {
+      try {
+        await user.delete();
+      } catch (_) {}
+    }
+    _auth.signOut();
+
+    SharedPreferences getSignUpOrLogin = await SharedPreferences.getInstance();
+
+    getSignUpOrLogin.setBool("getSignUpOrLogin", false);
+    Navigator.pushAndRemoveUntil(context,
+        MaterialPageRoute(builder: (context) => Signup()), (route) => false);
   }
 
   canGetData() async {
