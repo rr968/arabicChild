@@ -1,8 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:arabic_speaker_child/view/Auth/verifyEmail.dart';
 
-import '../../controller/getAllDataPediction.dart';
 import '../../controller/istablet.dart';
-import '../../questionspages.dart/sizeOfITem.dart';
 import '../../controller/var.dart';
 import '/controller/validation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -370,16 +370,16 @@ class _LoginState extends State<Signup> {
 
                                           getSignUpOrLogin.setBool(
                                               "getSignUpOrLogin", true);
-                                          final FirebaseAuth _auth =
+                                          final FirebaseAuth auth =
                                               FirebaseAuth.instance;
-                                          await _auth.currentUser!
+                                          await auth.currentUser!
                                               .sendEmailVerification();
                                           showDialog(
                                             context: context,
                                             barrierDismissible:
                                                 false, // Prevent dismissing by tapping outside
                                             builder: (BuildContext context) {
-                                              return CustomPopup();
+                                              return const CustomPopup();
                                             },
                                           );
                                         });

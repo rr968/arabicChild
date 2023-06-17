@@ -41,11 +41,11 @@ class _ImportState extends State<Import> {
 
   Future getdata() async {
     await FirebaseFirestore.instance.collection("Shared").get().then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         if (element.data()["approval"].toString() == "true") {
           data.add(element);
         }
-      });
+      }
       allData = data;
     });
   }

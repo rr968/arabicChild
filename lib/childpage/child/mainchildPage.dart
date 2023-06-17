@@ -1,16 +1,23 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:moyasar_payment/model/paymodel.dart';
+import 'package:moyasar_payment/moyasar_payment.dart';
 
+import '../../controller/checkinternet.dart';
 import '../../controller/harakatPrediction.dart';
 import '../../model/content.dart';
 import '../../model/filesContent.dart';
 import '../../model/library.dart';
+import '../../pay/deviceinfo.dart';
+import '../../pay/pay.dart';
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
 import '/controller/var.dart';
@@ -60,7 +67,6 @@ class _MainChildPageState extends State<MainChildPage> {
 
   @override
   void initState() {
-    /*
     ///////pay
     internetConnection().then((value) {
       if (value) {
@@ -79,67 +85,75 @@ class _MainChildPageState extends State<MainChildPage> {
                     barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) {
-                      return Directionality(
-                        textDirection: TextDirection.rtl,
-                        child: AlertDialog(
-                          title: Text("لقد انتهى الاشتراك الخاص بك"),
-                          content: Text("قيمة الاشتراك السنوي ٤٩ ريال "),
-                          actions: [
-                            TextButton(
-                              child: Text(
-                                "اشتراك",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () async {
-                                if (Platform.isAndroid) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PaymentView(amount: 49)));
-                                } else {
-                                  PayModel data = await MoyasarPayment().applePay(
-                                      amount: 49,
-                                      publishableKey:
-                                          "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
-                                      applepayMerchantId:
-                                          "merchant.sa.org.tawasal.store",
-                                      paymentItems: {' ': 1.0},
-                                      currencyCode: "SAR",
-                                      countryCode: "SA");
-                                  if (data.status == 'paid') {
-                                    internetConnection().then((value) {
-                                      if (value) {
-                                        initPlatformState().then((value) {
-                                          try {
-                                            FirebaseFirestore.instance
-                                                .collection("payChildApp")
-                                                .doc("mi63rhuIAw1hKJDnLNwx")
-                                                .set({
-                                              "${value[0]}${value[1]}":
-                                                  DateTime.now()
-                                                      .add(Duration(days: 365))
-                                            }, SetOptions(merge: true));
-                                            Navigator.of(context)
-                                                .pushReplacement(
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const MainChildPage(
-                                                  index: 0,
+                      return WillPopScope(
+                        onWillPop: () async {
+                          // Disable the back button functionality
+                          return false;
+                        },
+                        child: Directionality(
+                          textDirection: TextDirection.rtl,
+                          child: AlertDialog(
+                            title: const Text("لقد انتهى الاشتراك الخاص بك"),
+                            content:
+                                const Text("قيمة الاشتراك السنوي ٤٩ ريال "),
+                            actions: [
+                              TextButton(
+                                child: const Text(
+                                  "اشتراك",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                onPressed: () async {
+                                  if (Platform.isAndroid) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PaymentView(amount: 49)));
+                                  } else {
+                                    PayModel data = await MoyasarPayment().applePay(
+                                        amount: 49,
+                                        publishableKey:
+                                            "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
+                                        applepayMerchantId:
+                                            "merchant.sa.org.tawasal.store",
+                                        paymentItems: {' ': 49},
+                                        currencyCode: "SAR",
+                                        countryCode: "SA");
+                                    if (data.status == 'paid') {
+                                      internetConnection().then((value) {
+                                        if (value) {
+                                          initPlatformState().then((value) {
+                                            try {
+                                              FirebaseFirestore.instance
+                                                  .collection("payChildApp")
+                                                  .doc("mi63rhuIAw1hKJDnLNwx")
+                                                  .set({
+                                                "${value[0]}${value[1]}":
+                                                    DateTime.now().add(
+                                                        const Duration(
+                                                            days: 365))
+                                              }, SetOptions(merge: true));
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const MainChildPage(
+                                                    index: 0,
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          } catch (e) {}
-                                        });
-                                      }
-                                    });
+                                              );
+                                            } catch (_) {}
+                                          });
+                                        }
+                                      });
+                                    }
                                   }
-                                }
-                              },
-                            ),
-                          ],
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
@@ -151,8 +165,8 @@ class _MainChildPageState extends State<MainChildPage> {
         });
       }
     });
-*/
 
+    ///////end pay
     indexpage = widget.index;
 
     getData().then((val) {

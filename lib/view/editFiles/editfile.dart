@@ -22,7 +22,7 @@ class _EditFilesContentState extends State<EditFilesContent> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(width: 2, color: greyColor)),
-              child: Column(
+              child: const Column(
                 children: [
                   Row(
                     children: [],

@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, file_names
+// ignore_for_file: prefer_const_constructors, file_names, use_build_context_synchronously
 
 import 'dart:async';
 
 import 'package:arabic_speaker_child/controller/getAllDataPediction.dart';
+import 'package:arabic_speaker_child/pay/needPay.dart';
 import 'package:arabic_speaker_child/view/Auth/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '/childpage/child/mainchildPage.dart';
@@ -29,9 +30,9 @@ class _StartState extends State<Start> {
   @override
   void initState() {
     //  canGetData();
-    /* getSetPayData().then((v) {
+    getSetPayData().then((v) {
       if (!v) setpayData();
-    });*/
+    });
 
     getFirstTimeOpenApp().then((v) {
       getIsSignUpOrLogin().then((sign) {
@@ -60,14 +61,14 @@ class _StartState extends State<Start> {
   }
 
   notverifyEmailYet() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    User? user = _auth.currentUser;
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
     if (user != null) {
       try {
         await user.delete();
       } catch (_) {}
     }
-    _auth.signOut();
+    auth.signOut();
 
     SharedPreferences getSignUpOrLogin = await SharedPreferences.getInstance();
 

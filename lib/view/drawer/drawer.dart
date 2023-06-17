@@ -103,7 +103,7 @@ class _DrawercState extends State<Drawerc> {
                             child: FittedBox(
                           child: Text(
                             "   ${user!.email ?? 'Anonymous'}  ",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         )),

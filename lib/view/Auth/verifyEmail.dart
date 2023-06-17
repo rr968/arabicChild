@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:arabic_speaker_child/view/Auth/signup.dart';
@@ -8,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../questionspages.dart/sizeOfITem.dart';
 
 class CustomPopup extends StatefulWidget {
+  const CustomPopup({super.key});
+
   @override
   State<CustomPopup> createState() => _CustomPopupState();
 }
@@ -22,7 +26,7 @@ class _CustomPopupState extends State<CustomPopup> {
   }
 
   isveryfied() {
-    timer = Timer.periodic(Duration(seconds: 2), (timer) async {
+    timer = Timer.periodic(const Duration(seconds: 2), (timer) async {
       await FirebaseAuth.instance.currentUser!.reload();
 
       if (FirebaseAuth.instance.currentUser!.emailVerified) {
@@ -51,7 +55,7 @@ class _CustomPopupState extends State<CustomPopup> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
           ),
-          title: Center(child: Text('التحقق من الايميل')),
+          title: const Center(child: Text('التحقق من الايميل')),
           content: Text(
             'لقد قمنا بارسال رابط للتحقق من بريدك الالكتروني على ${FirebaseAuth.instance.currentUser!.email}',
             textAlign: TextAlign.center,
@@ -62,12 +66,13 @@ class _CustomPopupState extends State<CustomPopup> {
               children: [
                 TextButton(
                   onPressed: () async {
-                    final FirebaseAuth _auth = FirebaseAuth.instance;
-                    await _auth.currentUser!.sendEmailVerification();
+                    final FirebaseAuth auth = FirebaseAuth.instance;
+                    await auth.currentUser!.sendEmailVerification();
                     setState(() {
                       isSend = true;
                     });
-                    Future.delayed(Duration(milliseconds: 3850)).then((value) {
+                    Future.delayed(const Duration(milliseconds: 3850))
+                        .then((value) {
                       setState(() {
                         isSend = false;
                       });
@@ -78,7 +83,7 @@ class _CustomPopupState extends State<CustomPopup> {
                           "assets/verifyemail.gif",
                           height: 50,
                         )
-                      : Text(
+                      : const Text(
                           'إعادة ارسال',
                           style: TextStyle(color: Colors.black),
                         ),
@@ -86,14 +91,14 @@ class _CustomPopupState extends State<CustomPopup> {
                 TextButton(
                   onPressed: () async {
                     // Handle button press
-                    final FirebaseAuth _auth = FirebaseAuth.instance;
-                    User? user = _auth.currentUser;
+                    final FirebaseAuth auth = FirebaseAuth.instance;
+                    User? user = auth.currentUser;
                     if (user != null) {
                       try {
                         await user.delete();
                       } catch (_) {}
                     }
-                    _auth.signOut();
+                    auth.signOut();
 
                     SharedPreferences getSignUpOrLogin =
                         await SharedPreferences.getInstance();
@@ -101,10 +106,10 @@ class _CustomPopupState extends State<CustomPopup> {
                     getSignUpOrLogin.setBool("getSignUpOrLogin", false);
                     Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => Signup()),
+                        MaterialPageRoute(builder: (context) => const Signup()),
                         (route) => false);
                   },
-                  child: Text(
+                  child: const Text(
                     'التسجيل بايميل اخر',
                     style: TextStyle(color: Colors.black),
                   ),

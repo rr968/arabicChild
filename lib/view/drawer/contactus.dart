@@ -25,7 +25,7 @@ class Contactus extends StatelessWidget {
               )),
         ),
         body: SafeArea(
-          child: ListView(children: [
+          child: ListView(children: const [
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Column(children: [
