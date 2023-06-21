@@ -1,12 +1,11 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import '../../controller/erroralert.dart';
 import '../../controller/istablet.dart';
 import '/childpage/parent/mainparent.dart';
 import '/controller/images.dart';
-import 'package:provider/provider.dart';
 
-import '../../controller/my_provider.dart';
 import '/view/drawer/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
@@ -251,8 +250,6 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                           onTap: () {
                             updateSharedPreferences().then((v) {
                               getdata();
-                              Provider.of<MyProvider>(context, listen: false)
-                                  .setIscontentOfLibrary(widget.contentIndex);
 
                               Navigator.pushAndRemoveUntil(
                                   context,
@@ -262,7 +259,7 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                                             index: 1,
                                           )),
                                   (route) => false);
-                              // acceptalert(context, "تم الحفظ بنجاح");
+                              acceptalert(context, "تم الحفظ بنجاح");
                             });
                           },
                           child: Container(
@@ -283,9 +280,6 @@ class _ReArrangeContentChildState extends State<ReArrangeContentChild> {
                         ),
                         InkWell(
                           onTap: () {
-                            Provider.of<MyProvider>(context, listen: false)
-                                .setIscontentOfLibrary(widget.contentIndex);
-
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(

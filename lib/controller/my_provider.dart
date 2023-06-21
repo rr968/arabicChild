@@ -18,14 +18,6 @@ class MyProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  ///////////////////
-  ////////////////////
-  int iscontentOfLibrary = -1;
-  void setIscontentOfLibrary(int index) {
-    iscontentOfLibrary = index;
-    notifyListeners();
-  } ///////////////////
-
   ////////////////////
   bool isSpeakingNow = false;
   void setIsSpeakingNow(bool val) {

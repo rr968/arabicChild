@@ -1,8 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:arabic_speaker_child/childpage/child/mainchildPage.dart';
 import 'package:arabic_speaker_child/controller/libtostring.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/library.dart';
@@ -22,8 +20,4 @@ saveWordboxContent(context, List<lib> l) async {
   }
   SharedPreferences pref = await SharedPreferences.getInstance();
   pref.setStringList("wordListChild", data);
-  Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const MainChildPage(index: 0)),
-      (route) => false);
 }

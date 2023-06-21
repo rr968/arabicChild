@@ -2,7 +2,7 @@
 
 import '/model/library.dart';
 
-import '../../model/content.dart';
+import '../model/content.dart';
 
 List<lib> constantLib = [
   lib("المستشفى", "assets/7ss.png", "yes", [

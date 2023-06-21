@@ -143,7 +143,7 @@ class AboutApp extends StatelessWidget {
                             onTap: () {
                               final Uri emailLaunchUri = Uri(
                                 scheme: 'mailto',
-                                path: "tawasal.2019@gmail.com",
+                                path: "info.tawasal2019@gmail.com",
                               );
                               launchUrl(emailLaunchUri);
                             },

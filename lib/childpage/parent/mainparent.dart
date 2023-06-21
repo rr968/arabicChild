@@ -1,15 +1,13 @@
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 import '../../controller/istablet.dart';
-import '/childpage/parent/contentLibrary.dart';
-import '/childpage/parent/mainparentSettings.dart';
 import '/childpage/parent/parentSettingsFav.dart';
-import '/controller/my_provider.dart';
 import '/controller/var.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'SettingLibrary_tablet.dart';
 
 class MainParentPage extends StatefulWidget {
   final int index;
@@ -25,8 +23,8 @@ class _MainParentPageState extends State<MainParentPage> {
   Color selectedColor = maincolor;
   List<Widget> parentScreens = [
     const ParentSettingsFav(),
-    const MainParentSettings(),
-    const MainParentSettings(),
+    const settingLibrary_tablet(),
+    const settingLibrary_tablet(),
   ];
 
   late int indexpage;
@@ -89,13 +87,7 @@ class _MainParentPageState extends State<MainParentPage> {
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          body: Provider.of<MyProvider>(context, listen: true)
-                      .iscontentOfLibrary !=
-                  -1
-              ? contentLibraryChild(
-                  libIndex: Provider.of<MyProvider>(context, listen: true)
-                      .iscontentOfLibrary)
-              : parentScreens[indexpage],
+          body: parentScreens[indexpage],
           bottomNavigationBar: SnakeNavigationBar.color(
             shadowColor: Colors.black,
             elevation: 20,
@@ -124,16 +116,12 @@ class _MainParentPageState extends State<MainParentPage> {
                 });
                 Future.delayed(const Duration(milliseconds: 1000))
                     .then((value) {
-                  Provider.of<MyProvider>(context, listen: false)
-                      .setIscontentOfLibrary(-1);
                   setState(() {
                     indexpage = 1;
                   });
                 });
                 playaudio();
               } else {
-                Provider.of<MyProvider>(context, listen: false)
-                    .setIscontentOfLibrary(-1);
                 setState(() {
                   indexpage = index;
                 });

@@ -531,8 +531,6 @@ class _AddContentChildState extends State<AddContentChild> {
                     }
                     liblist.setStringList("liblistChild", v);
                     //tryUploadDataChild();
-                    Provider.of<MyProvider>(context, listen: false)
-                        .setIscontentOfLibrary(widget.libraryindex);
 
                     Navigator.pushAndRemoveUntil(
                         context,
