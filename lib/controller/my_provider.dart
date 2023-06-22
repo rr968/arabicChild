@@ -76,6 +76,13 @@ class MyProvider with ChangeNotifier {
     pass4 = num;
     notifyListeners();
   }
+  int iscontentOfLibrary = -1;
 
-  /////////////
+  void setIscontentOfLibrary(int index) {
+    iscontentOfLibrary = index;
+    notifyListeners();
+  } ///////////////////
+
+
+/////////////
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 bool isFemale = false;
 int size = 1;
 int currentSpeakSpead = 1;
+
 Color maincolor = const Color(0xff724666);
 Color purcolor = const Color(0xff724666);
 Color greyColor = const Color(0xff808484);
