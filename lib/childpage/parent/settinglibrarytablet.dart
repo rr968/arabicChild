@@ -34,11 +34,11 @@ import 'addlibraryChild.dart';
 import 'deleteLibrary.dart';
 import 'export.dart';
 
-class settingLibrary_tablet extends StatefulWidget {
-  const settingLibrary_tablet({super.key});
+class SettingLibraryTablet extends StatefulWidget {
+  const SettingLibraryTablet({super.key});
 
   @override
-  State<settingLibrary_tablet> createState() => _settingLibrary_tablet();
+  State<SettingLibraryTablet> createState() => _SettingLibraryTablet();
 }
 
 bool isloading = true;
@@ -63,7 +63,7 @@ final controllerList2 = ScrollController();
 TextEditingController controller = TextEditingController();
 int coloredOpenLibraryindex = 0;
 
-class _settingLibrary_tablet extends State<settingLibrary_tablet> {
+class _SettingLibraryTablet extends State<SettingLibraryTablet> {
   @override
   @override
   void initState() {
@@ -724,7 +724,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                                     hintStyle: const TextStyle(
                                                         fontWeight:
                                                         FontWeight.bold),
-                                                    labelStyle: TextStyle(
+                                                    labelStyle: const TextStyle(
                                                         fontWeight:
                                                         FontWeight.bold,
                                                         fontSize: 22,
@@ -1282,13 +1282,16 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                                             }
                                                             liblistChild.setStringList(
                                                                 "liblistChild", library);
-                                                            Navigator.pushAndRemoveUntil(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (context) =>
-                                                                    const MainParentPage(
-                                                                        index: 1)),
-                                                                    (route) => false);
+    if (context.mounted) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+              const MainParentPage(
+                  index: 1)),
+              (route) => false);
+
+    }
                                                           },
                                                           child: Container(
                                                             height: DeviceUtil.isTablet
@@ -1476,7 +1479,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ReArrangeLibraryChild()),
+                                builder: (context) => const ReArrangeLibraryChild()),
                           );
                         },
                         child: Container(
@@ -1941,7 +1944,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Export()));
+                                              builder: (context) => const Export()));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -1974,7 +1977,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DeleteLibrary()),
+                                builder: (context) => const DeleteLibrary()),
                           );
                         },
                         child: Container(
@@ -2420,9 +2423,9 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
 
 
               return AlertDialog(
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                       borderRadius:
-                          const BorderRadius.all(Radius.circular(20))),
+                           BorderRadius.all(Radius.circular(20))),
                   title: Container(
                       width: 600,
                       decoration: BoxDecoration(
@@ -2433,8 +2436,8 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                           textDirection: TextDirection.rtl,
                           child: Column(
                             children: [
-                              Center(
-                                child: const Padding(
+                              const Center(
+                                child:  Padding(
                                   padding: EdgeInsets.all(8.0),
                                   child: FittedBox(
                                     child: Text(
@@ -2543,7 +2546,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                         height: DeviceUtil.isTablet ? 100 : 80,
                                         width: DeviceUtil.isTablet ? 100 : 80,
                                         child: Padding(
-                                          padding: EdgeInsets.all(10.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -2592,7 +2595,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      const settingLibrary_tablet()),
+                                                      const SettingLibraryTablet()),
                                               (route) => false);
                                         }
                                       },
@@ -2706,7 +2709,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
             width: 35,
             decoration: BoxDecoration(
                 color: pinkColor, borderRadius: BorderRadius.circular(30)),
-            child: Icon(
+            child: const Icon(
               Icons.edit,
               size: 27,
               color: Colors.white,
@@ -3127,7 +3130,10 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
       if (im == null) {
         return;
       } else {
-        Provider.of<MyProvider>(context, listen: false).setPath(im.path);
+        if (context.mounted) {
+          Provider.of<MyProvider>(context, listen: false).setPath(im.path);
+
+        }
       }
     } on PlatformException {
       ///////////edit heeeeeeeeeeeeeeeeeeeeeeeeere
@@ -3240,35 +3246,40 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
               ),
               InkWell(
                 onTap: () async {
-                  List theSelectedItem = isSelected;
-                  theSelectedItem.sort();
-                  theSelectedItem = theSelectedItem.reversed.toList();
-                  for (var element in theSelectedItem) {
-                    libraryListChild[coloredOpenLibraryindex
-                    ]
-                        .contenlist
-                        .removeAt(element);
-                  }
+    List theSelectedItem = isSelected;
+    theSelectedItem.sort();
+    theSelectedItem = theSelectedItem.reversed.toList();
+    for (var element in theSelectedItem) {
+    libraryListChild[coloredOpenLibraryindex
+    ]
+        .contenlist
+        .removeAt(element);
+    }
 
-                  SharedPreferences liblist =
-                  await SharedPreferences.getInstance();
-                  List<String> v = [];
-                  for (lib l in libraryListChild) {
-                    String s = convertLibString(l);
-                    v.add(s);
-                  }
-                  liblist.setStringList("liblistChild", v);
-                  Provider.of<MyProvider>(context, listen: false)
-                      .setIscontentOfLibrary( coloredOpenLibraryindex);
-                  isSelected = [];
+    SharedPreferences liblist =
+    await SharedPreferences.getInstance();
+    List<String> v = [];
+    for (lib l in libraryListChild) {
+    String s = convertLibString(l);
+    v.add(s);
+    }
+    liblist.setStringList("liblistChild", v);
+    if (context.mounted) {
+      Provider.of<MyProvider>( context, listen: false)
+          .setIscontentOfLibrary( coloredOpenLibraryindex);
+    }
 
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainParentPage(
-                            index: 1,
-                          )),
-                          (route) => false);
+    isSelected = [];
+    if (context.mounted) {
+
+    Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(
+    builder: (context) => const MainParentPage(
+    index: 1,
+    )),
+    (route) => false);
+    }
                 },
                 child: Container(
                   height: DeviceUtil.isTablet ? 50 : 40,
