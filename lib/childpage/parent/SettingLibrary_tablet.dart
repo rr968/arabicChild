@@ -664,6 +664,867 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                               context: context,
                               builder: (context) {
                                 TextEditingController name =
+                                TextEditingController();
+
+                                TextEditingController publisherName =
+                                TextEditingController();
+
+                                TextEditingController explaination =
+                                TextEditingController();
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Center(
+                                    child: SingleChildScrollView(
+                                      child: AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(
+                                                    DeviceUtil.isTablet
+                                                        ? 32
+                                                        : 20))),
+                                        title: Directionality(
+                                          textDirection: TextDirection.rtl,
+                                          child: Column(
+                                            children: [
+                                              const Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: FittedBox(
+                                                  child: Text(
+                                                    "معلومات المكتبات المرغوب مشاركتها",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 25),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: DeviceUtil.isTablet
+                                                    ? 35
+                                                    : 15,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  left: DeviceUtil.isTablet
+                                                      ? 20
+                                                      : 8,
+                                                  right: DeviceUtil.isTablet
+                                                      ? 20
+                                                      : 8,
+                                                  //bottom: 11,
+                                                ),
+                                                child: TextFormField(
+                                                  controller: name,
+                                                  maxLength: 25,
+                                                  maxLines: 1,
+                                                  decoration: InputDecoration(
+                                                    // hintText: "اسم التصدير",
+                                                    labelText: "اسم النسخة",
+                                                    hintStyle: const TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.bold),
+                                                    labelStyle: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 22,
+                                                        color: Colors.grey),
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: maincolor),
+                                                      borderRadius:
+                                                      const BorderRadius
+                                                          .all(
+                                                        Radius.circular(13.0),
+                                                      ),
+                                                    ),
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: maincolor),
+                                                      borderRadius:
+                                                      const BorderRadius
+                                                          .all(
+                                                        Radius.circular(13.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                "* هذا الاسم سيظهر للمستخدمين عند تنزيل المكتبة",
+                                                // textAlign: TextAlign.right,
+                                                // ignore: prefer_const_constructors
+                                                style: TextStyle(
+                                                    fontSize:
+                                                    DeviceUtil.isTablet
+                                                        ? 14
+                                                        : 11,
+                                                    color: Colors.red,
+                                                    fontWeight:
+                                                    FontWeight.bold),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: DeviceUtil.isTablet
+                                                        ? 40
+                                                        : 10,
+                                                    bottom: DeviceUtil.isTablet
+                                                        ? 20
+                                                        : 10,
+                                                    right: DeviceUtil.isTablet
+                                                        ? 20
+                                                        : 8,
+                                                    left: DeviceUtil.isTablet
+                                                        ? 20
+                                                        : 8),
+                                                child: TextFormField(
+                                                  controller: publisherName,
+                                                  maxLength: 25,
+                                                  maxLines: 1,
+                                                  decoration: InputDecoration(
+                                                    //   hintText: "اسم الناشر",
+                                                    labelText: "اسم الناشر",
+                                                    hintStyle: const TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.bold),
+                                                    labelStyle: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize: 22,
+                                                        color: maincolor),
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: maincolor),
+                                                      borderRadius:
+                                                      const BorderRadius
+                                                          .all(
+                                                        Radius.circular(13.0),
+                                                      ),
+                                                    ),
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: maincolor),
+                                                      borderRadius:
+                                                      const BorderRadius
+                                                          .all(
+                                                        Radius.circular(13.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: DeviceUtil.isTablet
+                                                        ? 20
+                                                        : 8,
+                                                    right: DeviceUtil.isTablet
+                                                        ? 20
+                                                        : 8),
+                                                child: TextFormField(
+                                                  controller: explaination,
+                                                  maxLength: 120,
+                                                  minLines: DeviceUtil.isTablet
+                                                      ? 4
+                                                      : 3,
+                                                  maxLines: DeviceUtil.isTablet
+                                                      ? 4
+                                                      : 3,
+                                                  decoration: InputDecoration(
+                                                    labelText:
+                                                    "شرح توضيحي عن المكتبات ",
+                                                    hintStyle: const TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                        FontWeight.bold),
+                                                    labelStyle: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        fontSize:
+                                                        DeviceUtil.isTablet
+                                                            ? 22
+                                                            : 20,
+                                                        color: maincolor),
+                                                    focusedBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: maincolor),
+                                                      borderRadius:
+                                                      const BorderRadius
+                                                          .all(
+                                                        Radius.circular(13.0),
+                                                      ),
+                                                    ),
+                                                    enabledBorder:
+                                                    OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: maincolor),
+                                                      borderRadius:
+                                                      const BorderRadius
+                                                          .all(
+                                                        Radius.circular(13.0),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceAround,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
+                                                        top: 20),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        if (name.text.isEmpty ||
+                                                            publisherName
+                                                                .text.isEmpty ||
+                                                            explaination
+                                                                .text.isEmpty) {
+                                                          erroralert(context,
+                                                              "يجب ملىء جميع الحقول");
+                                                        } else {
+                                                          internetConnection()
+                                                              .then((value) {
+                                                            if (value == true) {
+                                                              Provider.of<MyProvider>(
+                                                                  context,
+                                                                  listen:
+                                                                  false)
+                                                                  .isLoading(
+                                                                  true);
+                                                              tryUploadDataChild()
+                                                                  .then((v) {
+                                                                allUploadedDataChildDone()
+                                                                    .then(
+                                                                        (value2) {
+                                                                      if (value2 ==
+                                                                          true) {
+                                                                        FirebaseFirestore
+                                                                            .instance
+                                                                            .collection(
+                                                                            "Shared")
+                                                                            .doc()
+                                                                            .set({
+                                                                          "data":
+                                                                          dataToExport,
+                                                                          "name": name
+                                                                              .text,
+                                                                          "publisherName":
+                                                                          publisherName
+                                                                              .text,
+                                                                          "explaination":
+                                                                          explaination
+                                                                              .text,
+                                                                          "approval":
+                                                                          "no"
+                                                                        }).then((value) {
+                                                                          Navigator.pushAndRemoveUntil(
+                                                                              context,
+                                                                              MaterialPageRoute(
+                                                                                  builder: (context) => const MainParentPage(index: 1)),
+                                                                                  (route) => false);
+                                                                          acceptalert(
+                                                                            context,
+                                                                            "سيتم نشر مكتبتك بعد مراجعتها يمكنك الوصول للمكتبات من خلال اعدادات -> تنزيل المكتبات",
+                                                                          );
+                                                                        });
+                                                                      } else {
+                                                                        Navigator.pushAndRemoveUntil(
+                                                                            context,
+                                                                            MaterialPageRoute(
+                                                                                builder: (context) => const MainParentPage(
+                                                                                    index:
+                                                                                    1)),
+                                                                                (route) =>
+                                                                            false);
+                                                                        erroralert(
+                                                                            context,
+                                                                            "حاول مرة اخرى");
+                                                                      }
+                                                                      Provider.of<MyProvider>(
+                                                                          context,
+                                                                          listen:
+                                                                          false)
+                                                                          .isLoading(
+                                                                          false);
+                                                                    });
+                                                              });
+                                                            } else {
+                                                              erroralert(
+                                                                  context,
+                                                                  "يرجى الاتصال بالانترنت");
+                                                            }
+                                                          });
+                                                        }
+                                                      },
+                                                      child: Container(
+                                                        height:
+                                                        DeviceUtil.isTablet
+                                                            ? 50
+                                                            : 44,
+                                                        width:
+                                                        DeviceUtil.isTablet
+                                                            ? 200
+                                                            : 100,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                15),
+                                                            color: maincolor),
+                                                        child: Center(
+                                                          child: Provider.of<
+                                                              MyProvider>(
+                                                              context,
+                                                              listen:
+                                                              true)
+                                                              .isloading
+                                                              ? const CircularProgressIndicator()
+                                                              : FittedBox(
+                                                            child: Text(
+                                                              "رفع",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: DeviceUtil.isTablet
+                                                                      ? 25
+                                                                      : 20),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+
+                                                  ////////////////////////////////// الغاء
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
+                                                      // left: 65,
+                                                      // right: 65,
+                                                        top: 20),
+                                                    child: InkWell(
+                                                      onTap: (() {
+                                                        Navigator.pop(context);
+                                                      }),
+                                                      child: Container(
+                                                        height:
+                                                        DeviceUtil.isTablet
+                                                            ? 50
+                                                            : 44,
+                                                        width:
+                                                        DeviceUtil.isTablet
+                                                            ? 200
+                                                            : 100,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                15),
+                                                            color: maincolor),
+                                                        child: Center(
+                                                          child: FittedBox(
+                                                            child: Text(
+                                                              "إلغاء",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                  DeviceUtil
+                                                                      .isTablet
+                                                                      ? 25
+                                                                      : 20),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: DeviceUtil.isTablet
+                                                    ? 35
+                                                    : 15,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 5, left: 5),
+                          child: Container(
+                              height: DeviceUtil.isTablet ? 50 : 40,
+                              width: MediaQuery.of(context).size.width / 4.4,
+                              decoration: BoxDecoration(
+                                  color: greenColor,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: FittedBox(
+                                  child: InkWell(
+                                    onTap: () {
+                                      Provider.of<MyProvider>(context, listen: false)
+                                          .clearSelectedInAlert();
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              insetPadding: EdgeInsets.zero,
+                                              title: Column(
+                                                children: [
+                                                  SizedBox(
+                                                    height: DeviceUtil.isTablet ? 40 : 25,
+                                                    child: Stack(children: [
+                                                      Center(
+                                                        child: Text(
+                                                          "  إختر المكتبات الجاهزة التالية",
+                                                          style: TextStyle(
+                                                              color: maincolor,
+                                                              fontWeight: FontWeight.w900,
+                                                              fontSize: DeviceUtil.isTablet
+                                                                  ? 28
+                                                                  : 18),
+                                                        ),
+                                                      ),
+                                                      Align(
+                                                        alignment: Alignment.topRight,
+                                                        child: InkWell(
+                                                            onTap: () =>
+                                                                Navigator.pop(context),
+                                                            child: Icon(
+                                                              Icons.cancel_outlined,
+                                                              size: DeviceUtil.isTablet
+                                                                  ? 40
+                                                                  : 25,
+                                                            )),
+                                                      )
+                                                    ]),
+                                                  ),
+                                                  Container(
+                                                      height:
+                                                      DeviceUtil.isTablet ? 350 : 250,
+                                                      width: 600,
+                                                      margin: const EdgeInsets.all(5),
+                                                      decoration: BoxDecoration(
+                                                        border:
+                                                        Border.all(color: Colors.grey),
+                                                        color: const Color.fromARGB(
+                                                            255, 255, 255, 255)
+                                                            .withOpacity(0.8),
+                                                        borderRadius: BorderRadius.all(
+                                                            Radius.circular(
+                                                                DeviceUtil.isTablet
+                                                                    ? 20
+                                                                    : 15)),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                              color: Colors.grey
+                                                                  .withOpacity(0.3),
+                                                              spreadRadius: 0,
+                                                              blurRadius: 5,
+                                                              offset: const Offset(0, 3)),
+                                                        ],
+                                                      ),
+                                                      child: GridView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: constantLib.length,
+                                                          gridDelegate:
+                                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                                              childAspectRatio: 1 / 1.1,
+                                                              crossAxisSpacing: 1,
+                                                              mainAxisSpacing: 1,
+                                                              crossAxisCount: 4),
+                                                          itemBuilder: (context, index) {
+                                                            return InkWell(
+                                                              onTap: () {
+                                                                Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen: false)
+                                                                    .addOrRemove(index);
+                                                              },
+                                                              child: Stack(
+                                                                alignment: Alignment.center,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                    child: Container(
+                                                                      height: 140,
+                                                                      width: 140,
+                                                                      decoration:
+                                                                      BoxDecoration(
+                                                                        color: const Color
+                                                                            .fromARGB(
+                                                                            255,
+                                                                            255,
+                                                                            255,
+                                                                            255)
+                                                                            .withOpacity(
+                                                                            0.8),
+                                                                        borderRadius: BorderRadius.all(
+                                                                            Radius.circular(
+                                                                                DeviceUtil
+                                                                                    .isTablet
+                                                                                    ? 25
+                                                                                    : 10)),
+                                                                        border: Border.all(
+                                                                          color: Colors.grey
+                                                                              .withOpacity(
+                                                                              0.3),
+                                                                        ),
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                              color: Colors
+                                                                                  .grey
+                                                                                  .withOpacity(
+                                                                                  0.3),
+                                                                              spreadRadius:
+                                                                              0,
+                                                                              blurRadius: 5,
+                                                                              offset:
+                                                                              const Offset(
+                                                                                  0,
+                                                                                  3)),
+                                                                        ],
+                                                                      ),
+                                                                      child: Padding(
+                                                                        padding:
+                                                                        const EdgeInsets
+                                                                            .all(3),
+                                                                        child: Column(
+                                                                            children: [
+                                                                              Expanded(
+                                                                                  flex: 3,
+                                                                                  child: getImage(
+                                                                                      constantLib[index]
+                                                                                          .imgurl)),
+                                                                              Expanded(
+                                                                                flex: 2,
+                                                                                child:
+                                                                                Padding(
+                                                                                  padding: const EdgeInsets
+                                                                                      .only(
+                                                                                      top:
+                                                                                      5),
+                                                                                  child:
+                                                                                  Text(
+                                                                                    constantLib[index]
+                                                                                        .name,
+                                                                                    style: TextStyle(
+                                                                                        fontSize: DeviceUtil.isTablet
+                                                                                            ? 26
+                                                                                            : 15,
+                                                                                        fontWeight:
+                                                                                        FontWeight.bold),
+                                                                                  ),
+                                                                                ),
+                                                                              )
+                                                                            ]),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  !Provider.of<MyProvider>(
+                                                                      context)
+                                                                      .isSelectedInAlert
+                                                                      .contains(index)
+                                                                      ? Container()
+                                                                      : Icon(
+                                                                    Icons.done,
+                                                                    color: purcolor,
+                                                                    size: DeviceUtil
+                                                                        .isTablet
+                                                                        ? 100
+                                                                        : 60,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          })),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.spaceAround,
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () async {
+                                                            List<int> selectedList =
+                                                                Provider.of<MyProvider>(
+                                                                    context,
+                                                                    listen: false)
+                                                                    .isSelectedInAlert;
+                                                            SharedPreferences liblistChild =
+                                                            await SharedPreferences
+                                                                .getInstance();
+                                                            List<String> library =
+                                                                liblistChild.getStringList(
+                                                                    "liblistChild") ??
+                                                                    [];
+                                                            for (var element
+                                                            in selectedList) {
+                                                              library.add(convertLibString(
+                                                                  constantLib[element]));
+                                                            }
+                                                            liblistChild.setStringList(
+                                                                "liblistChild", library);
+                                                            Navigator.pushAndRemoveUntil(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                    const MainParentPage(
+                                                                        index: 1)),
+                                                                    (route) => false);
+                                                          },
+                                                          child: Container(
+                                                            height: DeviceUtil.isTablet
+                                                                ? 40
+                                                                : 32,
+                                                            width: DeviceUtil.isTablet
+                                                                ? 170
+                                                                : 90,
+                                                            decoration: BoxDecoration(
+                                                                color: greenColor,
+                                                                borderRadius:
+                                                                BorderRadius.circular(
+                                                                    10)),
+                                                            child: Center(
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Text(
+                                                                      "اختيار",
+                                                                      style: TextStyle(
+                                                                          fontWeight:
+                                                                          FontWeight.bold,
+                                                                          fontSize: DeviceUtil
+                                                                              .isTablet
+                                                                              ? 21
+                                                                              : 18,
+                                                                          color: Colors.white),
+                                                                    ),
+                                                                    Container(
+                                                                      width: DeviceUtil.isTablet
+                                                                          ? 10
+                                                                          : 5,
+                                                                    ),
+                                                                    const Icon(
+                                                                      Icons.done,
+                                                                      color: Colors.white,
+                                                                    ),
+                                                                  ],
+                                                                )),
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                    const Import()));
+                                                          },
+                                                          child: Container(
+                                                            height: DeviceUtil.isTablet
+                                                                ? 40
+                                                                : 32,
+                                                            width: DeviceUtil.isTablet
+                                                                ? 170
+                                                                : 90,
+                                                            decoration: BoxDecoration(
+                                                                color: pinkColor,
+                                                                borderRadius:
+                                                                BorderRadius.circular(
+                                                                    10)),
+                                                            child: Center(
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Text(
+                                                                      DeviceUtil.isTablet
+                                                                          ? "تنزيل مكتبة"
+                                                                          : "تنزيل",
+                                                                      style: TextStyle(
+                                                                          fontWeight:
+                                                                          FontWeight.bold,
+                                                                          fontSize: DeviceUtil
+                                                                              .isTablet
+                                                                              ? 21
+                                                                              : 18,
+                                                                          color: Colors.white),
+                                                                    ),
+                                                                    Container(
+                                                                      width: DeviceUtil.isTablet
+                                                                          ? 10
+                                                                          : 5,
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons.cloud_download,
+                                                                      size: DeviceUtil.isTablet
+                                                                          ? 24
+                                                                          : 21,
+                                                                      color: Colors.white,
+                                                                    ),
+                                                                  ],
+                                                                )),
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () => Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                  const AddChildLibrary())),
+                                                          child: Container(
+                                                            height: DeviceUtil.isTablet
+                                                                ? 40
+                                                                : 32,
+                                                            width: DeviceUtil.isTablet
+                                                                ? 170
+                                                                : 90,
+                                                            decoration: BoxDecoration(
+                                                                color: purcolor,
+                                                                borderRadius:
+                                                                BorderRadius.circular(
+                                                                    10)),
+                                                            child: Center(
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment.center,
+                                                                  children: [
+                                                                    Text(
+                                                                      DeviceUtil.isTablet
+                                                                          ? "إنشاء مكتبة"
+                                                                          : "إنشاء",
+                                                                      style: TextStyle(
+                                                                          fontSize: DeviceUtil
+                                                                              .isTablet
+                                                                              ? 21
+                                                                              : 18,
+                                                                          fontWeight:
+                                                                          FontWeight.bold,
+                                                                          color: Colors.white),
+                                                                    ),
+                                                                    Container(
+                                                                      width: DeviceUtil.isTablet
+                                                                          ? 10
+                                                                          : 5,
+                                                                    ),
+                                                                    Icon(
+                                                                      Icons.add_circle_outline,
+                                                                      color: Colors.white,
+                                                                      size: DeviceUtil.isTablet
+                                                                          ? 30
+                                                                          : 23,
+                                                                    ),
+                                                                  ],
+                                                                )),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                      children: [
+                                        const Icon(
+                                          Icons.add_circle_outline,
+                                          color: Colors.white,
+                                          size: 35,
+                                        ),
+                                        Container(
+                                          width: 7,
+                                        ),
+                                        const Text(
+                                          "إضافة مكتبة",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 23),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReArrangeLibraryChild()),
+                          );
+                        },
+                        child: Container(
+                          height: DeviceUtil.isTablet ? 50 : 40,
+                          decoration: BoxDecoration(
+                              color: purcolor,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Center(
+                              child:Padding(
+                                padding:
+                                EdgeInsets.all(DeviceUtil.isTablet ? 8.0 : 4),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.low_priority,
+                                      color: Colors.white,
+                                      size: 28,
+                                    ),
+                                    Container(
+                                      width: DeviceUtil.isTablet ? 7 : 3,
+                                    ),
+                                    Text(
+                                      "ترتيب المكتبات",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: DeviceUtil.isTablet ? 23 : 15),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ),
+
+
+                      InkWell(
+                        onTap: () {
+                          List<String> dataToExport = [];
+                          for (int i in isSelected) {
+                            String s = convertLibString(libraryListChild[i]);
+                            dataToExport.add(s);
+                          } //here
+
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                TextEditingController name =
                                     TextEditingController();
 
                                 TextEditingController publisherName =
@@ -1113,46 +1974,6 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ReArrangeLibraryChild()),
-                          );
-                        },
-                        child: Container(
-                          height: DeviceUtil.isTablet ? 50 : 40,
-                          decoration: BoxDecoration(
-                              color: greenColor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Center(
-                              child:Padding(
-                            padding:
-                                EdgeInsets.all(DeviceUtil.isTablet ? 8.0 : 4),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                /*Icon(
-                                  Icons.delete_outlined,
-                                  color: Colors.white,
-                                  size: DeviceUtil.isTablet ? 35 : 30,
-                                ),*/
-                                Container(
-                                  width: DeviceUtil.isTablet ? 7 : 3,
-                                ),
-                                Text(
-                                  "ترتيب المكتبات",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: DeviceUtil.isTablet ? 23 : 15),
-                                ),
-                              ],
-                            ),
-                          )),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
                                 builder: (context) => DeleteLibrary()),
                           );
                         },
@@ -1199,380 +2020,30 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                   child: Row(
                     children: [
                       InkWell(
-                        onTap: () {
-                          Provider.of<MyProvider>(context, listen: false)
-                              .clearSelectedInAlert();
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  insetPadding: EdgeInsets.zero,
-                                  title: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: DeviceUtil.isTablet ? 40 : 25,
-                                        child: Stack(children: [
-                                          Center(
-                                            child: Text(
-                                              "  إختر المكتبات الجاهزة التالية",
-                                              style: TextStyle(
-                                                  color: maincolor,
-                                                  fontWeight: FontWeight.w900,
-                                                  fontSize: DeviceUtil.isTablet
-                                                      ? 28
-                                                      : 18),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.topRight,
-                                            child: InkWell(
-                                                onTap: () =>
-                                                    Navigator.pop(context),
-                                                child: Icon(
-                                                  Icons.cancel_outlined,
-                                                  size: DeviceUtil.isTablet
-                                                      ? 40
-                                                      : 25,
-                                                )),
-                                          )
-                                        ]),
-                                      ),
-                                      Container(
-                                          height:
-                                              DeviceUtil.isTablet ? 350 : 250,
-                                          width: 600,
-                                          margin: const EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                            border:
-                                                Border.all(color: Colors.grey),
-                                            color: const Color.fromARGB(
-                                                    255, 255, 255, 255)
-                                                .withOpacity(0.8),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(
-                                                    DeviceUtil.isTablet
-                                                        ? 20
-                                                        : 15)),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.grey
-                                                      .withOpacity(0.3),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 5,
-                                                  offset: const Offset(0, 3)),
-                                            ],
-                                          ),
-                                          child: GridView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: constantLib.length,
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                      childAspectRatio: 1 / 1.1,
-                                                      crossAxisSpacing: 1,
-                                                      mainAxisSpacing: 1,
-                                                      crossAxisCount: 4),
-                                              itemBuilder: (context, index) {
-                                                return InkWell(
-                                                  onTap: () {
-                                                    Provider.of<MyProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .addOrRemove(index);
-                                                  },
-                                                  child: Stack(
-                                                    alignment: Alignment.center,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(5),
-                                                        child: Container(
-                                                          height: 140,
-                                                          width: 140,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: const Color
-                                                                        .fromARGB(
-                                                                    255,
-                                                                    255,
-                                                                    255,
-                                                                    255)
-                                                                .withOpacity(
-                                                                    0.8),
-                                                            borderRadius: BorderRadius.all(
-                                                                Radius.circular(
-                                                                    DeviceUtil
-                                                                            .isTablet
-                                                                        ? 25
-                                                                        : 10)),
-                                                            border: Border.all(
-                                                              color: Colors.grey
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                            ),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                  color: Colors
-                                                                      .grey
-                                                                      .withOpacity(
-                                                                          0.3),
-                                                                  spreadRadius:
-                                                                      0,
-                                                                  blurRadius: 5,
-                                                                  offset:
-                                                                      const Offset(
-                                                                          0,
-                                                                          3)),
-                                                            ],
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(3),
-                                                            child: Column(
-                                                                children: [
-                                                                  Expanded(
-                                                                      flex: 3,
-                                                                      child: getImage(
-                                                                          constantLib[index]
-                                                                              .imgurl)),
-                                                                  Expanded(
-                                                                    flex: 2,
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          top:
-                                                                              5),
-                                                                      child:
-                                                                          Text(
-                                                                        constantLib[index]
-                                                                            .name,
-                                                                        style: TextStyle(
-                                                                            fontSize: DeviceUtil.isTablet
-                                                                                ? 26
-                                                                                : 15,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                                    ),
-                                                                  )
-                                                                ]),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      !Provider.of<MyProvider>(
-                                                                  context)
-                                                              .isSelectedInAlert
-                                                              .contains(index)
-                                                          ? Container()
-                                                          : Icon(
-                                                              Icons.done,
-                                                              color: purcolor,
-                                                              size: DeviceUtil
-                                                                      .isTablet
-                                                                  ? 100
-                                                                  : 60,
-                                                            ),
-                                                    ],
-                                                  ),
-                                                );
-                                              })),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            InkWell(
-                                              onTap: () async {
-                                                List<int> selectedList =
-                                                    Provider.of<MyProvider>(
-                                                            context,
-                                                            listen: false)
-                                                        .isSelectedInAlert;
-                                                SharedPreferences liblistChild =
-                                                    await SharedPreferences
-                                                        .getInstance();
-                                                List<String> library =
-                                                    liblistChild.getStringList(
-                                                            "liblistChild") ??
-                                                        [];
-                                                for (var element
-                                                    in selectedList) {
-                                                  library.add(convertLibString(
-                                                      constantLib[element]));
-                                                }
-                                                liblistChild.setStringList(
-                                                    "liblistChild", library);
-                                                Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const MainParentPage(
-                                                                index: 1)),
-                                                    (route) => false);
-                                              },
-                                              child: Container(
-                                                height: DeviceUtil.isTablet
-                                                    ? 40
-                                                    : 32,
-                                                width: DeviceUtil.isTablet
-                                                    ? 170
-                                                    : 90,
-                                                decoration: BoxDecoration(
-                                                    color: greenColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                                child: Center(
-                                                    child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      "اختيار",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: DeviceUtil
-                                                                  .isTablet
-                                                              ? 21
-                                                              : 18,
-                                                          color: Colors.white),
-                                                    ),
-                                                    Container(
-                                                      width: DeviceUtil.isTablet
-                                                          ? 10
-                                                          : 5,
-                                                    ),
-                                                    const Icon(
-                                                      Icons.done,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ],
-                                                )),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const Import()));
-                                              },
-                                              child: Container(
-                                                height: DeviceUtil.isTablet
-                                                    ? 40
-                                                    : 32,
-                                                width: DeviceUtil.isTablet
-                                                    ? 170
-                                                    : 90,
-                                                decoration: BoxDecoration(
-                                                    color: pinkColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                                child: Center(
-                                                    child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      DeviceUtil.isTablet
-                                                          ? "تنزيل مكتبة"
-                                                          : "تنزيل",
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: DeviceUtil
-                                                                  .isTablet
-                                                              ? 21
-                                                              : 18,
-                                                          color: Colors.white),
-                                                    ),
-                                                    Container(
-                                                      width: DeviceUtil.isTablet
-                                                          ? 10
-                                                          : 5,
-                                                    ),
-                                                    Icon(
-                                                      Icons.cloud_download,
-                                                      size: DeviceUtil.isTablet
-                                                          ? 24
-                                                          : 21,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ],
-                                                )),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () => Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const AddChildLibrary())),
-                                              child: Container(
-                                                height: DeviceUtil.isTablet
-                                                    ? 40
-                                                    : 32,
-                                                width: DeviceUtil.isTablet
-                                                    ? 170
-                                                    : 90,
-                                                decoration: BoxDecoration(
-                                                    color: purcolor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10)),
-                                                child: Center(
-                                                    child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      DeviceUtil.isTablet
-                                                          ? "إنشاء مكتبة"
-                                                          : "إنشاء",
-                                                      style: TextStyle(
-                                                          fontSize: DeviceUtil
-                                                                  .isTablet
-                                                              ? 21
-                                                              : 18,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Colors.white),
-                                                    ),
-                                                    Container(
-                                                      width: DeviceUtil.isTablet
-                                                          ? 10
-                                                          : 5,
-                                                    ),
-                                                    Icon(
-                                                      Icons.add_circle_outline,
-                                                      color: Colors.white,
-                                                      size: DeviceUtil.isTablet
-                                                          ? 30
-                                                          : 23,
-                                                    ),
-                                                  ],
-                                                )),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                          onTap: () {
+                            if (currentOffsetScroll - 100 > 0) {
+                              setState(() {
+                                currentOffsetScroll -= 90;
+                                controllerList.animateTo(
+                                    currentOffsetScroll,
+                                    duration: const Duration(
+                                        seconds: 1),
+                                    curve: Curves.easeOut);
                               });
-                        },
-                        child: const Icon(Icons.add_box_outlined,
-                            size: 40, color: Colors.black),
-                      ),
-                      //اضيفها هنا
+                            } else {
+                              setState(() {
+                                currentOffsetScroll = 0;
 
+                                controllerList.jumpTo(0);
+                              });
+                            }
+                          },
+                          child: Image.asset(
+                            "assets/uiImages/arrow.png",
+                            height: 40,
+                            color: Colors.grey,
+                          )
+                      ),
                       Expanded(
                         child: SizedBox(
                           height: 80,
@@ -1633,7 +2104,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                               children: [
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromARGB(255, 232, 140, 2),
+                                      backgroundColor: greenColor,
                          // Background color
                                     ),
                                     onPressed: ()
@@ -1650,41 +2121,73 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
-                                    ),)),
+                                    ),)
+                                ),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: pinkColor
                                       , // Background color
                                     ),
                                     onPressed: () async {
-                                      List theSelectedItem = isSelected;
-                                      theSelectedItem.sort();
-                                      theSelectedItem = theSelectedItem.reversed.toList();
-                                      for (var element in theSelectedItem) {
-                                        libraryListChild[coloredOpenLibraryindex
-                                        ]
-                                            .contenlist
-                                            .removeAt(element);
+                                      if(isSelected.isNotEmpty){
+                                        showAlertDialog(context);
+
+                                      }else{
+                                       /* showDialog(
+                                            context: context,
+                                            builder: (context) {
+
+                                              return AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      const BorderRadius.all(Radius.circular(20))),
+                                                  title: Container(
+                                                      width: 100,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(10)),
+                                                      child: Center(
+                                                            child: Directionality(
+                                                              textDirection: TextDirection.rtl,
+                                                              child: Column(
+                                                                children: [
+                                                                  Center(
+                                                                    child: const Padding(
+                                                                      padding: EdgeInsets.all(8.0),
+                                                                      child: FittedBox(
+                                                                        child: Text(
+                                                                          "الرجاء تحديد الجمل المراد حذفها",
+                                                                          style: TextStyle(
+                                                                              fontWeight: FontWeight.bold,
+                                                                              fontSize: 25),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 35,
+                                                                  ),
+                                                                  ElevatedButton(
+                                                                    style: ElevatedButton.styleFrom(
+                                                                        backgroundColor:purcolor ,),
+
+                                                                      onPressed: (){
+                                                                    Navigator.pop(context);
+                                                                  },
+                                                                      child: Text("موافق"))
+
+
+                                                                ],
+                                                              ),
+                                                            ),
+
+                                                      ))
+                                              );
+                                            });*/
+                                        erroralert(
+                                            context,
+                                            "الرجاء تحديد الجمل المرد حذفها");
                                       }
 
-                                      SharedPreferences liblist =
-                                          await SharedPreferences.getInstance();
-                                      List<String> v = [];
-                                      for (lib l in libraryListChild) {
-                                        String s = convertLibString(l);
-                                        v.add(s);
-                                      }
-                                      liblist.setStringList("liblistChild", v);
-                                      Provider.of<MyProvider>(context, listen: false)
-                                          .setIscontentOfLibrary( coloredOpenLibraryindex);
-                                      Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => const MainParentPage(
-                                                index: 1,
-                                              )),
-                                              (route) => false);
-                                      isSelected = [];
 
                                     },
 
@@ -1692,10 +2195,11 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
-                                    ),)),
+                                    ),)
+                                ),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: greenColor, // Background color
+                                      backgroundColor: purcolor, // Background color
                                     ),
                                     onPressed: () {
                                       Navigator.push(
@@ -1712,7 +2216,8 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
                                     ),
-                                    )),
+                                    )
+                                ),
                               ],
                             ),
                           ),
@@ -1907,10 +2412,12 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
   box(int index) {
     return InkWell(
       onTap: () {
+       // String word="";
         showDialog(
             context: context,
             builder: (context) {
               TextEditingController word = TextEditingController();
+
 
               return AlertDialog(
                   shape: RoundedRectangleBorder(
@@ -1952,10 +2459,10 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                   controller: word,
                                   maxLength: 10,
                                   maxLines: 1,
+
                                   decoration: InputDecoration(
-                                    labelText: "الكلمة",
-                                    hintStyle: const TextStyle(
-                                        fontWeight: FontWeight.bold),
+                                    labelText: predictionWords[index][0]
+                                      ,
                                     labelStyle: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22,
@@ -2040,19 +2547,13 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
-                                            children: const [
-                                              Icon(Icons.add_a_photo,
-                                                  color: const Color.fromARGB(
-                                                      255, 132, 132, 132),
-                                                  size: 40),
-                                              Text(
-                                                "صورة",
-                                                style: TextStyle(
-                                                    color: Color.fromARGB(
-                                                        255, 132, 132, 132),
-                                                    fontWeight:
-                                                        FontWeight.w800),
-                                              )
+                                            children:  [
+                                            SizedBox(
+                                              height:40,
+                                              width:40,
+                                              child:getImage(predictionWords[index][1]) //Image.asset(predictionWords[index][1]),
+                                            ),
+
                                             ],
                                           ),
                                         ),
@@ -2123,12 +2624,44 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                       ),
                                     ),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 20),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Container(
+                                        height: 50,
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                            BorderRadius.circular(15),
+                                            color: maincolor),
+                                        child: Center(
+                                          child:  FittedBox(
+                                            child: Text(
+                                              "إلغاء",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize:
+                                                  DeviceUtil.isTablet
+                                                      ? 25
+                                                      : 20),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                      ))));
+                      )
+                      )
+                  )
+              );
             });
       },
       child: Stack(children: [
@@ -2657,5 +3190,114 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
           );
         });
   }
+
+  showAlertDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      actionsAlignment: MainAxisAlignment.center,
+      title: Icon(
+        Icons.warning,
+        size: DeviceUtil.isTablet ? 100 : 60,
+        color: Colors.red,
+      ),
+      content: Text(
+        "هل أنت متأكد أنك تريد حذف هذه الجمل؟ ",
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: DeviceUtil.isTablet ? 25 : 20),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                  setState(() {
+                    isSelected = [];
+                  });
+                },
+                child: Container(
+                  height: DeviceUtil.isTablet ? 50 : 40,
+                  width: DeviceUtil.isTablet ? 150 : 90,
+                  decoration: BoxDecoration(
+                      color: purcolor, borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                      child: Text(
+                        "إلغاء",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: DeviceUtil.isTablet ? 25 : 19),
+                      )),
+                ),
+              ),
+              Container(
+                width: 30,
+              ),
+              InkWell(
+                onTap: () async {
+                  List theSelectedItem = isSelected;
+                  theSelectedItem.sort();
+                  theSelectedItem = theSelectedItem.reversed.toList();
+                  for (var element in theSelectedItem) {
+                    libraryListChild[coloredOpenLibraryindex
+                    ]
+                        .contenlist
+                        .removeAt(element);
+                  }
+
+                  SharedPreferences liblist =
+                  await SharedPreferences.getInstance();
+                  List<String> v = [];
+                  for (lib l in libraryListChild) {
+                    String s = convertLibString(l);
+                    v.add(s);
+                  }
+                  liblist.setStringList("liblistChild", v);
+                  Provider.of<MyProvider>(context, listen: false)
+                      .setIscontentOfLibrary( coloredOpenLibraryindex);
+                  isSelected = [];
+
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MainParentPage(
+                            index: 1,
+                          )),
+                          (route) => false);
+                },
+                child: Container(
+                  height: DeviceUtil.isTablet ? 50 : 40,
+                  width: DeviceUtil.isTablet ? 150 : 100,
+                  decoration: BoxDecoration(
+                      color: purcolor, borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                      child: Text(
+                        "نعم، متأكد",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: DeviceUtil.isTablet ? 25 : 19),
+                      )),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 }
 //3360
