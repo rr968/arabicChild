@@ -1755,7 +1755,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                             "assets/uiImages/arrow.png",
                                             height: 40,
                                             color: Colors.grey,
-                                          )),
+                                          )
+                                      ),
                                       Expanded(
                                         child: SizedBox(
                                           height: 80,
