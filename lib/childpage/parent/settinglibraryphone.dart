@@ -34,11 +34,11 @@ import 'addlibraryChild.dart';
 import 'deleteLibrary.dart';
 import 'export.dart';
 
-class settingLibrary_phone extends StatefulWidget {
-  const settingLibrary_phone({super.key});
+class SettingLibraryPhone extends StatefulWidget {
+  const SettingLibraryPhone({super.key});
 
   @override
-  State<settingLibrary_phone> createState() => _settingLibrary_phone();
+  State<SettingLibraryPhone> createState() => _SettingLibraryPhone();
 }
 
 bool isloading = true;
@@ -64,7 +64,7 @@ final controllerList2 = ScrollController();
 TextEditingController controller = TextEditingController();
 int coloredOpenLibraryindex = 0;
 
-class _settingLibrary_phone extends State<settingLibrary_phone> {
+class _SettingLibraryPhone extends State<SettingLibraryPhone> {
   @override
   @override
   void initState() {
@@ -722,7 +722,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                                     hintStyle: const TextStyle(
                                                         fontWeight:
                                                         FontWeight.bold),
-                                                    labelStyle: TextStyle(
+                                                    labelStyle: const TextStyle(
                                                         fontWeight:
                                                         FontWeight.bold,
                                                         fontSize: 22,
@@ -1280,13 +1280,16 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                                             }
                                                             liblistChild.setStringList(
                                                                 "liblistChild", library);
-                                                            Navigator.pushAndRemoveUntil(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (context) =>
-                                                                    const MainParentPage(
-                                                                        index: 1)),
-                                                                    (route) => false);
+                                                            if (context.mounted){
+                                                              Navigator.pushAndRemoveUntil(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                      const MainParentPage(
+                                                                          index: 1)),
+                                                                      (route) => false);
+                                                            }
+
                                                           },
                                                           child: Container(
                                                             height: DeviceUtil.isTablet
@@ -1897,7 +1900,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Export()));
+                                              builder: (context) => const Export()));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -1930,7 +1933,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ReArrangeLibraryChild()),
+                                builder: (context) => const ReArrangeLibraryChild()),
                           );
                         },
                         child: Container(
@@ -1943,7 +1946,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                           child: Center(
                               child:Padding(
                                 padding:
-                                EdgeInsets.all( 4),
+                                const EdgeInsets.all( 4),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -1955,9 +1958,9 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                     Container(
                                       width: DeviceUtil.isTablet ? 7 : 2,
                                     ),
-                                    Text(
+                                    const Text(
                                       "ترتيب المكتبات",
-                                      style: TextStyle(
+                                      style:  TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           fontSize:  11),
@@ -1972,7 +1975,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DeleteLibrary()),
+                                builder: (context) => const DeleteLibrary()),
                           );
                         },
                         child: Padding(
@@ -1987,11 +1990,11 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                             child: Center(
                                 child: Padding(
                                   padding:
-                                  EdgeInsets.all(5),
+                                  const EdgeInsets.all(5),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.delete_outlined,
                                         color: Colors.white,
                                         size: 15,
@@ -1999,9 +2002,9 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                       Container(
                                         width: DeviceUtil.isTablet ? 7 : 3,
                                       ),
-                                      Text(
+                                      const Text(
                                         "حذف مكتبة",
-                                        style: TextStyle(
+                                        style:  TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 13),
@@ -2109,7 +2112,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                               children: [
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromARGB(255, 232, 140, 2),
+                                      backgroundColor: const Color.fromARGB(255, 232, 140, 2),
                                       // Background color
                                     ),
                                     onPressed: ()
@@ -2421,9 +2424,9 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
 
 
               return AlertDialog(
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                       borderRadius:
-                      const BorderRadius.all(Radius.circular(20))),
+                       BorderRadius.all(Radius.circular(20))),
                   title: Container(
                       width: 600,
                       decoration: BoxDecoration(
@@ -2434,8 +2437,8 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                               textDirection: TextDirection.rtl,
                               child: Column(
                                 children: [
-                                  Center(
-                                    child: const Padding(
+                                  const Center(
+                                    child:  Padding(
                                       padding: EdgeInsets.all(8.0),
                                       child: FittedBox(
                                         child: Text(
@@ -2464,7 +2467,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                       decoration: InputDecoration(
                                         labelText: predictionWords[index][0]
                                         ,
-                                        labelStyle: TextStyle(
+                                        labelStyle: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 22,
                                             color: Colors.grey),
@@ -2544,7 +2547,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                       height: DeviceUtil.isTablet ? 100 : 80,
                                       width: DeviceUtil.isTablet ? 100 : 80,
                                       child: Padding(
-                                        padding: EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -2593,7 +2596,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                      const settingLibrary_phone()),
+                                                      const SettingLibraryPhone()),
                                                       (route) => false);
                                             }
                                           },
@@ -2702,7 +2705,7 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
             width: 30,
             decoration: BoxDecoration(
                 color: pinkColor, borderRadius: BorderRadius.circular(30)),
-            child: Icon(
+            child: const Icon(
               Icons.edit,
               size: 20,
               color: Colors.white,
@@ -3018,7 +3021,10 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
       if (im == null) {
         return;
       } else {
-        Provider.of<MyProvider>(context, listen: false).setPath(im.path);
+        if (context.mounted){
+          Provider.of<MyProvider>(context, listen: false).setPath(im.path);
+
+        }
       }
     } on PlatformException {
       ///////////edit heeeeeeeeeeeeeeeeeeeeeeeeere
@@ -3148,17 +3154,22 @@ class _settingLibrary_phone extends State<settingLibrary_phone> {
                     v.add(s);
                   }
                   liblist.setStringList("liblistChild", v);
-                  Provider.of<MyProvider>(context, listen: false)
-                      .setIscontentOfLibrary( coloredOpenLibraryindex);
-                  isSelected = [];
+                  if (context.mounted){
+                    Provider.of<MyProvider>(context, listen: false)
+                        .setIscontentOfLibrary( coloredOpenLibraryindex);
+                  }
 
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainParentPage(
-                            index: 1,
-                          )),
-                          (route) => false);
+                  isSelected = [];
+                  if (context.mounted){
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MainParentPage(
+                              index: 1,
+                            )),
+                            (route) => false);
+
+                  }
                 },
                 child: Container(
                   height: DeviceUtil.isTablet ? 50 : 40,
