@@ -1,4 +1,5 @@
-import 'package:arabic_speaker_child/childpage/parent/settingLibrary_phone.dart';
+import 'package:arabic_speaker_child/childpage/parent/settinglibraryphone.dart';
+import 'package:arabic_speaker_child/childpage/parent/settinglibrarytablet.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import '../../controller/istablet.dart';
 import '/childpage/parent/parentSettingsFav.dart';
@@ -7,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'SettingLibrary_tablet.dart';
 
 class MainParentPage extends StatefulWidget {
   final int index;
@@ -24,11 +24,11 @@ class _MainParentPageState extends State<MainParentPage> {
   List<Widget> parentScreens = [
     const ParentSettingsFav(),
     DeviceUtil.isTablet
-        ? const settingLibrary_tablet()
-        : const settingLibrary_phone(),
+        ? const SettingLibraryTablet()
+        : const SettingLibraryPhone(),
     DeviceUtil.isTablet
-        ? const settingLibrary_tablet()
-        : const settingLibrary_phone(),
+        ? const SettingLibraryTablet()
+        : const SettingLibraryPhone(),
   ];
 
   late int indexpage;
