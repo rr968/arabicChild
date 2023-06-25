@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'dart:convert';
 import 'package:arabic_speaker_child/childpage/parent/addContentChild.dart';
 import 'package:arabic_speaker_child/childpage/parent/rearrangeContentChild.dart';
@@ -15,7 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../controller/allUploadedDone.dart';
 import '../../controller/checkinternet.dart';
 import '../../controller/erroralert.dart';
@@ -480,52 +481,47 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                         box(5),
                                         box(6),
                                         box(7),
-
-                                              InkWell(
-                                                onTap: () {
-                                                  List<List<String>> verbs = [];
-                                                  for (var element
-                                                      in librarywordChild[1]
-                                                          .contenlist) {
-                                                    verbs.add([
-                                                      element.name,
-                                                      element.imgurl
-                                                    ]);
-                                                  }
-                                                  setState(() {
-                                                    libraryOpen = 1;
-                                                    predictionWords = verbs;
-                                                  });
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 7),
-                                                  child: Container(
-                                                    width:
-                                                        size == 0 ? 133 : 120,
-                                                    decoration: BoxDecoration(
-                                                        color: const Color(
-                                                            0xffA7CB89),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(30)),
-                                                    child: const Center(
-                                                      child: Text(
-                                                        "أفعال",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 30),
-                                                      ),
-                                                    ),
-                                                  ),
+                                        InkWell(
+                                          onTap: () {
+                                            List<List<String>> verbs = [];
+                                            for (var element
+                                                in librarywordChild[1]
+                                                    .contenlist) {
+                                              verbs.add([
+                                                element.name,
+                                                element.imgurl
+                                              ]);
+                                            }
+                                            setState(() {
+                                              libraryOpen = 1;
+                                              predictionWords = verbs;
+                                            });
+                                          },
+                                          child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 7),
+                                            child: Container(
+                                              width: size == 0 ? 133 : 120,
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      const Color(0xffA7CB89),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          30)),
+                                              child: const Center(
+                                                child: Text(
+                                                  "أفعال",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                      fontSize: 30),
                                                 ),
                                               ),
-
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     )),
                                     Container(
@@ -1122,7 +1118,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                               color: greenColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Center(
-                              child:Padding(
+                              child: Padding(
                             padding:
                                 EdgeInsets.all(DeviceUtil.isTablet ? 8.0 : 4),
                             child: Row(
@@ -1582,7 +1578,6 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                             children: [
                               for (int i = 0; i < libraryListChild.length; i++)
                                 box3(i)
-
                             ],
                           ),
                         ),
@@ -1633,36 +1628,42 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                               children: [
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Color.fromARGB(255, 232, 140, 2),
-                         // Background color
+                                      backgroundColor:
+                                          Color.fromARGB(255, 232, 140, 2),
+                                      // Background color
                                     ),
-                                    onPressed: ()
-                                    {
+                                    onPressed: () {
                                       Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => AddContentChild(libraryindex: coloredOpenLibraryindex,)
-                                          ),
-                                              (route) => false);
+                                              builder: (context) =>
+                                                  AddContentChild(
+                                                    libraryindex:
+                                                        coloredOpenLibraryindex,
+                                                  )),
+                                          (route) => false);
                                     },
-
-                                    child: const Text("إضافة جملة",style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),)),
+                                    child: const Text(
+                                      "إضافة جملة",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    )),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: pinkColor
-                                      , // Background color
+                                      backgroundColor:
+                                          pinkColor, // Background color
                                     ),
                                     onPressed: () async {
                                       List theSelectedItem = isSelected;
                                       theSelectedItem.sort();
-                                      theSelectedItem = theSelectedItem.reversed.toList();
+                                      theSelectedItem =
+                                          theSelectedItem.reversed.toList();
                                       for (var element in theSelectedItem) {
-                                        libraryListChild[coloredOpenLibraryindex
-                                        ]
+                                        libraryListChild[
+                                                coloredOpenLibraryindex]
                                             .contenlist
                                             .removeAt(element);
                                       }
@@ -1675,27 +1676,32 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                         v.add(s);
                                       }
                                       liblist.setStringList("liblistChild", v);
-                                      Provider.of<MyProvider>(context, listen: false)
-                                          .setIscontentOfLibrary( coloredOpenLibraryindex);
+                                      Provider.of<MyProvider>(context,
+                                              listen: false)
+                                          .setIscontentOfLibrary(
+                                              coloredOpenLibraryindex);
                                       Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => const MainParentPage(
-                                                index: 1,
-                                              )),
-                                              (route) => false);
+                                              builder: (context) =>
+                                                  const MainParentPage(
+                                                    index: 1,
+                                                  )),
+                                          (route) => false);
                                       isSelected = [];
-
                                     },
-
-                                    child: const Text("حذف جملة",style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),)),
+                                    child: const Text(
+                                      "حذف جملة",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    )),
                                 ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: greenColor, // Background color
+                                      backgroundColor:
+                                          greenColor, // Background color
                                     ),
                                     onPressed: () {
                                       Navigator.push(
@@ -1707,11 +1713,13 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                                                         coloredOpenLibraryindex,
                                                   )));
                                     },
-                                    child: const Text("إعادة ترتيب",style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                    ),
+                                    child: const Text(
+                                      "إعادة ترتيب",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
                                     )),
                               ],
                             ),
@@ -2188,7 +2196,7 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
         setState(() {
           coloredOpenLibraryindex = index;
           if (isSelected.isNotEmpty) {
-           // int contentLIndex=index;
+            // int contentLIndex=index;
             //here showDialog
             /*showDialog(
               context: context,
@@ -2294,17 +2302,13 @@ class _settingLibrary_tablet extends State<settingLibrary_tablet> {
                 );
               },
             );*/
-            isSelected=[];
+            isSelected = [];
             contentWord = libraryListChild[index].contenlist;
-
           } else {
             coloredOpenLibraryindex = index;
             isSelected = [];
             contentWord = libraryListChild[index].contenlist;
-
-
           }
-
         });
       },
       child: Padding(

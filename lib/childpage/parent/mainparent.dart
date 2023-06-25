@@ -1,8 +1,6 @@
 import 'package:arabic_speaker_child/childpage/parent/settingLibrary_phone.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-
 import '../../controller/istablet.dart';
-import '../child/speakingchildtablet.dart';
 import '/childpage/parent/parentSettingsFav.dart';
 import '/controller/var.dart';
 import 'package:flutter/material.dart';

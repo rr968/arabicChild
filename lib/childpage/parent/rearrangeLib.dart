@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import '/childpage/parent/mainparent.dart';
-
 import '../../controller/istablet.dart';
 import '/controller/images.dart';
 import '/view/drawer/drawer.dart';
@@ -126,11 +125,6 @@ class _ReArrangeLibraryChildState extends State<ReArrangeLibraryChild> {
       }
     }
     await getDraggbleItems();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
