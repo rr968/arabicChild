@@ -2632,6 +2632,9 @@ class _SettingLibraryTablet extends State<SettingLibraryTablet> {
                                     child: InkWell(
                                       onTap: () {
                                         Navigator.pop(context);
+                                        Provider.of<MyProvider>(context,
+                                            listen: false)
+                                            .setPath("");
                                       },
                                       child: Container(
                                         height: 50,

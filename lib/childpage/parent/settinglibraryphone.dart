@@ -44,7 +44,6 @@ class SettingLibraryPhone extends StatefulWidget {
 bool isloading = true;
 
 List<Content> contentWord = [];
-TextEditingController word = TextEditingController();
 
 final controllerList = ScrollController();
 double currentOffsetScroll = 0;
@@ -2422,6 +2421,7 @@ class _SettingLibraryPhone extends State<SettingLibraryPhone> {
             context: context,
             builder: (context) {
 
+              TextEditingController word = TextEditingController();
 
               return AlertDialog(
                   shape: const RoundedRectangleBorder(
@@ -2460,6 +2460,7 @@ class _SettingLibraryPhone extends State<SettingLibraryPhone> {
                                       //bottom: 11,
                                     ),
                                     child: TextFormField(
+
                                       controller: word,
                                       maxLength: 10,
                                       maxLines: 1,
@@ -2551,13 +2552,10 @@ class _SettingLibraryPhone extends State<SettingLibraryPhone> {
                                         child: Column(
                                           mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                          children:  [
-                                            SizedBox(
-                                                height:40,
-                                                width:40,
-                                                child:getImage(predictionWords[index][1]) //Image.asset(predictionWords[index][1]),
-                                            ),
-
+                                          children: [
+                                            Expanded(
+                                                child: getImage(
+                                                    predictionWords[index][1])),
                                           ],
                                         ),
                                       ),
@@ -2575,7 +2573,8 @@ class _SettingLibraryPhone extends State<SettingLibraryPhone> {
                                         padding: const EdgeInsets.only(top: 3),
                                         child: InkWell(
                                           onTap: () {
-                                            if (word.text.isEmpty) {
+                                            if (
+                                                word.text.isEmpty) {
                                               erroralert(
                                                   context, "يجب ملىء جميع الحقول");
                                             } else {
@@ -2633,6 +2632,13 @@ class _SettingLibraryPhone extends State<SettingLibraryPhone> {
                                         child: InkWell(
                                           onTap: () {
                                             Navigator.pop(context);
+                                          //   word = predictionWords[index][0] as TextEditingController;
+                                          //  getImage(predictionWords[index][1]);
+                                            Provider.of<MyProvider>(context,
+                                                listen: false)
+                                                .setPath("");
+
+
                                           },
                                           child: Container(
                                             height: 50,
