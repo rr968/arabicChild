@@ -42,6 +42,7 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
   final controllerList2 = ScrollController();
   final contentWordController = ScrollController();
   double currentOffsetScroll = 0;
+  double currentOffsetScroll2 = 0;
   bool isLoading = true;
   bool isFav = false;
   late bool speakingWordByWord;
@@ -1436,18 +1437,18 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                   children: [
                                     InkWell(
                                         onTap: () {
-                                          if (currentOffsetScroll - 100 > 0) {
+                                          if (currentOffsetScroll2 - 100 > 0) {
                                             setState(() {
-                                              currentOffsetScroll -= 100;
+                                              currentOffsetScroll2 -= 100;
                                               controllerList2.animateTo(
-                                                  currentOffsetScroll,
+                                                  currentOffsetScroll2,
                                                   duration: const Duration(
                                                       seconds: 1),
                                                   curve: Curves.easeOut);
                                             });
                                           } else {
                                             setState(() {
-                                              currentOffsetScroll = 0;
+                                              currentOffsetScroll2 = 0;
 
                                               controllerList2.jumpTo(0);
                                             });
@@ -1783,23 +1784,33 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
                                     ),
                                     InkWell(
                                         onTap: () {
-                                          if (currentOffsetScroll + 100 <
-                                              70 * libraryListChild.length) {
+                                          if (currentOffsetScroll2 + 100 <
+                                              90 *
+                                                  libraryListChild[
+                                                          coloredOpenLibraryindex]
+                                                      .contenlist
+                                                      .length) {
                                             setState(() {
-                                              currentOffsetScroll += 60;
+                                              currentOffsetScroll2 += 60;
                                               controllerList2.animateTo(
-                                                  currentOffsetScroll,
+                                                  currentOffsetScroll2,
                                                   duration: const Duration(
                                                       seconds: 1),
                                                   curve: Curves.easeOut);
                                             });
                                           } else {
                                             setState(() {
-                                              currentOffsetScroll = 70.0 *
-                                                  libraryListChild.length;
+                                              currentOffsetScroll2 = 90.0 *
+                                                  libraryListChild[
+                                                          coloredOpenLibraryindex]
+                                                      .contenlist
+                                                      .length;
                                               controllerList2.animateTo(
-                                                  70.0 *
-                                                      libraryListChild.length,
+                                                  90.0 *
+                                                      libraryListChild[
+                                                              coloredOpenLibraryindex]
+                                                          .contenlist
+                                                          .length,
                                                   duration: const Duration(
                                                       seconds: 1),
                                                   curve: Curves.easeOut);
@@ -1993,7 +2004,8 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
       onTap: () {
         setState(() {
           coloredOpenLibraryindex = index;
-
+          currentOffsetScroll2 = 0;
+          controllerList2.jumpTo(0);
           contentWord = libraryListChild[index].contenlist;
         });
       },

@@ -45,6 +45,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
   final controllerList2 = ScrollController();
   final contentWordController = ScrollController();
   double currentOffsetScroll = 0;
+  double currentOffsetScroll2 = 0;
   bool isLoading = true;
   bool isFav = false;
   late bool speakingWordByWord;
@@ -1755,8 +1756,7 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                             "assets/uiImages/arrow.png",
                                             height: 40,
                                             color: Colors.grey,
-                                          )
-                                      ),
+                                          )),
                                       Expanded(
                                         child: SizedBox(
                                           height: 80,
@@ -1823,19 +1823,19 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                       children: [
                                         InkWell(
                                             onTap: () {
-                                              if (currentOffsetScroll - 100 >
+                                              if (currentOffsetScroll2 - 100 >
                                                   0) {
                                                 setState(() {
-                                                  currentOffsetScroll -= 100;
+                                                  currentOffsetScroll2 -= 100;
                                                   controllerList2.animateTo(
-                                                      currentOffsetScroll,
+                                                      currentOffsetScroll2,
                                                       duration: const Duration(
                                                           seconds: 1),
                                                       curve: Curves.easeOut);
                                                 });
                                               } else {
                                                 setState(() {
-                                                  currentOffsetScroll = 0;
+                                                  currentOffsetScroll2 = 0;
 
                                                   controllerList2.jumpTo(0);
                                                 });
@@ -2148,24 +2148,32 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                         ),
                                         InkWell(
                                             onTap: () {
-                                              if (currentOffsetScroll + 100 <
-                                                  70 *
-                                                      libraryListChild.length) {
+                                              if (currentOffsetScroll2 + 100 <
+                                                  90 *
+                                                      libraryListChild[
+                                                              coloredOpenLibraryindex]
+                                                          .contenlist
+                                                          .length) {
                                                 setState(() {
-                                                  currentOffsetScroll += 60;
+                                                  currentOffsetScroll2 += 60;
                                                   controllerList2.animateTo(
-                                                      currentOffsetScroll,
+                                                      currentOffsetScroll2,
                                                       duration: const Duration(
                                                           seconds: 1),
                                                       curve: Curves.easeOut);
                                                 });
                                               } else {
                                                 setState(() {
-                                                  currentOffsetScroll = 70.0 *
-                                                      libraryListChild.length;
+                                                  currentOffsetScroll2 = 90.0 *
+                                                      libraryListChild[
+                                                              coloredOpenLibraryindex]
+                                                          .contenlist
+                                                          .length;
                                                   controllerList2.animateTo(
-                                                      70.0 *
-                                                          libraryListChild
+                                                      90.0 *
+                                                          libraryListChild[
+                                                                  coloredOpenLibraryindex]
+                                                              .contenlist
                                                               .length,
                                                       duration: const Duration(
                                                           seconds: 1),
@@ -2687,6 +2695,8 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
       onTap: () {
         setState(() {
           coloredOpenLibraryindex = index;
+          currentOffsetScroll2 = 0;
+          controllerList2.jumpTo(0);
 
           contentWord = libraryListChild[index].contenlist;
         });

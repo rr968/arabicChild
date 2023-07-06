@@ -1,4 +1,4 @@
-import 'package:arabic_speaker_child/childpage/child/mainchildPage.dart';
+/*import 'package:arabic_speaker_child/childpage/child/mainchildPage.dart';
 import 'package:arabic_speaker_child/pay/deviceinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +34,7 @@ class _PaymentViewState extends State<PaymentView> {
       body: MoyasarPayment(
         moyasarPaymentData: MoyasarPaymentData(
           appName: "تطبيق تحدث",
-          secretKey:
-              //"sk_test_rb9t7aUSFB9qLWsKoGRgm48mavCthrqa1A11jeVN",
+          secretKey: //  "sk_test_rb9t7aUSFB9qLWsKoGRgm48mavCthrqa1A11jeVN",
               "sk_live_t25FRpFc8VJge19EXuxyaPFPMrHSQhfNLEPD6Gyx",
           publishableSecretKey:
               //     "pk_test_o2hGGCfRdscvmesVgcuRpgGUUwUA2c1A7f5TuPSB",
@@ -43,9 +42,7 @@ class _PaymentViewState extends State<PaymentView> {
           purchaseAmount: widget.amount,
           locale: PaymentLocale.ar,
           paymentEnvironment: PaymentEnvironment.live,
-          paymentOptions: [
-            PaymentOption.card,
-          ],
+          paymentOptions: [PaymentOption.card, PaymentOption.applepay],
         ),
         onPaymentSucess: (response) async {
           internetConnection().then((value) {
@@ -99,3 +96,4 @@ class FailPage extends StatelessWidget {
     );
   }
 }
+*/

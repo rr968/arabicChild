@@ -7,8 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 setpayData() async {
   SharedPreferences isSetPayData = await SharedPreferences.getInstance();
-  internetConnection().then((value) {
-    if (value) {
+  internetConnection().then((v) {
+    if (v) {
       initPlatformState().then((value) {
         try {
           FirebaseFirestore.instance

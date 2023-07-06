@@ -488,122 +488,120 @@ class _AddContentChildState extends State<AddContentChild> {
             Container(
               height: 15,
             ),
-               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children:[
-                  Padding(
-                    padding: DeviceUtil.isTablet ? EdgeInsets.only(right: 10):
-                    EdgeInsets.only(right: 10.0),
-                    child: SizedBox(
-                      height: DeviceUtil.isTablet ? 65 : 50,
-                      width: DeviceUtil.isTablet ? 220 : 160,
-                      child: InkWell(
-                        onTap: () async {
-                          if (controller.text.trim().isEmpty) {
-                            setState(() {
-                              errorsen = true;
-                            });
-                          } else {
-                            String imgUpload = "no";
-                            String voiceUpload = "no";
-                            if (Provider.of<MyProvider>(context, listen: false)
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Padding(
+                padding: DeviceUtil.isTablet
+                    ? const EdgeInsets.only(right: 10)
+                    : const EdgeInsets.only(right: 10.0),
+                child: SizedBox(
+                  height: DeviceUtil.isTablet ? 65 : 50,
+                  width: DeviceUtil.isTablet ? 220 : 160,
+                  child: InkWell(
+                    onTap: () async {
+                      if (controller.text.trim().isEmpty) {
+                        setState(() {
+                          errorsen = true;
+                        });
+                      } else {
+                        String imgUpload = "no";
+                        String voiceUpload = "no";
+                        if (Provider.of<MyProvider>(context, listen: false)
                                 .lastimagepath
                                 .toString()
                                 .isEmpty ||
+                            Provider.of<MyProvider>(context, listen: false)
+                                .lastimagepath
+                                .toString()
+                                .contains("assets/")) {
+                          imgUpload = "yes";
+                        }
+                        if (optionalvoice.isEmpty) voiceUpload = "yes";
+
+                        libraryListChild[widget.libraryindex].contenlist.add(
+                            Content(
+                                controller.text,
                                 Provider.of<MyProvider>(context, listen: false)
                                     .lastimagepath
-                                    .toString()
-                                    .contains("assets/")) {
-                              imgUpload = "yes";
-                            }
-                            if (optionalvoice.isEmpty) voiceUpload = "yes";
-
-                            libraryListChild[widget.libraryindex].contenlist.add(
-                                Content(
-                                    controller.text,
-                                    Provider.of<MyProvider>(context, listen: false)
-                                        .lastimagepath
-                                        .toString(),
-                                    imgUpload,
-                                    optionalvoice,
-                                    optionalvoice,
-                                    voiceUpload));
-                            SharedPreferences liblist =
+                                    .toString(),
+                                imgUpload,
+                                optionalvoice,
+                                optionalvoice,
+                                voiceUpload));
+                        SharedPreferences liblist =
                             await SharedPreferences.getInstance();
-                            List<String> v = [];
-                            for (lib l in libraryListChild) {
-                              String s = convertLibString(l);
-                              v.add(s);
-                            }
-                            liblist.setStringList("liblistChild", v);
-                            //tryUploadDataChild();
+                        List<String> v = [];
+                        for (lib l in libraryListChild) {
+                          String s = convertLibString(l);
+                          v.add(s);
+                        }
+                        liblist.setStringList("liblistChild", v);
+                        //tryUploadDataChild();
 
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MainParentPage(
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MainParentPage(
                                       index: 1,
                                     )),
-                                    (route) => false);
+                            (route) => false);
 
-                            Provider.of<MyProvider>(context, listen: false).setPath("");
-                            acceptalert(context, "تم إضافة المحتوى بنجاح");
-                          }
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 50,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              color: maincolor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Text(
-                            'حفظ',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
-                          ),
-                        ),
+                        Provider.of<MyProvider>(context, listen: false)
+                            .setPath("");
+                        acceptalert(context, "تم إضافة المحتوى بنجاح");
+                      }
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: maincolor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Text(
+                        'حفظ',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: SizedBox(
-                      height: DeviceUtil.isTablet ? 65 : 50,
-                      width: DeviceUtil.isTablet ? 220 : 160,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MainParentPage(
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: SizedBox(
+                  height: DeviceUtil.isTablet ? 65 : 50,
+                  width: DeviceUtil.isTablet ? 220 : 160,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainParentPage(
                                     index: 1,
                                   )),
-                                  (route) => false);
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 50,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              color: maincolor,
-                              borderRadius: BorderRadius.circular(10)),
-                          child: const Text(
-                            'إلغاء',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25),
-                          ),
-                        ),
+                          (route) => false);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(
+                          color: maincolor,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: const Text(
+                        'إلغاء',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
                       ),
                     ),
                   ),
-                ]
+                ),
               ),
-
+            ]),
           ],
         ),
       ),

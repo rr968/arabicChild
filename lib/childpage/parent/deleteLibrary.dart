@@ -35,7 +35,7 @@ class _DeleteLibraryState extends State<DeleteLibrary> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-                padding: EdgeInsets.only(right: 17, bottom: 25, top: 50),
+                padding: const EdgeInsets.only(right: 17, bottom: 25, top: 50),
                 child: Column(
                   children: [
                     Text(

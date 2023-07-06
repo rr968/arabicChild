@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:arabic_speaker_child/controller/getAllDataPediction.dart';
+import 'package:arabic_speaker_child/pay/deviceinfo.dart';
 import 'package:arabic_speaker_child/pay/needPay.dart';
 import 'package:arabic_speaker_child/view/Auth/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,14 +36,13 @@ class _StartState extends State<Start> {
     });
 
     getFirstTimeOpenApp().then((v) {
+      firstTimeOpenTheApp = v;
       getIsSignUpOrLogin().then((sign) {
         signOrLogIn = sign;
-        if (signOrLogIn) {
-          isverifyEmail = FirebaseAuth.instance.currentUser!.emailVerified;
-        }
-        if (isverifyEmail == false && signOrLogIn) {
+
+        /* if (isverifyEmail == false && signOrLogIn) {
           notverifyEmailYet();
-        }
+        }*/
       });
     });
     Timer(
@@ -59,7 +59,7 @@ class _StartState extends State<Start> {
                           ))));
     super.initState();
   }
-
+/*
   notverifyEmailYet() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
@@ -75,7 +75,7 @@ class _StartState extends State<Start> {
     getSignUpOrLogin.setBool("getSignUpOrLogin", false);
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute(builder: (context) => Signup()), (route) => false);
-  }
+  }*/
 
   canGetData() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -96,8 +96,7 @@ class _StartState extends State<Start> {
 
   getFirstTimeOpenApp() async {
     SharedPreferences firstTimeOpenApp = await SharedPreferences.getInstance();
-    return firstTimeOpenTheApp =
-        firstTimeOpenApp.getBool("firstTimeOpenApp") ?? true;
+    return firstTimeOpenApp.getBool("firstTimeOpenApp") ?? true;
   }
 
   getSetPayData() async {

@@ -5,7 +5,12 @@ import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:arabic_speaker_child/childpage/parent/mainparent.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/view/export_and_import/importlibrary.dart';
+import 'package:moyasar_payment/model/paymodel.dart';
+import 'package:moyasar_payment/moyasar_payment.dart';
 
+import '../../childpage/child/mainchildPage.dart';
+import '../../controller/checkinternet.dart';
+import '../../pay/deviceinfo.dart';
 import '/controller/erroralert.dart';
 import '/controller/var.dart';
 import '/model/library.dart';
@@ -202,80 +207,104 @@ class _ImportState extends State<Import> {
                                           children: [
                                             InkWell(
                                               onTap: () async {
-                                                /*   if (DateTime.now().isBefore(
-                                                    DateTime.utc(
-                                                        2023, 3, 27))) 
-                                                        {
-                                                  if (Platform.isAndroid) {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                PaymentView(
-                                                                    amount:
-                                                                        49)));
-                                                  } else {
-                                                    PayModel data =
-                                                        await MoyasarPayment().applePay(
-                                                            amount: 49,
-                                                            publishableKey:
-                                                                "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
-                                                            applepayMerchantId:
-                                                                "merchant.sa.org.tawasal.store",
-                                                            paymentItems: {
-                                                              ' ': 1.0
-                                                            },
-                                                            currencyCode: "SAR",
-                                                            countryCode: "SA");
-                                                    if (data.type != null) {
-                                                      print(data.message);
-                                                    } else {
-                                                      ApplePayModel
-                                                          applePayModel =
-                                                          ApplePayModel
-                                                              .fromJson(
-                                                                  data.source);
-                                                      internetConnection()
-                                                          .then((value) {
-                                                        if (value) {
-                                                          initPlatformState()
-                                                              .then((value) {
-                                                            try {
-                                                              FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      "payChildApp")
-                                                                  .doc(
-                                                                      "mi63rhuIAw1hKJDnLNwx")
-                                                                  .set(
-                                                                      {
-                                                                    "${value[0]}${value[1]}": DateTime
-                                                                            .now()
-                                                                        .add(Duration(
-                                                                            days:
-                                                                                365))
+                                                //delete from here
+                                                showDialog(
+                                                  barrierDismissible: false,
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return Directionality(
+                                                      textDirection:
+                                                          TextDirection.rtl,
+                                                      child: AlertDialog(
+                                                        title: const Text(
+                                                            "شراء مكتبة جاهزة"),
+                                                        content: const Text(
+                                                            "قيمة شراء المكتبة مع المحتوى الصوتي 5 ريال فقط "),
+                                                        actions: [
+                                                          TextButton(
+                                                            child: const Text(
+                                                              "دفع",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            onPressed:
+                                                                () async {
+                                                              PayModel data = await MoyasarPayment().applePay(
+                                                                  amount: 5,
+                                                                  publishableKey:
+                                                                      "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
+                                                                  applepayMerchantId:
+                                                                      "merchant.sa.org.tawasal.store",
+                                                                  paymentItems: {
+                                                                    ' ': 5
                                                                   },
-                                                                      SetOptions(
-                                                                          merge:
-                                                                              true));
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pushReplacement(
-                                                                MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          const MainChildPage(
-                                                                    index: 0,
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            } catch (e) {}
-                                                          });
-                                                        }
-                                                      });
-                                                    }
-                                                  }
-                                                } else {*/
+                                                                  currencyCode:
+                                                                      "SAR",
+                                                                  countryCode:
+                                                                      "SA");
+                                                              if (data.status ==
+                                                                  'paid') {
+                                                                internetConnection()
+                                                                    .then(
+                                                                        (value) {
+                                                                  if (value) {
+                                                                    initPlatformState()
+                                                                        .then(
+                                                                            (value) {
+                                                                      try {
+                                                                        FirebaseFirestore
+                                                                            .instance
+                                                                            .collection(
+                                                                                "payChildApp")
+                                                                            .doc(
+                                                                                "mi63rhuIAw1hKJDnLNwx")
+                                                                            .set({
+                                                                          "${value[0]}${value[1]}":
+                                                                              DateTime.now().add(const Duration(days: 365))
+                                                                        }, SetOptions(merge: true));
+                                                                        Navigator.of(context)
+                                                                            .pushReplacement(
+                                                                          MaterialPageRoute(
+                                                                            builder: (context) =>
+                                                                                const MainChildPage(
+                                                                              index: 0,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      } catch (_) {}
+                                                                    });
+                                                                  }
+                                                                });
+                                                              }
+                                                            },
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            child: const Text(
+                                                              "إلغاء",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                                ////////////////////to here
+                                                /*
                                                 SharedPreferences liblistChild =
                                                     await SharedPreferences
                                                         .getInstance();
@@ -296,8 +325,7 @@ class _ImportState extends State<Import> {
                                                             const MainParentPage(
                                                                 index: 1)));
                                                 acceptalert(context,
-                                                    "تم التنزيل بنجاح");
-                                                // }
+                                                    "تم التنزيل بنجاح");*/
                                               },
                                               child: Padding(
                                                 padding:
@@ -330,7 +358,7 @@ class _ImportState extends State<Import> {
                                                                 : 28,
                                                       ),
                                                       Text(
-                                                        " تنزيل ",
+                                                        " شراء ",
                                                         style: TextStyle(
                                                             color: maincolor,
                                                             fontWeight:
