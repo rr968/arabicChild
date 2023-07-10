@@ -1930,10 +1930,13 @@ class _SpeakingChildPhoneState extends State<SpeakingChildPhone> {
 
   box(int index) {
     return InkWell(
-      onTap: () {
+      onTap: Provider.of<MyProvider>(context,
+          listen: false)
+          .isSpeakingNow==true?null:() {
         controller.clear();
         if (speakingWordByWord) {
           howtospeak(harakatPrediction(predictionWords[index][0]), context);
+
         }
 
         setState(() {
