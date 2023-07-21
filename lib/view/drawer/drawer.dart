@@ -2,6 +2,8 @@
 
 import 'dart:math';
 
+import 'package:arabic_speaker_child/view/justForUpload/just_for_upload.dart';
+
 import '../../main.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/childpage/constant.dart';
@@ -827,6 +829,34 @@ class _DrawercState extends State<Drawerc> {
                         ],
                         onExpansionChanged: (bool expanding) =>
                             setState(() => isExpanded = expanding),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0, left: 8.0),
+                        child: InkWell(
+                          child: SizedBox(
+                            height: 60,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(children: [
+                                Icon(Icons.production_quantity_limits),
+                                Container(
+                                  width: 10,
+                                ),
+                                Text("منتجاتنا",
+                                    style: TextStyle(
+                                      fontSize: fontSize,
+                                    )),
+                              ]),
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const JustForUpload()));
+                          },
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0, left: 8.0),
