@@ -257,6 +257,9 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
                                                   .replaceAll("إ", "ا")
                                                   .replaceAll("ة", "ه"));
                                             }
+
+
+
                                             howtospeak(a, context);
                                             store_In_local(a);
                                             tryUploadToRealTimeForChild(a);
@@ -2613,10 +2616,15 @@ class _SpeakingChildTabletState extends State<SpeakingChildTablet> {
 
   box(int index) {
     return InkWell(
-      onTap: () {
+      onTap:
+      Provider.of<MyProvider>(context,
+          listen: false)
+          .isSpeakingNow==true?null:() {
         controller.clear();
         if (speakingWordByWord) {
           howtospeak(harakatPrediction(predictionWords[index][0]), context);
+
+          //howtospeak(harakatPrediction(predictionWords[index][0]), context);
         }
 
         setState(() {
