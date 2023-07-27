@@ -1,4 +1,4 @@
-import 'package:arabic_speaker_child/controller/var.dart';
+/*import 'package:arabic_speaker_child/controller/var.dart';
 import 'package:flutter/material.dart';
 import 'package:moyasar_payment/model/paymodel.dart';
 import 'package:moyasar_payment/moyasar_payment.dart';
@@ -125,4 +125,4 @@ class _JustForUploadState extends State<JustForUpload> {
               );
             }));
   }
-}
+}*/

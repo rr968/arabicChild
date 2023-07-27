@@ -830,7 +830,7 @@ class _DrawercState extends State<Drawerc> {
                         onExpansionChanged: (bool expanding) =>
                             setState(() => isExpanded = expanding),
                       ),
-                      Padding(
+                      /*  Padding(
                         padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                         child: InkWell(
                           child: SizedBox(
@@ -858,6 +858,7 @@ class _DrawercState extends State<Drawerc> {
                           },
                         ),
                       ),
+                    */
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0, left: 8.0),
                         child: InkWell(

@@ -13,8 +13,8 @@ dependencies:
 
 
   cupertino_icons: ^1.0.2
-  moyasar_payment: ^0.1.5
-  #unicode_moyasar: ^1.0.3 
+ # moyasar_payment: ^0.1.5
+  unicode_moyasar: ^1.0.3 
   text_to_speech: ^0.2.3
   device_info_plus: ^8.1.0
   shared_preferences: ^2.0.15

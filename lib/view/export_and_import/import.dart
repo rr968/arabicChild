@@ -4,8 +4,7 @@ import 'dart:convert';
 import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/view/export_and_import/importlibrary.dart';
-import 'package:moyasar_payment/model/paymodel.dart';
-import 'package:moyasar_payment/moyasar_payment.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../childpage/child/mainchildPage.dart';

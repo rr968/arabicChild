@@ -1,16 +1,12 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:moyasar_payment/model/paymodel.dart';
-import 'package:moyasar_payment/model/source/applepaymodel.dart';
-import 'package:moyasar_payment/moyasar_payment.dart';
 
 import '../../controller/checkinternet.dart';
 import '../../controller/harakatPrediction.dart';
@@ -106,14 +102,14 @@ class _MainChildPageState extends State<MainChildPage> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 onPressed: () async {
-                                  /*  if (Platform.isAndroid) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const PaymentView(amount: 5)));
-                                  } else {*/
-                                  PayModel data = await MoyasarPayment().applePay(
+                                  //  if (Platform.isAndroid) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              PaymentViewScreen(amount: 49)));
+                                  // }   /*else {*/
+                                  /*    PayModel data = await MoyasarPayment().applePay(
                                       amount: 49,
                                       publishableKey:
                                           "pk_live_5HcCv9pGLqGGttnHj95LrTntgqphFMmn2Fop35dk",
@@ -150,7 +146,7 @@ class _MainChildPageState extends State<MainChildPage> {
                                         });
                                       }
                                     });
-                                  }
+                                  }*/
                                   // }
                                 },
                               ),

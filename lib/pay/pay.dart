@@ -1,19 +1,19 @@
-/*import 'package:arabic_speaker_child/childpage/child/mainchildPage.dart';
+import 'package:arabic_speaker_child/childpage/child/mainchildPage.dart';
 import 'package:arabic_speaker_child/pay/deviceinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:unicode_moyasar/unicode_moyasar.dart';
 import '../controller/checkinternet.dart';
 
-class PaymentView extends StatefulWidget {
+class PaymentViewScreen extends StatefulWidget {
   final double amount;
-  const PaymentView({Key? key, required this.amount}) : super(key: key);
+  const PaymentViewScreen({Key? key, required this.amount}) : super(key: key);
 
   @override
-  State<PaymentView> createState() => _PaymentViewState();
+  State<PaymentViewScreen> createState() => _PaymentViewScreenState();
 }
 
-class _PaymentViewState extends State<PaymentView> {
+class _PaymentViewScreenState extends State<PaymentViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,4 +96,3 @@ class FailPage extends StatelessWidget {
     );
   }
 }
-*/
