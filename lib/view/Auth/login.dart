@@ -5,6 +5,7 @@ import 'package:arabic_speaker_child/questionspages.dart/childFirstInfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../childpage/child/mainchildPage.dart';
+import '../../controller/Rating_view.dart';
 import '../../controller/checkinternet.dart';
 import '../../controller/getAllDataPediction.dart';
 import '../../controller/setdataonlogin.dart';
@@ -37,6 +38,7 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
+
   getInfo() async {
     SharedPreferences myLoginInfo = await SharedPreferences.getInstance();
     List<String> myInfo = myLoginInfo.getStringList("myLoginInfo") ?? [];
@@ -45,7 +47,9 @@ class _LoginState extends State<Login> {
       _passwordcontroller.text = myInfo[1];
     }
 
-  }
+
+
+    }
 
 
 
