@@ -41,7 +41,14 @@ class _MyAppState extends State<MyApp> {
             navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             title: 'المتحدث العربي',
-            theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Almarai"),
+            theme: ThemeData(primarySwatch: Colors.grey, fontFamily: "Almarai",
+
+                dialogTheme: DialogTheme(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    )
+                ),
+             ),
             home: const Start()));
   }
 }

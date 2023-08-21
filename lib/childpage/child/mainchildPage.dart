@@ -8,6 +8,7 @@ import 'package:arabic_speaker_child/data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
+import '../../controller/Rating_view.dart';
 import '../../controller/checkinternet.dart';
 import '../../controller/harakatPrediction.dart';
 import '../../model/content.dart';
@@ -35,6 +36,7 @@ class _MainChildPageState extends State<MainChildPage> {
   bool loading = true;
   bool loading2 = true;
   SnakeBarBehaviour snakeBarStyle = SnakeBarBehaviour.floating;
+
   int _selectedItemPosition = 1;
   Color selectedColor = pinkColor;
   final _pageController = PageController(initialPage: 1);
@@ -64,6 +66,21 @@ class _MainChildPageState extends State<MainChildPage> {
 
   @override
   void initState() {
+    internetConnection().then((value) async {
+      if (value) {
+        SharedPreferences IsRating = await SharedPreferences.getInstance();
+        String IsR=IsRating.getString("israting")??"false";
+       // print(IsR);
+
+
+
+        initPlatformState().then((value) {
+          IsR=="true"?""
+          :openDilogRating(context) ;
+
+
+        });
+      }});
     ///////pay
     internetConnection().then((value) {
       if (value) {
@@ -371,4 +388,14 @@ class _MainChildPageState extends State<MainChildPage> {
           ),
         ));
   }
+  openDilogRating(BuildContext context){
+    showDialog(context: context, builder: (context){
+      return Dialog(
+        child: RatingView(),
+
+      );
+    });
+
+  }
+
 }
