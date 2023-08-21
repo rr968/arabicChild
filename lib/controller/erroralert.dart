@@ -1,3 +1,4 @@
+import '../view/drawer/contactus.dart';
 import '/controller/var.dart';
 import 'package:flutter/material.dart';
 
@@ -155,6 +156,102 @@ noteAlert(context) {
                 )
               ],
             ),
+          ),
+        );
+      });
+}
+
+blockAlert(context, int number) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AlertDialog(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                title: Column(
+                  children: [
+                    SizedBox(
+                        height: 90,
+                        child: Image.asset(
+                          "assets/warning.png",
+                          fit: BoxFit.fill,
+                        )),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Text(
+                      " تنبيه",
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                content: Column(
+                  children: [
+                    Center(
+                        child: Text(
+                      number == 1
+                          ? "لقد لاحظنا نشاط مسيء لك, هذا تنبيه أول قبل حظر استخدامك للتطبيق"
+                          : "لقد لاحظنا نشاط مسيء لك, هذا تنبيه أخير قبل حظر استخدامك للتطبيق",
+                      style: const TextStyle(fontSize: 18),
+                      textAlign: TextAlign.center,
+                    )),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Contactus()));
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                border:
+                                    Border.all(color: Colors.black, width: 2)),
+                            child: const Center(
+                                child: Text(
+                              "تواصل معنا",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => Navigator.of(context).pop(),
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                border:
+                                    Border.all(color: Colors.black, width: 2)),
+                            child: const Center(
+                                child: Text(
+                              "إغلاق",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         );
       });

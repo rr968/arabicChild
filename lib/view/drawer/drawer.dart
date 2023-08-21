@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:arabic_speaker_child/view/drawer/block_user.dart';
 import 'package:arabic_speaker_child/view/justForUpload/just_for_upload.dart';
 
 import '../../main.dart';
@@ -989,6 +990,40 @@ class _DrawercState extends State<Drawerc> {
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 const LibraryUploadedSettings()));
+                                  }),
+                            )
+                          : Container(),
+                      FirebaseAuth.instance.currentUser!.uid ==
+                              "J9OjdpMs5dMSnTVwzQS3ecoTUnE2"
+                          ? Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 8.0, left: 8.0),
+                              child: InkWell(
+                                  child: SizedBox(
+                                    height: 60,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(children: [
+                                        Icon(
+                                          Icons.block,
+                                          color: maincolor,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Text("حظر المستخدمين",
+                                              style: TextStyle(
+                                                fontSize: fontSize,
+                                              )),
+                                        ),
+                                      ]),
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const BlockUser()));
                                   }),
                             )
                           : Container(),

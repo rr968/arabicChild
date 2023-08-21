@@ -6,16 +6,19 @@ import 'package:arabic_speaker_child/childpage/child/speakingchildphone.dart';
 import 'package:arabic_speaker_child/controller/istablet.dart';
 import 'package:arabic_speaker_child/data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 
 import '../../controller/Rating_view.dart';
 import '../../controller/checkinternet.dart';
+import '../../controller/erroralert.dart';
 import '../../controller/harakatPrediction.dart';
 import '../../model/content.dart';
 import '../../model/filesContent.dart';
 import '../../model/library.dart';
 import '../../pay/deviceinfo.dart';
 import '../../pay/pay.dart';
+import '../../view/block_user.dart';
 import '/childpage/child/favoriteChildren.dart';
 import '/childpage/child/speakingchildtablet.dart';
 import '/controller/var.dart';
@@ -66,21 +69,18 @@ class _MainChildPageState extends State<MainChildPage> {
 
   @override
   void initState() {
+    checkIfBlockedUser();
     internetConnection().then((value) async {
       if (value) {
         SharedPreferences IsRating = await SharedPreferences.getInstance();
-        String IsR=IsRating.getString("israting")??"false";
-       // print(IsR);
-
-
+        String IsR = IsRating.getString("israting") ?? "false";
+        // print(IsR);
 
         initPlatformState().then((value) {
-          IsR=="true"?""
-          :openDilogRating(context) ;
-
-
+          IsR == "true" ? "" : openDilogRating(context);
         });
-      }});
+      }
+    });
     ///////pay
     internetConnection().then((value) {
       if (value) {
@@ -283,6 +283,43 @@ class _MainChildPageState extends State<MainChildPage> {
     pref.setBool("isParentMode", false);
   }
 
+  checkIfBlockedUser() async {
+    try {
+      var blockedEmails = await FirebaseFirestore.instance
+          .collection("blockedEmails")
+          .doc("CFpjKa35zNa83PaQDtRU")
+          .get();
+
+      Map<String, dynamic> data = blockedEmails.data() ?? {};
+      List userDatablocked =
+          json.decode(data[FirebaseAuth.instance.currentUser!.email]) ?? [];
+      if (userDatablocked.isNotEmpty) {
+        if (userDatablocked[0] == "1" && userDatablocked[1] == "false") {
+          data[FirebaseAuth.instance.currentUser!.email.toString()] =
+              """["1","true"]""";
+          await FirebaseFirestore.instance
+              .collection("blockedEmails")
+              .doc("CFpjKa35zNa83PaQDtRU")
+              .set(data);
+          blockAlert(context, 1);
+        } else if (userDatablocked[0] == "2" && userDatablocked[1] == "false") {
+          data[FirebaseAuth.instance.currentUser!.email.toString()] =
+              """["2","true"]""";
+          await FirebaseFirestore.instance
+              .collection("blockedEmails")
+              .doc("CFpjKa35zNa83PaQDtRU")
+              .set(data);
+          blockAlert(context, 2);
+        } else if (userDatablocked[0] == "3") {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => blockedUser(context)),
+              (route) => false);
+        }
+      }
+    } catch (_) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -388,14 +425,14 @@ class _MainChildPageState extends State<MainChildPage> {
           ),
         ));
   }
-  openDilogRating(BuildContext context){
-    showDialog(context: context, builder: (context){
-      return Dialog(
-        child: RatingView(),
 
-      );
-    });
-
+  openDilogRating(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+            child: RatingView(),
+          );
+        });
   }
-
 }
