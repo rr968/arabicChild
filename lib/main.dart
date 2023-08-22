@@ -15,7 +15,7 @@ Future main() async {
   runApp(
     const MyApp(),
   );
-}
+  }
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
