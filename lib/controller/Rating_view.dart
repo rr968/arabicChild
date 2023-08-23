@@ -7,64 +7,74 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RatingView extends StatefulWidget {
-  const RatingView({Key? key}) : super(key: key);
+  const RatingView({Key?key}): super(key: key);
 
   @override
   _RatingViewState createState() => _RatingViewState();
 }
 
 class _RatingViewState extends State<RatingView> {
-  final _ratingPageController = PageController();
+  var _ratingPageController = PageController();
   var _rating = 0;
   var _rating2 = 0;
   var _rating3 = 0;
   var _rating4 = 0;
-  bool IsC = false;
-  String isRaiting = "false";
+  bool IsC=false;
+  String isRaiting= "false";
   @override
   void initState() {
     //getRatingInfo();
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
+
       ),
       clipBehavior: Clip.antiAlias,
-      child: Stack(children: [
-        //thank_you wedigit
-        Container(
-          height: max(100, MediaQuery.of(context).size.height * 0.2),
-          width: max(400, MediaQuery.of(context).size.height * 0.4),
-          child: PageView(
-            controller: _ratingPageController,
-            physics: NeverScrollableScrollPhysics(),
-            children: [
-              _buildThanksNote(),
-              _causeOfRating(),
-              _ThirdRating(),
-              _forthRating(),
-              _thankYouPage(),
-            ],
-          ),
-        ),
-        //Done button
-        //Skip button
-        Positioned(
-            right: 0,
-            child: MaterialButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Skip',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      child: Stack(
+          children: [
+            //thank_you wedigit
+            Container(
+              height: max(100, MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.3),
+              width: max(400, MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.4),
+
+              child: PageView(
+                controller: _ratingPageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  _buildThanksNote(),
+                  _causeOfRating(),
+                  _ThirdRating(),
+                  _forthRating(),
+                  _thankYouPage(),
+                ],
+
               ),
-            )),
-      ]),
+            ),
+            //Done button
+            //Skip button
+            Positioned(
+                right: 0,
+                child: MaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Skip',style:  TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+                )),
+
+          ]
+      ),
     );
   }
 
@@ -75,8 +85,7 @@ class _RatingViewState extends State<RatingView> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 5),
-          child: Text(
-            'التطبيق سهل الاستخدام',
+          child: Text('التطبيق سهل الاستخدام',
             style: TextStyle(
               fontSize: 24,
               color: Colors.black,
@@ -86,60 +95,49 @@ class _RatingViewState extends State<RatingView> {
           ),
         ),
 
-        SizedBox(
-          height: 8,
-        ),
+        SizedBox(height: 8,),
         //Star Rating
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-              3,
-              (index) => IconButton(
+          children: List.generate(3, (index) =>
+              IconButton(
                   onPressed: () {
+
                     setState(() {
                       //_starPosision=20.0;
                       _rating = index + 1;
-                      IsC = true;
+                      IsC=true;
                     });
                   },
                   color: pinkColor,
-                  icon: index < _rating
-                      ? Icon(
-                          Icons.star,
-                          size: 40,
-                        )
-                      : Icon(
-                          Icons.star_border,
-                          size: 40,
-                        ))),
+                  icon: index < _rating ? Icon(Icons.star, size: 40,) : Icon(
+                    Icons.star_border, size: 40,)
+              )
+          ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20,),
 
         SizedBox(
-          width: 100, //height of button
+          width:100, //height of button
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: pinkColor, // background color
+                backgroundColor: pinkColor,   // background color
               ),
-              onPressed: () {
-                IsC == true
-                    ? _ratingPageController.nextPage(
-                        duration: Duration(microseconds: 300),
-                        curve: Curves.easeIn)
-                    : Container();
-                IsC = false;
+
+              onPressed: (){
+                IsC==true?  _ratingPageController.nextPage(
+                    duration: Duration(microseconds: 300),
+                    curve: Curves.easeIn)
+                    :Container();
+                IsC=false;
               },
-              child: Text(
-                "التالي",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white),
-              )),
+              child: Text("التالي",style: TextStyle(fontWeight:FontWeight.bold,fontSize:18,color: Colors.white),)
+          ),
         ),
+
+
+
       ],
     );
   }
@@ -149,8 +147,7 @@ class _RatingViewState extends State<RatingView> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'مفيد للتواصل اليومي',
+        Text('مفيد للتواصل اليومي',
           style: TextStyle(
             fontSize: 24,
             color: Colors.black,
@@ -158,61 +155,49 @@ class _RatingViewState extends State<RatingView> {
           ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
 
         //Star rating],
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-              3,
-              (index2) => IconButton(
+          children: List.generate(3, (index2) =>
+              IconButton(
                   onPressed: () {
+
                     setState(() {
                       //_starPosision=20.0;
                       _rating2 = index2 + 1;
-                      IsC = true;
+                      IsC=true;
                     });
                   },
                   color: pinkColor,
-                  icon: index2 < _rating2
-                      ? Icon(
-                          Icons.star,
-                          size: 40,
-                        )
-                      : Icon(
-                          Icons.star_border,
-                          size: 40,
-                        ))),
+
+                  icon: index2 < _rating2 ? Icon(Icons.star, size: 40,) : Icon(
+                    Icons.star_border, size: 40,)
+              )
+          ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20,),
 
         SizedBox(
-          width: 100, //height of button
+          width:100, //height of button
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: pinkColor, // background color
+                backgroundColor: pinkColor,   // background color
               ),
-              onPressed: () {
-                IsC == true
-                    ? _ratingPageController.nextPage(
-                        duration: Duration(microseconds: 300),
-                        curve: Curves.easeIn)
-                    : Container();
-                IsC = false;
+
+              onPressed: (){
+                IsC==true?  _ratingPageController.nextPage(
+                    duration: Duration(microseconds: 300),
+                    curve: Curves.easeIn)
+                    :Container();
+                IsC=false;
               },
-              child: Text(
-                "التالي",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white),
-              )),
+              child: Text("التالي",style: TextStyle(fontWeight:FontWeight.bold,fontSize:18,color: Colors.white),)
+          ),
         ),
+
       ],
     );
   }
@@ -222,8 +207,7 @@ class _RatingViewState extends State<RatingView> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          'بناء الجملة سهل وواضح',
+        Text('بناء الجملة سهل وواضح',
           style: TextStyle(
             fontSize: 24,
             color: Colors.black,
@@ -231,61 +215,48 @@ class _RatingViewState extends State<RatingView> {
           ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
 
         //Star rating],
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-              3,
-              (index3) => IconButton(
+          children: List.generate(3, (index3) =>
+              IconButton(
                   onPressed: () {
+
                     setState(() {
                       //_starPosision=20.0;
                       _rating3 = index3 + 1;
-                      IsC = true;
+                      IsC=true;
                     });
                   },
                   color: pinkColor,
-                  icon: index3 < _rating3
-                      ? Icon(
-                          Icons.star,
-                          size: 40,
-                        )
-                      : Icon(
-                          Icons.star_border,
-                          size: 40,
-                        ))),
+                  icon: index3 < _rating3 ? Icon(Icons.star, size: 40,) : Icon(
+                    Icons.star_border, size: 40,)
+              )
+          ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20,),
 
         SizedBox(
-          width: 100, //height of button
+          width:100, //height of button
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: pinkColor, // background color
+                backgroundColor: pinkColor,   // background color
               ),
-              onPressed: () {
-                IsC == true
-                    ? _ratingPageController.nextPage(
-                        duration: Duration(microseconds: 300),
-                        curve: Curves.easeIn)
-                    : Container();
-                IsC = false;
+
+              onPressed: (){
+                IsC==true?  _ratingPageController.nextPage(
+                    duration: Duration(microseconds: 300),
+                    curve: Curves.easeIn)
+                    :Container();
+                IsC=false;
               },
-              child: Text(
-                "التالي",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white),
-              )),
+              child: Text("التالي",style: TextStyle(fontWeight:FontWeight.bold,fontSize:18,color: Colors.white),)
+          ),
         ),
+
       ],
     );
   }
@@ -297,8 +268,7 @@ class _RatingViewState extends State<RatingView> {
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 4),
-          child: Text(
-            ' أنت راضٍ عن الخدمات المقدمة في التطبيق',
+          child: Text(' أنت راضٍ عن الخدمات المقدمة في التطبيق',
             style: TextStyle(
               fontSize: 24,
               color: Colors.black,
@@ -307,43 +277,33 @@ class _RatingViewState extends State<RatingView> {
             textAlign: TextAlign.center,
           ),
         ),
-        SizedBox(
-          height: 10,
-        ),
+        SizedBox(height: 10,),
 
         //Star rating],
 
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(
-              3,
-              (index4) => IconButton(
+          children: List.generate(3, (index4) =>
+              IconButton(
                   onPressed: () {
                     setState(() {
                       _rating4 = index4 + 1;
-                      IsC = true;
+                      IsC=true;
                     });
                   },
                   color: pinkColor,
-                  icon: index4 < _rating4
-                      ? Icon(
-                          Icons.star,
-                          size: 40,
-                        )
-                      : Icon(
-                          Icons.star_border,
-                          size: 40,
-                        ))),
+                  icon: index4 < _rating4 ? Icon(Icons.star, size: 40,) : Icon(
+                    Icons.star_border, size: 40,)
+              )
+          ),
         ),
-        SizedBox(
-          height: 20,
-        ),
+        SizedBox(height: 20,),
         Container(
           width: 100,
           color: pinkColor,
           child: MaterialButton(
             onPressed: () {
-              if (IsC == true) {
+              if(IsC==true) {
                 isRaiting = "true";
                 print(isRaiting);
                 switch (_rating) {
@@ -395,48 +355,38 @@ class _RatingViewState extends State<RatingView> {
                     curve: Curves.easeIn);
               }
             },
-            child: Text(
-              'ارسال',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.white),
-            ),
+            child: Text('ارسال',style: TextStyle(fontWeight: FontWeight.bold,fontSize:18,color: Colors.white),),
             textColor: Colors.white,
+
           ),
+
         )
+
+
+
       ],
     );
   }
-
-  _thankYouPage() {
+  _thankYouPage(){
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            "شكرا لك",
-            style: TextStyle(
-                color: pinkColor, fontWeight: FontWeight.bold, fontSize: 40),
-          ),
+          Text("شكرا لك",style: TextStyle(color: pinkColor,fontWeight: FontWeight.bold,fontSize: 40),),
           SizedBox(
             height: 30,
           ),
           SizedBox(
-            width: 100, //height of button
+            width:100, //height of button
 
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: pinkColor, // background color
+                  backgroundColor: pinkColor,   // background color
                 ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+
+                onPressed: (){Navigator.pop(context);},
                 child: Text("موافق",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15))),
+                    style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15))),
           )
         ],
       ),
@@ -448,9 +398,8 @@ class _RatingViewState extends State<RatingView> {
       internetConnection().then((value) async {
         if (value == true) {
           DocumentReference<Map<String, dynamic>> ref = await FirebaseFirestore
-              .instance
-              .collection('rating')
-              .doc('sRatingQ1');
+              .instance.collection('rating').doc(
+              'sRatingQ1');
           SharedPreferences Spref = await SharedPreferences.getInstance();
           Spref.setString("israting", isRaiting);
           print(isRaiting);
@@ -467,15 +416,13 @@ class _RatingViewState extends State<RatingView> {
       });
     } catch (_) {}
   }
-
   RatingFirebase2(int y, int half) {
     try {
       internetConnection().then((value) async {
         if (value == true) {
           DocumentReference<Map<String, dynamic>> ref = await FirebaseFirestore
-              .instance
-              .collection('rating')
-              .doc('sRatingQ2');
+              .instance.collection('rating').doc(
+              'sRatingQ2');
           //DatabaseReference ref = FirebaseDatabase.instance.ref("rating/");
 
           ref.update({"Nuser": FieldValue.increment(1)});
@@ -490,15 +437,13 @@ class _RatingViewState extends State<RatingView> {
       });
     } catch (_) {}
   }
-
   RatingFirebase3(int y, int half) {
     try {
       internetConnection().then((value) async {
         if (value == true) {
           DocumentReference<Map<String, dynamic>> ref = await FirebaseFirestore
-              .instance
-              .collection('rating')
-              .doc('sRatingQ3');
+              .instance.collection('rating').doc(
+              'sRatingQ3');
           //DatabaseReference ref = FirebaseDatabase.instance.ref("rating/");
 
           ref.update({"Nuser": FieldValue.increment(1)});
@@ -513,15 +458,12 @@ class _RatingViewState extends State<RatingView> {
       });
     } catch (_) {}
   }
-
   RatingFirebase4(int y, int half) {
     try {
       internetConnection().then((value) async {
         if (value == true) {
           DocumentReference<Map<String, dynamic>> ref = await FirebaseFirestore
-              .instance
-              .collection('rating')
-              .doc(' sRatingQLast');
+              .instance.collection('rating').doc(' sRatingQLast');
           //DatabaseReference ref = FirebaseDatabase.instance.ref("rating/");
 
           ref.update({"Nuser": FieldValue.increment(1)});
@@ -536,4 +478,6 @@ class _RatingViewState extends State<RatingView> {
       });
     } catch (_) {}
   }
+
+
 }
