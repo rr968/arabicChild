@@ -37,7 +37,7 @@ class _RatingViewState extends State<RatingView> {
       child: Stack(children: [
         //thank_you wedigit
         Container(
-          height: max(100, MediaQuery.of(context).size.height * 0.2),
+          height: max(100, MediaQuery.of(context).size.height * 0.28),
           width: max(400, MediaQuery.of(context).size.height * 0.4),
           child: PageView(
             controller: _ratingPageController,

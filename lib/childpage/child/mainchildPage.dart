@@ -72,13 +72,10 @@ class _MainChildPageState extends State<MainChildPage> {
     checkIfBlockedUser();
     internetConnection().then((value) async {
       if (value) {
-        SharedPreferences IsRating = await SharedPreferences.getInstance();
-        String IsR = IsRating.getString("israting") ?? "false";
-        // print(IsR);
+        SharedPreferences isRating = await SharedPreferences.getInstance();
+        String IsR = isRating.getString("israting") ?? "false";
 
-        initPlatformState().then((value) {
-          IsR == "true" ? "" : openDilogRating(context);
-        });
+        IsR == "true" ? "" : openDilogRating(context);
       }
     });
     ///////pay

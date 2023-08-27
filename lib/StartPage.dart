@@ -3,10 +3,7 @@
 import 'dart:async';
 
 import 'package:arabic_speaker_child/controller/getAllDataPediction.dart';
-import 'package:arabic_speaker_child/pay/deviceinfo.dart';
 import 'package:arabic_speaker_child/pay/needPay.dart';
-import 'package:arabic_speaker_child/view/Auth/signup.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '/childpage/child/mainchildPage.dart';
 import '/controller/sharedpref.dart';
 import '/firstTimeOpenTheApp/page1.dart';
