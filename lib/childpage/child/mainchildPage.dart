@@ -70,14 +70,7 @@ class _MainChildPageState extends State<MainChildPage> {
   @override
   void initState() {
     checkIfBlockedUser();
-    internetConnection().then((value) async {
-      if (value) {
-        SharedPreferences isRating = await SharedPreferences.getInstance();
-        String IsR = isRating.getString("israting") ?? "false";
-
-        IsR == "true" ? "" : openDilogRating(context);
-      }
-    });
+    getRatingDialog();
     ///////pay
     internetConnection().then((value) {
       if (value) {
@@ -198,6 +191,38 @@ class _MainChildPageState extends State<MainChildPage> {
 
     super.initState();
   }
+  getRatingDialog() async {
+    SharedPreferences numOfOpenApp = await SharedPreferences.getInstance();
+    int countNum = numOfOpenApp.getInt("numOpenApp") ?? 0;
+    if (countNum==1) {
+
+      internetConnection().then((value) async {
+        if (value) {
+          SharedPreferences IsRating = await SharedPreferences.getInstance();
+          String IsR=IsRating.getString("israting")??"false";
+          print(IsR);
+
+
+          if(IsR=="true") {
+            numOfOpenApp.setInt("numOpenApp", -1);
+          }else{
+            numOfOpenApp.setInt("numOpenApp", 0);
+            openDilogRating(context) ;
+          }
+
+
+        }});
+
+
+    }else if(countNum==-1){
+
+    } else {
+      int tmp=countNum+1;
+      numOfOpenApp.setInt("numOpenApp", tmp);
+      print(countNum);
+    }
+  }
+
 
   getworddata() async {
     librarywordChild = [];
@@ -422,14 +447,15 @@ class _MainChildPageState extends State<MainChildPage> {
           ),
         ));
   }
+  openDilogRating(BuildContext context){
+    showDialog(context: context, builder: (context){
+      return Dialog(
+        child: RatingView(),
 
-  openDilogRating(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return Dialog(
-            child: RatingView(),
-          );
-        });
+      );
+    });
+
   }
+
+
 }
