@@ -194,7 +194,7 @@ class _MainChildPageState extends State<MainChildPage> {
   getRatingDialog() async {
     SharedPreferences numOfOpenApp = await SharedPreferences.getInstance();
     int countNum = numOfOpenApp.getInt("numOpenApp") ?? 0;
-    if (countNum==1) {
+    if (countNum==5) {
 
       internetConnection().then((value) async {
         if (value) {
